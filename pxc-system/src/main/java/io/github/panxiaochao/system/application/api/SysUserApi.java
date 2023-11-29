@@ -34,7 +34,7 @@ public class SysUserApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse> listByPage(@RequestBody RequestPage<SysUserQueryRequest> pageRequest) {
+	public R<PageResponse> page(@RequestBody RequestPage<SysUserQueryRequest> pageRequest) {
 		return R.ok();
 	}
 

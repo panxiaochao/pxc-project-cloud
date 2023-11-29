@@ -5,8 +5,10 @@ import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.system.application.api.request.SysRoleCreateRequest;
 import io.github.panxiaochao.system.application.api.request.SysRoleQueryRequest;
+import io.github.panxiaochao.system.application.api.request.SysRoleUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.SysRoleQueryResponse;
+import io.github.panxiaochao.system.application.api.response.SysRoleResponse;
 import io.github.panxiaochao.system.application.service.SysRoleAppService;
-import io.github.panxiaochao.system.domain.entity.SysRole;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,38 +34,36 @@ public class SysRoleApi {
 	 */
 	private final SysRoleAppService sysRoleAppService;
 
-
-
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse> listByPage(@RequestBody RequestPage<SysRoleQueryRequest> pageRequest) {
-		return R.ok();
+	public R<PageResponse<SysRoleQueryResponse>> page(@RequestBody RequestPage<SysRoleQueryRequest> pageRequest) {
+		return R.ok(sysRoleAppService.page(pageRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
 	@Parameter(name = "id", description = "角色ID")
 	@GetMapping(value = "/{id}")
-	public R<SysRole> getById(@PathVariable("id") String id) {
-		return R.ok();
+	public R<SysRoleResponse> getById(@PathVariable("id") String id) {
+		return sysRoleAppService.getById(id);
 	}
 
 	@Operation(summary = "保存", description = "保存", method = "POST")
 	@PostMapping
-	public R<String> save(@RequestBody SysRoleCreateRequest SysRoleCreateRequest) {
-		return R.ok();
+	public R<Void> save(@RequestBody SysRoleCreateRequest sysRoleCreateRequest) {
+		return sysRoleAppService.save(sysRoleCreateRequest);
 	}
 
 	@Operation(summary = "更新", description = "更新", method = "PUT")
 	@PutMapping
-	public R<String> update(@RequestBody SysRole SysRole) {
-		return R.ok();
+	public R<Void> update(@RequestBody SysRoleUpdateRequest sysRoleUpdateRequest) {
+		return sysRoleAppService.update(sysRoleUpdateRequest);
 	}
 
 	@Operation(summary = "删除", description = "删除", method = "DELETE")
 	@Parameter(name = "id", description = "角色ID")
 	@DeleteMapping(value = "/{id}")
-	public R<String> deleteById(@PathVariable("id") String id) {
-		return R.ok();
+	public R<Void> deleteById(@PathVariable("id") String id) {
+		return sysRoleAppService.deleteById(id);
 	}
 
 }
