@@ -1,0 +1,13 @@
+package io.github.panxiaochao.system.domain.repository;
+
+/**
+ * <p>
+ * 用户机构/部门表 服务类.
+ * </p>
+ *
+ * @author Lypxc
+ * @since 2023-11-29
+ */
+public interface ISysUserOrgService {
+
+}

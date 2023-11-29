@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.panxiaochao.system.infrastructure.mapper.SysMenuMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.infrastructure.po.SysMenuPO">
+                    <id column="id" property="id"/>
+                    <result column="parent_id" property="parentId"/>
+                    <result column="menu_name" property="menuName"/>
+                    <result column="url" property="url"/>
+                    <result column="redirect_url" property="redirectUrl"/>
+                    <result column="component" property="component"/>
+                    <result column="component_name" property="componentName"/>
+                    <result column="permission_code" property="permissionCode"/>
+                    <result column="permission_status" property="permissionStatus"/>
+                    <result column="icon" property="icon"/>
+                    <result column="menu_type" property="menuType"/>
+                    <result column="open_type" property="openType"/>
+                    <result column="is_display" property="isDisplay"/>
+                    <result column="is_route" property="isRoute"/>
+                    <result column="keep_alive" property="keepAlive"/>
+                    <result column="is_hidden" property="isHidden"/>
+                    <result column="description" property="description"/>
+                    <result column="status" property="status"/>
+                    <result column="sort" property="sort"/>
+                    <result column="create_id" property="createId"/>
+                    <result column="create_time" property="createTime"/>
+                    <result column="update_time" property="updateTime"/>
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+            id, parent_id, menu_name, url, redirect_url, `component`, component_name, permission_code, permission_status, icon, menu_type, open_type, is_display, is_route, keep_alive, is_hidden, `description`, `status`, sort, create_id, create_time, update_time
+        </sql>
+
+</mapper>

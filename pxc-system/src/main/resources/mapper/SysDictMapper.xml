@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.panxiaochao.system.infrastructure.mapper.SysDictMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.infrastructure.po.SysDictPO">
+                    <id column="id" property="id"/>
+                    <result column="dict_name" property="dictName"/>
+                    <result column="dict_code" property="dictCode"/>
+                    <result column="dict_type" property="dictType"/>
+                    <result column="description" property="description"/>
+                    <result column="sort" property="sort"/>
+                    <result column="status" property="status"/>
+                    <result column="create_time" property="createTime"/>
+                    <result column="update_time" property="updateTime"/>
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+            id, dict_name, dict_code, dict_type, `description`, sort, `status`, create_time, update_time
+        </sql>
+
+</mapper>

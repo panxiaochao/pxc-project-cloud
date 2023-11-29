@@ -1,0 +1,40 @@
+# server
+server:
+  port: 8081
+  servlet:
+    context-path: /
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  application:
+    name: pxc-system-api
+  # 数据库
+  datasource:
+    url: jdbc:mysql://localhost:3306/pxc-system?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    password: root123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      idle-timeout: 60000
+      max-lifetime: 60000
+      connection-timeout: 30000
+      pool-name: pxc-system-pool
+
+# mybatis-plus 配置
+mybatis-plus:
+  db-type: mysql
+  global-config:
+    banner: false
+  configuration:
+    map-underscore-to-camel-case: true
+    # 开发测试时使用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
