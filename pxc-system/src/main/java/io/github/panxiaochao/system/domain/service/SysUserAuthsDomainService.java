@@ -1,16 +1,59 @@
 package io.github.panxiaochao.system.domain.service;
 
+import io.github.panxiaochao.system.domain.entity.SysUserAuths;
+import io.github.panxiaochao.system.domain.repository.ISysUserAuthsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 用户授权信息表 服务类.
+ * 用户授权信息表 Domain服务类.
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-29
+ * @since 2023-11-30
  */
 @Service
+@RequiredArgsConstructor
 public class SysUserAuthsDomainService {
+
+	/**
+	 * SysUserAuths Domain接口服务类
+	 */
+	private final ISysUserAuthsService sysUserAuthsService;
+
+	/**
+	 * 详情
+	 * @param id 主键
+	 * @return SysUserAuths 实体
+	 */
+	public SysUserAuths getById(String id) {
+		return sysUserAuthsService.getById(id);
+	}
+
+	/**
+	 * 保存
+	 * @param sysUserAuths SysUserAuths 实体
+	 * @return SysUserAuths 实体
+	 */
+	public SysUserAuths save(SysUserAuths sysUserAuths) {
+		return sysUserAuthsService.save(sysUserAuths);
+	}
+
+	/**
+	 * 根据主键更新
+	 * @param sysUserAuths SysUserAuths 实体
+	 */
+	public void update(SysUserAuths sysUserAuths) {
+		sysUserAuthsService.update(sysUserAuths);
+	}
+
+	/**
+	 * 根据主键删除
+	 * @param id 主键
+	 */
+	public void deleteById(String id) {
+		sysUserAuthsService.deleteById(id);
+	}
 
 }

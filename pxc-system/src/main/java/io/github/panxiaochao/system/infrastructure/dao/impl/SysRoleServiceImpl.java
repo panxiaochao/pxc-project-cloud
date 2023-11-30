@@ -18,40 +18,34 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * <p>
- * 角色表 服务实现类.
+ * 角色表 Dao服务实现类.
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-29
+ * @since 2023-11-30
  */
 @Service
 @RequiredArgsConstructor
 public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelService {
 
+	/**
+	 * 角色表 持久化接口
+	 */
 	private final SysRoleMapper sysRoleMapper;
 
+	/**
+	 * 查询分页
+	 * @param pagination 分页属性对象
+	 * @param pageRequest 请求分页参数对象
+	 * @return 分页结果数组
+	 */
 	@Override
 	public List<SysRoleQueryResponse> page(Pagination pagination, RequestPage<SysRoleQueryRequest> pageRequest) {
 		// 构造查询条件
-		LambdaQueryWrapper<SysRolePO> lqw = Wrappers.lambdaQuery();
-		SysRoleQueryRequest sysRoleQueryRequest = Optional.ofNullable(pageRequest.getParamsObject())
-			.orElse(new SysRoleQueryRequest());
-		//
-		if (StringUtils.isNotBlank(sysRoleQueryRequest.getRoleName())) {
-			lqw.eq(SysRolePO::getRoleName, sysRoleQueryRequest.getRoleName());
-		}
-		//
-		if (StringUtils.isNotBlank(sysRoleQueryRequest.getRoleCode())) {
-			lqw.eq(SysRolePO::getRoleCode, sysRoleQueryRequest.getRoleCode());
-		}
-		//
-		if (StringUtils.isNotBlank(sysRoleQueryRequest.getStatus())) {
-			lqw.eq(SysRolePO::getStatus, sysRoleQueryRequest.getStatus());
-		}
+		LambdaQueryWrapper<SysRolePO> lqw = lambdaQuery(pageRequest.getParamsObject());
 		// 默认按照主键倒序排序
 		lqw.orderByDesc(SysRolePO::getId);
 		// 分页查询
@@ -60,12 +54,62 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 		return ISysRolePOConvert.INSTANCE.toQueryResponse(page.getRecords());
 	}
 
+	/**
+	 * 查询条件
+	 * @param queryRequest 角色表查询请求对象
+	 * @return 角色表Lambda表达式
+	 */
+	private LambdaQueryWrapper<SysRolePO> lambdaQuery(SysRoleQueryRequest queryRequest) {
+		LambdaQueryWrapper<SysRolePO> lqw = Wrappers.lambdaQuery();
+		if (queryRequest != null) {
+			// 如果 角色名称 不为空 String
+			if (StringUtils.isNotBlank(queryRequest.getRoleName())) {
+				lqw.eq(SysRolePO::getRoleName, queryRequest.getRoleName());
+			}
+			// 如果 角色code 不为空 String
+			if (StringUtils.isNotBlank(queryRequest.getRoleCode())) {
+				lqw.eq(SysRolePO::getRoleCode, queryRequest.getRoleCode());
+			}
+			// 如果 描述 不为空 String
+			if (StringUtils.isNotBlank(queryRequest.getDescription())) {
+				lqw.eq(SysRolePO::getDescription, queryRequest.getDescription());
+			}
+			// 如果 排序 不为空 Integer
+			if (queryRequest.getSort() != null) {
+				lqw.eq(SysRolePO::getSort, queryRequest.getSort());
+			}
+			// 如果 状态：1正常，0不正常 不为空 String
+			if (StringUtils.isNotBlank(queryRequest.getStatus())) {
+				lqw.eq(SysRolePO::getStatus, queryRequest.getStatus());
+			}
+			// 如果 创建时间 不为空 LocalDateTime
+			if (queryRequest.getCreateTime() != null) {
+				lqw.eq(SysRolePO::getCreateTime, queryRequest.getCreateTime());
+			}
+			// 如果 更新时间 不为空 LocalDateTime
+			if (queryRequest.getUpdateTime() != null) {
+				lqw.eq(SysRolePO::getUpdateTime, queryRequest.getUpdateTime());
+			}
+		}
+		return lqw;
+	}
+
+	/**
+	 * 详情
+	 * @param id 主键
+	 * @return SysRole 实体
+	 */
 	@Override
 	public SysRole getById(String id) {
 		SysRolePO sysRolePO = sysRoleMapper.selectById(id);
 		return ISysRolePOConvert.INSTANCE.toEntity(sysRolePO);
 	}
 
+	/**
+	 * 保存
+	 * @param sysRole SysRole 实体
+	 * @return SysRole 实体
+	 */
 	@Override
 	public SysRole save(SysRole sysRole) {
 		SysRolePO sysRolePO = ISysRolePOConvert.INSTANCE.fromEntity(sysRole);
@@ -73,12 +117,20 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 		return ISysRolePOConvert.INSTANCE.toEntity(sysRolePO);
 	}
 
+	/**
+	 * 根据主键更新
+	 * @param sysRole SysRole 实体
+	 */
 	@Override
 	public void update(SysRole sysRole) {
 		SysRolePO sysRolePO = ISysRolePOConvert.INSTANCE.fromEntity(sysRole);
 		sysRoleMapper.updateById(sysRolePO);
 	}
 
+	/**
+	 * 根据主键删除
+	 * @param id 主键
+	 */
 	@Override
 	public void deleteById(String id) {
 		sysRoleMapper.deleteById(id);

@@ -1,12 +1,15 @@
 package io.github.panxiaochao.system.infrastructure.po;
 
-import com.baomidou.mybatisplus.annotation.*;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -14,33 +17,42 @@ import java.util.Date;
  * <p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-11-30
  */
 @Getter
 @Setter
 @Accessors(chain = true)
 @TableName("sys_user_org")
-@Schema(name = "SysUserOrgPO", description = "用户机构/部门表")
 public class SysUserOrgPO {
 
-	@Schema(description = "主键")
+	/**
+	 * 主键
+	 */
 	@TableId(value = "id", type = IdType.AUTO)
 	private Integer id;
 
-	@Schema(description = "用户ID")
+	/**
+	 * 用户ID
+	 */
 	@TableField("user_id")
 	private Integer userId;
 
-	@Schema(description = "机构ID")
+	/**
+	 * 机构ID
+	 */
 	@TableField("depart_id")
 	private Integer departId;
 
-	@Schema(description = "创建时间")
+	/**
+	 * 创建时间
+	 */
 	@TableField(value = "create_time", fill = FieldFill.INSERT)
-	private Date createTime;
+	private LocalDateTime createTime;
 
-	@Schema(description = "更新时间")
+	/**
+	 * 更新时间
+	 */
 	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-	private Date updateTime;
+	private LocalDateTime updateTime;
 
 }

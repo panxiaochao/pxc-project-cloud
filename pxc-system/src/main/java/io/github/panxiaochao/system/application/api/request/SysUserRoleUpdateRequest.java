@@ -8,47 +8,43 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 用户角色表更新请求对象
- * </p>
+ * <p>用户角色表更新请求对象</p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-11-30
  */
 @Getter
 @Setter
 @ToString
 @Schema(description = "用户角色表更新请求对象")
 public class SysUserRoleUpdateRequest {
+    /**
+     * 主键
+     */
+    @Schema(description = "主键")
+    private String id;
 
-	/**
-	 * 主键
-	 */
-	@Schema(description = "主键")
-	private String id;
+    /**
+     * 用户ID
+     */
+    @Schema(description = "用户ID")
+    private Integer userId;
 
-	/**
-	 * 用户ID
-	 */
-	@Schema(description = "用户ID")
-	private Integer userId;
+    /**
+     * 角色ID
+     */
+    @Schema(description = "角色ID")
+    private Integer roleId;
 
-	/**
-	 * 角色ID
-	 */
-	@Schema(description = "角色ID")
-	private Integer roleId;
+    /**
+     * 创建时间
+     */
+    @Schema(description = "创建时间")
+    private LocalDateTime createTime;
 
-	/**
-	 * 创建时间
-	 */
-	@Schema(description = "创建时间")
-	private LocalDateTime createTime;
-
-	/**
-	 * 更新时间
-	 */
-	@Schema(description = "更新时间")
-	private LocalDateTime updateTime;
-
+    /**
+     * 更新时间
+     */
+    @Schema(description = "更新时间")
+    private LocalDateTime updateTime;
 }

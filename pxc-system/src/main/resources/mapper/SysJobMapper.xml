@@ -2,27 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.github.panxiaochao.system.infrastructure.mapper.SysJobMapper">
 
-        <!-- 通用查询映射结果 -->
-        <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.infrastructure.po.SysJobPO">
-                    <id column="id" property="id"/>
-                    <result column="job_code" property="jobCode"/>
-                    <result column="job_name" property="jobName"/>
-                    <result column="job_group" property="jobGroup"/>
-                    <result column="invoke_bean" property="invokeBean"/>
-                    <result column="invoke_method" property="invokeMethod"/>
-                    <result column="method_params" property="methodParams"/>
-                    <result column="params_type" property="paramsType"/>
-                    <result column="cron_expression" property="cronExpression"/>
-                    <result column="job_status" property="jobStatus"/>
-                    <result column="remark" property="remark"/>
-                    <result column="create_id" property="createId"/>
-                    <result column="create_time" property="createTime"/>
-                    <result column="update_time" property="updateTime"/>
-        </resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.infrastructure.po.SysJobPO">
+        <id column="id" property="id"/>
+        <result column="job_code" property="jobCode"/>
+        <result column="job_name" property="jobName"/>
+        <result column="job_group" property="jobGroup"/>
+        <result column="invoke_bean" property="invokeBean"/>
+        <result column="invoke_method" property="invokeMethod"/>
+        <result column="method_params" property="methodParams"/>
+        <result column="params_type" property="paramsType"/>
+        <result column="cron_expression" property="cronExpression"/>
+        <result column="job_status" property="jobStatus"/>
+        <result column="remark" property="remark"/>
+        <result column="create_id" property="createId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
 
-        <!-- 通用查询结果列 -->
-        <sql id="Base_Column_List">
-            id, job_code, job_name, job_group, invoke_bean, invoke_method, method_params, params_type, cron_expression, job_status, remark, create_id, create_time, update_time
-        </sql>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        , job_code, job_name, job_group, invoke_bean, invoke_method, method_params, params_type, cron_expression, job_status, remark, create_id, create_time, update_time
+    </sql>
 
 </mapper>
