@@ -18,6 +18,7 @@
     <modules>
         <module>pxc-system</module>
         <module>pxc-auth</module>
+        <module>pxc-module</module>
     </modules>
 
     <properties>
