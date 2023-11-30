@@ -39,4 +39,13 @@ public class SpringDocConfig {
 		return GroupedOpenApi.builder().group("pxc-system-v1").pathsToMatch("/system/v1/**").build();
 	}
 
+	/**
+	 * 配置 API分组
+	 * @return API分组Bean
+	 */
+	@Bean
+	public GroupedOpenApi webGroupApi() {
+		return GroupedOpenApi.builder().group("pxc-system-web-v1").pathsToMatch("/web/v1/**").build();
+	}
+
 }
