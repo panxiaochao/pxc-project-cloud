@@ -128,4 +128,3 @@ public class ${table.serviceImplName} implements I${entity}Service, I${entity}Re
     }
 
 }
-
