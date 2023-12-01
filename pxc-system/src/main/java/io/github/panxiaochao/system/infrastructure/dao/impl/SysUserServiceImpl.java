@@ -61,7 +61,7 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
             lqw.orderByDesc(SysUserPO::getId);
             // 如果 用户真实姓名 不为空
             if (StringUtils.isNotBlank(queryRequest.getRealName())) {
-                lqw.eq(SysUserPO::getRealName, queryRequest.getRealName());
+                lqw.like(SysUserPO::getRealName, queryRequest.getRealName());
             }
             // 如果 用户昵称（花名） 不为空
             if (StringUtils.isNotBlank(queryRequest.getNickName())) {
