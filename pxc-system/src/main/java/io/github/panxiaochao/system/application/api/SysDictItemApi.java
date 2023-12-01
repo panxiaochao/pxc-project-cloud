@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 数据字典配置表 接口.
- * </p>
+ * <p> 数据字典配置表 接口.</p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -43,8 +41,8 @@ public class SysDictItemApi {
 
     @Operation(summary = "查询分页", description = "查询分页", method = "GET")
     @GetMapping(value = "/page")
-    public R<PageResponse<SysDictItemQueryResponse>> page(@RequestBody RequestPage<SysDictItemQueryRequest> pageRequest) {
-        return R.ok(sysDictItemAppService.page(pageRequest));
+    public R<PageResponse<SysDictItemQueryResponse>> page(RequestPage pageRequest, SysDictItemQueryRequest queryRequest) {
+        return R.ok(sysDictItemAppService.page(pageRequest, queryRequest));
     }
 
     @Operation(summary = "获取详情", description = "获取详情", method = "GET")

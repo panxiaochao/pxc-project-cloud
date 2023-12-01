@@ -42,11 +42,12 @@ public class ${entity}AppService {
     /**
      * 查询分页
      * @param pageRequest 请求分页参数对象
+     * @param queryRequest ${table.comment!}查询请求对象
      * @return 分页数组响应实体
      */
-    public PageResponse<${entity}QueryResponse> page(RequestPage<${entity}QueryRequest> pageRequest) {
+    public PageResponse<${entity}QueryResponse> page(RequestPage pageRequest, ${entity}QueryRequest queryRequest) {
         Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
-        List<${entity}QueryResponse> list = ${entity?uncap_first}ReadModelService.page(pagination, pageRequest);
+        List<${entity}QueryResponse> list = ${entity?uncap_first}ReadModelService.page(pagination, queryRequest);
         return new PageResponse<>(pagination, list);
     }
     

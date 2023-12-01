@@ -46,3 +46,7 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     # 开发测试时使用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 登录获取 token 地址
+pxc-auth:
+  url: http://localhost:18000/oauth2/v1/token

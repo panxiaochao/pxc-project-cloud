@@ -1,29 +1,25 @@
 package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.system.application.api.request.Oauth2AuthorizationConsentQueryRequest;
 import io.github.panxiaochao.system.application.api.response.Oauth2AuthorizationConsentQueryResponse;
 
 import java.util.List;
 
 /**
- * <p>
- * 读模型服务.
- * </p>
+ * <p>  读模型服务. </p>
  *
  * @author Lypxc
  * @since 2023-12-01
  */
 public interface IOauth2AuthorizationConsentReadModelService {
 
-	/**
-	 * 查询分页
-	 * @param pagination 分页属性对象
-	 * @param pageRequest 请求分页参数对象
-	 * @return 分页结果数组
-	 */
-	List<Oauth2AuthorizationConsentQueryResponse> page(Pagination pagination,
-			RequestPage<Oauth2AuthorizationConsentQueryRequest> pageRequest);
+    /**
+     * 查询分页
+     * @param pagination  分页属性对象
+     * @param queryRequest 查询请求对象
+     * @return 分页结果数组
+     */
+    List<Oauth2AuthorizationConsentQueryResponse> page(Pagination pagination, Oauth2AuthorizationConsentQueryRequest queryRequest);
 
 }

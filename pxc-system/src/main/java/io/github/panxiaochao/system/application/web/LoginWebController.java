@@ -37,9 +37,8 @@ public class LoginWebController {
 	 */
 	@PostMapping
 	@RepeatSubmitLimiter(interval = 3000, message = "请勿重复登录")
-	public R<Object> login(@RequestBody @Validated LoginRequest loginRequest) {
-		Map<String, Object> loginMap = loginWebService.login(loginRequest);
-		return R.ok(loginMap);
+	public R<Map<String, Object>> login(@RequestBody @Validated LoginRequest loginRequest) {
+		return loginWebService.login(loginRequest);
 	}
 
 }

@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 全国5级行政区划 接口.
- * </p>
+ * <p> 全国5级行政区划 接口.</p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -43,8 +41,8 @@ public class SysAreaApi {
 
     @Operation(summary = "查询分页", description = "查询分页", method = "GET")
     @GetMapping(value = "/page")
-    public R<PageResponse<SysAreaQueryResponse>> page(@RequestBody RequestPage<SysAreaQueryRequest> pageRequest) {
-        return R.ok(sysAreaAppService.page(pageRequest));
+    public R<PageResponse<SysAreaQueryResponse>> page(RequestPage pageRequest, SysAreaQueryRequest queryRequest) {
+        return R.ok(sysAreaAppService.page(pageRequest, queryRequest));
     }
 
     @Operation(summary = "获取详情", description = "获取详情", method = "GET")

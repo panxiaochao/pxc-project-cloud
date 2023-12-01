@@ -36,15 +36,15 @@ public class ${table.serviceImplName} implements I${entity}Service, I${entity}Re
     private final ${table.mapperName} ${table.mapperName?uncap_first};
 
     /**
-    * 查询分页
-    * @param pagination 分页属性对象
-    * @param pageRequest 请求分页参数对象
-    * @return 分页结果数组
-    */
+     * 查询分页
+     * @param pagination 分页属性对象
+     * @param queryRequest ${table.comment!}查询请求对象
+     * @return 分页结果数组
+     */
     @Override
-    public List<${entity}QueryResponse> page(Pagination pagination, RequestPage<${entity}QueryRequest> pageRequest) {
+    public List<${entity}QueryResponse> page(Pagination pagination, ${entity}QueryRequest queryRequest) {
         // 构造查询条件
-        LambdaQueryWrapper<${entity}PO> lqw = lambdaQuery(pageRequest.getParamsObject());
+        LambdaQueryWrapper<${entity}PO> lqw = lambdaQuery(queryRequest);
         // 分页查询
         Page<${entity}PO> page = ${entity?uncap_first}Mapper.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
         pagination.setTotal(page.getTotal());
@@ -119,9 +119,9 @@ public class ${table.serviceImplName} implements I${entity}Service, I${entity}Re
     }
 
     /**
-    * 根据主键删除
-    * @param id 主键
-    */
+     * 根据主键删除
+     * @param id 主键
+     */
     @Override
     public void deleteById(String id) {
         ${entity?uncap_first}Mapper.deleteById(id);

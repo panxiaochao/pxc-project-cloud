@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 角色表 接口.
- * </p>
+ * <p> 角色表 接口.</p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -43,8 +41,8 @@ public class SysRoleApi {
 
     @Operation(summary = "查询分页", description = "查询分页", method = "GET")
     @GetMapping(value = "/page")
-    public R<PageResponse<SysRoleQueryResponse>> page(@RequestBody RequestPage<SysRoleQueryRequest> pageRequest) {
-        return R.ok(sysRoleAppService.page(pageRequest));
+    public R<PageResponse<SysRoleQueryResponse>> page(RequestPage pageRequest, SysRoleQueryRequest queryRequest) {
+        return R.ok(sysRoleAppService.page(pageRequest, queryRequest));
     }
 
     @Operation(summary = "获取详情", description = "获取详情", method = "GET")

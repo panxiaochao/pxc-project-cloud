@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 接口.
- * </p>
+ * <p>  接口.</p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -36,44 +34,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/v1/oauth2authorizationconsent")
 public class Oauth2AuthorizationConsentApi {
 
-	/**
-	 * 服务
-	 */
-	private final Oauth2AuthorizationConsentAppService oauth2AuthorizationConsentAppService;
+    /**
+     *  服务
+     */
+    private final Oauth2AuthorizationConsentAppService oauth2AuthorizationConsentAppService;
 
-	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
-	@GetMapping(value = "/page")
-	public R<PageResponse<Oauth2AuthorizationConsentQueryResponse>> page(
-			@RequestBody RequestPage<Oauth2AuthorizationConsentQueryRequest> pageRequest) {
-		return R.ok(oauth2AuthorizationConsentAppService.page(pageRequest));
-	}
+    @Operation(summary = "查询分页", description = "查询分页", method = "GET")
+    @GetMapping(value = "/page")
+    public R<PageResponse<Oauth2AuthorizationConsentQueryResponse>> page(RequestPage pageRequest, Oauth2AuthorizationConsentQueryRequest queryRequest) {
+        return R.ok(oauth2AuthorizationConsentAppService.page(pageRequest, queryRequest));
+    }
 
-	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
-	@Parameter(name = "id", description = " ID")
-	@GetMapping(value = "/{id}")
-	public R<Oauth2AuthorizationConsentResponse> getById(@PathVariable("id") String id) {
-		return oauth2AuthorizationConsentAppService.getById(id);
-	}
+    @Operation(summary = "获取详情", description = "获取详情", method = "GET")
+    @Parameter(name = "id", description = " ID")
+    @GetMapping(value = "/{id}")
+    public R<Oauth2AuthorizationConsentResponse> getById(@PathVariable("id") String id) {
+        return oauth2AuthorizationConsentAppService.getById(id);
+    }
 
-	@Operation(summary = "保存", description = "保存", method = "POST")
-	@PostMapping
-	public R<Oauth2AuthorizationConsentResponse> save(
-			@RequestBody Oauth2AuthorizationConsentCreateRequest oauth2AuthorizationConsentCreateRequest) {
-		return oauth2AuthorizationConsentAppService.save(oauth2AuthorizationConsentCreateRequest);
-	}
+    @Operation(summary = "保存", description = "保存", method = "POST")
+    @PostMapping
+    public R<Oauth2AuthorizationConsentResponse> save(@RequestBody Oauth2AuthorizationConsentCreateRequest oauth2AuthorizationConsentCreateRequest) {
+        return oauth2AuthorizationConsentAppService.save(oauth2AuthorizationConsentCreateRequest);
+    }
 
-	@Operation(summary = "更新", description = "根据主键更新", method = "PUT")
-	@PutMapping
-	public R<Void> update(
-			@RequestBody Oauth2AuthorizationConsentUpdateRequest oauth2AuthorizationConsentUpdateRequest) {
-		return oauth2AuthorizationConsentAppService.update(oauth2AuthorizationConsentUpdateRequest);
-	}
+    @Operation(summary = "更新", description = "根据主键更新", method = "PUT")
+    @PutMapping
+    public R<Void> update(@RequestBody Oauth2AuthorizationConsentUpdateRequest oauth2AuthorizationConsentUpdateRequest) {
+        return oauth2AuthorizationConsentAppService.update(oauth2AuthorizationConsentUpdateRequest);
+    }
 
-	@Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
-	@Parameter(name = "id", description = " ID")
-	@DeleteMapping(value = "/{id}")
-	public R<Void> deleteById(@PathVariable("id") String id) {
-		return oauth2AuthorizationConsentAppService.deleteById(id);
-	}
+    @Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
+    @Parameter(name = "id", description = " ID")
+    @DeleteMapping(value = "/{id}")
+    public R<Void> deleteById(@PathVariable("id") String id) {
+        return oauth2AuthorizationConsentAppService.deleteById(id);
+    }
 
 }

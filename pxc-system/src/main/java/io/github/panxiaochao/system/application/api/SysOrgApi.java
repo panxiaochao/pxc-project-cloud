@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 机构部门表 接口.
- * </p>
+ * <p> 机构部门表 接口.</p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -43,8 +41,8 @@ public class SysOrgApi {
 
     @Operation(summary = "查询分页", description = "查询分页", method = "GET")
     @GetMapping(value = "/page")
-    public R<PageResponse<SysOrgQueryResponse>> page(@RequestBody RequestPage<SysOrgQueryRequest> pageRequest) {
-        return R.ok(sysOrgAppService.page(pageRequest));
+    public R<PageResponse<SysOrgQueryResponse>> page(RequestPage pageRequest, SysOrgQueryRequest queryRequest) {
+        return R.ok(sysOrgAppService.page(pageRequest, queryRequest));
     }
 
     @Operation(summary = "获取详情", description = "获取详情", method = "GET")

@@ -29,8 +29,8 @@ public class LoginRequest {
 	@NotBlank(message = "密码不能为空")
 	private String password;
 
-	@Schema(description = "登录类型")
-	@NotBlank(message = "登录类型不能为空")
-	private String loginType;
+//	@Schema(description = "登录类型")
+//	@NotBlank(message = "登录类型不能为空")
+//	private String loginType;
 
 }

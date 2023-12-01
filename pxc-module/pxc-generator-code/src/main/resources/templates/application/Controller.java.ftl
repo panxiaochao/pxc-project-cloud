@@ -49,8 +49,8 @@ public class ${table.controllerName} {
 
     @Operation(summary = "查询分页", description = "查询分页", method = "GET")
     @GetMapping(value = "/page")
-    public R<PageResponse<${entity}QueryResponse>> page(@RequestBody RequestPage<${entity}QueryRequest> pageRequest) {
-        return R.ok(${entity?uncap_first}AppService.page(pageRequest));
+    public R<PageResponse<${entity}QueryResponse>> page(RequestPage pageRequest, ${entity}QueryRequest queryRequest) {
+        return R.ok(${entity?uncap_first}AppService.page(pageRequest, queryRequest));
     }
 
     @Operation(summary = "获取详情", description = "获取详情", method = "GET")

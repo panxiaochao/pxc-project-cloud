@@ -18,9 +18,9 @@ public interface I${entity}ReadModelService {
     /**
      * 查询分页
      * @param pagination  分页属性对象
-     * @param pageRequest 请求分页参数对象
+     * @param queryRequest ${table.comment!}查询请求对象
      * @return 分页结果数组
      */
-    List<${entity}QueryResponse> page(Pagination pagination, RequestPage<${entity}QueryRequest> pageRequest);
+    List<${entity}QueryResponse> page(Pagination pagination, ${entity}QueryRequest queryRequest);
 
 }

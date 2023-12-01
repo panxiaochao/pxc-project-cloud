@@ -25,7 +25,7 @@ public class Oauth2AuthorizationConsentPO {
 	@TableId(value = "registered_client_id", type = IdType.ASSIGN_UUID)
 	private String registeredClientId;
 
-	@TableId(value = "principal_name", type = IdType.ASSIGN_UUID)
+	@TableField(value = "principal_name")
 	private String principalName;
 
 	@TableField("authorities")

@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 系统日志登录/登出表 接口.
- * </p>
+ * <p> 系统日志登录/登出表 接口.</p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -43,8 +41,8 @@ public class SysLogLoginApi {
 
     @Operation(summary = "查询分页", description = "查询分页", method = "GET")
     @GetMapping(value = "/page")
-    public R<PageResponse<SysLogLoginQueryResponse>> page(@RequestBody RequestPage<SysLogLoginQueryRequest> pageRequest) {
-        return R.ok(sysLogLoginAppService.page(pageRequest));
+    public R<PageResponse<SysLogLoginQueryResponse>> page(RequestPage pageRequest, SysLogLoginQueryRequest queryRequest) {
+        return R.ok(sysLogLoginAppService.page(pageRequest, queryRequest));
     }
 
     @Operation(summary = "获取详情", description = "获取详情", method = "GET")
