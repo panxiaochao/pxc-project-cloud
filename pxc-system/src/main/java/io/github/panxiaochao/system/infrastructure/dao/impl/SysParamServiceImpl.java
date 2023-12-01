@@ -46,8 +46,6 @@ public class SysParamServiceImpl implements ISysParamService, ISysParamReadModel
 	public List<SysParamQueryResponse> page(Pagination pagination, RequestPage<SysParamQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<SysParamPO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(SysParamPO::getId);
 		// 分页查询
 		Page<SysParamPO> page = sysParamMapper.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()),
 				lqw);
@@ -63,31 +61,33 @@ public class SysParamServiceImpl implements ISysParamService, ISysParamReadModel
 	private LambdaQueryWrapper<SysParamPO> lambdaQuery(SysParamQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysParamPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 参数名称 不为空 String
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(SysParamPO::getId);
+			// 如果 参数名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getParamName())) {
 				lqw.eq(SysParamPO::getParamName, queryRequest.getParamName());
 			}
-			// 如果 参数键 不为空 String
+			// 如果 参数键 不为空
 			if (StringUtils.isNotBlank(queryRequest.getParamKey())) {
 				lqw.eq(SysParamPO::getParamKey, queryRequest.getParamKey());
 			}
-			// 如果 参数值 不为空 String
+			// 如果 参数值 不为空
 			if (StringUtils.isNotBlank(queryRequest.getParamValue())) {
 				lqw.eq(SysParamPO::getParamValue, queryRequest.getParamValue());
 			}
-			// 如果 参数类型1-系统类 2-业务类 不为空 String
+			// 如果 参数类型1-系统类 2-业务类 不为空
 			if (StringUtils.isNotBlank(queryRequest.getParamType())) {
 				lqw.eq(SysParamPO::getParamType, queryRequest.getParamType());
 			}
-			// 如果 状态1-正常 0-删除 不为空 String
+			// 如果 状态1-正常 0-删除 不为空
 			if (StringUtils.isNotBlank(queryRequest.getState())) {
 				lqw.eq(SysParamPO::getState, queryRequest.getState());
 			}
-			// 如果 创建时间 不为空 LocalDateTime
+			// 如果 创建时间 不为空
 			if (queryRequest.getCreateTime() != null) {
 				lqw.eq(SysParamPO::getCreateTime, queryRequest.getCreateTime());
 			}
-			// 如果 更新时间 不为空 LocalDateTime
+			// 如果 更新时间 不为空
 			if (queryRequest.getUpdateTime() != null) {
 				lqw.eq(SysParamPO::getUpdateTime, queryRequest.getUpdateTime());
 			}

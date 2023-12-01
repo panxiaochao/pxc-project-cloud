@@ -47,8 +47,6 @@ public class SysLogOperateServiceImpl implements ISysLogOperateService, ISysLogO
 			RequestPage<SysLogOperateQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<SysLogOperatePO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(SysLogOperatePO::getId);
 		// 分页查询
 		Page<SysLogOperatePO> page = sysLogOperateMapper
 			.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
@@ -64,51 +62,53 @@ public class SysLogOperateServiceImpl implements ISysLogOperateService, ISysLogO
 	private LambdaQueryWrapper<SysLogOperatePO> lambdaQuery(SysLogOperateQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysLogOperatePO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 日志内容 不为空 String
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(SysLogOperatePO::getId);
+			// 如果 日志内容 不为空
 			if (StringUtils.isNotBlank(queryRequest.getLogContent())) {
 				lqw.eq(SysLogOperatePO::getLogContent, queryRequest.getLogContent());
 			}
-			// 如果 操作类型 不为空 Integer
+			// 如果 操作类型 不为空
 			if (queryRequest.getOperateType() != null) {
 				lqw.eq(SysLogOperatePO::getOperateType, queryRequest.getOperateType());
 			}
-			// 如果 IP 不为空 String
+			// 如果 IP 不为空
 			if (StringUtils.isNotBlank(queryRequest.getIp())) {
 				lqw.eq(SysLogOperatePO::getIp, queryRequest.getIp());
 			}
-			// 如果 请求java方法 不为空 String
+			// 如果 请求java方法 不为空
 			if (StringUtils.isNotBlank(queryRequest.getMethod())) {
 				lqw.eq(SysLogOperatePO::getMethod, queryRequest.getMethod());
 			}
-			// 如果 请求路径 不为空 String
+			// 如果 请求路径 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRequestUrl())) {
 				lqw.eq(SysLogOperatePO::getRequestUrl, queryRequest.getRequestUrl());
 			}
-			// 如果 请求参数 不为空 String
+			// 如果 请求参数 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRequestParams())) {
 				lqw.eq(SysLogOperatePO::getRequestParams, queryRequest.getRequestParams());
 			}
-			// 如果 请求类型 不为空 String
+			// 如果 请求类型 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRequestMethod())) {
 				lqw.eq(SysLogOperatePO::getRequestMethod, queryRequest.getRequestMethod());
 			}
-			// 如果 耗时 不为空 Long
+			// 如果 耗时 不为空
 			if (queryRequest.getCostTime() != null) {
 				lqw.eq(SysLogOperatePO::getCostTime, queryRequest.getCostTime());
 			}
-			// 如果 是否成功 不为空 String
+			// 如果 是否成功 不为空
 			if (StringUtils.isNotBlank(queryRequest.getState())) {
 				lqw.eq(SysLogOperatePO::getState, queryRequest.getState());
 			}
-			// 如果 浏览器 不为空 String
+			// 如果 浏览器 不为空
 			if (StringUtils.isNotBlank(queryRequest.getBrowser())) {
 				lqw.eq(SysLogOperatePO::getBrowser, queryRequest.getBrowser());
 			}
-			// 如果 操作系统 不为空 String
+			// 如果 操作系统 不为空
 			if (StringUtils.isNotBlank(queryRequest.getOs())) {
 				lqw.eq(SysLogOperatePO::getOs, queryRequest.getOs());
 			}
-			// 如果 创建时间 不为空 LocalDateTime
+			// 如果 创建时间 不为空
 			if (queryRequest.getCreateTime() != null) {
 				lqw.eq(SysLogOperatePO::getCreateTime, queryRequest.getCreateTime());
 			}

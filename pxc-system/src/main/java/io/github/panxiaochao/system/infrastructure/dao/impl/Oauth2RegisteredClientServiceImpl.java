@@ -48,8 +48,6 @@ public class Oauth2RegisteredClientServiceImpl
 			RequestPage<Oauth2RegisteredClientQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<Oauth2RegisteredClientPO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(Oauth2RegisteredClientPO::getId);
 		// 分页查询
 		Page<Oauth2RegisteredClientPO> page = oauth2RegisteredClientMapper
 			.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
@@ -65,48 +63,50 @@ public class Oauth2RegisteredClientServiceImpl
 	private LambdaQueryWrapper<Oauth2RegisteredClientPO> lambdaQuery(Oauth2RegisteredClientQueryRequest queryRequest) {
 		LambdaQueryWrapper<Oauth2RegisteredClientPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 不为空 String
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(Oauth2RegisteredClientPO::getId);
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getClientId())) {
 				lqw.eq(Oauth2RegisteredClientPO::getClientId, queryRequest.getClientId());
 			}
-			// 如果 不为空 LocalDateTime
+			// 如果 不为空
 			if (queryRequest.getClientIdIssuedAt() != null) {
 				lqw.eq(Oauth2RegisteredClientPO::getClientIdIssuedAt, queryRequest.getClientIdIssuedAt());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getClientSecret())) {
 				lqw.eq(Oauth2RegisteredClientPO::getClientSecret, queryRequest.getClientSecret());
 			}
-			// 如果 不为空 LocalDateTime
+			// 如果 不为空
 			if (queryRequest.getClientSecretExpiresAt() != null) {
 				lqw.eq(Oauth2RegisteredClientPO::getClientSecretExpiresAt, queryRequest.getClientSecretExpiresAt());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getClientName())) {
 				lqw.eq(Oauth2RegisteredClientPO::getClientName, queryRequest.getClientName());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getClientAuthenticationMethods())) {
 				lqw.eq(Oauth2RegisteredClientPO::getClientAuthenticationMethods,
 						queryRequest.getClientAuthenticationMethods());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getAuthorizationGrantTypes())) {
 				lqw.eq(Oauth2RegisteredClientPO::getAuthorizationGrantTypes, queryRequest.getAuthorizationGrantTypes());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRedirectUris())) {
 				lqw.eq(Oauth2RegisteredClientPO::getRedirectUris, queryRequest.getRedirectUris());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getScopes())) {
 				lqw.eq(Oauth2RegisteredClientPO::getScopes, queryRequest.getScopes());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getClientSettings())) {
 				lqw.eq(Oauth2RegisteredClientPO::getClientSettings, queryRequest.getClientSettings());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getTokenSettings())) {
 				lqw.eq(Oauth2RegisteredClientPO::getTokenSettings, queryRequest.getTokenSettings());
 			}

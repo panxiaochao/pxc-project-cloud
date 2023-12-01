@@ -46,8 +46,6 @@ public class SysOrgServiceImpl implements ISysOrgService, ISysOrgReadModelServic
 	public List<SysOrgQueryResponse> page(Pagination pagination, RequestPage<SysOrgQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<SysOrgPO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(SysOrgPO::getId);
 		// 分页查询
 		Page<SysOrgPO> page = sysOrgMapper.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
 		pagination.setTotal(page.getTotal());
@@ -62,67 +60,69 @@ public class SysOrgServiceImpl implements ISysOrgService, ISysOrgReadModelServic
 	private LambdaQueryWrapper<SysOrgPO> lambdaQuery(SysOrgQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysOrgPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 父ID 不为空 Integer
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(SysOrgPO::getId);
+			// 如果 父ID 不为空
 			if (queryRequest.getParentId() != null) {
 				lqw.eq(SysOrgPO::getParentId, queryRequest.getParentId());
 			}
-			// 如果 地区ID 不为空 Integer
+			// 如果 地区ID 不为空
 			if (queryRequest.getAreaId() != null) {
 				lqw.eq(SysOrgPO::getAreaId, queryRequest.getAreaId());
 			}
-			// 如果 地区代码code 不为空 String
+			// 如果 地区代码code 不为空
 			if (StringUtils.isNotBlank(queryRequest.getAreaCode())) {
 				lqw.eq(SysOrgPO::getAreaCode, queryRequest.getAreaCode());
 			}
-			// 如果 机构/部门名称 不为空 String
+			// 如果 机构/部门名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getOrgName())) {
 				lqw.eq(SysOrgPO::getOrgName, queryRequest.getOrgName());
 			}
-			// 如果 英文名 不为空 String
+			// 如果 英文名 不为空
 			if (StringUtils.isNotBlank(queryRequest.getOrgNameEn())) {
 				lqw.eq(SysOrgPO::getOrgNameEn, queryRequest.getOrgNameEn());
 			}
-			// 如果 缩写 不为空 String
+			// 如果 缩写 不为空
 			if (StringUtils.isNotBlank(queryRequest.getOrgNameAbbr())) {
 				lqw.eq(SysOrgPO::getOrgNameAbbr, queryRequest.getOrgNameAbbr());
 			}
-			// 如果 机构/部门编码code 不为空 String
+			// 如果 机构/部门编码code 不为空
 			if (StringUtils.isNotBlank(queryRequest.getOrgCode())) {
 				lqw.eq(SysOrgPO::getOrgCode, queryRequest.getOrgCode());
 			}
-			// 如果 排序 不为空 Integer
+			// 如果 排序 不为空
 			if (queryRequest.getSort() != null) {
 				lqw.eq(SysOrgPO::getSort, queryRequest.getSort());
 			}
-			// 如果 机构类别：1-公司，2-机构，3-部门 不为空 Integer
+			// 如果 机构类别：1-公司，2-机构，3-部门 不为空
 			if (queryRequest.getOrgCategory() != null) {
 				lqw.eq(SysOrgPO::getOrgCategory, queryRequest.getOrgCategory());
 			}
-			// 如果 手机号码 不为空 String
+			// 如果 手机号码 不为空
 			if (StringUtils.isNotBlank(queryRequest.getMobile())) {
 				lqw.eq(SysOrgPO::getMobile, queryRequest.getMobile());
 			}
-			// 如果 传真号码 不为空 String
+			// 如果 传真号码 不为空
 			if (StringUtils.isNotBlank(queryRequest.getFax())) {
 				lqw.eq(SysOrgPO::getFax, queryRequest.getFax());
 			}
-			// 如果 地址 不为空 String
+			// 如果 地址 不为空
 			if (StringUtils.isNotBlank(queryRequest.getAddress())) {
 				lqw.eq(SysOrgPO::getAddress, queryRequest.getAddress());
 			}
-			// 如果 状态：1正常，0不正常 不为空 String
+			// 如果 状态：1正常，0不正常 不为空
 			if (StringUtils.isNotBlank(queryRequest.getState())) {
 				lqw.eq(SysOrgPO::getState, queryRequest.getState());
 			}
-			// 如果 备注 不为空 String
+			// 如果 备注 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRemark())) {
 				lqw.eq(SysOrgPO::getRemark, queryRequest.getRemark());
 			}
-			// 如果 创建时间 不为空 LocalDateTime
+			// 如果 创建时间 不为空
 			if (queryRequest.getCreateTime() != null) {
 				lqw.eq(SysOrgPO::getCreateTime, queryRequest.getCreateTime());
 			}
-			// 如果 更新时间 不为空 LocalDateTime
+			// 如果 更新时间 不为空
 			if (queryRequest.getUpdateTime() != null) {
 				lqw.eq(SysOrgPO::getUpdateTime, queryRequest.getUpdateTime());
 			}

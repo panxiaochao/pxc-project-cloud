@@ -48,8 +48,6 @@ public class Oauth2AuthorizationServiceImpl
 			RequestPage<Oauth2AuthorizationQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<Oauth2AuthorizationPO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(Oauth2AuthorizationPO::getId);
 		// 分页查询
 		Page<Oauth2AuthorizationPO> page = oauth2AuthorizationMapper
 			.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
@@ -65,103 +63,105 @@ public class Oauth2AuthorizationServiceImpl
 	private LambdaQueryWrapper<Oauth2AuthorizationPO> lambdaQuery(Oauth2AuthorizationQueryRequest queryRequest) {
 		LambdaQueryWrapper<Oauth2AuthorizationPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 不为空 String
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(Oauth2AuthorizationPO::getId);
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRegisteredClientId())) {
 				lqw.eq(Oauth2AuthorizationPO::getRegisteredClientId, queryRequest.getRegisteredClientId());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getPrincipalName())) {
 				lqw.eq(Oauth2AuthorizationPO::getPrincipalName, queryRequest.getPrincipalName());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getAuthorizationGrantType())) {
 				lqw.eq(Oauth2AuthorizationPO::getAuthorizationGrantType, queryRequest.getAuthorizationGrantType());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getAuthorizedScopes())) {
 				lqw.eq(Oauth2AuthorizationPO::getAuthorizedScopes, queryRequest.getAuthorizedScopes());
 			}
-			// 如果 不为空 byte[]
-			if (StringUtils.isNotBlank(queryRequest.getAttributes())) {
+			// 如果 不为空
+			if (queryRequest.getAttributes() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getAttributes, queryRequest.getAttributes());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getState())) {
 				lqw.eq(Oauth2AuthorizationPO::getState, queryRequest.getState());
 			}
-			// 如果 不为空 byte[]
-			if (StringUtils.isNotBlank(queryRequest.getAuthorizationCodeValue())) {
+			// 如果 不为空
+			if (queryRequest.getAuthorizationCodeValue() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getAuthorizationCodeValue, queryRequest.getAuthorizationCodeValue());
 			}
-			// 如果 不为空 LocalDateTime
+			// 如果 不为空
 			if (queryRequest.getAuthorizationCodeIssuedAt() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getAuthorizationCodeIssuedAt,
 						queryRequest.getAuthorizationCodeIssuedAt());
 			}
-			// 如果 不为空 LocalDateTime
+			// 如果 不为空
 			if (queryRequest.getAuthorizationCodeExpiresAt() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getAuthorizationCodeExpiresAt,
 						queryRequest.getAuthorizationCodeExpiresAt());
 			}
-			// 如果 不为空 byte[]
-			if (StringUtils.isNotBlank(queryRequest.getAuthorizationCodeMetadata())) {
+			// 如果 不为空
+			if (queryRequest.getAuthorizationCodeMetadata() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getAuthorizationCodeMetadata,
 						queryRequest.getAuthorizationCodeMetadata());
 			}
-			// 如果 不为空 byte[]
-			if (StringUtils.isNotBlank(queryRequest.getAccessTokenValue())) {
+			// 如果 不为空
+			if (queryRequest.getAccessTokenValue() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getAccessTokenValue, queryRequest.getAccessTokenValue());
 			}
-			// 如果 不为空 LocalDateTime
+			// 如果 不为空
 			if (queryRequest.getAccessTokenIssuedAt() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getAccessTokenIssuedAt, queryRequest.getAccessTokenIssuedAt());
 			}
-			// 如果 不为空 LocalDateTime
+			// 如果 不为空
 			if (queryRequest.getAccessTokenExpiresAt() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getAccessTokenExpiresAt, queryRequest.getAccessTokenExpiresAt());
 			}
-			// 如果 不为空 byte[]
-			if (StringUtils.isNotBlank(queryRequest.getAccessTokenMetadata())) {
+			// 如果 不为空
+			if (queryRequest.getAccessTokenMetadata() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getAccessTokenMetadata, queryRequest.getAccessTokenMetadata());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getAccessTokenType())) {
 				lqw.eq(Oauth2AuthorizationPO::getAccessTokenType, queryRequest.getAccessTokenType());
 			}
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getAccessTokenScopes())) {
 				lqw.eq(Oauth2AuthorizationPO::getAccessTokenScopes, queryRequest.getAccessTokenScopes());
 			}
-			// 如果 不为空 byte[]
-			if (StringUtils.isNotBlank(queryRequest.getOidcIdTokenValue())) {
+			// 如果 不为空
+			if (queryRequest.getOidcIdTokenValue() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getOidcIdTokenValue, queryRequest.getOidcIdTokenValue());
 			}
-			// 如果 不为空 LocalDateTime
+			// 如果 不为空
 			if (queryRequest.getOidcIdTokenIssuedAt() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getOidcIdTokenIssuedAt, queryRequest.getOidcIdTokenIssuedAt());
 			}
-			// 如果 不为空 LocalDateTime
+			// 如果 不为空
 			if (queryRequest.getOidcIdTokenExpiresAt() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getOidcIdTokenExpiresAt, queryRequest.getOidcIdTokenExpiresAt());
 			}
-			// 如果 不为空 byte[]
-			if (StringUtils.isNotBlank(queryRequest.getOidcIdTokenMetadata())) {
+			// 如果 不为空
+			if (queryRequest.getOidcIdTokenMetadata() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getOidcIdTokenMetadata, queryRequest.getOidcIdTokenMetadata());
 			}
-			// 如果 不为空 byte[]
-			if (StringUtils.isNotBlank(queryRequest.getRefreshTokenValue())) {
+			// 如果 不为空
+			if (queryRequest.getRefreshTokenValue() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getRefreshTokenValue, queryRequest.getRefreshTokenValue());
 			}
-			// 如果 不为空 LocalDateTime
+			// 如果 不为空
 			if (queryRequest.getRefreshTokenIssuedAt() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getRefreshTokenIssuedAt, queryRequest.getRefreshTokenIssuedAt());
 			}
-			// 如果 不为空 LocalDateTime
+			// 如果 不为空
 			if (queryRequest.getRefreshTokenExpiresAt() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getRefreshTokenExpiresAt, queryRequest.getRefreshTokenExpiresAt());
 			}
-			// 如果 不为空 byte[]
-			if (StringUtils.isNotBlank(queryRequest.getRefreshTokenMetadata())) {
+			// 如果 不为空
+			if (queryRequest.getRefreshTokenMetadata() != null) {
 				lqw.eq(Oauth2AuthorizationPO::getRefreshTokenMetadata, queryRequest.getRefreshTokenMetadata());
 			}
 		}

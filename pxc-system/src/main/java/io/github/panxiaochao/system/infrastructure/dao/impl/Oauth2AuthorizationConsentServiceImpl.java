@@ -48,8 +48,6 @@ public class Oauth2AuthorizationConsentServiceImpl
 			RequestPage<Oauth2AuthorizationConsentQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<Oauth2AuthorizationConsentPO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(Oauth2AuthorizationConsentPO::getId);
 		// 分页查询
 		Page<Oauth2AuthorizationConsentPO> page = oauth2AuthorizationConsentMapper
 			.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
@@ -66,7 +64,11 @@ public class Oauth2AuthorizationConsentServiceImpl
 			Oauth2AuthorizationConsentQueryRequest queryRequest) {
 		LambdaQueryWrapper<Oauth2AuthorizationConsentPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 不为空 String
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(Oauth2AuthorizationConsentPO::getRegisteredClientId);
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(Oauth2AuthorizationConsentPO::getPrincipalName);
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getAuthorities())) {
 				lqw.eq(Oauth2AuthorizationConsentPO::getAuthorities, queryRequest.getAuthorities());
 			}

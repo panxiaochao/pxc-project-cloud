@@ -47,8 +47,6 @@ public class SysUserAuthsServiceImpl implements ISysUserAuthsService, ISysUserAu
 			RequestPage<SysUserAuthsQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<SysUserAuthsPO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(SysUserAuthsPO::getId);
 		// 分页查询
 		Page<SysUserAuthsPO> page = sysUserAuthsMapper
 			.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
@@ -64,35 +62,37 @@ public class SysUserAuthsServiceImpl implements ISysUserAuthsService, ISysUserAu
 	private LambdaQueryWrapper<SysUserAuthsPO> lambdaQuery(SysUserAuthsQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysUserAuthsPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 关联用户ID 不为空 Integer
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(SysUserAuthsPO::getId);
+			// 如果 关联用户ID 不为空
 			if (queryRequest.getUserId() != null) {
 				lqw.eq(SysUserAuthsPO::getUserId, queryRequest.getUserId());
 			}
-			// 如果 登录类型(手机号/邮箱/用户名/微信/微博/QQ）等 不为空 String
+			// 如果 登录类型(手机号/邮箱/用户名/微信/微博/QQ）等 不为空
 			if (StringUtils.isNotBlank(queryRequest.getIdentityType())) {
 				lqw.eq(SysUserAuthsPO::getIdentityType, queryRequest.getIdentityType());
 			}
-			// 如果 登录标识(手机号/邮箱/用户名/微信/微博/QQ）等唯一标识，等同于登录账号 不为空 String
+			// 如果 登录标识(手机号/邮箱/用户名/微信/微博/QQ）等唯一标识，等同于登录账号 不为空
 			if (StringUtils.isNotBlank(queryRequest.getIdentifier())) {
 				lqw.eq(SysUserAuthsPO::getIdentifier, queryRequest.getIdentifier());
 			}
-			// 如果 密码凭证（自建密码，或者第三方access_token） 不为空 String
+			// 如果 密码凭证（自建密码，或者第三方access_token） 不为空
 			if (StringUtils.isNotBlank(queryRequest.getCredential())) {
 				lqw.eq(SysUserAuthsPO::getCredential, queryRequest.getCredential());
 			}
-			// 如果 是否已经验证：1验证，0未验证 不为空 String
+			// 如果 是否已经验证：1验证，0未验证 不为空
 			if (StringUtils.isNotBlank(queryRequest.getVerified())) {
 				lqw.eq(SysUserAuthsPO::getVerified, queryRequest.getVerified());
 			}
-			// 如果 登录标识失效时间 不为空 LocalDateTime
+			// 如果 登录标识失效时间 不为空
 			if (queryRequest.getExpireTime() != null) {
 				lqw.eq(SysUserAuthsPO::getExpireTime, queryRequest.getExpireTime());
 			}
-			// 如果 创建时间 不为空 LocalDateTime
+			// 如果 创建时间 不为空
 			if (queryRequest.getCreateTime() != null) {
 				lqw.eq(SysUserAuthsPO::getCreateTime, queryRequest.getCreateTime());
 			}
-			// 如果 更新时间 不为空 LocalDateTime
+			// 如果 更新时间 不为空
 			if (queryRequest.getUpdateTime() != null) {
 				lqw.eq(SysUserAuthsPO::getUpdateTime, queryRequest.getUpdateTime());
 			}

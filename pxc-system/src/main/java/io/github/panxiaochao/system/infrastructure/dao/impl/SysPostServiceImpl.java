@@ -46,8 +46,6 @@ public class SysPostServiceImpl implements ISysPostService, ISysPostReadModelSer
 	public List<SysPostQueryResponse> page(Pagination pagination, RequestPage<SysPostQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<SysPostPO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(SysPostPO::getId);
 		// 分页查询
 		Page<SysPostPO> page = sysPostMapper.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
 		pagination.setTotal(page.getTotal());
@@ -62,31 +60,33 @@ public class SysPostServiceImpl implements ISysPostService, ISysPostReadModelSer
 	private LambdaQueryWrapper<SysPostPO> lambdaQuery(SysPostQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysPostPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 岗位名称 不为空 String
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(SysPostPO::getId);
+			// 如果 岗位名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getPostName())) {
 				lqw.eq(SysPostPO::getPostName, queryRequest.getPostName());
 			}
-			// 如果 岗位编码 不为空 String
+			// 如果 岗位编码 不为空
 			if (StringUtils.isNotBlank(queryRequest.getPostCode())) {
 				lqw.eq(SysPostPO::getPostCode, queryRequest.getPostCode());
 			}
-			// 如果 备注 不为空 String
+			// 如果 备注 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRemark())) {
 				lqw.eq(SysPostPO::getRemark, queryRequest.getRemark());
 			}
-			// 如果 排序 不为空 Integer
+			// 如果 排序 不为空
 			if (queryRequest.getSort() != null) {
 				lqw.eq(SysPostPO::getSort, queryRequest.getSort());
 			}
-			// 如果 状态：1正常，0不正常 不为空 String
+			// 如果 状态：1正常，0不正常 不为空
 			if (StringUtils.isNotBlank(queryRequest.getState())) {
 				lqw.eq(SysPostPO::getState, queryRequest.getState());
 			}
-			// 如果 创建时间 不为空 LocalDateTime
+			// 如果 创建时间 不为空
 			if (queryRequest.getCreateTime() != null) {
 				lqw.eq(SysPostPO::getCreateTime, queryRequest.getCreateTime());
 			}
-			// 如果 更新时间 不为空 LocalDateTime
+			// 如果 更新时间 不为空
 			if (queryRequest.getUpdateTime() != null) {
 				lqw.eq(SysPostPO::getUpdateTime, queryRequest.getUpdateTime());
 			}

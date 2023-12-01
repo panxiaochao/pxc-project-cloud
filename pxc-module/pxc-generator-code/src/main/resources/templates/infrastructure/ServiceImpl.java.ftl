@@ -45,8 +45,6 @@ public class ${table.serviceImplName} implements I${entity}Service, I${entity}Re
     public List<${entity}QueryResponse> page(Pagination pagination, RequestPage<${entity}QueryRequest> pageRequest) {
         // 构造查询条件
         LambdaQueryWrapper<${entity}PO> lqw = lambdaQuery(pageRequest.getParamsObject());
-        // 默认按照主键倒序排序
-        lqw.orderByDesc(${entity}PO::getId);
         // 分页查询
         Page<${entity}PO> page = ${entity?uncap_first}Mapper.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
         pagination.setTotal(page.getTotal());
@@ -63,15 +61,19 @@ public class ${table.serviceImplName} implements I${entity}Service, I${entity}Re
         if (queryRequest != null) {
             <#list table.fields as field>
             <#if field.keyFlag>
+                // 默认按照主键倒序排序
+                lqw.orderByDesc(${entity}PO::get${field.propertyName?cap_first});
             <#-- 普通字段 -->
             <#elseif field.propertyName != logicDeletePropertyName!''>
-            // 如果 ${field.comment} 不为空 ${field.propertyType}
+                // 如果 ${field.comment} 不为空
             <#if field.propertyType="Integer">
             if (queryRequest.get${field.propertyName?cap_first}() != null) {
             <#elseif field.propertyType="LocalDateTime">
             if (queryRequest.get${field.propertyName?cap_first}() != null) {
             <#elseif field.propertyType="Long">
             if (queryRequest.get${field.propertyName?cap_first}() != null) {
+            <#elseif field.propertyType="byte[]">
+                if (queryRequest.get${field.propertyName?cap_first}() != null) {
             <#else>
             if (StringUtils.isNotBlank(queryRequest.get${field.propertyName?cap_first}())) {
             </#if>

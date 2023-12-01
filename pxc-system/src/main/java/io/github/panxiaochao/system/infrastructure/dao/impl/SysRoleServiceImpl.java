@@ -46,8 +46,6 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 	public List<SysRoleQueryResponse> page(Pagination pagination, RequestPage<SysRoleQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<SysRolePO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(SysRolePO::getId);
 		// 分页查询
 		Page<SysRolePO> page = sysRoleMapper.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
 		pagination.setTotal(page.getTotal());
@@ -62,31 +60,33 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 	private LambdaQueryWrapper<SysRolePO> lambdaQuery(SysRoleQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysRolePO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 角色名称 不为空 String
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(SysRolePO::getId);
+			// 如果 角色名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRoleName())) {
 				lqw.eq(SysRolePO::getRoleName, queryRequest.getRoleName());
 			}
-			// 如果 角色code 不为空 String
+			// 如果 角色code 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRoleCode())) {
 				lqw.eq(SysRolePO::getRoleCode, queryRequest.getRoleCode());
 			}
-			// 如果 备注 不为空 String
+			// 如果 备注 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRemark())) {
 				lqw.eq(SysRolePO::getRemark, queryRequest.getRemark());
 			}
-			// 如果 排序 不为空 Integer
+			// 如果 排序 不为空
 			if (queryRequest.getSort() != null) {
 				lqw.eq(SysRolePO::getSort, queryRequest.getSort());
 			}
-			// 如果 状态：1正常，0不正常 不为空 String
+			// 如果 状态：1正常，0不正常 不为空
 			if (StringUtils.isNotBlank(queryRequest.getState())) {
 				lqw.eq(SysRolePO::getState, queryRequest.getState());
 			}
-			// 如果 创建时间 不为空 LocalDateTime
+			// 如果 创建时间 不为空
 			if (queryRequest.getCreateTime() != null) {
 				lqw.eq(SysRolePO::getCreateTime, queryRequest.getCreateTime());
 			}
-			// 如果 更新时间 不为空 LocalDateTime
+			// 如果 更新时间 不为空
 			if (queryRequest.getUpdateTime() != null) {
 				lqw.eq(SysRolePO::getUpdateTime, queryRequest.getUpdateTime());
 			}

@@ -47,8 +47,6 @@ public class SysDictItemServiceImpl implements ISysDictItemService, ISysDictItem
 			RequestPage<SysDictItemQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<SysDictItemPO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(SysDictItemPO::getId);
 		// 分页查询
 		Page<SysDictItemPO> page = sysDictItemMapper
 			.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
@@ -64,35 +62,37 @@ public class SysDictItemServiceImpl implements ISysDictItemService, ISysDictItem
 	private LambdaQueryWrapper<SysDictItemPO> lambdaQuery(SysDictItemQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysDictItemPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 字典关联ID 不为空 Long
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(SysDictItemPO::getId);
+			// 如果 字典关联ID 不为空
 			if (queryRequest.getDictId() != null) {
 				lqw.eq(SysDictItemPO::getDictId, queryRequest.getDictId());
 			}
-			// 如果 字典名称 不为空 String
+			// 如果 字典名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getDictItemText())) {
 				lqw.eq(SysDictItemPO::getDictItemText, queryRequest.getDictItemText());
 			}
-			// 如果 字典code 不为空 String
+			// 如果 字典code 不为空
 			if (StringUtils.isNotBlank(queryRequest.getDictItemValue())) {
 				lqw.eq(SysDictItemPO::getDictItemValue, queryRequest.getDictItemValue());
 			}
-			// 如果 描述 不为空 String
+			// 如果 描述 不为空
 			if (StringUtils.isNotBlank(queryRequest.getDescription())) {
 				lqw.eq(SysDictItemPO::getDescription, queryRequest.getDescription());
 			}
-			// 如果 排序 不为空 Integer
+			// 如果 排序 不为空
 			if (queryRequest.getSort() != null) {
 				lqw.eq(SysDictItemPO::getSort, queryRequest.getSort());
 			}
-			// 如果 状态：1正常，0不正常 不为空 String
+			// 如果 状态：1正常，0不正常 不为空
 			if (StringUtils.isNotBlank(queryRequest.getState())) {
 				lqw.eq(SysDictItemPO::getState, queryRequest.getState());
 			}
-			// 如果 创建时间 不为空 LocalDateTime
+			// 如果 创建时间 不为空
 			if (queryRequest.getCreateTime() != null) {
 				lqw.eq(SysDictItemPO::getCreateTime, queryRequest.getCreateTime());
 			}
-			// 如果 更新时间 不为空 LocalDateTime
+			// 如果 更新时间 不为空
 			if (queryRequest.getUpdateTime() != null) {
 				lqw.eq(SysDictItemPO::getUpdateTime, queryRequest.getUpdateTime());
 			}

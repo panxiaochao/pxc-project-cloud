@@ -46,8 +46,6 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService, ISysUserRole
 			RequestPage<SysUserRoleQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<SysUserRolePO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(SysUserRolePO::getId);
 		// 分页查询
 		Page<SysUserRolePO> page = sysUserRoleMapper
 			.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
@@ -63,19 +61,21 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService, ISysUserRole
 	private LambdaQueryWrapper<SysUserRolePO> lambdaQuery(SysUserRoleQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysUserRolePO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 用户ID 不为空 Integer
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(SysUserRolePO::getId);
+			// 如果 用户ID 不为空
 			if (queryRequest.getUserId() != null) {
 				lqw.eq(SysUserRolePO::getUserId, queryRequest.getUserId());
 			}
-			// 如果 角色ID 不为空 Integer
+			// 如果 角色ID 不为空
 			if (queryRequest.getRoleId() != null) {
 				lqw.eq(SysUserRolePO::getRoleId, queryRequest.getRoleId());
 			}
-			// 如果 创建时间 不为空 LocalDateTime
+			// 如果 创建时间 不为空
 			if (queryRequest.getCreateTime() != null) {
 				lqw.eq(SysUserRolePO::getCreateTime, queryRequest.getCreateTime());
 			}
-			// 如果 更新时间 不为空 LocalDateTime
+			// 如果 更新时间 不为空
 			if (queryRequest.getUpdateTime() != null) {
 				lqw.eq(SysUserRolePO::getUpdateTime, queryRequest.getUpdateTime());
 			}

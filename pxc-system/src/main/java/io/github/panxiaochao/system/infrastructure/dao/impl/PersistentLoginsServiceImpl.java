@@ -47,8 +47,6 @@ public class PersistentLoginsServiceImpl implements IPersistentLoginsService, IP
 			RequestPage<PersistentLoginsQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<PersistentLoginsPO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(PersistentLoginsPO::getId);
 		// 分页查询
 		Page<PersistentLoginsPO> page = persistentLoginsMapper
 			.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
@@ -64,15 +62,17 @@ public class PersistentLoginsServiceImpl implements IPersistentLoginsService, IP
 	private LambdaQueryWrapper<PersistentLoginsPO> lambdaQuery(PersistentLoginsQueryRequest queryRequest) {
 		LambdaQueryWrapper<PersistentLoginsPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 不为空 String
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getUsername())) {
 				lqw.eq(PersistentLoginsPO::getUsername, queryRequest.getUsername());
 			}
-			// 如果 不为空 String
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(PersistentLoginsPO::getSeries);
+			// 如果 不为空
 			if (StringUtils.isNotBlank(queryRequest.getToken())) {
 				lqw.eq(PersistentLoginsPO::getToken, queryRequest.getToken());
 			}
-			// 如果 不为空 LocalDateTime
+			// 如果 不为空
 			if (queryRequest.getLastUsed() != null) {
 				lqw.eq(PersistentLoginsPO::getLastUsed, queryRequest.getLastUsed());
 			}

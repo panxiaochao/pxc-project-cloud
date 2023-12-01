@@ -45,8 +45,6 @@ public class SysUserOrgServiceImpl implements ISysUserOrgService, ISysUserOrgRea
 	public List<SysUserOrgQueryResponse> page(Pagination pagination, RequestPage<SysUserOrgQueryRequest> pageRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<SysUserOrgPO> lqw = lambdaQuery(pageRequest.getParamsObject());
-		// 默认按照主键倒序排序
-		lqw.orderByDesc(SysUserOrgPO::getId);
 		// 分页查询
 		Page<SysUserOrgPO> page = sysUserOrgMapper.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()),
 				lqw);
@@ -62,19 +60,21 @@ public class SysUserOrgServiceImpl implements ISysUserOrgService, ISysUserOrgRea
 	private LambdaQueryWrapper<SysUserOrgPO> lambdaQuery(SysUserOrgQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysUserOrgPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 如果 用户ID 不为空 Integer
+			// 默认按照主键倒序排序
+			lqw.orderByDesc(SysUserOrgPO::getId);
+			// 如果 用户ID 不为空
 			if (queryRequest.getUserId() != null) {
 				lqw.eq(SysUserOrgPO::getUserId, queryRequest.getUserId());
 			}
-			// 如果 机构ID 不为空 Integer
+			// 如果 机构ID 不为空
 			if (queryRequest.getDepartId() != null) {
 				lqw.eq(SysUserOrgPO::getDepartId, queryRequest.getDepartId());
 			}
-			// 如果 创建时间 不为空 LocalDateTime
+			// 如果 创建时间 不为空
 			if (queryRequest.getCreateTime() != null) {
 				lqw.eq(SysUserOrgPO::getCreateTime, queryRequest.getCreateTime());
 			}
-			// 如果 更新时间 不为空 LocalDateTime
+			// 如果 更新时间 不为空
 			if (queryRequest.getUpdateTime() != null) {
 				lqw.eq(SysUserOrgPO::getUpdateTime, queryRequest.getUpdateTime());
 			}
