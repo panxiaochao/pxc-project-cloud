@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -93,5 +93,4 @@ public class SysArea {
 	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
-
 }

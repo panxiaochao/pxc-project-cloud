@@ -15,7 +15,7 @@ import java.util.List;
  * 全国5级行政区划数据传输对象结构映射
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface ISysAreaDTOConvert {
@@ -66,5 +66,4 @@ public interface ISysAreaDTOConvert {
 	 * @return 全国5级行政区划查询响应数据传输对象列表
 	 */
 	List<SysAreaQueryResponse> toQueryResponse(List<SysArea> sysAreaList);
-
 }

@@ -8,10 +8,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>全国5级行政区划更新请求对象</p>
+ * <p>
+ * 全国5级行政区划更新请求对象
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter

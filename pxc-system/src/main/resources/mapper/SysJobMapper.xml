@@ -13,7 +13,7 @@
         <result column="method_params" property="methodParams"/>
         <result column="params_type" property="paramsType"/>
         <result column="cron_expression" property="cronExpression"/>
-        <result column="job_status" property="jobStatus"/>
+        <result column="job_state" property="jobState"/>
         <result column="remark" property="remark"/>
         <result column="create_id" property="createId"/>
         <result column="create_time" property="createTime"/>
@@ -23,7 +23,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        , job_code, job_name, job_group, invoke_bean, invoke_method, method_params, params_type, cron_expression, job_status, remark, create_id, create_time, update_time
+        , job_code, job_name, job_group, invoke_bean, invoke_method, method_params, params_type, cron_expression, job_state, remark, create_id, create_time, update_time
     </sql>
 
 </mapper>

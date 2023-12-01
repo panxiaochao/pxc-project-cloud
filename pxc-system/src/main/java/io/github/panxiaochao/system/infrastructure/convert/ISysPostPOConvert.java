@@ -12,7 +12,7 @@ import java.util.List;
  * 岗位表持久化对象结构映射
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface ISysPostPOConvert {
@@ -63,5 +63,4 @@ public interface ISysPostPOConvert {
 	 * @return 岗位表查询响应数据传输对象列表
 	 */
 	List<SysPostQueryResponse> toQueryResponse(List<SysPostPO> sysPostPOList);
-
 }

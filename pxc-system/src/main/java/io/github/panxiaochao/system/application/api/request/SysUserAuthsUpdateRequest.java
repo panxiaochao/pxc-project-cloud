@@ -8,20 +8,23 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>用户授权信息表更新请求对象</p>
+ * <p>
+ * 用户授权信息表更新请求对象
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
 @ToString
 @Schema(description = "用户授权信息表更新请求对象")
 public class SysUserAuthsUpdateRequest {
-    /**
-     * 主键
-     */
-    @Schema(description = "主键")
+
+	/**
+	 * 唯一标识
+	 */
+	@Schema(description = "唯一标识")
     private String id;
 
     /**

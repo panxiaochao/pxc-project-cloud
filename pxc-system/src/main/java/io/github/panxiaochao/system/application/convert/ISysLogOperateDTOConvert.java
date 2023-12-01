@@ -15,7 +15,7 @@ import java.util.List;
  * 系统日志操作表数据传输对象结构映射
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface ISysLogOperateDTOConvert {
@@ -66,5 +66,4 @@ public interface ISysLogOperateDTOConvert {
 	 * @return 系统日志操作表查询响应数据传输对象列表
 	 */
 	List<SysLogOperateQueryResponse> toQueryResponse(List<SysLogOperate> sysLogOperateList);
-
 }

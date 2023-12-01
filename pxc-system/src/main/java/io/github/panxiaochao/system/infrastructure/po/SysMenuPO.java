@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * <p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -122,16 +122,16 @@ public class SysMenuPO {
 	private String isHidden;
 
 	/**
-	 * 描述
+	 * 备注
 	 */
-	@TableField("`description`")
-	private String description;
+	@TableField("remark")
+	private String remark;
 
 	/**
 	 * 状态：1正常，0不正常
 	 */
-	@TableField("`status`")
-	private String status;
+	@TableField("state")
+	private String state;
 
 	/**
 	 * 排序
@@ -156,5 +156,4 @@ public class SysMenuPO {
 	 */
 	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
-
 }

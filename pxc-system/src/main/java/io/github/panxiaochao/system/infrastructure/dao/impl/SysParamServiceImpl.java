@@ -25,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Service
 @RequiredArgsConstructor
@@ -80,8 +80,8 @@ public class SysParamServiceImpl implements ISysParamService, ISysParamReadModel
 				lqw.eq(SysParamPO::getParamType, queryRequest.getParamType());
 			}
 			// 如果 状态1-正常 0-删除 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getStatus())) {
-				lqw.eq(SysParamPO::getStatus, queryRequest.getStatus());
+			if (StringUtils.isNotBlank(queryRequest.getState())) {
+				lqw.eq(SysParamPO::getState, queryRequest.getState());
 			}
 			// 如果 创建时间 不为空 LocalDateTime
 			if (queryRequest.getCreateTime() != null) {
@@ -138,3 +138,4 @@ public class SysParamServiceImpl implements ISysParamService, ISysParamReadModel
 	}
 
 }
+

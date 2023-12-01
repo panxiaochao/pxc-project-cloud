@@ -12,7 +12,7 @@ import java.util.List;
  * 角色表持久化对象结构映射
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface ISysRolePOConvert {
@@ -63,5 +63,4 @@ public interface ISysRolePOConvert {
 	 * @return 角色表查询响应数据传输对象列表
 	 */
 	List<SysRoleQueryResponse> toQueryResponse(List<SysRolePO> sysRolePOList);
-
 }

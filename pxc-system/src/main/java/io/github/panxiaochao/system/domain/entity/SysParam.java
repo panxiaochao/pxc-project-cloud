@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -47,7 +47,7 @@ public class SysParam {
 	/**
 	 * 状态1-正常 0-删除
 	 */
-	private String status;
+	private String state;
 
 	/**
 	 * 创建时间
@@ -58,5 +58,4 @@ public class SysParam {
 	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
-
 }

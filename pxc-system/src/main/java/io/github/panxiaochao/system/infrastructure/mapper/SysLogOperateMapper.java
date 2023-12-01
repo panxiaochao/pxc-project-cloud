@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- * 系统日志操作表 持久化接口
+ * 系统日志操作表 持久化接口.
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface SysLogOperateMapper extends BaseMapper<SysLogOperatePO> {

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * <p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -74,12 +74,6 @@ public class SysOrgPO {
 	private String orgCode;
 
 	/**
-	 * 描述
-	 */
-	@TableField("`description`")
-	private String description;
-
-	/**
 	 * 排序
 	 */
 	@TableField("sort")
@@ -112,8 +106,8 @@ public class SysOrgPO {
 	/**
 	 * 状态：1正常，0不正常
 	 */
-	@TableField("`status`")
-	private String status;
+	@TableField("state")
+	private String state;
 
 	/**
 	 * 备注
@@ -132,5 +126,4 @@ public class SysOrgPO {
 	 */
 	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
-
 }

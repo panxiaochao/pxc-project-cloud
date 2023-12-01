@@ -20,8 +20,8 @@
         <result column="is_route" property="isRoute"/>
         <result column="keep_alive" property="keepAlive"/>
         <result column="is_hidden" property="isHidden"/>
-        <result column="description" property="description"/>
-        <result column="status" property="status"/>
+        <result column="remark" property="remark"/>
+        <result column="state" property="state"/>
         <result column="sort" property="sort"/>
         <result column="create_id" property="createId"/>
         <result column="create_time" property="createTime"/>
@@ -31,7 +31,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        , parent_id, menu_name, url, redirect_url, `component`, component_name, permission_code, permission_status, icon, menu_type, open_type, is_display, is_route, keep_alive, is_hidden, `description`, `status`, sort, create_id, create_time, update_time
+        , parent_id, menu_name, url, redirect_url, `component`, component_name, permission_code, permission_status, icon, menu_type, open_type, is_display, is_route, keep_alive, is_hidden, remark, state, sort, create_id, create_time, update_time
     </sql>
 
 </mapper>

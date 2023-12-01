@@ -25,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Service
 @RequiredArgsConstructor
@@ -92,9 +92,9 @@ public class FileAccessoryServiceImpl implements IFileAccessoryService, IFileAcc
 			if (queryRequest.getLinkId() != null) {
 				lqw.eq(FileAccessoryPO::getLinkId, queryRequest.getLinkId());
 			}
-			// 如果 附件状态1正常，0失效 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getStatus())) {
-				lqw.eq(FileAccessoryPO::getStatus, queryRequest.getStatus());
+			// 如果 状态1正常，0失效 不为空 String
+			if (StringUtils.isNotBlank(queryRequest.getState())) {
+				lqw.eq(FileAccessoryPO::getState, queryRequest.getState());
 			}
 			// 如果 创建人 不为空 Long
 			if (queryRequest.getCreateId() != null) {
@@ -155,3 +155,4 @@ public class FileAccessoryServiceImpl implements IFileAccessoryService, IFileAcc
 	}
 
 }
+

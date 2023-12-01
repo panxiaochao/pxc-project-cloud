@@ -8,7 +8,7 @@ import io.github.panxiaochao.system.domain.entity.SysPost;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 public interface ISysPostService {
 
@@ -37,5 +37,4 @@ public interface ISysPostService {
 	 * @param id 主键
 	 */
 	void deleteById(String id);
-
 }

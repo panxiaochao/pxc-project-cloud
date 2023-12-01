@@ -12,7 +12,7 @@ import java.util.List;
  * 用户机构/部门表持久化对象结构映射
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface ISysUserOrgPOConvert {
@@ -63,5 +63,4 @@ public interface ISysUserOrgPOConvert {
 	 * @return 用户机构/部门表查询响应数据传输对象列表
 	 */
 	List<SysUserOrgQueryResponse> toQueryResponse(List<SysUserOrgPO> sysUserOrgPOList);
-
 }

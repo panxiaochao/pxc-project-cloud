@@ -8,10 +8,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>机构部门表响应对象</p>
+ * <p>
+ * 机构部门表响应对象
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -67,12 +69,6 @@ public class SysOrgResponse {
     private String orgCode;
         
     /**
-     * 描述
-    */
-    @Schema(description = "描述")
-    private String description;
-        
-    /**
      * 排序
     */
     @Schema(description = "排序")
@@ -106,7 +102,7 @@ public class SysOrgResponse {
      * 状态：1正常，0不正常
     */
     @Schema(description = "状态：1正常，0不正常")
-    private String status;
+	private String state;
         
     /**
      * 备注

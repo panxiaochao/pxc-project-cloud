@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- * 全国5级行政区划 持久化接口
+ * 全国5级行政区划 持久化接口.
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface SysAreaMapper extends BaseMapper<SysAreaPO> {

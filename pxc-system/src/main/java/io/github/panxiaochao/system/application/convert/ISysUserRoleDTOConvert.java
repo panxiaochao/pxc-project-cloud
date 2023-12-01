@@ -15,7 +15,7 @@ import java.util.List;
  * 用户角色表数据传输对象结构映射
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface ISysUserRoleDTOConvert {
@@ -66,5 +66,4 @@ public interface ISysUserRoleDTOConvert {
 	 * @return 用户角色表查询响应数据传输对象列表
 	 */
 	List<SysUserRoleQueryResponse> toQueryResponse(List<SysUserRole> sysUserRoleList);
-
 }

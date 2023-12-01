@@ -25,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Service
 @RequiredArgsConstructor
@@ -110,9 +110,9 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
 			if (StringUtils.isNotBlank(queryRequest.getRemark())) {
 				lqw.eq(SysUserPO::getRemark, queryRequest.getRemark());
 			}
-			// 如果 人员状态：1正常，0不正常 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getStatus())) {
-				lqw.eq(SysUserPO::getStatus, queryRequest.getStatus());
+			// 如果 状态：1正常，0不正常 不为空 String
+			if (StringUtils.isNotBlank(queryRequest.getState())) {
+				lqw.eq(SysUserPO::getState, queryRequest.getState());
 			}
 			// 如果 皮肤风格 不为空 String
 			if (StringUtils.isNotBlank(queryRequest.getSkins())) {
@@ -197,3 +197,4 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
 	}
 
 }
+

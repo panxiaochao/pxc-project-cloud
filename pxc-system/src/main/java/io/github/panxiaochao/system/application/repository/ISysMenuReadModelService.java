@@ -13,7 +13,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 public interface ISysMenuReadModelService {
 

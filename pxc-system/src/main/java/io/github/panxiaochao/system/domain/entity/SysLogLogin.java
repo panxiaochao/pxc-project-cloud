@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -57,11 +57,10 @@ public class SysLogLogin {
 	/**
 	 * 状态: 1-成功 0-失败
 	 */
-	private String status;
+	private String state;
 
 	/**
 	 * 创建时间
 	 */
 	private LocalDateTime createTime;
-
 }

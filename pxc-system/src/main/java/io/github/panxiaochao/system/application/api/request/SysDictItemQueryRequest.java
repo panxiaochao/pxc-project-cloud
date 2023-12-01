@@ -8,10 +8,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>数据字典配置表查询请求对象</p>
+ * <p>
+ * 数据字典配置表查询请求对象
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -58,7 +60,7 @@ public class SysDictItemQueryRequest {
      * 状态：1正常，0不正常
      */
     @Schema(description = "状态：1正常，0不正常")
-    private String status;
+	private String state;
 
     /**
      * 创建时间

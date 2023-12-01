@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * <p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -104,10 +104,10 @@ public class SysUserPO {
 	private String remark;
 
 	/**
-	 * 人员状态：1正常，0不正常
+	 * 状态：1正常，0不正常
 	 */
-	@TableField("`status`")
-	private String status;
+	@TableField("state")
+	private String state;
 
 	/**
 	 * 皮肤风格
@@ -162,5 +162,4 @@ public class SysUserPO {
 	 */
 	@TableField("expire_time")
 	private LocalDateTime expireTime;
-
 }

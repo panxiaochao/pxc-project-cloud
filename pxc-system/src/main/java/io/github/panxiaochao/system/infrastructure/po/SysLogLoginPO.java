@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * <p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -70,13 +70,12 @@ public class SysLogLoginPO {
 	/**
 	 * 状态: 1-成功 0-失败
 	 */
-	@TableField("`status`")
-	private String status;
+	@TableField("state")
+	private String state;
 
 	/**
 	 * 创建时间
 	 */
 	@TableField(value = "create_time", fill = FieldFill.INSERT)
 	private LocalDateTime createTime;
-
 }

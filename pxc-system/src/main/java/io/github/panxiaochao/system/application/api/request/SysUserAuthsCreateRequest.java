@@ -8,10 +8,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>用户授权信息表创建请求对象</p>
+ * <p>
+ * 用户授权信息表创建请求对象
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter

@@ -25,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Service
 @RequiredArgsConstructor
@@ -95,8 +95,8 @@ public class SysJobServiceImpl implements ISysJobService, ISysJobReadModelServic
 				lqw.eq(SysJobPO::getCronExpression, queryRequest.getCronExpression());
 			}
 			// 如果 任务状态：1=正常 0=停用 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getJobStatus())) {
-				lqw.eq(SysJobPO::getJobStatus, queryRequest.getJobStatus());
+			if (StringUtils.isNotBlank(queryRequest.getJobState())) {
+				lqw.eq(SysJobPO::getJobState, queryRequest.getJobState());
 			}
 			// 如果 备注 不为空 String
 			if (StringUtils.isNotBlank(queryRequest.getRemark())) {
@@ -161,3 +161,4 @@ public class SysJobServiceImpl implements ISysJobService, ISysJobReadModelServic
 	}
 
 }
+

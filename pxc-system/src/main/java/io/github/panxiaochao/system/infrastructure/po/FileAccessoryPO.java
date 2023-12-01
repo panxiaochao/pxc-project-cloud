@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * <p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -74,10 +74,10 @@ public class FileAccessoryPO {
 	private Long linkId;
 
 	/**
-	 * 附件状态1正常，0失效
+	 * 状态1正常，0失效
 	 */
-	@TableField("`status`")
-	private String status;
+	@TableField("state")
+	private String state;
 
 	/**
 	 * 创建人
@@ -96,5 +96,4 @@ public class FileAccessoryPO {
 	 */
 	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
-
 }

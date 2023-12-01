@@ -25,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Service
 @RequiredArgsConstructor
@@ -90,10 +90,6 @@ public class SysOrgServiceImpl implements ISysOrgService, ISysOrgReadModelServic
 			if (StringUtils.isNotBlank(queryRequest.getOrgCode())) {
 				lqw.eq(SysOrgPO::getOrgCode, queryRequest.getOrgCode());
 			}
-			// 如果 描述 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getDescription())) {
-				lqw.eq(SysOrgPO::getDescription, queryRequest.getDescription());
-			}
 			// 如果 排序 不为空 Integer
 			if (queryRequest.getSort() != null) {
 				lqw.eq(SysOrgPO::getSort, queryRequest.getSort());
@@ -115,8 +111,8 @@ public class SysOrgServiceImpl implements ISysOrgService, ISysOrgReadModelServic
 				lqw.eq(SysOrgPO::getAddress, queryRequest.getAddress());
 			}
 			// 如果 状态：1正常，0不正常 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getStatus())) {
-				lqw.eq(SysOrgPO::getStatus, queryRequest.getStatus());
+			if (StringUtils.isNotBlank(queryRequest.getState())) {
+				lqw.eq(SysOrgPO::getState, queryRequest.getState());
 			}
 			// 如果 备注 不为空 String
 			if (StringUtils.isNotBlank(queryRequest.getRemark())) {
@@ -177,3 +173,4 @@ public class SysOrgServiceImpl implements ISysOrgService, ISysOrgReadModelServic
 	}
 
 }
+

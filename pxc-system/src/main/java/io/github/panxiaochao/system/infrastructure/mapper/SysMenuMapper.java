@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- * 菜单配置 持久化接口
+ * 菜单配置 持久化接口.
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenuPO> {

@@ -12,7 +12,7 @@
         <result column="file_path" property="filePath"/>
         <result column="module" property="module"/>
         <result column="link_id" property="linkId"/>
-        <result column="status" property="status"/>
+        <result column="state" property="state"/>
         <result column="create_id" property="createId"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
@@ -21,7 +21,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        , file_name, real_name, file_size, file_type, file_path, module, link_id, `status`, create_id, create_time, update_time
+        , file_name, real_name, file_size, file_type, file_path, module, link_id, state, create_id, create_time, update_time
     </sql>
 
 </mapper>

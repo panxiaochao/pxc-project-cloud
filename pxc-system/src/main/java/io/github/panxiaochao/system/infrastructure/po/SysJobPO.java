@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * <p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -82,8 +82,8 @@ public class SysJobPO {
 	/**
 	 * 任务状态：1=正常 0=停用
 	 */
-	@TableField("job_status")
-	private String jobStatus;
+	@TableField("job_state")
+	private String jobState;
 
 	/**
 	 * 备注
@@ -108,5 +108,4 @@ public class SysJobPO {
 	 */
 	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
-
 }

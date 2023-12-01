@@ -8,10 +8,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>菜单配置创建请求对象</p>
+ * <p>
+ * 菜单配置创建请求对象
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -110,16 +112,16 @@ public class SysMenuCreateRequest {
     private String isHidden;
 
     /**
-     * 描述
-     */
-    @Schema(description = "描述")
-    private String description;
+	 * 备注
+	 */
+	@Schema(description = "备注")
+	private String remark;
 
     /**
      * 状态：1正常，0不正常
      */
     @Schema(description = "状态：1正常，0不正常")
-    private String status;
+	private String state;
 
     /**
      * 排序

@@ -8,10 +8,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>用户表查询请求对象</p>
+ * <p>
+ * 用户表查询请求对象
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -97,10 +99,10 @@ public class SysUserQueryRequest {
     private String remark;
 
     /**
-     * 人员状态：1正常，0不正常
-     */
-    @Schema(description = "人员状态：1正常，0不正常")
-    private String status;
+	 * 状态：1正常，0不正常
+	 */
+	@Schema(description = "状态：1正常，0不正常")
+	private String state;
 
     /**
      * 皮肤风格

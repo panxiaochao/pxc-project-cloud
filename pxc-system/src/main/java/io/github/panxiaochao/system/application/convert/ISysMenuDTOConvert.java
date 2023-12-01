@@ -15,7 +15,7 @@ import java.util.List;
  * 菜单配置数据传输对象结构映射
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface ISysMenuDTOConvert {
@@ -66,5 +66,4 @@ public interface ISysMenuDTOConvert {
 	 * @return 菜单配置查询响应数据传输对象列表
 	 */
 	List<SysMenuQueryResponse> toQueryResponse(List<SysMenu> sysMenuList);
-
 }

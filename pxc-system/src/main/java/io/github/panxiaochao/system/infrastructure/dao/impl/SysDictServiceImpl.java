@@ -25,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Service
 @RequiredArgsConstructor
@@ -74,17 +74,17 @@ public class SysDictServiceImpl implements ISysDictService, ISysDictReadModelSer
 			if (queryRequest.getDictType() != null) {
 				lqw.eq(SysDictPO::getDictType, queryRequest.getDictType());
 			}
-			// 如果 描述 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getDescription())) {
-				lqw.eq(SysDictPO::getDescription, queryRequest.getDescription());
+			// 如果 备注 不为空 String
+			if (StringUtils.isNotBlank(queryRequest.getRemark())) {
+				lqw.eq(SysDictPO::getRemark, queryRequest.getRemark());
 			}
 			// 如果 排序 不为空 Integer
 			if (queryRequest.getSort() != null) {
 				lqw.eq(SysDictPO::getSort, queryRequest.getSort());
 			}
 			// 如果 状态：1正常，0不正常 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getStatus())) {
-				lqw.eq(SysDictPO::getStatus, queryRequest.getStatus());
+			if (StringUtils.isNotBlank(queryRequest.getState())) {
+				lqw.eq(SysDictPO::getState, queryRequest.getState());
 			}
 			// 如果 创建时间 不为空 LocalDateTime
 			if (queryRequest.getCreateTime() != null) {
@@ -141,3 +141,4 @@ public class SysDictServiceImpl implements ISysDictService, ISysDictReadModelSer
 	}
 
 }
+

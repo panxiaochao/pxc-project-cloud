@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -85,9 +85,9 @@ public class SysUser {
 	private String remark;
 
 	/**
-	 * 人员状态：1正常，0不正常
+	 * 状态：1正常，0不正常
 	 */
-	private String status;
+	private String state;
 
 	/**
 	 * 皮肤风格
@@ -133,5 +133,4 @@ public class SysUser {
 	 * 帐号超时期限
 	 */
 	private LocalDateTime expireTime;
-
 }

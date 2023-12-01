@@ -25,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Service
 @RequiredArgsConstructor
@@ -89,8 +89,8 @@ public class SysLogLoginServiceImpl implements ISysLogLoginService, ISysLogLogin
 				lqw.eq(SysLogLoginPO::getOs, queryRequest.getOs());
 			}
 			// 如果 状态: 1-成功 0-失败 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getStatus())) {
-				lqw.eq(SysLogLoginPO::getStatus, queryRequest.getStatus());
+			if (StringUtils.isNotBlank(queryRequest.getState())) {
+				lqw.eq(SysLogLoginPO::getState, queryRequest.getState());
 			}
 			// 如果 创建时间 不为空 LocalDateTime
 			if (queryRequest.getCreateTime() != null) {
@@ -143,3 +143,4 @@ public class SysLogLoginServiceImpl implements ISysLogLoginService, ISysLogLogin
 	}
 
 }
+

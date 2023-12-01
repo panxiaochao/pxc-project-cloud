@@ -15,7 +15,7 @@ import java.util.List;
  * 系统参数数据传输对象结构映射
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface ISysParamDTOConvert {
@@ -66,5 +66,4 @@ public interface ISysParamDTOConvert {
 	 * @return 系统参数查询响应数据传输对象列表
 	 */
 	List<SysParamQueryResponse> toQueryResponse(List<SysParam> sysParamList);
-
 }

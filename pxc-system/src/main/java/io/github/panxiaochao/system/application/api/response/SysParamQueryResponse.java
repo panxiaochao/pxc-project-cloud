@@ -8,10 +8,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>系统参数查询响应对象.</p>
+ * <p>
+ * 系统参数查询响应对象.
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -52,7 +54,7 @@ public class SysParamQueryResponse {
     * 状态1-正常 0-删除
     */
     @Schema(description = "状态1-正常 0-删除")
-    private String status;
+	private String state;
 
     /**
     * 创建时间

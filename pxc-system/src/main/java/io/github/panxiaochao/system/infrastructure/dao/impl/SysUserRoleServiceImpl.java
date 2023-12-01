@@ -24,7 +24,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Service
 @RequiredArgsConstructor
@@ -126,3 +126,4 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService, ISysUserRole
 	}
 
 }
+

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * <p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 public class SysUserAuthsPO {
 
 	/**
-	 * 主键
+	 * 唯一标识
 	 */
 	@TableId(value = "id", type = IdType.AUTO)
 	private Integer id;
@@ -78,5 +78,4 @@ public class SysUserAuthsPO {
 	 */
 	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
-
 }

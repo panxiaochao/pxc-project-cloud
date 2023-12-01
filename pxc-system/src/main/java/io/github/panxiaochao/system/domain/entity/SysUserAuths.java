@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class SysUserAuths {
 
 	/**
-	 * 主键
+	 * 唯一标识
 	 */
 	private String id;
 
@@ -63,5 +63,4 @@ public class SysUserAuths {
 	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
-
 }

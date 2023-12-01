@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- * 用户机构/部门表 持久化接口
+ * 用户机构/部门表 持久化接口.
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface SysUserOrgMapper extends BaseMapper<SysUserOrgPO> {

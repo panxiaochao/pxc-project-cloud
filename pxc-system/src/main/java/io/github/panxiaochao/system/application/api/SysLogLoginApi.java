@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p> 系统日志登录/登出表 接口.</p>
+ * <p>
+ * 系统日志登录/登出表 接口.
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Tag(name = "系统日志登录/登出表 接口", description = "系统日志登录/登出表 Api接口")
 @RequiredArgsConstructor

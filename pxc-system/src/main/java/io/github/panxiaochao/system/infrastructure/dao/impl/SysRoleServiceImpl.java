@@ -25,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Service
 @RequiredArgsConstructor
@@ -70,17 +70,17 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 			if (StringUtils.isNotBlank(queryRequest.getRoleCode())) {
 				lqw.eq(SysRolePO::getRoleCode, queryRequest.getRoleCode());
 			}
-			// 如果 描述 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getDescription())) {
-				lqw.eq(SysRolePO::getDescription, queryRequest.getDescription());
+			// 如果 备注 不为空 String
+			if (StringUtils.isNotBlank(queryRequest.getRemark())) {
+				lqw.eq(SysRolePO::getRemark, queryRequest.getRemark());
 			}
 			// 如果 排序 不为空 Integer
 			if (queryRequest.getSort() != null) {
 				lqw.eq(SysRolePO::getSort, queryRequest.getSort());
 			}
 			// 如果 状态：1正常，0不正常 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getStatus())) {
-				lqw.eq(SysRolePO::getStatus, queryRequest.getStatus());
+			if (StringUtils.isNotBlank(queryRequest.getState())) {
+				lqw.eq(SysRolePO::getState, queryRequest.getState());
 			}
 			// 如果 创建时间 不为空 LocalDateTime
 			if (queryRequest.getCreateTime() != null) {
@@ -137,3 +137,4 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 	}
 
 }
+

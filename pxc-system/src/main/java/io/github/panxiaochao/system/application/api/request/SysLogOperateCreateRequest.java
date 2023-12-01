@@ -8,10 +8,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>系统日志操作表创建请求对象</p>
+ * <p>
+ * 系统日志操作表创建请求对象
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -71,7 +73,7 @@ public class SysLogOperateCreateRequest {
      * 是否成功
      */
     @Schema(description = "是否成功")
-    private String status;
+	private String state;
 
     /**
      * 浏览器

@@ -8,7 +8,7 @@ import io.github.panxiaochao.system.domain.entity.SysArea;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 public interface ISysAreaService {
 
@@ -37,5 +37,4 @@ public interface ISysAreaService {
 	 * @param id 主键
 	 */
 	void deleteById(String id);
-
 }

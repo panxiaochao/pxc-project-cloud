@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -67,7 +67,7 @@ public class SysLogOperate {
 	/**
 	 * 是否成功
 	 */
-	private String status;
+	private String state;
 
 	/**
 	 * 浏览器
@@ -83,5 +83,4 @@ public class SysLogOperate {
 	 * 创建时间
 	 */
 	private LocalDateTime createTime;
-
 }

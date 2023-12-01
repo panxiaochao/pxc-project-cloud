@@ -15,7 +15,7 @@ import java.util.List;
  * 用户表数据传输对象结构映射
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface ISysUserDTOConvert {
@@ -66,5 +66,4 @@ public interface ISysUserDTOConvert {
 	 * @return 用户表查询响应数据传输对象列表
 	 */
 	List<SysUserQueryResponse> toQueryResponse(List<SysUser> sysUserList);
-
 }

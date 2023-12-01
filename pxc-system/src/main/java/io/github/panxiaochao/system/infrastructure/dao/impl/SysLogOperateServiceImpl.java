@@ -25,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Service
 @RequiredArgsConstructor
@@ -97,8 +97,8 @@ public class SysLogOperateServiceImpl implements ISysLogOperateService, ISysLogO
 				lqw.eq(SysLogOperatePO::getCostTime, queryRequest.getCostTime());
 			}
 			// 如果 是否成功 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getStatus())) {
-				lqw.eq(SysLogOperatePO::getStatus, queryRequest.getStatus());
+			if (StringUtils.isNotBlank(queryRequest.getState())) {
+				lqw.eq(SysLogOperatePO::getState, queryRequest.getState());
 			}
 			// 如果 浏览器 不为空 String
 			if (StringUtils.isNotBlank(queryRequest.getBrowser())) {
@@ -159,3 +159,4 @@ public class SysLogOperateServiceImpl implements ISysLogOperateService, ISysLogO
 	}
 
 }
+

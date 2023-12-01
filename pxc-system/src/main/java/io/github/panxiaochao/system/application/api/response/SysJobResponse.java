@@ -8,10 +8,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>定时任务调度表响应对象</p>
+ * <p>
+ * 定时任务调度表响应对象
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -76,7 +78,7 @@ public class SysJobResponse {
      * 任务状态：1=正常 0=停用
     */
     @Schema(description = "任务状态：1=正常 0=停用")
-    private String jobStatus;
+	private String jobState;
         
     /**
      * 备注

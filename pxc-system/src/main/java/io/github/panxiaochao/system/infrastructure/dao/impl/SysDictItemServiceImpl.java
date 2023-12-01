@@ -25,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Service
 @RequiredArgsConstructor
@@ -85,8 +85,8 @@ public class SysDictItemServiceImpl implements ISysDictItemService, ISysDictItem
 				lqw.eq(SysDictItemPO::getSort, queryRequest.getSort());
 			}
 			// 如果 状态：1正常，0不正常 不为空 String
-			if (StringUtils.isNotBlank(queryRequest.getStatus())) {
-				lqw.eq(SysDictItemPO::getStatus, queryRequest.getStatus());
+			if (StringUtils.isNotBlank(queryRequest.getState())) {
+				lqw.eq(SysDictItemPO::getState, queryRequest.getState());
 			}
 			// 如果 创建时间 不为空 LocalDateTime
 			if (queryRequest.getCreateTime() != null) {
@@ -143,3 +143,4 @@ public class SysDictItemServiceImpl implements ISysDictItemService, ISysDictItem
 	}
 
 }
+

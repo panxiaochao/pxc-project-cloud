@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- * 定时任务调度表 持久化接口
+ * 定时任务调度表 持久化接口.
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Mapper
 public interface SysJobMapper extends BaseMapper<SysJobPO> {

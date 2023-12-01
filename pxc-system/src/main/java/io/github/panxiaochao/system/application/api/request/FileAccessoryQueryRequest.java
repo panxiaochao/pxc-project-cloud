@@ -8,10 +8,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>附件表查询请求对象</p>
+ * <p>
+ * 附件表查询请求对象
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -67,10 +69,10 @@ public class FileAccessoryQueryRequest {
     private Long linkId;
 
     /**
-     * 附件状态1正常，0失效
-     */
-    @Schema(description = "附件状态1正常，0失效")
-    private String status;
+	 * 状态1正常，0失效
+	 */
+	@Schema(description = "状态1正常，0失效")
+	private String state;
 
     /**
      * 创建人

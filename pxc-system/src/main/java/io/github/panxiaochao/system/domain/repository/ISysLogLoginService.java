@@ -8,7 +8,7 @@ import io.github.panxiaochao.system.domain.entity.SysLogLogin;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 public interface ISysLogLoginService {
 
@@ -37,5 +37,4 @@ public interface ISysLogLoginService {
 	 * @param id 主键
 	 */
 	void deleteById(String id);
-
 }

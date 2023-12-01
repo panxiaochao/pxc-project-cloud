@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -67,7 +67,7 @@ public class SysJob {
 	/**
 	 * 任务状态：1=正常 0=停用
 	 */
-	private String jobStatus;
+	private String jobState;
 
 	/**
 	 * 备注
@@ -88,5 +88,4 @@ public class SysJob {
 	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
-
 }

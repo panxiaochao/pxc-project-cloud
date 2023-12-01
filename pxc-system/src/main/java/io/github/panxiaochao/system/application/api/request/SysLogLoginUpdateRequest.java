@@ -8,10 +8,12 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>系统日志登录/登出表更新请求对象</p>
+ * <p>
+ * 系统日志登录/登出表更新请求对象
+ * </p>
  *
  * @author Lypxc
- * @since 2023-11-30
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -64,7 +66,7 @@ public class SysLogLoginUpdateRequest {
      * 状态: 1-成功 0-失败
      */
     @Schema(description = "状态: 1-成功 0-失败")
-    private String status;
+	private String state;
 
     /**
      * 创建时间

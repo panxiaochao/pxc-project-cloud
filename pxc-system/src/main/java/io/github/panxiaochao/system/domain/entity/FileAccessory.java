@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author Lypxc
- * @since 2023-11-28
+ * @since 2023-12-01
  */
 @Getter
 @Setter
@@ -60,9 +60,9 @@ public class FileAccessory {
 	private Long linkId;
 
 	/**
-	 * 附件状态1正常，0失效
+	 * 状态1正常，0失效
 	 */
-	private String status;
+	private String state;
 
 	/**
 	 * 创建人
@@ -78,5 +78,4 @@ public class FileAccessory {
 	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
-
 }
