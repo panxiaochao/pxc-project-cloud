@@ -123,4 +123,3 @@ public class PersistentLoginsServiceImpl implements IPersistentLoginsService, IP
 	}
 
 }
-

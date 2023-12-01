@@ -165,4 +165,3 @@ public class SysAreaServiceImpl implements ISysAreaService, ISysAreaReadModelSer
 	}
 
 }
-

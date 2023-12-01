@@ -143,4 +143,3 @@ public class SysLogLoginServiceImpl implements ISysLogLoginService, ISysLogLogin
 	}
 
 }
-

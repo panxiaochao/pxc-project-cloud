@@ -159,4 +159,3 @@ public class Oauth2RegisteredClientServiceImpl
 	}
 
 }
-

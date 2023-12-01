@@ -159,4 +159,3 @@ public class SysLogOperateServiceImpl implements ISysLogOperateService, ISysLogO
 	}
 
 }
-

@@ -121,4 +121,3 @@ public class Oauth2AuthorizationConsentServiceImpl
 	}
 
 }
-

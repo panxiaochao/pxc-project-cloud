@@ -197,4 +197,3 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
 	}
 
 }
-

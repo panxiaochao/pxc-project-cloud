@@ -173,4 +173,3 @@ public class SysOrgServiceImpl implements ISysOrgService, ISysOrgReadModelServic
 	}
 
 }
-

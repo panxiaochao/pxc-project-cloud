@@ -61,11 +61,11 @@ public class ${table.serviceImplName} implements I${entity}Service, I${entity}Re
         if (queryRequest != null) {
             <#list table.fields as field>
             <#if field.keyFlag>
-                // 默认按照主键倒序排序
-                lqw.orderByDesc(${entity}PO::get${field.propertyName?cap_first});
+            // 默认按照主键倒序排序
+            lqw.orderByDesc(${entity}PO::get${field.propertyName?cap_first});
             <#-- 普通字段 -->
             <#elseif field.propertyName != logicDeletePropertyName!''>
-                // 如果 ${field.comment} 不为空
+            // 如果 ${field.comment} 不为空
             <#if field.propertyType="Integer">
             if (queryRequest.get${field.propertyName?cap_first}() != null) {
             <#elseif field.propertyType="LocalDateTime">
