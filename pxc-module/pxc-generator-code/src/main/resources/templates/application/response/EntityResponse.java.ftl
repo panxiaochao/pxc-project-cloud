@@ -1,4 +1,4 @@
-package ${application}.api.response;
+package ${application}.api.response.${entity?lower_case};
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

@@ -135,8 +135,9 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 		String filePath = "";
 		String templatePath = "";
 		String[] requests = new String[] { "Create", "Update", "Query" };
+		String entity = objectMap.get("entity").toString();
 		for (String request : requests) {
-			filePath = parentPath + "/application/api/request/" + objectMap.get("entity") + request + "Request.java";
+			filePath = parentPath + "/application/api/request/" + entity.toLowerCase() + "/" + entity + request + "Request.java";
 			templatePath = String.format("/templates/application/request/Entity%sRequest.java.ftl", request);
 			try {
 				super.outputFile(new File(filePath), objectMap, templatePath,
@@ -150,7 +151,7 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 		// response
 		String[] responses = new String[] { "Query", "" };
 		for (String response : responses) {
-			filePath = parentPath + "/application/api/response/" + objectMap.get("entity") + response + "Response.java";
+			filePath = parentPath + "/application/api/response/" + entity.toLowerCase() + "/" + entity + response + "Response.java";
 			templatePath = String.format("/templates/application/response/Entity%sResponse.java.ftl", response);
 			try {
 				super.outputFile(new File(filePath), objectMap, templatePath,

@@ -20,51 +20,53 @@ import java.time.LocalDateTime;
 @ToString
 @Schema(description = "岗位表响应对象")
 public class SysPostResponse {
-    /**
-     * ID
-     */
-    @Schema(description = "ID")
-    private String id;
-        
-    /**
-     * 岗位名称
-    */
-    @Schema(description = "岗位名称")
-    private String postName;
-        
-    /**
-     * 岗位编码
-    */
-    @Schema(description = "岗位编码")
-    private String postCode;
-        
-    /**
+
+	/**
+	 * ID
+	 */
+	@Schema(description = "ID")
+	private String id;
+
+	/**
+	 * 岗位名称
+	 */
+	@Schema(description = "岗位名称")
+	private String postName;
+
+	/**
+	 * 岗位编码
+	 */
+	@Schema(description = "岗位编码")
+	private String postCode;
+
+	/**
 	 * 备注
 	 */
 	@Schema(description = "备注")
 	private String remark;
-        
-    /**
-     * 排序
-    */
-    @Schema(description = "排序")
-    private Integer sort;
-        
-    /**
-     * 状态：1正常，0不正常
-    */
-    @Schema(description = "状态：1正常，0不正常")
+
+	/**
+	 * 排序
+	 */
+	@Schema(description = "排序")
+	private Integer sort;
+
+	/**
+	 * 状态：1正常，0不正常
+	 */
+	@Schema(description = "状态：1正常，0不正常")
 	private String state;
-        
-    /**
-     * 创建时间
-    */
-    @Schema(description = "创建时间")
-    private LocalDateTime createTime;
-        
-    /**
-     * 更新时间
-    */
-    @Schema(description = "更新时间")
-    private LocalDateTime updateTime;
+
+	/**
+	 * 创建时间
+	 */
+	@Schema(description = "创建时间")
+	private LocalDateTime createTime;
+
+	/**
+	 * 更新时间
+	 */
+	@Schema(description = "更新时间")
+	private LocalDateTime updateTime;
+
 }

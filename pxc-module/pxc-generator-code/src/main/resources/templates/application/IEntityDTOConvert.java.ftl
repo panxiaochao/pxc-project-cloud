@@ -1,10 +1,10 @@
 package ${application}.convert;
 
-import ${application}.api.request.${entity}CreateRequest;
-import ${application}.api.request.${entity}QueryRequest;
-import ${application}.api.request.${entity}UpdateRequest;
-import ${application}.api.response.${entity}QueryResponse;
-import ${application}.api.response.${entity}Response;
+import ${application}.api.request.${entity?lower_case}.${entity}CreateRequest;
+import ${application}.api.request.${entity?lower_case}.${entity}QueryRequest;
+import ${application}.api.request.${entity?lower_case}.${entity}UpdateRequest;
+import ${application}.api.response.${entity?lower_case}.${entity}QueryResponse;
+import ${application}.api.response.${entity?lower_case}.${entity}Response;
 import ${domain}.entity.${entity};
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

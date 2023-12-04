@@ -1,6 +1,6 @@
 package ${infrastructure}.convert;
 
-import ${application}.api.response.${entity}QueryResponse;
+import ${application}.api.response.${entity?lower_case}.${entity}QueryResponse;
 import ${domain}.entity.${entity};
 import ${infrastructure}.po.${entity}PO;
 import org.mapstruct.Mapper;
