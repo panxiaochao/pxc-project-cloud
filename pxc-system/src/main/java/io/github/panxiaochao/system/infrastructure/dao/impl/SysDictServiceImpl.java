@@ -57,11 +57,11 @@ public class SysDictServiceImpl implements ISysDictService, ISysDictReadModelSer
     private LambdaQueryWrapper<SysDictPO> lambdaQuery(SysDictQueryRequest queryRequest) {
         LambdaQueryWrapper<SysDictPO> lqw = Wrappers.lambdaQuery();
         if (queryRequest != null) {
-            // 默认按照主键倒序排序
-            lqw.orderByDesc(SysDictPO::getId);
+            // 默认按照sort升序
+            lqw.orderByAsc(SysDictPO::getSort);
             // 如果 字典名称 不为空
             if (StringUtils.isNotBlank(queryRequest.getDictName())) {
-                lqw.eq(SysDictPO::getDictName, queryRequest.getDictName());
+                lqw.like(SysDictPO::getDictName, queryRequest.getDictName());
             }
             // 如果 字典code 不为空
             if (StringUtils.isNotBlank(queryRequest.getDictCode())) {
@@ -71,25 +71,9 @@ public class SysDictServiceImpl implements ISysDictService, ISysDictReadModelSer
             if (queryRequest.getDictType() != null) {
                 lqw.eq(SysDictPO::getDictType, queryRequest.getDictType());
             }
-            // 如果 备注 不为空
-            if (StringUtils.isNotBlank(queryRequest.getRemark())) {
-                lqw.eq(SysDictPO::getRemark, queryRequest.getRemark());
-            }
-            // 如果 排序 不为空
-            if (queryRequest.getSort() != null) {
-                lqw.eq(SysDictPO::getSort, queryRequest.getSort());
-            }
             // 如果 状态：1正常，0不正常 不为空
             if (StringUtils.isNotBlank(queryRequest.getState())) {
                 lqw.eq(SysDictPO::getState, queryRequest.getState());
-            }
-            // 如果 创建时间 不为空
-            if (queryRequest.getCreateTime() != null) {
-                lqw.eq(SysDictPO::getCreateTime, queryRequest.getCreateTime());
-            }
-            // 如果 更新时间 不为空
-            if (queryRequest.getUpdateTime() != null) {
-                lqw.eq(SysDictPO::getUpdateTime, queryRequest.getUpdateTime());
             }
         }
         return lqw;

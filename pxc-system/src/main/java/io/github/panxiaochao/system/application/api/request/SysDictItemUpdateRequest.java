@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
  * 数据字典配置表更新请求对象
@@ -30,7 +28,7 @@ public class SysDictItemUpdateRequest {
      * 字典关联ID
      */
     @Schema(description = "字典关联ID")
-    private Long dictId;
+    private String dictId;
 
     /**
      * 字典名称
@@ -48,7 +46,7 @@ public class SysDictItemUpdateRequest {
      * 描述
      */
     @Schema(description = "描述")
-    private String description;
+    private String remark;
 
     /**
      * 排序
@@ -61,16 +59,4 @@ public class SysDictItemUpdateRequest {
      */
     @Schema(description = "状态：1正常，0不正常")
 	private String state;
-
-    /**
-     * 创建时间
-     */
-    @Schema(description = "创建时间")
-    private LocalDateTime createTime;
-
-    /**
-     * 更新时间
-     */
-    @Schema(description = "更新时间")
-    private LocalDateTime updateTime;
 }

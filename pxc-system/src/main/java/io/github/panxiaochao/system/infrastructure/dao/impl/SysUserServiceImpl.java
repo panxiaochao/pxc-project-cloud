@@ -71,81 +71,13 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
             if (StringUtils.isNotBlank(queryRequest.getIdCard())) {
                 lqw.eq(SysUserPO::getIdCard, queryRequest.getIdCard());
             }
-            // 如果 用户头像 不为空
-            if (StringUtils.isNotBlank(queryRequest.getAvatar())) {
-                lqw.eq(SysUserPO::getAvatar, queryRequest.getAvatar());
-            }
             // 如果 性别：1男，0女 不为空
             if (StringUtils.isNotBlank(queryRequest.getSex())) {
                 lqw.eq(SysUserPO::getSex, queryRequest.getSex());
             }
-            // 如果 地址 不为空
-            if (StringUtils.isNotBlank(queryRequest.getAddress())) {
-                lqw.eq(SysUserPO::getAddress, queryRequest.getAddress());
-            }
-            // 如果 邮箱 不为空
-            if (StringUtils.isNotBlank(queryRequest.getEmail())) {
-                lqw.eq(SysUserPO::getEmail, queryRequest.getEmail());
-            }
-            // 如果 手机号码 不为空
-            if (StringUtils.isNotBlank(queryRequest.getMobile())) {
-                lqw.eq(SysUserPO::getMobile, queryRequest.getMobile());
-            }
-            // 如果 电话号码 不为空
-            if (StringUtils.isNotBlank(queryRequest.getTel())) {
-                lqw.eq(SysUserPO::getTel, queryRequest.getTel());
-            }
-            // 如果 传真号码 不为空
-            if (StringUtils.isNotBlank(queryRequest.getFax())) {
-                lqw.eq(SysUserPO::getFax, queryRequest.getFax());
-            }
-            // 如果 排序 不为空
-            if (queryRequest.getSort() != null) {
-                lqw.eq(SysUserPO::getSort, queryRequest.getSort());
-            }
-            // 如果 备注 不为空
-            if (StringUtils.isNotBlank(queryRequest.getRemark())) {
-                lqw.eq(SysUserPO::getRemark, queryRequest.getRemark());
-            }
             // 如果 状态：1正常，0不正常 不为空
             if (StringUtils.isNotBlank(queryRequest.getState())) {
                 lqw.eq(SysUserPO::getState, queryRequest.getState());
-            }
-            // 如果 皮肤风格 不为空
-            if (StringUtils.isNotBlank(queryRequest.getSkins())) {
-                lqw.eq(SysUserPO::getSkins, queryRequest.getSkins());
-            }
-            // 如果 所在区域或者部门ID，多数据请用逗号隔开 不为空
-            if (queryRequest.getOrgId() != null) {
-                lqw.eq(SysUserPO::getOrgId, queryRequest.getOrgId());
-            }
-            // 如果 所在区域或者部门编码code，多数据请用逗号隔开 不为空
-            if (StringUtils.isNotBlank(queryRequest.getOrgCode())) {
-                lqw.eq(SysUserPO::getOrgCode, queryRequest.getOrgCode());
-            }
-            // 如果 创建时间 不为空
-            if (queryRequest.getCreateTime() != null) {
-                lqw.eq(SysUserPO::getCreateTime, queryRequest.getCreateTime());
-            }
-            // 如果 更新时间 不为空
-            if (queryRequest.getUpdateTime() != null) {
-                lqw.eq(SysUserPO::getUpdateTime, queryRequest.getUpdateTime());
-            }
-            // 如果 登陆次数 不为空
-            if (queryRequest.getLoginNums() != null) {
-                lqw.eq(SysUserPO::getLoginNums, queryRequest.getLoginNums());
-            }
-            // 如果 登录失败次数 不为空
-            if (queryRequest.getLoginErrorNums() != null) {
-                lqw.eq(SysUserPO::getLoginErrorNums, queryRequest.getLoginErrorNums());
-            }
-            // 如果 登录时间 不为空
-            if (queryRequest.getLoginTime() != null) {
-                lqw.eq(SysUserPO::getLoginTime, queryRequest.getLoginTime());
-            }
-            // 如果 帐号超时期限 不为空
-            if (queryRequest.getExpireTime() != null) {
-                lqw.eq(SysUserPO::getExpireTime, queryRequest.getExpireTime());
             }
         }
         return lqw;

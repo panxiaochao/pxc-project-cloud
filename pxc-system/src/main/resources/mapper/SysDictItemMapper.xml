@@ -8,7 +8,7 @@
         <result column="dict_id" property="dictId"/>
         <result column="dict_item_text" property="dictItemText"/>
         <result column="dict_item_value" property="dictItemValue"/>
-        <result column="description" property="description"/>
+        <result column="remark" property="remark"/>
         <result column="sort" property="sort"/>
         <result column="state" property="state"/>
         <result column="create_time" property="createTime"/>
@@ -18,7 +18,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        , dict_id, dict_item_text, dict_item_value, `description`, sort, state, create_time, update_time
+        , dict_id, dict_item_text, dict_item_value, remark, sort, state, create_time, update_time
     </sql>
 
 </mapper>

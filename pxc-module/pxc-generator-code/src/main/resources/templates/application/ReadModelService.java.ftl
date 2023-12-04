@@ -23,4 +23,11 @@ public interface I${entity}ReadModelService {
      */
     List<${entity}QueryResponse> page(Pagination pagination, ${entity}QueryRequest queryRequest);
 
+    /**
+     * 查询数组
+     * @param queryRequest ${table.comment!}查询请求对象
+     * @return 结果数组
+     */
+    List<${entity}QueryResponse> selectList(${entity}QueryRequest queryRequest);
+
 }

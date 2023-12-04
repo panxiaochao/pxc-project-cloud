@@ -27,7 +27,7 @@ public class SysDictItem {
 	/**
 	 * 字典关联ID
 	 */
-	private Long dictId;
+	private String dictId;
 
 	/**
 	 * 字典名称
@@ -42,7 +42,7 @@ public class SysDictItem {
 	/**
 	 * 描述
 	 */
-	private String description;
+	private String remark;
 
 	/**
 	 * 排序

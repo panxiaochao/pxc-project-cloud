@@ -52,6 +52,18 @@ public class ${table.serviceImplName} implements I${entity}Service, I${entity}Re
     }
 
     /**
+     * 查询数组
+     * @param queryRequest ${table.comment!}查询请求对象
+     * @return 结果数组
+     */
+    @Override
+    public List<${entity}QueryResponse> selectList(${entity}QueryRequest queryRequest) {
+        // 构造查询条件
+        LambdaQueryWrapper<${entity}PO> lqw = lambdaQuery(queryRequest);
+        return I${entity}POConvert.INSTANCE.toQueryResponse(${entity?uncap_first}Mapper.selectList(lqw));
+    }
+
+    /**
      * 查询条件
      * @param queryRequest 角色表查询请求对象
      * @return 角色表Lambda表达式

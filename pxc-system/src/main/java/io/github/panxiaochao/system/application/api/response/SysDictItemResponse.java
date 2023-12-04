@@ -48,7 +48,7 @@ public class SysDictItemResponse {
      * 描述
     */
     @Schema(description = "描述")
-    private String description;
+    private String remark;
         
     /**
      * 排序

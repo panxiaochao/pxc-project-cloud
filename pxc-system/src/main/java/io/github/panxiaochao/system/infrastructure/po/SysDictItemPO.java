@@ -52,8 +52,8 @@ public class SysDictItemPO {
 	/**
 	 * 描述
 	 */
-	@TableField("`description`")
-	private String description;
+	@TableField("remark")
+	private String remark;
 
 	/**
 	 * 排序
