@@ -1,10 +1,10 @@
 package io.github.panxiaochao.system.application.convert;
 
-import io.github.panxiaochao.system.application.api.request.SysUserAuthsCreateRequest;
-import io.github.panxiaochao.system.application.api.request.SysUserAuthsQueryRequest;
-import io.github.panxiaochao.system.application.api.request.SysUserAuthsUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.SysUserAuthsQueryResponse;
-import io.github.panxiaochao.system.application.api.response.SysUserAuthsResponse;
+import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsCreateRequest;
+import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsQueryRequest;
+import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.sysuserauths.SysUserAuthsQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysuserauths.SysUserAuthsResponse;
 import io.github.panxiaochao.system.domain.entity.SysUserAuths;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

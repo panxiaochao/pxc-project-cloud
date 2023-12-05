@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.system.application.api.request.SysLogLoginQueryRequest;
-import io.github.panxiaochao.system.application.api.response.SysLogLoginQueryResponse;
+import io.github.panxiaochao.system.application.api.request.sysloglogin.SysLogLoginQueryRequest;
+import io.github.panxiaochao.system.application.api.response.sysloglogin.SysLogLoginQueryResponse;
 import io.github.panxiaochao.system.application.repository.ISysLogLoginReadModelService;
 import io.github.panxiaochao.system.domain.entity.SysLogLogin;
 import io.github.panxiaochao.system.domain.repository.ISysLogLoginService;
@@ -57,9 +57,9 @@ public class SysLogLoginServiceImpl implements ISysLogLoginService, ISysLogLogin
     private LambdaQueryWrapper<SysLogLoginPO> lambdaQuery(SysLogLoginQueryRequest queryRequest) {
         LambdaQueryWrapper<SysLogLoginPO> lqw = Wrappers.lambdaQuery();
         if (queryRequest != null) {
-            // 默认按照主键倒序排序
-            lqw.orderByDesc(SysLogLoginPO::getId);
-            // 如果 日志内容 不为空
+            // 默认按照创建时间降序
+            lqw.orderByDesc(SysLogLoginPO::getCreateTime);
+            // 如果 登录名 不为空
             if (StringUtils.isNotBlank(queryRequest.getLoginName())) {
                 lqw.eq(SysLogLoginPO::getLoginName, queryRequest.getLoginName());
             }
@@ -70,26 +70,6 @@ public class SysLogLoginServiceImpl implements ISysLogLoginService, ISysLogLogin
             // 如果 IP 不为空
             if (StringUtils.isNotBlank(queryRequest.getIp())) {
                 lqw.eq(SysLogLoginPO::getIp, queryRequest.getIp());
-            }
-            // 如果 地点 不为空
-            if (StringUtils.isNotBlank(queryRequest.getAddress())) {
-                lqw.eq(SysLogLoginPO::getAddress, queryRequest.getAddress());
-            }
-            // 如果 浏览器 不为空
-            if (StringUtils.isNotBlank(queryRequest.getBrowser())) {
-                lqw.eq(SysLogLoginPO::getBrowser, queryRequest.getBrowser());
-            }
-            // 如果 操作系统 不为空
-            if (StringUtils.isNotBlank(queryRequest.getOs())) {
-                lqw.eq(SysLogLoginPO::getOs, queryRequest.getOs());
-            }
-            // 如果 状态: 1-成功 0-失败 不为空
-            if (StringUtils.isNotBlank(queryRequest.getState())) {
-                lqw.eq(SysLogLoginPO::getState, queryRequest.getState());
-            }
-            // 如果 创建时间 不为空
-            if (queryRequest.getCreateTime() != null) {
-                lqw.eq(SysLogLoginPO::getCreateTime, queryRequest.getCreateTime());
             }
         }
         return lqw;

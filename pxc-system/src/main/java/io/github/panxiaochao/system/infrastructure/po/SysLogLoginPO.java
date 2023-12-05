@@ -32,7 +32,7 @@ public class SysLogLoginPO {
 	private Long id;
 
 	/**
-	 * 日志内容
+	 * 登录名
 	 */
 	@TableField("login_name")
 	private String loginName;
@@ -68,6 +68,12 @@ public class SysLogLoginPO {
 	private String os;
 
 	/**
+	 * 备注
+	 */
+	@TableField("remark")
+	private String remark;
+
+	/**
 	 * 状态: 1-成功 0-失败
 	 */
 	@TableField("state")
@@ -78,4 +84,5 @@ public class SysLogLoginPO {
 	 */
 	@TableField(value = "create_time", fill = FieldFill.INSERT)
 	private LocalDateTime createTime;
+
 }

@@ -29,8 +29,8 @@ public class ${entity}QueryResponse {
     <#else>
 
     /**
-    * ${field.comment}
-    */
+     * ${field.comment}
+     */
     @Schema(description = "${field.comment}")
     private <#if field.propertyType="Long">String<#else>${field.propertyType}</#if> ${field.propertyName};
     </#if>

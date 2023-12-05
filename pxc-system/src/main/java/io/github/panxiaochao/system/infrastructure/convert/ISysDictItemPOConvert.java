@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.infrastructure.convert;
 
-import io.github.panxiaochao.system.application.api.response.SysDictItemQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDictItemQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysDictItem;
 import io.github.panxiaochao.system.infrastructure.po.SysDictItemPO;
 import org.mapstruct.Mapper;

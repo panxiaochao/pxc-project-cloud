@@ -1,10 +1,10 @@
 package io.github.panxiaochao.system.application.convert;
 
-import io.github.panxiaochao.system.application.api.request.PersistentLoginsCreateRequest;
-import io.github.panxiaochao.system.application.api.request.PersistentLoginsQueryRequest;
-import io.github.panxiaochao.system.application.api.request.PersistentLoginsUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.PersistentLoginsQueryResponse;
-import io.github.panxiaochao.system.application.api.response.PersistentLoginsResponse;
+import io.github.panxiaochao.system.application.api.request.persistentlogins.PersistentLoginsCreateRequest;
+import io.github.panxiaochao.system.application.api.request.persistentlogins.PersistentLoginsQueryRequest;
+import io.github.panxiaochao.system.application.api.request.persistentlogins.PersistentLoginsUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.persistentlogins.PersistentLoginsQueryResponse;
+import io.github.panxiaochao.system.application.api.response.persistentlogins.PersistentLoginsResponse;
 import io.github.panxiaochao.system.domain.entity.PersistentLogins;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

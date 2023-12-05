@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.system.application.api.request.SysDictQueryRequest;
-import io.github.panxiaochao.system.application.api.response.SysDictQueryResponse;
+import io.github.panxiaochao.system.application.api.request.sysdict.SysDictQueryRequest;
+import io.github.panxiaochao.system.application.api.response.sysdict.SysDictQueryResponse;
 
 import java.util.List;
 

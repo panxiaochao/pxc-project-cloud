@@ -11,6 +11,7 @@
         <result column="address" property="address"/>
         <result column="browser" property="browser"/>
         <result column="os" property="os"/>
+        <result column="remark" property="remark"/>
         <result column="state" property="state"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
@@ -18,7 +19,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        , login_name, login_type, ip, address, browser, os, state, create_time
+        , login_name, login_type, ip, address, browser, os, remark, state, create_time
     </sql>
 
 </mapper>

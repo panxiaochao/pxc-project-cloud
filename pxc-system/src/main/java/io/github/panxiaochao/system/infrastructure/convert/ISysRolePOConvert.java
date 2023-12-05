@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.infrastructure.convert;
 
-import io.github.panxiaochao.system.application.api.response.SysRoleQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysrole.SysRoleQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysRole;
 import io.github.panxiaochao.system.infrastructure.po.SysRolePO;
 import org.mapstruct.Mapper;

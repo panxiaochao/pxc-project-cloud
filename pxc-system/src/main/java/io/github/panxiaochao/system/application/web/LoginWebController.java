@@ -1,6 +1,7 @@
 package io.github.panxiaochao.system.application.web;
 
 import io.github.panxiaochao.core.response.R;
+import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
 import io.github.panxiaochao.repeatsubmit.annotation.RepeatSubmitLimiter;
 import io.github.panxiaochao.system.application.web.request.LoginRequest;
 import io.github.panxiaochao.system.application.web.service.LoginWebService;
@@ -37,6 +38,7 @@ public class LoginWebController {
 	 */
 	@PostMapping
 	@RepeatSubmitLimiter(interval = 3000, message = "请勿重复登录")
+	@OperateLog(key = "#loginRequest.username", description = "登录", businessType = OperateLog.BusinessType.LOGIN)
 	public R<Map<String, Object>> login(@RequestBody @Validated LoginRequest loginRequest) {
 		return loginWebService.login(loginRequest);
 	}

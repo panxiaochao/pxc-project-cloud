@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.system.application.api.request.PersistentLoginsQueryRequest;
-import io.github.panxiaochao.system.application.api.response.PersistentLoginsQueryResponse;
+import io.github.panxiaochao.system.application.api.request.persistentlogins.PersistentLoginsQueryRequest;
+import io.github.panxiaochao.system.application.api.response.persistentlogins.PersistentLoginsQueryResponse;
 
 import java.util.List;
 

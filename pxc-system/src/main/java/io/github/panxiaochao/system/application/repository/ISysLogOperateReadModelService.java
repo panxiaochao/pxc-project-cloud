@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.system.application.api.request.SysLogOperateQueryRequest;
-import io.github.panxiaochao.system.application.api.response.SysLogOperateQueryResponse;
+import io.github.panxiaochao.system.application.api.request.syslogoperate.SysLogOperateQueryRequest;
+import io.github.panxiaochao.system.application.api.response.syslogoperate.SysLogOperateQueryResponse;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.system.application.api.request.SysAreaQueryRequest;
-import io.github.panxiaochao.system.application.api.response.SysAreaQueryResponse;
+import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaQueryRequest;
+import io.github.panxiaochao.system.application.api.response.sysarea.SysAreaQueryResponse;
 
 import java.util.List;
 

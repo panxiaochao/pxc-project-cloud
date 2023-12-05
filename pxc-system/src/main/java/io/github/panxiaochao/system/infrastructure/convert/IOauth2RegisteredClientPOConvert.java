@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.infrastructure.convert;
 
-import io.github.panxiaochao.system.application.api.response.Oauth2RegisteredClientQueryResponse;
+import io.github.panxiaochao.system.application.api.response.oauth2registeredclient.Oauth2RegisteredClientQueryResponse;
 import io.github.panxiaochao.system.domain.entity.Oauth2RegisteredClient;
 import io.github.panxiaochao.system.infrastructure.po.Oauth2RegisteredClientPO;
 import org.mapstruct.Mapper;

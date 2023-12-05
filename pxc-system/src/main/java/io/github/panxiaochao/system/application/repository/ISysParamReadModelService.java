@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.system.application.api.request.SysParamQueryRequest;
-import io.github.panxiaochao.system.application.api.response.SysParamQueryResponse;
+import io.github.panxiaochao.system.application.api.request.sysparam.SysParamQueryRequest;
+import io.github.panxiaochao.system.application.api.response.sysparam.SysParamQueryResponse;
 
 import java.util.List;
 

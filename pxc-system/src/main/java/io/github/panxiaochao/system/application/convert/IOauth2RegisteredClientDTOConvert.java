@@ -1,10 +1,10 @@
 package io.github.panxiaochao.system.application.convert;
 
-import io.github.panxiaochao.system.application.api.request.Oauth2RegisteredClientCreateRequest;
-import io.github.panxiaochao.system.application.api.request.Oauth2RegisteredClientQueryRequest;
-import io.github.panxiaochao.system.application.api.request.Oauth2RegisteredClientUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.Oauth2RegisteredClientQueryResponse;
-import io.github.panxiaochao.system.application.api.response.Oauth2RegisteredClientResponse;
+import io.github.panxiaochao.system.application.api.request.oauth2registeredclient.Oauth2RegisteredClientCreateRequest;
+import io.github.panxiaochao.system.application.api.request.oauth2registeredclient.Oauth2RegisteredClientQueryRequest;
+import io.github.panxiaochao.system.application.api.request.oauth2registeredclient.Oauth2RegisteredClientUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.oauth2registeredclient.Oauth2RegisteredClientQueryResponse;
+import io.github.panxiaochao.system.application.api.response.oauth2registeredclient.Oauth2RegisteredClientResponse;
 import io.github.panxiaochao.system.domain.entity.Oauth2RegisteredClient;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

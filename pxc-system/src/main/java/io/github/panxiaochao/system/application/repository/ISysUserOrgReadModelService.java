@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.system.application.api.request.SysUserOrgQueryRequest;
-import io.github.panxiaochao.system.application.api.response.SysUserOrgQueryResponse;
+import io.github.panxiaochao.system.application.api.request.sysuserorg.SysUserOrgQueryRequest;
+import io.github.panxiaochao.system.application.api.response.sysuserorg.SysUserOrgQueryResponse;
 
 import java.util.List;
 

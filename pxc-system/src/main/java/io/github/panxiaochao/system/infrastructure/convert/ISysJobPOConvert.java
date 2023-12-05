@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.infrastructure.convert;
 
-import io.github.panxiaochao.system.application.api.response.SysJobQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysjob.SysJobQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysJob;
 import io.github.panxiaochao.system.infrastructure.po.SysJobPO;
 import org.mapstruct.Mapper;

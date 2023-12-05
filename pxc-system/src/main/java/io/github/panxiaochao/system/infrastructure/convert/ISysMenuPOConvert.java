@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.infrastructure.convert;
 
-import io.github.panxiaochao.system.application.api.response.SysMenuQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysmenu.SysMenuQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysMenu;
 import io.github.panxiaochao.system.infrastructure.po.SysMenuPO;
 import org.mapstruct.Mapper;

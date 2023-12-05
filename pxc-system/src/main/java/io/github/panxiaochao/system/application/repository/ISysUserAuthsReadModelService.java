@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.system.application.api.request.SysUserAuthsQueryRequest;
-import io.github.panxiaochao.system.application.api.response.SysUserAuthsQueryResponse;
+import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsQueryRequest;
+import io.github.panxiaochao.system.application.api.response.sysuserauths.SysUserAuthsQueryResponse;
 
 import java.util.List;
 

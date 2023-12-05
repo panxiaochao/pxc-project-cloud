@@ -30,7 +30,7 @@ public class ${entity}Response {
         
     /**
      * ${field.comment}
-    */
+     */
     @Schema(description = "${field.comment}")
     private <#if field.propertyType="Long">String<#else>${field.propertyType}</#if> ${field.propertyName};
     </#if>

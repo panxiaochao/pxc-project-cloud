@@ -1436,7 +1436,7 @@ DROP TABLE IF EXISTS `sys_log_login`;
 CREATE TABLE `sys_log_login`
 (
     `id`          bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `login_name`  varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci  DEFAULT NULL COMMENT '日志内容',
+    `login_name`  varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci  DEFAULT NULL COMMENT '登录名',
     `login_type`  int                                                           DEFAULT NULL COMMENT '登录类型: 1-登录 2-登出',
     `ip`          varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci  DEFAULT NULL COMMENT 'IP',
     `address`     varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '地点',

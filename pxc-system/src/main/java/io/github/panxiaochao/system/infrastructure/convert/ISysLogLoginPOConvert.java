@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.infrastructure.convert;
 
-import io.github.panxiaochao.system.application.api.response.SysLogLoginQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysloglogin.SysLogLoginQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysLogLogin;
 import io.github.panxiaochao.system.infrastructure.po.SysLogLoginPO;
 import org.mapstruct.Mapper;

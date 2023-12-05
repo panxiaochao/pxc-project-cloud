@@ -1,10 +1,10 @@
 package io.github.panxiaochao.system.application.convert;
 
-import io.github.panxiaochao.system.application.api.request.SysDictItemCreateRequest;
-import io.github.panxiaochao.system.application.api.request.SysDictItemQueryRequest;
-import io.github.panxiaochao.system.application.api.request.SysDictItemUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.SysDictItemQueryResponse;
-import io.github.panxiaochao.system.application.api.response.SysDictItemResponse;
+import io.github.panxiaochao.system.application.api.request.sysdictitem.SysDictItemCreateRequest;
+import io.github.panxiaochao.system.application.api.request.sysdictitem.SysDictItemQueryRequest;
+import io.github.panxiaochao.system.application.api.request.sysdictitem.SysDictItemUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDictItemQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDictItemResponse;
 import io.github.panxiaochao.system.domain.entity.SysDictItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

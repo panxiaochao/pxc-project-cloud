@@ -1,10 +1,10 @@
 package io.github.panxiaochao.system.application.convert;
 
-import io.github.panxiaochao.system.application.api.request.SysLogOperateCreateRequest;
-import io.github.panxiaochao.system.application.api.request.SysLogOperateQueryRequest;
-import io.github.panxiaochao.system.application.api.request.SysLogOperateUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.SysLogOperateQueryResponse;
-import io.github.panxiaochao.system.application.api.response.SysLogOperateResponse;
+import io.github.panxiaochao.system.application.api.request.syslogoperate.SysLogOperateCreateRequest;
+import io.github.panxiaochao.system.application.api.request.syslogoperate.SysLogOperateQueryRequest;
+import io.github.panxiaochao.system.application.api.request.syslogoperate.SysLogOperateUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.syslogoperate.SysLogOperateQueryResponse;
+import io.github.panxiaochao.system.application.api.response.syslogoperate.SysLogOperateResponse;
 import io.github.panxiaochao.system.domain.entity.SysLogOperate;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

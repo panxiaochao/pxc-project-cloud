@@ -1,10 +1,10 @@
 package io.github.panxiaochao.system.application.convert;
 
-import io.github.panxiaochao.system.application.api.request.SysUserRoleCreateRequest;
-import io.github.panxiaochao.system.application.api.request.SysUserRoleQueryRequest;
-import io.github.panxiaochao.system.application.api.request.SysUserRoleUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.SysUserRoleQueryResponse;
-import io.github.panxiaochao.system.application.api.response.SysUserRoleResponse;
+import io.github.panxiaochao.system.application.api.request.sysuserrole.SysUserRoleCreateRequest;
+import io.github.panxiaochao.system.application.api.request.sysuserrole.SysUserRoleQueryRequest;
+import io.github.panxiaochao.system.application.api.request.sysuserrole.SysUserRoleUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.sysuserrole.SysUserRoleQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysuserrole.SysUserRoleResponse;
 import io.github.panxiaochao.system.domain.entity.SysUserRole;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

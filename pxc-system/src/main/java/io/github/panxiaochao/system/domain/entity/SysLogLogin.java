@@ -25,7 +25,7 @@ public class SysLogLogin {
 	private String id;
 
 	/**
-	 * 日志内容
+	 * 登录名
 	 */
 	private String loginName;
 
@@ -55,6 +55,11 @@ public class SysLogLogin {
 	private String os;
 
 	/**
+	 * 备注
+	 */
+	private String remark;
+
+	/**
 	 * 状态: 1-成功 0-失败
 	 */
 	private String state;
@@ -63,4 +68,5 @@ public class SysLogLogin {
 	 * 创建时间
 	 */
 	private LocalDateTime createTime;
+
 }

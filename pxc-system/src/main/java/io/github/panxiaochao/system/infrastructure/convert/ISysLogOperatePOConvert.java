@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.infrastructure.convert;
 
-import io.github.panxiaochao.system.application.api.response.SysLogOperateQueryResponse;
+import io.github.panxiaochao.system.application.api.response.syslogoperate.SysLogOperateQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysLogOperate;
 import io.github.panxiaochao.system.infrastructure.po.SysLogOperatePO;
 import org.mapstruct.Mapper;

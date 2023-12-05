@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.infrastructure.convert;
 
-import io.github.panxiaochao.system.application.api.response.FileAccessoryQueryResponse;
+import io.github.panxiaochao.system.application.api.response.fileaccessory.FileAccessoryQueryResponse;
 import io.github.panxiaochao.system.domain.entity.FileAccessory;
 import io.github.panxiaochao.system.infrastructure.po.FileAccessoryPO;
 import org.mapstruct.Mapper;

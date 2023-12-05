@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.system.application.api.request.FileAccessoryQueryRequest;
-import io.github.panxiaochao.system.application.api.response.FileAccessoryQueryResponse;
+import io.github.panxiaochao.system.application.api.request.fileaccessory.FileAccessoryQueryRequest;
+import io.github.panxiaochao.system.application.api.response.fileaccessory.FileAccessoryQueryResponse;
 
 import java.util.List;
 

@@ -5,6 +5,9 @@ server:
     context-path: /
 
 spring:
+  operatelog:
+    log-type: other
+    handler: io.github.panxiaochao.system.application.event.OperateLogEventHandler
   servlet:
     multipart:
       max-file-size: 20MB

@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.infrastructure.convert;
 
-import io.github.panxiaochao.system.application.api.response.SysPostQueryResponse;
+import io.github.panxiaochao.system.application.api.response.syspost.SysPostQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysPost;
 import io.github.panxiaochao.system.infrastructure.po.SysPostPO;
 import org.mapstruct.Mapper;

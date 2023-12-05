@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.system.application.api.request.Oauth2RegisteredClientQueryRequest;
-import io.github.panxiaochao.system.application.api.response.Oauth2RegisteredClientQueryResponse;
+import io.github.panxiaochao.system.application.api.request.oauth2registeredclient.Oauth2RegisteredClientQueryRequest;
+import io.github.panxiaochao.system.application.api.response.oauth2registeredclient.Oauth2RegisteredClientQueryResponse;
 
 import java.util.List;
 

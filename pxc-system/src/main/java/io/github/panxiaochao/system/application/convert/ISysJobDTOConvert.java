@@ -1,10 +1,10 @@
 package io.github.panxiaochao.system.application.convert;
 
-import io.github.panxiaochao.system.application.api.request.SysJobCreateRequest;
-import io.github.panxiaochao.system.application.api.request.SysJobQueryRequest;
-import io.github.panxiaochao.system.application.api.request.SysJobUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.SysJobQueryResponse;
-import io.github.panxiaochao.system.application.api.response.SysJobResponse;
+import io.github.panxiaochao.system.application.api.request.sysjob.SysJobCreateRequest;
+import io.github.panxiaochao.system.application.api.request.sysjob.SysJobQueryRequest;
+import io.github.panxiaochao.system.application.api.request.sysjob.SysJobUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.sysjob.SysJobQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysjob.SysJobResponse;
 import io.github.panxiaochao.system.domain.entity.SysJob;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

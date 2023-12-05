@@ -1,10 +1,10 @@
 package io.github.panxiaochao.system.application.convert;
 
-import io.github.panxiaochao.system.application.api.request.FileAccessoryCreateRequest;
-import io.github.panxiaochao.system.application.api.request.FileAccessoryQueryRequest;
-import io.github.panxiaochao.system.application.api.request.FileAccessoryUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.FileAccessoryQueryResponse;
-import io.github.panxiaochao.system.application.api.response.FileAccessoryResponse;
+import io.github.panxiaochao.system.application.api.request.fileaccessory.FileAccessoryCreateRequest;
+import io.github.panxiaochao.system.application.api.request.fileaccessory.FileAccessoryQueryRequest;
+import io.github.panxiaochao.system.application.api.request.fileaccessory.FileAccessoryUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.fileaccessory.FileAccessoryQueryResponse;
+import io.github.panxiaochao.system.application.api.response.fileaccessory.FileAccessoryResponse;
 import io.github.panxiaochao.system.domain.entity.FileAccessory;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

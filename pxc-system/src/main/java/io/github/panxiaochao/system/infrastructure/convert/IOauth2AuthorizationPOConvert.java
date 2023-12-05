@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.infrastructure.convert;
 
-import io.github.panxiaochao.system.application.api.response.Oauth2AuthorizationQueryResponse;
+import io.github.panxiaochao.system.application.api.response.oauth2authorizationconsent.Oauth2AuthorizationQueryResponse;
 import io.github.panxiaochao.system.domain.entity.Oauth2Authorization;
 import io.github.panxiaochao.system.infrastructure.po.Oauth2AuthorizationPO;
 import org.mapstruct.Mapper;

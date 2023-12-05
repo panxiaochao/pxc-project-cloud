@@ -1,10 +1,10 @@
 package io.github.panxiaochao.system.application.convert;
 
-import io.github.panxiaochao.system.application.api.request.SysMenuCreateRequest;
-import io.github.panxiaochao.system.application.api.request.SysMenuQueryRequest;
-import io.github.panxiaochao.system.application.api.request.SysMenuUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.SysMenuQueryResponse;
-import io.github.panxiaochao.system.application.api.response.SysMenuResponse;
+import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuCreateRequest;
+import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuQueryRequest;
+import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.sysmenu.SysMenuQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysmenu.SysMenuResponse;
 import io.github.panxiaochao.system.domain.entity.SysMenu;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

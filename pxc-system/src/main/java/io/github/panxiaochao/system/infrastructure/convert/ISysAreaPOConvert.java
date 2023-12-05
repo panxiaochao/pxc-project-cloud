@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.infrastructure.convert;
 
-import io.github.panxiaochao.system.application.api.response.SysAreaQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysarea.SysAreaQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysArea;
 import io.github.panxiaochao.system.infrastructure.po.SysAreaPO;
 import org.mapstruct.Mapper;

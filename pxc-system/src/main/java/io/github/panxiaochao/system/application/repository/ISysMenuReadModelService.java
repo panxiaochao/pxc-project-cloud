@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.system.application.api.request.SysMenuQueryRequest;
-import io.github.panxiaochao.system.application.api.response.SysMenuQueryResponse;
+import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuQueryRequest;
+import io.github.panxiaochao.system.application.api.response.sysmenu.SysMenuQueryResponse;
 
 import java.util.List;
 

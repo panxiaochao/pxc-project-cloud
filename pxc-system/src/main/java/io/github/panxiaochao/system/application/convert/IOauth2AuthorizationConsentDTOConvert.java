@@ -1,10 +1,10 @@
 package io.github.panxiaochao.system.application.convert;
 
-import io.github.panxiaochao.system.application.api.request.Oauth2AuthorizationConsentCreateRequest;
-import io.github.panxiaochao.system.application.api.request.Oauth2AuthorizationConsentQueryRequest;
-import io.github.panxiaochao.system.application.api.request.Oauth2AuthorizationConsentUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.Oauth2AuthorizationConsentQueryResponse;
-import io.github.panxiaochao.system.application.api.response.Oauth2AuthorizationConsentResponse;
+import io.github.panxiaochao.system.application.api.request.oauth2authorization.Oauth2AuthorizationConsentCreateRequest;
+import io.github.panxiaochao.system.application.api.request.oauth2authorization.Oauth2AuthorizationConsentQueryRequest;
+import io.github.panxiaochao.system.application.api.request.oauth2authorization.Oauth2AuthorizationConsentUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.oauth2authorization.Oauth2AuthorizationConsentQueryResponse;
+import io.github.panxiaochao.system.application.api.response.oauth2authorization.Oauth2AuthorizationConsentResponse;
 import io.github.panxiaochao.system.domain.entity.Oauth2AuthorizationConsent;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
