@@ -21,27 +21,28 @@ import java.time.LocalDateTime;
 @Schema(description = "用户机构/部门表创建请求对象")
 public class SysUserOrgCreateRequest {
 
-    /**
-     * 用户ID
-     */
-    @Schema(description = "用户ID")
-    private Integer userId;
+	/**
+	 * 用户ID
+	 */
+	@Schema(description = "用户ID")
+	private Integer userId;
 
-    /**
-     * 机构ID
-     */
-    @Schema(description = "机构ID")
-    private Integer departId;
+	/**
+	 * 机构ID
+	 */
+	@Schema(description = "机构ID")
+	private Integer departId;
 
-    /**
-     * 创建时间
-     */
-    @Schema(description = "创建时间")
-    private LocalDateTime createTime;
+	/**
+	 * 创建时间
+	 */
+	@Schema(description = "创建时间")
+	private LocalDateTime createTime;
 
-    /**
-     * 更新时间
-     */
-    @Schema(description = "更新时间")
-    private LocalDateTime updateTime;
+	/**
+	 * 更新时间
+	 */
+	@Schema(description = "更新时间")
+	private LocalDateTime updateTime;
+
 }

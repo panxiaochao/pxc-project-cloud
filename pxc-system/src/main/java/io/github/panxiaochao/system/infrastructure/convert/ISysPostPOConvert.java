@@ -63,4 +63,5 @@ public interface ISysPostPOConvert {
 	 * @return 岗位表查询响应数据传输对象列表
 	 */
 	List<SysPostQueryResponse> toQueryResponse(List<SysPostPO> sysPostPOList);
+
 }

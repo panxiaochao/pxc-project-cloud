@@ -20,33 +20,35 @@ import java.time.LocalDateTime;
 @ToString
 @Schema(description = "用户机构/部门表更新请求对象")
 public class SysUserOrgUpdateRequest {
-    /**
-     * 主键
-     */
-    @Schema(description = "主键")
-    private String id;
 
-    /**
-     * 用户ID
-     */
-    @Schema(description = "用户ID")
-    private Integer userId;
+	/**
+	 * 主键
+	 */
+	@Schema(description = "主键")
+	private String id;
 
-    /**
-     * 机构ID
-     */
-    @Schema(description = "机构ID")
-    private Integer departId;
+	/**
+	 * 用户ID
+	 */
+	@Schema(description = "用户ID")
+	private Integer userId;
 
-    /**
-     * 创建时间
-     */
-    @Schema(description = "创建时间")
-    private LocalDateTime createTime;
+	/**
+	 * 机构ID
+	 */
+	@Schema(description = "机构ID")
+	private Integer departId;
 
-    /**
-     * 更新时间
-     */
-    @Schema(description = "更新时间")
-    private LocalDateTime updateTime;
+	/**
+	 * 创建时间
+	 */
+	@Schema(description = "创建时间")
+	private LocalDateTime createTime;
+
+	/**
+	 * 更新时间
+	 */
+	@Schema(description = "更新时间")
+	private LocalDateTime updateTime;
+
 }

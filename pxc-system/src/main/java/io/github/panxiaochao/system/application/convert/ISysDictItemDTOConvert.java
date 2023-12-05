@@ -66,4 +66,5 @@ public interface ISysDictItemDTOConvert {
 	 * @return 数据字典配置表查询响应数据传输对象列表
 	 */
 	List<SysDictItemQueryResponse> toQueryResponse(List<SysDictItem> sysDictItemList);
+
 }

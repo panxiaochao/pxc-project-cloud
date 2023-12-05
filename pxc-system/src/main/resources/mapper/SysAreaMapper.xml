@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.infrastructure.po.SysAreaPO">
         <id column="id" property="id"/>
-        <result column="parent_id" property="parentId"/>
+        <result column="parentCode" property="parentCode"/>
         <result column="area_name" property="areaName"/>
         <result column="area_name_abbr" property="areaNameAbbr"/>
         <result column="area_code" property="areaCode"/>
@@ -24,7 +24,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        , parent_id, area_name, area_name_abbr, area_code, city_code, parent_path, area_level, sort, area_name_en, area_name_en_abbr, longitude, latitude, create_time, update_time
+        , parentCode, area_name, area_name_abbr, area_code, city_code, parent_path, area_level, sort, area_name_en, area_name_en_abbr, longitude, latitude, create_time, update_time
     </sql>
 
 </mapper>

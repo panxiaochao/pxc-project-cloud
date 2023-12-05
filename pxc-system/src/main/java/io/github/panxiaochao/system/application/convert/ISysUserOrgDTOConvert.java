@@ -66,4 +66,5 @@ public interface ISysUserOrgDTOConvert {
 	 * @return 用户机构/部门表查询响应数据传输对象列表
 	 */
 	List<SysUserOrgQueryResponse> toQueryResponse(List<SysUserOrg> sysUserOrgList);
+
 }

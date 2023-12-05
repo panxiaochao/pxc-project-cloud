@@ -66,4 +66,5 @@ public interface ISysParamDTOConvert {
 	 * @return 系统参数查询响应数据传输对象列表
 	 */
 	List<SysParamQueryResponse> toQueryResponse(List<SysParam> sysParamList);
+
 }

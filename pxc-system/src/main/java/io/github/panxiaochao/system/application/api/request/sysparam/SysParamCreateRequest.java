@@ -21,45 +21,46 @@ import java.time.LocalDateTime;
 @Schema(description = "系统参数创建请求对象")
 public class SysParamCreateRequest {
 
-    /**
-     * 参数名称
-     */
-    @Schema(description = "参数名称")
-    private String paramName;
+	/**
+	 * 参数名称
+	 */
+	@Schema(description = "参数名称")
+	private String paramName;
 
-    /**
-     * 参数键
-     */
-    @Schema(description = "参数键")
-    private String paramKey;
+	/**
+	 * 参数键
+	 */
+	@Schema(description = "参数键")
+	private String paramKey;
 
-    /**
-     * 参数值
-     */
-    @Schema(description = "参数值")
-    private String paramValue;
+	/**
+	 * 参数值
+	 */
+	@Schema(description = "参数值")
+	private String paramValue;
 
-    /**
-     * 参数类型1-系统类 2-业务类
-     */
-    @Schema(description = "参数类型1-系统类 2-业务类")
-    private String paramType;
+	/**
+	 * 参数类型1-系统类 2-业务类
+	 */
+	@Schema(description = "参数类型1-系统类 2-业务类")
+	private String paramType;
 
-    /**
-     * 状态1-正常 0-删除
-     */
-    @Schema(description = "状态1-正常 0-删除")
+	/**
+	 * 状态1-正常 0-删除
+	 */
+	@Schema(description = "状态1-正常 0-删除")
 	private String state;
 
-    /**
-     * 创建时间
-     */
-    @Schema(description = "创建时间")
-    private LocalDateTime createTime;
+	/**
+	 * 创建时间
+	 */
+	@Schema(description = "创建时间")
+	private LocalDateTime createTime;
 
-    /**
-     * 更新时间
-     */
-    @Schema(description = "更新时间")
-    private LocalDateTime updateTime;
+	/**
+	 * 更新时间
+	 */
+	@Schema(description = "更新时间")
+	private LocalDateTime updateTime;
+
 }

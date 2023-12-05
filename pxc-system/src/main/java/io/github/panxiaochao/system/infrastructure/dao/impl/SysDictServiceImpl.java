@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * <p> 数据字典表 Dao服务实现类. </p>
+ * <p>
+ * 数据字典表 Dao服务实现类.
+ * </p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -28,97 +30,97 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SysDictServiceImpl implements ISysDictService, ISysDictReadModelService {
 
-    /**
-     * 角色表 持久化接口
-     */
-    private final SysDictMapper sysDictMapper;
+	/**
+	 * 角色表 持久化接口
+	 */
+	private final SysDictMapper sysDictMapper;
 
-    /**
-     * 查询分页
-     * @param pagination 分页属性对象
-     * @param queryRequest 数据字典表查询请求对象
-     * @return 分页结果数组
-     */
-    @Override
-    public List<SysDictQueryResponse> page(Pagination pagination, SysDictQueryRequest queryRequest) {
-        // 构造查询条件
-        LambdaQueryWrapper<SysDictPO> lqw = lambdaQuery(queryRequest);
-        // 分页查询
-        Page<SysDictPO> page = sysDictMapper.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
-        pagination.setTotal(page.getTotal());
-        return ISysDictPOConvert.INSTANCE.toQueryResponse(page.getRecords());
-    }
+	/**
+	 * 查询分页
+	 * @param pagination 分页属性对象
+	 * @param queryRequest 数据字典表查询请求对象
+	 * @return 分页结果数组
+	 */
+	@Override
+	public List<SysDictQueryResponse> page(Pagination pagination, SysDictQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysDictPO> lqw = lambdaQuery(queryRequest);
+		// 分页查询
+		Page<SysDictPO> page = sysDictMapper.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
+		pagination.setTotal(page.getTotal());
+		return ISysDictPOConvert.INSTANCE.toQueryResponse(page.getRecords());
+	}
 
-    /**
-     * 查询条件
-     * @param queryRequest 角色表查询请求对象
-     * @return 角色表Lambda表达式
-     */
-    private LambdaQueryWrapper<SysDictPO> lambdaQuery(SysDictQueryRequest queryRequest) {
-        LambdaQueryWrapper<SysDictPO> lqw = Wrappers.lambdaQuery();
-        if (queryRequest != null) {
-            // 默认按照sort升序
-            lqw.orderByAsc(SysDictPO::getSort);
-            // 如果 字典名称 不为空
-            if (StringUtils.isNotBlank(queryRequest.getDictName())) {
-                lqw.like(SysDictPO::getDictName, queryRequest.getDictName());
-            }
-            // 如果 字典code 不为空
-            if (StringUtils.isNotBlank(queryRequest.getDictCode())) {
-                lqw.eq(SysDictPO::getDictCode, queryRequest.getDictCode());
-            }
-            // 如果 字典类型：0为string,1为number 不为空
-            if (queryRequest.getDictType() != null) {
-                lqw.eq(SysDictPO::getDictType, queryRequest.getDictType());
-            }
-            // 如果 状态：1正常，0不正常 不为空
-            if (StringUtils.isNotBlank(queryRequest.getState())) {
-                lqw.eq(SysDictPO::getState, queryRequest.getState());
-            }
-        }
-        return lqw;
-    }
+	/**
+	 * 查询条件
+	 * @param queryRequest 角色表查询请求对象
+	 * @return 角色表Lambda表达式
+	 */
+	private LambdaQueryWrapper<SysDictPO> lambdaQuery(SysDictQueryRequest queryRequest) {
+		LambdaQueryWrapper<SysDictPO> lqw = Wrappers.lambdaQuery();
+		if (queryRequest != null) {
+			// 默认按照sort升序
+			lqw.orderByAsc(SysDictPO::getSort);
+			// 如果 字典名称 不为空
+			if (StringUtils.isNotBlank(queryRequest.getDictName())) {
+				lqw.like(SysDictPO::getDictName, queryRequest.getDictName());
+			}
+			// 如果 字典code 不为空
+			if (StringUtils.isNotBlank(queryRequest.getDictCode())) {
+				lqw.eq(SysDictPO::getDictCode, queryRequest.getDictCode());
+			}
+			// 如果 字典类型：0为string,1为number 不为空
+			if (queryRequest.getDictType() != null) {
+				lqw.eq(SysDictPO::getDictType, queryRequest.getDictType());
+			}
+			// 如果 状态：1正常，0不正常 不为空
+			if (StringUtils.isNotBlank(queryRequest.getState())) {
+				lqw.eq(SysDictPO::getState, queryRequest.getState());
+			}
+		}
+		return lqw;
+	}
 
-    /**
-     * 详情
-     * @param id 主键
-     * @return SysDict 实体
-     */
-    @Override
-    public SysDict getById(String id) {
-        SysDictPO sysDictPO = sysDictMapper.selectById(id);
-        return ISysDictPOConvert.INSTANCE.toEntity(sysDictPO);
-    }
+	/**
+	 * 详情
+	 * @param id 主键
+	 * @return SysDict 实体
+	 */
+	@Override
+	public SysDict getById(String id) {
+		SysDictPO sysDictPO = sysDictMapper.selectById(id);
+		return ISysDictPOConvert.INSTANCE.toEntity(sysDictPO);
+	}
 
-    /**
-     * 保存
-     * @param sysDict SysDict 实体
-     * @return SysDict 实体
-     */
-    @Override
-    public SysDict save(SysDict sysDict) {
-        SysDictPO sysDictPO = ISysDictPOConvert.INSTANCE.fromEntity(sysDict);
-        sysDictMapper.insert(sysDictPO);
-        return ISysDictPOConvert.INSTANCE.toEntity(sysDictPO);
-    }
+	/**
+	 * 保存
+	 * @param sysDict SysDict 实体
+	 * @return SysDict 实体
+	 */
+	@Override
+	public SysDict save(SysDict sysDict) {
+		SysDictPO sysDictPO = ISysDictPOConvert.INSTANCE.fromEntity(sysDict);
+		sysDictMapper.insert(sysDictPO);
+		return ISysDictPOConvert.INSTANCE.toEntity(sysDictPO);
+	}
 
-    /**
-     * 根据主键更新
-     * @param sysDict SysDict 实体
-     */
-    @Override
-    public void update(SysDict sysDict) {
-        SysDictPO sysDictPO = ISysDictPOConvert.INSTANCE.fromEntity(sysDict);
-        sysDictMapper.updateById(sysDictPO);
-    }
+	/**
+	 * 根据主键更新
+	 * @param sysDict SysDict 实体
+	 */
+	@Override
+	public void update(SysDict sysDict) {
+		SysDictPO sysDictPO = ISysDictPOConvert.INSTANCE.fromEntity(sysDict);
+		sysDictMapper.updateById(sysDictPO);
+	}
 
-    /**
-     * 根据主键删除
-     * @param id 主键
-     */
-    @Override
-    public void deleteById(String id) {
-        sysDictMapper.deleteById(id);
-    }
+	/**
+	 * 根据主键删除
+	 * @param id 主键
+	 */
+	@Override
+	public void deleteById(String id) {
+		sysDictMapper.deleteById(id);
+	}
 
 }

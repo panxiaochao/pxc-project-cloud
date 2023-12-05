@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p> 岗位表 接口.</p>
+ * <p>
+ * 岗位表 接口.
+ * </p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -34,41 +36,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/v1/syspost")
 public class SysPostApi {
 
-    /**
-     * 岗位表 服务
-     */
-    private final SysPostAppService sysPostAppService;
+	/**
+	 * 岗位表 服务
+	 */
+	private final SysPostAppService sysPostAppService;
 
-    @Operation(summary = "查询分页", description = "查询分页", method = "GET")
-    @GetMapping(value = "/page")
-    public R<PageResponse<SysPostQueryResponse>> page(RequestPage pageRequest, SysPostQueryRequest queryRequest) {
-        return R.ok(sysPostAppService.page(pageRequest, queryRequest));
-    }
+	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
+	@GetMapping(value = "/page")
+	public R<PageResponse<SysPostQueryResponse>> page(RequestPage pageRequest, SysPostQueryRequest queryRequest) {
+		return R.ok(sysPostAppService.page(pageRequest, queryRequest));
+	}
 
-    @Operation(summary = "获取详情", description = "获取详情", method = "GET")
-    @Parameter(name = "id", description = "岗位表 ID")
-    @GetMapping(value = "/{id}")
-    public R<SysPostResponse> getById(@PathVariable("id") String id) {
-        return sysPostAppService.getById(id);
-    }
+	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
+	@Parameter(name = "id", description = "岗位表 ID")
+	@GetMapping(value = "/{id}")
+	public R<SysPostResponse> getById(@PathVariable("id") String id) {
+		return sysPostAppService.getById(id);
+	}
 
-    @Operation(summary = "保存", description = "保存", method = "POST")
-    @PostMapping
-    public R<SysPostResponse> save(@RequestBody SysPostCreateRequest sysPostCreateRequest) {
-        return sysPostAppService.save(sysPostCreateRequest);
-    }
+	@Operation(summary = "保存", description = "保存", method = "POST")
+	@PostMapping
+	public R<SysPostResponse> save(@RequestBody SysPostCreateRequest sysPostCreateRequest) {
+		return sysPostAppService.save(sysPostCreateRequest);
+	}
 
-    @Operation(summary = "更新", description = "根据主键更新", method = "PUT")
-    @PutMapping
-    public R<Void> update(@RequestBody SysPostUpdateRequest sysPostUpdateRequest) {
-        return sysPostAppService.update(sysPostUpdateRequest);
-    }
+	@Operation(summary = "更新", description = "根据主键更新", method = "PUT")
+	@PutMapping
+	public R<Void> update(@RequestBody SysPostUpdateRequest sysPostUpdateRequest) {
+		return sysPostAppService.update(sysPostUpdateRequest);
+	}
 
-    @Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
-    @Parameter(name = "id", description = "岗位表 ID")
-    @DeleteMapping(value = "/{id}")
-    public R<Void> deleteById(@PathVariable("id") String id) {
-        return sysPostAppService.deleteById(id);
-    }
+	@Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
+	@Parameter(name = "id", description = "岗位表 ID")
+	@DeleteMapping(value = "/{id}")
+	public R<Void> deleteById(@PathVariable("id") String id) {
+		return sysPostAppService.deleteById(id);
+	}
 
 }

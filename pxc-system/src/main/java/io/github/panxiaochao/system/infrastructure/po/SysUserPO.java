@@ -162,4 +162,5 @@ public class SysUserPO {
 	 */
 	@TableField("expire_time")
 	private LocalDateTime expireTime;
+
 }

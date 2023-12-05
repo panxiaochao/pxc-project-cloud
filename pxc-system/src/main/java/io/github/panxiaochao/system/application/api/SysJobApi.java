@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p> 定时任务调度表 接口.</p>
+ * <p>
+ * 定时任务调度表 接口.
+ * </p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -34,41 +36,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/v1/sysjob")
 public class SysJobApi {
 
-    /**
-     * 定时任务调度表 服务
-     */
-    private final SysJobAppService sysJobAppService;
+	/**
+	 * 定时任务调度表 服务
+	 */
+	private final SysJobAppService sysJobAppService;
 
-    @Operation(summary = "查询分页", description = "查询分页", method = "GET")
-    @GetMapping(value = "/page")
-    public R<PageResponse<SysJobQueryResponse>> page(RequestPage pageRequest, SysJobQueryRequest queryRequest) {
-        return R.ok(sysJobAppService.page(pageRequest, queryRequest));
-    }
+	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
+	@GetMapping(value = "/page")
+	public R<PageResponse<SysJobQueryResponse>> page(RequestPage pageRequest, SysJobQueryRequest queryRequest) {
+		return R.ok(sysJobAppService.page(pageRequest, queryRequest));
+	}
 
-    @Operation(summary = "获取详情", description = "获取详情", method = "GET")
-    @Parameter(name = "id", description = "定时任务调度表 ID")
-    @GetMapping(value = "/{id}")
-    public R<SysJobResponse> getById(@PathVariable("id") String id) {
-        return sysJobAppService.getById(id);
-    }
+	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
+	@Parameter(name = "id", description = "定时任务调度表 ID")
+	@GetMapping(value = "/{id}")
+	public R<SysJobResponse> getById(@PathVariable("id") String id) {
+		return sysJobAppService.getById(id);
+	}
 
-    @Operation(summary = "保存", description = "保存", method = "POST")
-    @PostMapping
-    public R<SysJobResponse> save(@RequestBody SysJobCreateRequest sysJobCreateRequest) {
-        return sysJobAppService.save(sysJobCreateRequest);
-    }
+	@Operation(summary = "保存", description = "保存", method = "POST")
+	@PostMapping
+	public R<SysJobResponse> save(@RequestBody SysJobCreateRequest sysJobCreateRequest) {
+		return sysJobAppService.save(sysJobCreateRequest);
+	}
 
-    @Operation(summary = "更新", description = "根据主键更新", method = "PUT")
-    @PutMapping
-    public R<Void> update(@RequestBody SysJobUpdateRequest sysJobUpdateRequest) {
-        return sysJobAppService.update(sysJobUpdateRequest);
-    }
+	@Operation(summary = "更新", description = "根据主键更新", method = "PUT")
+	@PutMapping
+	public R<Void> update(@RequestBody SysJobUpdateRequest sysJobUpdateRequest) {
+		return sysJobAppService.update(sysJobUpdateRequest);
+	}
 
-    @Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
-    @Parameter(name = "id", description = "定时任务调度表 ID")
-    @DeleteMapping(value = "/{id}")
-    public R<Void> deleteById(@PathVariable("id") String id) {
-        return sysJobAppService.deleteById(id);
-    }
+	@Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
+	@Parameter(name = "id", description = "定时任务调度表 ID")
+	@DeleteMapping(value = "/{id}")
+	public R<Void> deleteById(@PathVariable("id") String id) {
+		return sysJobAppService.deleteById(id);
+	}
 
 }

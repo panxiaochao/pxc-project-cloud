@@ -18,4 +18,5 @@ import lombok.ToString;
 @ToString
 @Schema(description = "系统日志登录/登出表更新请求对象")
 public class SysLogLoginUpdateRequest {
+
 }

@@ -63,4 +63,5 @@ public interface ISysDictPOConvert {
 	 * @return 数据字典表查询响应数据传输对象列表
 	 */
 	List<SysDictQueryResponse> toQueryResponse(List<SysDictPO> sysDictPOList);
+
 }

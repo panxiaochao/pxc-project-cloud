@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p> 用户授权信息表 接口.</p>
+ * <p>
+ * 用户授权信息表 接口.
+ * </p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -34,41 +36,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/v1/sysuserauths")
 public class SysUserAuthsApi {
 
-    /**
-     * 用户授权信息表 服务
-     */
-    private final SysUserAuthsAppService sysUserAuthsAppService;
+	/**
+	 * 用户授权信息表 服务
+	 */
+	private final SysUserAuthsAppService sysUserAuthsAppService;
 
-    @Operation(summary = "查询分页", description = "查询分页", method = "GET")
-    @GetMapping(value = "/page")
-    public R<PageResponse<SysUserAuthsQueryResponse>> page(RequestPage pageRequest, SysUserAuthsQueryRequest queryRequest) {
-        return R.ok(sysUserAuthsAppService.page(pageRequest, queryRequest));
-    }
+	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
+	@GetMapping(value = "/page")
+	public R<PageResponse<SysUserAuthsQueryResponse>> page(RequestPage pageRequest,
+			SysUserAuthsQueryRequest queryRequest) {
+		return R.ok(sysUserAuthsAppService.page(pageRequest, queryRequest));
+	}
 
-    @Operation(summary = "获取详情", description = "获取详情", method = "GET")
-    @Parameter(name = "id", description = "用户授权信息表 ID")
-    @GetMapping(value = "/{id}")
-    public R<SysUserAuthsResponse> getById(@PathVariable("id") String id) {
-        return sysUserAuthsAppService.getById(id);
-    }
+	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
+	@Parameter(name = "id", description = "用户授权信息表 ID")
+	@GetMapping(value = "/{id}")
+	public R<SysUserAuthsResponse> getById(@PathVariable("id") String id) {
+		return sysUserAuthsAppService.getById(id);
+	}
 
-    @Operation(summary = "保存", description = "保存", method = "POST")
-    @PostMapping
-    public R<SysUserAuthsResponse> save(@RequestBody SysUserAuthsCreateRequest sysUserAuthsCreateRequest) {
-        return sysUserAuthsAppService.save(sysUserAuthsCreateRequest);
-    }
+	@Operation(summary = "保存", description = "保存", method = "POST")
+	@PostMapping
+	public R<SysUserAuthsResponse> save(@RequestBody SysUserAuthsCreateRequest sysUserAuthsCreateRequest) {
+		return sysUserAuthsAppService.save(sysUserAuthsCreateRequest);
+	}
 
-    @Operation(summary = "更新", description = "根据主键更新", method = "PUT")
-    @PutMapping
-    public R<Void> update(@RequestBody SysUserAuthsUpdateRequest sysUserAuthsUpdateRequest) {
-        return sysUserAuthsAppService.update(sysUserAuthsUpdateRequest);
-    }
+	@Operation(summary = "更新", description = "根据主键更新", method = "PUT")
+	@PutMapping
+	public R<Void> update(@RequestBody SysUserAuthsUpdateRequest sysUserAuthsUpdateRequest) {
+		return sysUserAuthsAppService.update(sysUserAuthsUpdateRequest);
+	}
 
-    @Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
-    @Parameter(name = "id", description = "用户授权信息表 ID")
-    @DeleteMapping(value = "/{id}")
-    public R<Void> deleteById(@PathVariable("id") String id) {
-        return sysUserAuthsAppService.deleteById(id);
-    }
+	@Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
+	@Parameter(name = "id", description = "用户授权信息表 ID")
+	@DeleteMapping(value = "/{id}")
+	public R<Void> deleteById(@PathVariable("id") String id) {
+		return sysUserAuthsAppService.deleteById(id);
+	}
 
 }

@@ -20,81 +20,83 @@ import java.time.LocalDateTime;
 @ToString
 @Schema(description = "系统日志操作表查询请求对象")
 public class SysLogOperateQueryRequest {
-    /**
-     * 主键
-     */
-    @Schema(description = "主键")
-    private String id;
 
-    /**
-     * 日志内容
-     */
-    @Schema(description = "日志内容")
-    private String logContent;
+	/**
+	 * 主键
+	 */
+	@Schema(description = "主键")
+	private String id;
 
-    /**
-     * 操作类型
-     */
-    @Schema(description = "操作类型")
-    private Integer operateType;
+	/**
+	 * 日志内容
+	 */
+	@Schema(description = "日志内容")
+	private String logContent;
 
-    /**
-     * IP
-     */
-    @Schema(description = "IP")
-    private String ip;
+	/**
+	 * 操作类型
+	 */
+	@Schema(description = "操作类型")
+	private Integer operateType;
 
-    /**
-     * 请求java方法
-     */
-    @Schema(description = "请求java方法")
-    private String method;
+	/**
+	 * IP
+	 */
+	@Schema(description = "IP")
+	private String ip;
 
-    /**
-     * 请求路径
-     */
-    @Schema(description = "请求路径")
-    private String requestUrl;
+	/**
+	 * 请求java方法
+	 */
+	@Schema(description = "请求java方法")
+	private String method;
 
-    /**
-     * 请求参数
-     */
-    @Schema(description = "请求参数")
-    private String requestParams;
+	/**
+	 * 请求路径
+	 */
+	@Schema(description = "请求路径")
+	private String requestUrl;
 
-    /**
-     * 请求类型
-     */
-    @Schema(description = "请求类型")
-    private String requestMethod;
+	/**
+	 * 请求参数
+	 */
+	@Schema(description = "请求参数")
+	private String requestParams;
 
-    /**
-     * 耗时
-     */
-    @Schema(description = "耗时")
-    private Long costTime;
+	/**
+	 * 请求类型
+	 */
+	@Schema(description = "请求类型")
+	private String requestMethod;
 
-    /**
-     * 是否成功
-     */
-    @Schema(description = "是否成功")
+	/**
+	 * 耗时
+	 */
+	@Schema(description = "耗时")
+	private Long costTime;
+
+	/**
+	 * 是否成功
+	 */
+	@Schema(description = "是否成功")
 	private String state;
 
-    /**
-     * 浏览器
-     */
-    @Schema(description = "浏览器")
-    private String browser;
+	/**
+	 * 浏览器
+	 */
+	@Schema(description = "浏览器")
+	private String browser;
 
-    /**
-     * 操作系统
-     */
-    @Schema(description = "操作系统")
-    private String os;
+	/**
+	 * 操作系统
+	 */
+	@Schema(description = "操作系统")
+	private String os;
 
-    /**
-     * 创建时间
-     */
-    @Schema(description = "创建时间")
-    private LocalDateTime createTime;
+	/**
+	 * 创建时间
+	 */
+	@Schema(description = "创建时间")
+	private LocalDateTime createTime;
+
 }

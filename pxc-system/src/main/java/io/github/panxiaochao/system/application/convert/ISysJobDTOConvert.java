@@ -66,4 +66,5 @@ public interface ISysJobDTOConvert {
 	 * @return 定时任务调度表查询响应数据传输对象列表
 	 */
 	List<SysJobQueryResponse> toQueryResponse(List<SysJob> sysJobList);
+
 }

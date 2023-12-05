@@ -7,19 +7,21 @@ import io.github.panxiaochao.system.application.api.response.sysuserrole.SysUser
 import java.util.List;
 
 /**
- * <p> 用户角色表 读模型服务. </p>
+ * <p>
+ * 用户角色表 读模型服务.
+ * </p>
  *
  * @author Lypxc
  * @since 2023-12-01
  */
 public interface ISysUserRoleReadModelService {
 
-    /**
-     * 查询分页
-     * @param pagination  分页属性对象
-     * @param queryRequest 用户角色表查询请求对象
-     * @return 分页结果数组
-     */
-    List<SysUserRoleQueryResponse> page(Pagination pagination, SysUserRoleQueryRequest queryRequest);
+	/**
+	 * 查询分页
+	 * @param pagination 分页属性对象
+	 * @param queryRequest 用户角色表查询请求对象
+	 * @return 分页结果数组
+	 */
+	List<SysUserRoleQueryResponse> page(Pagination pagination, SysUserRoleQueryRequest queryRequest);
 
 }

@@ -1,9 +1,12 @@
 package io.github.panxiaochao.system.domain.service;
 
+import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaQueryRequest;
 import io.github.panxiaochao.system.domain.entity.SysArea;
 import io.github.panxiaochao.system.domain.repository.ISysAreaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -54,6 +57,14 @@ public class SysAreaDomainService {
 	 */
 	public void deleteById(String id) {
 		sysAreaService.deleteById(id);
+	}
+
+	/**
+	 * 前2级的区域数据
+	 * @return 区域数组
+	 */
+	public List<SysArea> listTree(SysAreaQueryRequest queryRequest) {
+		return sysAreaService.listTree(queryRequest);
 	}
 
 }

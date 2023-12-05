@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p> 数据字典配置表 接口.</p>
+ * <p>
+ * 数据字典配置表 接口.
+ * </p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -34,41 +36,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/v1/sysdictitem")
 public class SysDictItemApi {
 
-    /**
-     * 数据字典配置表 服务
-     */
-    private final SysDictItemAppService sysDictItemAppService;
+	/**
+	 * 数据字典配置表 服务
+	 */
+	private final SysDictItemAppService sysDictItemAppService;
 
-    @Operation(summary = "查询分页", description = "查询分页", method = "GET")
-    @GetMapping(value = "/page")
-    public R<PageResponse<SysDictItemQueryResponse>> page(RequestPage pageRequest, SysDictItemQueryRequest queryRequest) {
-        return R.ok(sysDictItemAppService.page(pageRequest, queryRequest));
-    }
+	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
+	@GetMapping(value = "/page")
+	public R<PageResponse<SysDictItemQueryResponse>> page(RequestPage pageRequest,
+			SysDictItemQueryRequest queryRequest) {
+		return R.ok(sysDictItemAppService.page(pageRequest, queryRequest));
+	}
 
-    @Operation(summary = "获取详情", description = "获取详情", method = "GET")
-    @Parameter(name = "id", description = "数据字典配置表 ID")
-    @GetMapping(value = "/{id}")
-    public R<SysDictItemResponse> getById(@PathVariable("id") String id) {
-        return sysDictItemAppService.getById(id);
-    }
+	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
+	@Parameter(name = "id", description = "数据字典配置表 ID")
+	@GetMapping(value = "/{id}")
+	public R<SysDictItemResponse> getById(@PathVariable("id") String id) {
+		return sysDictItemAppService.getById(id);
+	}
 
-    @Operation(summary = "保存", description = "保存", method = "POST")
-    @PostMapping
-    public R<SysDictItemResponse> save(@RequestBody SysDictItemCreateRequest sysDictItemCreateRequest) {
-        return sysDictItemAppService.save(sysDictItemCreateRequest);
-    }
+	@Operation(summary = "保存", description = "保存", method = "POST")
+	@PostMapping
+	public R<SysDictItemResponse> save(@RequestBody SysDictItemCreateRequest sysDictItemCreateRequest) {
+		return sysDictItemAppService.save(sysDictItemCreateRequest);
+	}
 
-    @Operation(summary = "更新", description = "根据主键更新", method = "PUT")
-    @PutMapping
-    public R<Void> update(@RequestBody SysDictItemUpdateRequest sysDictItemUpdateRequest) {
-        return sysDictItemAppService.update(sysDictItemUpdateRequest);
-    }
+	@Operation(summary = "更新", description = "根据主键更新", method = "PUT")
+	@PutMapping
+	public R<Void> update(@RequestBody SysDictItemUpdateRequest sysDictItemUpdateRequest) {
+		return sysDictItemAppService.update(sysDictItemUpdateRequest);
+	}
 
-    @Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
-    @Parameter(name = "id", description = "数据字典配置表 ID")
-    @DeleteMapping(value = "/{id}")
-    public R<Void> deleteById(@PathVariable("id") String id) {
-        return sysDictItemAppService.deleteById(id);
-    }
+	@Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
+	@Parameter(name = "id", description = "数据字典配置表 ID")
+	@DeleteMapping(value = "/{id}")
+	public R<Void> deleteById(@PathVariable("id") String id) {
+		return sysDictItemAppService.deleteById(id);
+	}
 
 }

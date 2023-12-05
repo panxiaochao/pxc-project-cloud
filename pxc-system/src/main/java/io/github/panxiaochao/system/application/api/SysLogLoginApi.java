@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p> 系统日志登录/登出表 接口.</p>
+ * <p>
+ * 系统日志登录/登出表 接口.
+ * </p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -34,41 +36,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/v1/sysloglogin")
 public class SysLogLoginApi {
 
-    /**
-     * 系统日志登录/登出表 服务
-     */
-    private final SysLogLoginAppService sysLogLoginAppService;
+	/**
+	 * 系统日志登录/登出表 服务
+	 */
+	private final SysLogLoginAppService sysLogLoginAppService;
 
-    @Operation(summary = "查询分页", description = "查询分页", method = "GET")
-    @GetMapping(value = "/page")
-    public R<PageResponse<SysLogLoginQueryResponse>> page(RequestPage pageRequest, SysLogLoginQueryRequest queryRequest) {
-        return R.ok(sysLogLoginAppService.page(pageRequest, queryRequest));
-    }
+	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
+	@GetMapping(value = "/page")
+	public R<PageResponse<SysLogLoginQueryResponse>> page(RequestPage pageRequest,
+			SysLogLoginQueryRequest queryRequest) {
+		return R.ok(sysLogLoginAppService.page(pageRequest, queryRequest));
+	}
 
-    @Operation(summary = "获取详情", description = "获取详情", method = "GET")
-    @Parameter(name = "id", description = "系统日志登录/登出表 ID")
-    @GetMapping(value = "/{id}")
-    public R<SysLogLoginResponse> getById(@PathVariable("id") String id) {
-        return sysLogLoginAppService.getById(id);
-    }
+	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
+	@Parameter(name = "id", description = "系统日志登录/登出表 ID")
+	@GetMapping(value = "/{id}")
+	public R<SysLogLoginResponse> getById(@PathVariable("id") String id) {
+		return sysLogLoginAppService.getById(id);
+	}
 
-    @Operation(summary = "保存", description = "保存", method = "POST")
-    @PostMapping
-    public R<SysLogLoginResponse> save(@RequestBody SysLogLoginCreateRequest sysLogLoginCreateRequest) {
-        return sysLogLoginAppService.save(sysLogLoginCreateRequest);
-    }
+	@Operation(summary = "保存", description = "保存", method = "POST")
+	@PostMapping
+	public R<SysLogLoginResponse> save(@RequestBody SysLogLoginCreateRequest sysLogLoginCreateRequest) {
+		return sysLogLoginAppService.save(sysLogLoginCreateRequest);
+	}
 
-    @Operation(summary = "更新", description = "根据主键更新", method = "PUT")
-    @PutMapping
-    public R<Void> update(@RequestBody SysLogLoginUpdateRequest sysLogLoginUpdateRequest) {
-        return sysLogLoginAppService.update(sysLogLoginUpdateRequest);
-    }
+	@Operation(summary = "更新", description = "根据主键更新", method = "PUT")
+	@PutMapping
+	public R<Void> update(@RequestBody SysLogLoginUpdateRequest sysLogLoginUpdateRequest) {
+		return sysLogLoginAppService.update(sysLogLoginUpdateRequest);
+	}
 
-    @Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
-    @Parameter(name = "id", description = "系统日志登录/登出表 ID")
-    @DeleteMapping(value = "/{id}")
-    public R<Void> deleteById(@PathVariable("id") String id) {
-        return sysLogLoginAppService.deleteById(id);
-    }
+	@Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
+	@Parameter(name = "id", description = "系统日志登录/登出表 ID")
+	@DeleteMapping(value = "/{id}")
+	public R<Void> deleteById(@PathVariable("id") String id) {
+		return sysLogLoginAppService.deleteById(id);
+	}
 
 }

@@ -37,4 +37,5 @@ public interface IFileAccessoryService {
 	 * @param id 主键
 	 */
 	void deleteById(String id);
+
 }

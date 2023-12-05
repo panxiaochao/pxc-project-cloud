@@ -63,4 +63,5 @@ public interface ISysOrgPOConvert {
 	 * @return 机构部门表查询响应数据传输对象列表
 	 */
 	List<SysOrgQueryResponse> toQueryResponse(List<SysOrgPO> sysOrgPOList);
+
 }

@@ -66,4 +66,5 @@ public interface ISysUserRoleDTOConvert {
 	 * @return 用户角色表查询响应数据传输对象列表
 	 */
 	List<SysUserRoleQueryResponse> toQueryResponse(List<SysUserRole> sysUserRoleList);
+
 }

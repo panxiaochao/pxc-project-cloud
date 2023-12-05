@@ -25,9 +25,9 @@ public class SysArea {
 	private String id;
 
 	/**
-	 * 父ID
+	 * 父Code
 	 */
-	private Integer parentId;
+	private String parentCode;
 
 	/**
 	 * 区划名称
@@ -93,4 +93,5 @@ public class SysArea {
 	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
+
 }

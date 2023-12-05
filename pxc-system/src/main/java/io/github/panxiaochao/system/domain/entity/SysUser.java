@@ -133,4 +133,5 @@ public class SysUser {
 	 * 帐号超时期限
 	 */
 	private LocalDateTime expireTime;
+
 }

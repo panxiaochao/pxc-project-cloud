@@ -1,6 +1,9 @@
 package io.github.panxiaochao.system.domain.repository;
 
+import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaQueryRequest;
 import io.github.panxiaochao.system.domain.entity.SysArea;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,4 +40,11 @@ public interface ISysAreaService {
 	 * @param id 主键
 	 */
 	void deleteById(String id);
+
+	/**
+	 * 前2级的区域数据
+	 * @return 区域数组
+	 */
+	List<SysArea> listTree(SysAreaQueryRequest queryRequest);
+
 }

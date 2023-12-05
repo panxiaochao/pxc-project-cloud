@@ -63,4 +63,5 @@ public class SysDictItem {
 	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
+
 }

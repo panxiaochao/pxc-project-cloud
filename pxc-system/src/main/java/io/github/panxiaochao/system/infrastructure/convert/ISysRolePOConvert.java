@@ -63,4 +63,5 @@ public interface ISysRolePOConvert {
 	 * @return 角色表查询响应数据传输对象列表
 	 */
 	List<SysRoleQueryResponse> toQueryResponse(List<SysRolePO> sysRolePOList);
+
 }

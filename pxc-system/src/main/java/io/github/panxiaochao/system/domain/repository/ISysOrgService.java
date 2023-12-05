@@ -37,4 +37,5 @@ public interface ISysOrgService {
 	 * @param id 主键
 	 */
 	void deleteById(String id);
+
 }

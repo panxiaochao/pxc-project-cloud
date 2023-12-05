@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * <p> 系统日志登录/登出表 Dao服务实现类. </p>
+ * <p>
+ * 系统日志登录/登出表 Dao服务实现类.
+ * </p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -28,93 +30,94 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SysLogLoginServiceImpl implements ISysLogLoginService, ISysLogLoginReadModelService {
 
-    /**
-     * 角色表 持久化接口
-     */
-    private final SysLogLoginMapper sysLogLoginMapper;
+	/**
+	 * 角色表 持久化接口
+	 */
+	private final SysLogLoginMapper sysLogLoginMapper;
 
-    /**
-     * 查询分页
-     * @param pagination 分页属性对象
-     * @param queryRequest 系统日志登录/登出表查询请求对象
-     * @return 分页结果数组
-     */
-    @Override
-    public List<SysLogLoginQueryResponse> page(Pagination pagination, SysLogLoginQueryRequest queryRequest) {
-        // 构造查询条件
-        LambdaQueryWrapper<SysLogLoginPO> lqw = lambdaQuery(queryRequest);
-        // 分页查询
-        Page<SysLogLoginPO> page = sysLogLoginMapper.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
-        pagination.setTotal(page.getTotal());
-        return ISysLogLoginPOConvert.INSTANCE.toQueryResponse(page.getRecords());
-    }
+	/**
+	 * 查询分页
+	 * @param pagination 分页属性对象
+	 * @param queryRequest 系统日志登录/登出表查询请求对象
+	 * @return 分页结果数组
+	 */
+	@Override
+	public List<SysLogLoginQueryResponse> page(Pagination pagination, SysLogLoginQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysLogLoginPO> lqw = lambdaQuery(queryRequest);
+		// 分页查询
+		Page<SysLogLoginPO> page = sysLogLoginMapper
+			.selectPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), lqw);
+		pagination.setTotal(page.getTotal());
+		return ISysLogLoginPOConvert.INSTANCE.toQueryResponse(page.getRecords());
+	}
 
-    /**
-     * 查询条件
-     * @param queryRequest 角色表查询请求对象
-     * @return 角色表Lambda表达式
-     */
-    private LambdaQueryWrapper<SysLogLoginPO> lambdaQuery(SysLogLoginQueryRequest queryRequest) {
-        LambdaQueryWrapper<SysLogLoginPO> lqw = Wrappers.lambdaQuery();
-        if (queryRequest != null) {
-            // 默认按照创建时间降序
-            lqw.orderByDesc(SysLogLoginPO::getCreateTime);
-            // 如果 登录名 不为空
-            if (StringUtils.isNotBlank(queryRequest.getLoginName())) {
-                lqw.eq(SysLogLoginPO::getLoginName, queryRequest.getLoginName());
-            }
-            // 如果 登录类型: 1-登录 2-登出 不为空
-            if (queryRequest.getLoginType() != null) {
-                lqw.eq(SysLogLoginPO::getLoginType, queryRequest.getLoginType());
-            }
-            // 如果 IP 不为空
-            if (StringUtils.isNotBlank(queryRequest.getIp())) {
-                lqw.eq(SysLogLoginPO::getIp, queryRequest.getIp());
-            }
-        }
-        return lqw;
-    }
+	/**
+	 * 查询条件
+	 * @param queryRequest 角色表查询请求对象
+	 * @return 角色表Lambda表达式
+	 */
+	private LambdaQueryWrapper<SysLogLoginPO> lambdaQuery(SysLogLoginQueryRequest queryRequest) {
+		LambdaQueryWrapper<SysLogLoginPO> lqw = Wrappers.lambdaQuery();
+		if (queryRequest != null) {
+			// 默认按照创建时间降序
+			lqw.orderByDesc(SysLogLoginPO::getCreateTime);
+			// 如果 登录名 不为空
+			if (StringUtils.isNotBlank(queryRequest.getLoginName())) {
+				lqw.eq(SysLogLoginPO::getLoginName, queryRequest.getLoginName());
+			}
+			// 如果 登录类型: 1-登录 2-登出 不为空
+			if (queryRequest.getLoginType() != null) {
+				lqw.eq(SysLogLoginPO::getLoginType, queryRequest.getLoginType());
+			}
+			// 如果 IP 不为空
+			if (StringUtils.isNotBlank(queryRequest.getIp())) {
+				lqw.eq(SysLogLoginPO::getIp, queryRequest.getIp());
+			}
+		}
+		return lqw;
+	}
 
-    /**
-     * 详情
-     * @param id 主键
-     * @return SysLogLogin 实体
-     */
-    @Override
-    public SysLogLogin getById(String id) {
-        SysLogLoginPO sysLogLoginPO = sysLogLoginMapper.selectById(id);
-        return ISysLogLoginPOConvert.INSTANCE.toEntity(sysLogLoginPO);
-    }
+	/**
+	 * 详情
+	 * @param id 主键
+	 * @return SysLogLogin 实体
+	 */
+	@Override
+	public SysLogLogin getById(String id) {
+		SysLogLoginPO sysLogLoginPO = sysLogLoginMapper.selectById(id);
+		return ISysLogLoginPOConvert.INSTANCE.toEntity(sysLogLoginPO);
+	}
 
-    /**
-     * 保存
-     * @param sysLogLogin SysLogLogin 实体
-     * @return SysLogLogin 实体
-     */
-    @Override
-    public SysLogLogin save(SysLogLogin sysLogLogin) {
-        SysLogLoginPO sysLogLoginPO = ISysLogLoginPOConvert.INSTANCE.fromEntity(sysLogLogin);
-        sysLogLoginMapper.insert(sysLogLoginPO);
-        return ISysLogLoginPOConvert.INSTANCE.toEntity(sysLogLoginPO);
-    }
+	/**
+	 * 保存
+	 * @param sysLogLogin SysLogLogin 实体
+	 * @return SysLogLogin 实体
+	 */
+	@Override
+	public SysLogLogin save(SysLogLogin sysLogLogin) {
+		SysLogLoginPO sysLogLoginPO = ISysLogLoginPOConvert.INSTANCE.fromEntity(sysLogLogin);
+		sysLogLoginMapper.insert(sysLogLoginPO);
+		return ISysLogLoginPOConvert.INSTANCE.toEntity(sysLogLoginPO);
+	}
 
-    /**
-     * 根据主键更新
-     * @param sysLogLogin SysLogLogin 实体
-     */
-    @Override
-    public void update(SysLogLogin sysLogLogin) {
-        SysLogLoginPO sysLogLoginPO = ISysLogLoginPOConvert.INSTANCE.fromEntity(sysLogLogin);
-        sysLogLoginMapper.updateById(sysLogLoginPO);
-    }
+	/**
+	 * 根据主键更新
+	 * @param sysLogLogin SysLogLogin 实体
+	 */
+	@Override
+	public void update(SysLogLogin sysLogLogin) {
+		SysLogLoginPO sysLogLoginPO = ISysLogLoginPOConvert.INSTANCE.fromEntity(sysLogLogin);
+		sysLogLoginMapper.updateById(sysLogLoginPO);
+	}
 
-    /**
-     * 根据主键删除
-     * @param id 主键
-     */
-    @Override
-    public void deleteById(String id) {
-        sysLogLoginMapper.deleteById(id);
-    }
+	/**
+	 * 根据主键删除
+	 * @param id 主键
+	 */
+	@Override
+	public void deleteById(String id) {
+		sysLogLoginMapper.deleteById(id);
+	}
 
 }

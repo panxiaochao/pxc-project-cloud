@@ -66,4 +66,5 @@ public interface ISysUserDTOConvert {
 	 * @return 用户表查询响应数据传输对象列表
 	 */
 	List<SysUserQueryResponse> toQueryResponse(List<SysUser> sysUserList);
+
 }

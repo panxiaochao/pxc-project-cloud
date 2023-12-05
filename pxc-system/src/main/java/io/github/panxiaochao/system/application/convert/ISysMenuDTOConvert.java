@@ -66,4 +66,5 @@ public interface ISysMenuDTOConvert {
 	 * @return 菜单配置查询响应数据传输对象列表
 	 */
 	List<SysMenuQueryResponse> toQueryResponse(List<SysMenu> sysMenuList);
+
 }

@@ -66,4 +66,5 @@ public interface ISysAreaDTOConvert {
 	 * @return 全国5级行政区划查询响应数据传输对象列表
 	 */
 	List<SysAreaQueryResponse> toQueryResponse(List<SysArea> sysAreaList);
+
 }

@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p> 角色表 接口.</p>
+ * <p>
+ * 角色表 接口.
+ * </p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -34,41 +36,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/v1/sysrole")
 public class SysRoleApi {
 
-    /**
-     * 角色表 服务
-     */
-    private final SysRoleAppService sysRoleAppService;
+	/**
+	 * 角色表 服务
+	 */
+	private final SysRoleAppService sysRoleAppService;
 
-    @Operation(summary = "查询分页", description = "查询分页", method = "GET")
-    @GetMapping(value = "/page")
-    public R<PageResponse<SysRoleQueryResponse>> page(RequestPage pageRequest, SysRoleQueryRequest queryRequest) {
-        return R.ok(sysRoleAppService.page(pageRequest, queryRequest));
-    }
+	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
+	@GetMapping(value = "/page")
+	public R<PageResponse<SysRoleQueryResponse>> page(RequestPage pageRequest, SysRoleQueryRequest queryRequest) {
+		return R.ok(sysRoleAppService.page(pageRequest, queryRequest));
+	}
 
-    @Operation(summary = "获取详情", description = "获取详情", method = "GET")
-    @Parameter(name = "id", description = "角色表 ID")
-    @GetMapping(value = "/{id}")
-    public R<SysRoleResponse> getById(@PathVariable("id") String id) {
-        return sysRoleAppService.getById(id);
-    }
+	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
+	@Parameter(name = "id", description = "角色表 ID")
+	@GetMapping(value = "/{id}")
+	public R<SysRoleResponse> getById(@PathVariable("id") String id) {
+		return sysRoleAppService.getById(id);
+	}
 
-    @Operation(summary = "保存", description = "保存", method = "POST")
-    @PostMapping
-    public R<SysRoleResponse> save(@RequestBody SysRoleCreateRequest sysRoleCreateRequest) {
-        return sysRoleAppService.save(sysRoleCreateRequest);
-    }
+	@Operation(summary = "保存", description = "保存", method = "POST")
+	@PostMapping
+	public R<SysRoleResponse> save(@RequestBody SysRoleCreateRequest sysRoleCreateRequest) {
+		return sysRoleAppService.save(sysRoleCreateRequest);
+	}
 
-    @Operation(summary = "更新", description = "根据主键更新", method = "PUT")
-    @PutMapping
-    public R<Void> update(@RequestBody SysRoleUpdateRequest sysRoleUpdateRequest) {
-        return sysRoleAppService.update(sysRoleUpdateRequest);
-    }
+	@Operation(summary = "更新", description = "根据主键更新", method = "PUT")
+	@PutMapping
+	public R<Void> update(@RequestBody SysRoleUpdateRequest sysRoleUpdateRequest) {
+		return sysRoleAppService.update(sysRoleUpdateRequest);
+	}
 
-    @Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
-    @Parameter(name = "id", description = "角色表 ID")
-    @DeleteMapping(value = "/{id}")
-    public R<Void> deleteById(@PathVariable("id") String id) {
-        return sysRoleAppService.deleteById(id);
-    }
+	@Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
+	@Parameter(name = "id", description = "角色表 ID")
+	@DeleteMapping(value = "/{id}")
+	public R<Void> deleteById(@PathVariable("id") String id) {
+		return sysRoleAppService.deleteById(id);
+	}
 
 }

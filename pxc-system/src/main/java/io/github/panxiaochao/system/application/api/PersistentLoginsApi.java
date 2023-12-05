@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>  接口.</p>
+ * <p>
+ * 接口.
+ * </p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -34,41 +36,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/v1/persistentlogins")
 public class PersistentLoginsApi {
 
-    /**
-     *  服务
-     */
-    private final PersistentLoginsAppService persistentLoginsAppService;
+	/**
+	 * 服务
+	 */
+	private final PersistentLoginsAppService persistentLoginsAppService;
 
-    @Operation(summary = "查询分页", description = "查询分页", method = "GET")
-    @GetMapping(value = "/page")
-    public R<PageResponse<PersistentLoginsQueryResponse>> page(RequestPage pageRequest, PersistentLoginsQueryRequest queryRequest) {
-        return R.ok(persistentLoginsAppService.page(pageRequest, queryRequest));
-    }
+	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
+	@GetMapping(value = "/page")
+	public R<PageResponse<PersistentLoginsQueryResponse>> page(RequestPage pageRequest,
+			PersistentLoginsQueryRequest queryRequest) {
+		return R.ok(persistentLoginsAppService.page(pageRequest, queryRequest));
+	}
 
-    @Operation(summary = "获取详情", description = "获取详情", method = "GET")
-    @Parameter(name = "id", description = " ID")
-    @GetMapping(value = "/{id}")
-    public R<PersistentLoginsResponse> getById(@PathVariable("id") String id) {
-        return persistentLoginsAppService.getById(id);
-    }
+	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
+	@Parameter(name = "id", description = " ID")
+	@GetMapping(value = "/{id}")
+	public R<PersistentLoginsResponse> getById(@PathVariable("id") String id) {
+		return persistentLoginsAppService.getById(id);
+	}
 
-    @Operation(summary = "保存", description = "保存", method = "POST")
-    @PostMapping
-    public R<PersistentLoginsResponse> save(@RequestBody PersistentLoginsCreateRequest persistentLoginsCreateRequest) {
-        return persistentLoginsAppService.save(persistentLoginsCreateRequest);
-    }
+	@Operation(summary = "保存", description = "保存", method = "POST")
+	@PostMapping
+	public R<PersistentLoginsResponse> save(@RequestBody PersistentLoginsCreateRequest persistentLoginsCreateRequest) {
+		return persistentLoginsAppService.save(persistentLoginsCreateRequest);
+	}
 
-    @Operation(summary = "更新", description = "根据主键更新", method = "PUT")
-    @PutMapping
-    public R<Void> update(@RequestBody PersistentLoginsUpdateRequest persistentLoginsUpdateRequest) {
-        return persistentLoginsAppService.update(persistentLoginsUpdateRequest);
-    }
+	@Operation(summary = "更新", description = "根据主键更新", method = "PUT")
+	@PutMapping
+	public R<Void> update(@RequestBody PersistentLoginsUpdateRequest persistentLoginsUpdateRequest) {
+		return persistentLoginsAppService.update(persistentLoginsUpdateRequest);
+	}
 
-    @Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
-    @Parameter(name = "id", description = " ID")
-    @DeleteMapping(value = "/{id}")
-    public R<Void> deleteById(@PathVariable("id") String id) {
-        return persistentLoginsAppService.deleteById(id);
-    }
+	@Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
+	@Parameter(name = "id", description = " ID")
+	@DeleteMapping(value = "/{id}")
+	public R<Void> deleteById(@PathVariable("id") String id) {
+		return persistentLoginsAppService.deleteById(id);
+	}
 
 }

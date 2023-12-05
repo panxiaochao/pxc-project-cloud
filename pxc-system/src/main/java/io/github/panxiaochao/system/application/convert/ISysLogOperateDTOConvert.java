@@ -66,4 +66,5 @@ public interface ISysLogOperateDTOConvert {
 	 * @return 系统日志操作表查询响应数据传输对象列表
 	 */
 	List<SysLogOperateQueryResponse> toQueryResponse(List<SysLogOperate> sysLogOperateList);
+
 }

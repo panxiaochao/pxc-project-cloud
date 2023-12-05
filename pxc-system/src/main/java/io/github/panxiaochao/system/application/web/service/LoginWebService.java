@@ -69,7 +69,8 @@ public class LoginWebService {
 			if (null != body.get("access_token")) {
 				result.put("token", body.get("access_token"));
 				return R.ok(result);
-			} else{
+			}
+			else {
 				return R.fail("用户名或密码错误，请重新登录！");
 			}
 		}

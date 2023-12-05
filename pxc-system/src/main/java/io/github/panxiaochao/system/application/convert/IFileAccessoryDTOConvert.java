@@ -66,4 +66,5 @@ public interface IFileAccessoryDTOConvert {
 	 * @return 附件表查询响应数据传输对象列表
 	 */
 	List<FileAccessoryQueryResponse> toQueryResponse(List<FileAccessory> fileAccessoryList);
+
 }

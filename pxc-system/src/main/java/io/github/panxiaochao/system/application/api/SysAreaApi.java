@@ -22,8 +22,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 /**
- * <p> 全国5级行政区划 接口.</p>
+ * <p>
+ * 全国5级行政区划 接口.
+ * </p>
  *
  * @author Lypxc
  * @since 2023-12-01
@@ -34,41 +39,49 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/v1/sysarea")
 public class SysAreaApi {
 
-    /**
-     * 全国5级行政区划 服务
-     */
-    private final SysAreaAppService sysAreaAppService;
+	/**
+	 * 全国5级行政区划 服务
+	 */
+	private final SysAreaAppService sysAreaAppService;
 
-    @Operation(summary = "查询分页", description = "查询分页", method = "GET")
-    @GetMapping(value = "/page")
-    public R<PageResponse<SysAreaQueryResponse>> page(RequestPage pageRequest, SysAreaQueryRequest queryRequest) {
-        return R.ok(sysAreaAppService.page(pageRequest, queryRequest));
-    }
+	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
+	@GetMapping(value = "/page")
+	public R<PageResponse<SysAreaQueryResponse>> page(RequestPage pageRequest, SysAreaQueryRequest queryRequest) {
+		return R.ok(sysAreaAppService.page(pageRequest, queryRequest));
+	}
 
-    @Operation(summary = "获取详情", description = "获取详情", method = "GET")
-    @Parameter(name = "id", description = "全国5级行政区划 ID")
-    @GetMapping(value = "/{id}")
-    public R<SysAreaResponse> getById(@PathVariable("id") String id) {
-        return sysAreaAppService.getById(id);
-    }
+	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
+	@Parameter(name = "id", description = "全国5级行政区划 ID")
+	@GetMapping(value = "/{id}")
+	public R<SysAreaResponse> getById(@PathVariable("id") String id) {
+		return sysAreaAppService.getById(id);
+	}
 
-    @Operation(summary = "保存", description = "保存", method = "POST")
-    @PostMapping
-    public R<SysAreaResponse> save(@RequestBody SysAreaCreateRequest sysAreaCreateRequest) {
-        return sysAreaAppService.save(sysAreaCreateRequest);
-    }
+	@Operation(summary = "保存", description = "保存", method = "POST")
+	@PostMapping
+	public R<SysAreaResponse> save(@RequestBody SysAreaCreateRequest sysAreaCreateRequest) {
+		return sysAreaAppService.save(sysAreaCreateRequest);
+	}
 
-    @Operation(summary = "更新", description = "根据主键更新", method = "PUT")
-    @PutMapping
-    public R<Void> update(@RequestBody SysAreaUpdateRequest sysAreaUpdateRequest) {
-        return sysAreaAppService.update(sysAreaUpdateRequest);
-    }
+	@Operation(summary = "更新", description = "根据主键更新", method = "PUT")
+	@PutMapping
+	public R<Void> update(@RequestBody SysAreaUpdateRequest sysAreaUpdateRequest) {
+		return sysAreaAppService.update(sysAreaUpdateRequest);
+	}
 
-    @Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
-    @Parameter(name = "id", description = "全国5级行政区划 ID")
-    @DeleteMapping(value = "/{id}")
-    public R<Void> deleteById(@PathVariable("id") String id) {
-        return sysAreaAppService.deleteById(id);
-    }
+	@Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
+	@Parameter(name = "id", description = "全国5级行政区划 ID")
+	@DeleteMapping(value = "/{id}")
+	public R<Void> deleteById(@PathVariable("id") String id) {
+		return sysAreaAppService.deleteById(id);
+	}
+
+	@Operation(summary = "前2级的区域数据", description = "前2级的区域数据", method = "GET")
+	@Parameter(name = "areaCode", description = "区域code")
+	@GetMapping(value = "/listTree")
+	public R<List<Map<String, Object>>> listTree(String areaCode) {
+		List<Map<String, Object>> list = sysAreaAppService.listTree(areaCode);
+		return R.ok(list);
+	}
 
 }

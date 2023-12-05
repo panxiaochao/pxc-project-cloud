@@ -18,45 +18,47 @@ import lombok.ToString;
 @ToString
 @Schema(description = "数据字典配置表查询请求对象")
 public class SysDictItemQueryRequest {
-    /**
-     * 主键
-     */
-    @Schema(description = "主键")
-    private String id;
 
-    /**
-     * 字典关联ID
-     */
-    @Schema(description = "字典关联ID")
-    private String dictId;
+	/**
+	 * 主键
+	 */
+	@Schema(description = "主键")
+	private String id;
 
-    /**
-     * 字典名称
-     */
-    @Schema(description = "字典名称")
-    private String dictItemText;
+	/**
+	 * 字典关联ID
+	 */
+	@Schema(description = "字典关联ID")
+	private String dictId;
 
-    /**
-     * 字典code
-     */
-    @Schema(description = "字典code")
-    private String dictItemValue;
+	/**
+	 * 字典名称
+	 */
+	@Schema(description = "字典名称")
+	private String dictItemText;
 
-    /**
-     * 描述
-     */
-    @Schema(description = "描述")
-    private String remark;
+	/**
+	 * 字典code
+	 */
+	@Schema(description = "字典code")
+	private String dictItemValue;
 
-    /**
-     * 排序
-     */
-    @Schema(description = "排序")
-    private Integer sort;
+	/**
+	 * 描述
+	 */
+	@Schema(description = "描述")
+	private String remark;
 
-    /**
-     * 状态：1正常，0不正常
-     */
-    @Schema(description = "状态：1正常，0不正常")
+	/**
+	 * 排序
+	 */
+	@Schema(description = "排序")
+	private Integer sort;
+
+	/**
+	 * 状态：1正常，0不正常
+	 */
+	@Schema(description = "状态：1正常，0不正常")
 	private String state;
+
 }

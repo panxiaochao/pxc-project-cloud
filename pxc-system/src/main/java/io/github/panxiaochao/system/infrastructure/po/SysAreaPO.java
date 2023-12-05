@@ -32,10 +32,10 @@ public class SysAreaPO {
 	private Integer id;
 
 	/**
-	 * 父ID
+	 * 父Code
 	 */
-	@TableField("parent_id")
-	private Integer parentId;
+	@TableField("parent_code")
+	private String parentCode;
 
 	/**
 	 * 区划名称
@@ -114,4 +114,5 @@ public class SysAreaPO {
 	 */
 	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
+
 }

@@ -102,4 +102,5 @@ public class SysLogOperatePO {
 	 */
 	@TableField(value = "create_time", fill = FieldFill.INSERT)
 	private LocalDateTime createTime;
+
 }

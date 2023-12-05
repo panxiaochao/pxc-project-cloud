@@ -66,4 +66,5 @@ public interface ISysUserAuthsDTOConvert {
 	 * @return 用户授权信息表查询响应数据传输对象列表
 	 */
 	List<SysUserAuthsQueryResponse> toQueryResponse(List<SysUserAuths> sysUserAuthsList);
+
 }

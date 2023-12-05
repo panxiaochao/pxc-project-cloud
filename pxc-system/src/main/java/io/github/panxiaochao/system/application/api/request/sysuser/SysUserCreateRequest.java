@@ -21,135 +21,136 @@ import java.time.LocalDateTime;
 @Schema(description = "用户表创建请求对象")
 public class SysUserCreateRequest {
 
-    /**
-     * 用户真实姓名
-     */
-    @Schema(description = "用户真实姓名")
-    private String realName;
+	/**
+	 * 用户真实姓名
+	 */
+	@Schema(description = "用户真实姓名")
+	private String realName;
 
-    /**
-     * 用户昵称（花名）
-     */
-    @Schema(description = "用户昵称（花名）")
-    private String nickName;
+	/**
+	 * 用户昵称（花名）
+	 */
+	@Schema(description = "用户昵称（花名）")
+	private String nickName;
 
-    /**
-     * 身份证
-     */
-    @Schema(description = "身份证")
-    private String idCard;
+	/**
+	 * 身份证
+	 */
+	@Schema(description = "身份证")
+	private String idCard;
 
-    /**
-     * 用户头像
-     */
-    @Schema(description = "用户头像")
-    private String avatar;
+	/**
+	 * 用户头像
+	 */
+	@Schema(description = "用户头像")
+	private String avatar;
 
-    /**
-     * 性别：1男，0女
-     */
-    @Schema(description = "性别：1男，0女")
-    private String sex;
+	/**
+	 * 性别：1男，0女
+	 */
+	@Schema(description = "性别：1男，0女")
+	private String sex;
 
-    /**
-     * 地址
-     */
-    @Schema(description = "地址")
-    private String address;
+	/**
+	 * 地址
+	 */
+	@Schema(description = "地址")
+	private String address;
 
-    /**
-     * 邮箱
-     */
-    @Schema(description = "邮箱")
-    private String email;
+	/**
+	 * 邮箱
+	 */
+	@Schema(description = "邮箱")
+	private String email;
 
-    /**
-     * 手机号码
-     */
-    @Schema(description = "手机号码")
-    private String mobile;
+	/**
+	 * 手机号码
+	 */
+	@Schema(description = "手机号码")
+	private String mobile;
 
-    /**
-     * 电话号码
-     */
-    @Schema(description = "电话号码")
-    private String tel;
+	/**
+	 * 电话号码
+	 */
+	@Schema(description = "电话号码")
+	private String tel;
 
-    /**
-     * 传真号码
-     */
-    @Schema(description = "传真号码")
-    private String fax;
+	/**
+	 * 传真号码
+	 */
+	@Schema(description = "传真号码")
+	private String fax;
 
-    /**
-     * 排序
-     */
-    @Schema(description = "排序")
-    private Integer sort;
+	/**
+	 * 排序
+	 */
+	@Schema(description = "排序")
+	private Integer sort;
 
-    /**
-     * 备注
-     */
-    @Schema(description = "备注")
-    private String remark;
+	/**
+	 * 备注
+	 */
+	@Schema(description = "备注")
+	private String remark;
 
-    /**
+	/**
 	 * 状态：1正常，0不正常
 	 */
 	@Schema(description = "状态：1正常，0不正常")
 	private String state;
 
-    /**
-     * 皮肤风格
-     */
-    @Schema(description = "皮肤风格")
-    private String skins;
+	/**
+	 * 皮肤风格
+	 */
+	@Schema(description = "皮肤风格")
+	private String skins;
 
-    /**
-     * 所在区域或者部门ID，多数据请用逗号隔开
-     */
-    @Schema(description = "所在区域或者部门ID，多数据请用逗号隔开")
-    private Integer orgId;
+	/**
+	 * 所在区域或者部门ID，多数据请用逗号隔开
+	 */
+	@Schema(description = "所在区域或者部门ID，多数据请用逗号隔开")
+	private Integer orgId;
 
-    /**
-     * 所在区域或者部门编码code，多数据请用逗号隔开
-     */
-    @Schema(description = "所在区域或者部门编码code，多数据请用逗号隔开")
-    private String orgCode;
+	/**
+	 * 所在区域或者部门编码code，多数据请用逗号隔开
+	 */
+	@Schema(description = "所在区域或者部门编码code，多数据请用逗号隔开")
+	private String orgCode;
 
-    /**
-     * 创建时间
-     */
-    @Schema(description = "创建时间")
-    private LocalDateTime createTime;
+	/**
+	 * 创建时间
+	 */
+	@Schema(description = "创建时间")
+	private LocalDateTime createTime;
 
-    /**
-     * 更新时间
-     */
-    @Schema(description = "更新时间")
-    private LocalDateTime updateTime;
+	/**
+	 * 更新时间
+	 */
+	@Schema(description = "更新时间")
+	private LocalDateTime updateTime;
 
-    /**
-     * 登陆次数
-     */
-    @Schema(description = "登陆次数")
-    private Integer loginNums;
+	/**
+	 * 登陆次数
+	 */
+	@Schema(description = "登陆次数")
+	private Integer loginNums;
 
-    /**
-     * 登录失败次数
-     */
-    @Schema(description = "登录失败次数")
-    private Integer loginErrorNums;
+	/**
+	 * 登录失败次数
+	 */
+	@Schema(description = "登录失败次数")
+	private Integer loginErrorNums;
 
-    /**
-     * 登录时间
-     */
-    @Schema(description = "登录时间")
-    private LocalDateTime loginTime;
+	/**
+	 * 登录时间
+	 */
+	@Schema(description = "登录时间")
+	private LocalDateTime loginTime;
 
-    /**
-     * 帐号超时期限
-     */
-    @Schema(description = "帐号超时期限")
-    private LocalDateTime expireTime;
+	/**
+	 * 帐号超时期限
+	 */
+	@Schema(description = "帐号超时期限")
+	private LocalDateTime expireTime;
+
 }
