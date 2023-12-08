@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.tree.Tree;
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaUpdateRequest;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -79,9 +79,8 @@ public class SysAreaApi {
 	@Operation(summary = "前2级的区域数据", description = "前2级的区域数据", method = "GET")
 	@Parameter(name = "areaCode", description = "区域code")
 	@GetMapping(value = "/listTree")
-	public R<List<Map<String, Object>>> listTree(String areaCode) {
-		List<Map<String, Object>> list = sysAreaAppService.listTree(areaCode);
-		return R.ok(list);
+	public R<List<Tree<String>>> listTree(String areaCode) {
+		return R.ok(sysAreaAppService.listTree(areaCode));
 	}
 
 }

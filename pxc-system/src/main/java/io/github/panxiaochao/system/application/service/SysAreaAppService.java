@@ -1,9 +1,14 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.enums.CommonConstants;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.tree.Tree;
+import io.github.panxiaochao.core.utils.tree.TreeBuilder;
+import io.github.panxiaochao.core.utils.tree.TreeNode;
+import io.github.panxiaochao.core.utils.tree.TreeNodeProperties;
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaUpdateRequest;
@@ -13,13 +18,12 @@ import io.github.panxiaochao.system.application.convert.ISysAreaDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysAreaReadModelService;
 import io.github.panxiaochao.system.domain.entity.SysArea;
 import io.github.panxiaochao.system.domain.service.SysAreaDomainService;
-import io.github.panxiaochao.system.infrastructure.utils.EasyTreeUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -104,25 +108,35 @@ public class SysAreaAppService {
 	 * @param areaCode 区域code
 	 * @return 区域数组
 	 */
-	public List<Map<String, Object>> listTree(String areaCode) {
+	public List<Tree<String>> listTree(String areaCode) {
 		SysAreaQueryRequest queryRequest = new SysAreaQueryRequest();
+		String rootId = CommonConstants.MENU_TREE_ROOT_ID.toString();
 		// 当区域code不为空的时候，说明是查询下级数据
 		if (StringUtils.hasText(areaCode)) {
 			// 设置父节点为当前区域code
 			queryRequest.setParentCode(areaCode);
+			rootId = areaCode;
 		}
 		else {
 			queryRequest.setAreaLevel(2);
 		}
-		List<SysArea> list = sysAreaDomainService.listTree(queryRequest);
-		List<Map<String, Object>> mapList = new EasyTreeUtil<SysArea>().list(list)
-			.entityFieldId("areaCode")
-			.entityFieldParentId("parentCode")
-			.extendKeys("{areaName: areaName, areaCode: areaCode, areaLevel: areaLevel, cityCode: cityCode,"
-					+ "areaNameEn: areaNameEn, areaNameEnAbbr: areaNameEnAbbr, longitude: longitude, latitude: latitude, sort: sort}")
-			.isNullChildrenAsEmpty(true)
-			.build();
-		return mapList;
+		List<TreeNode<String>> treeNodeList = sysAreaDomainService.listTree(queryRequest)
+			.stream()
+			.map(sysArea -> TreeNode.of(sysArea.getAreaCode(), sysArea.getParentCode(), sysArea.getAreaName(),
+					sysArea.getSort(), (extraMap) -> {
+						extraMap.put("areaCode", sysArea.getAreaCode());
+						extraMap.put("areaLevel", sysArea.getAreaLevel());
+						extraMap.put("cityCode", sysArea.getCityCode());
+						extraMap.put("areaNameEn", sysArea.getAreaNameEn());
+						extraMap.put("areaNameEnAbbr", sysArea.getAreaNameEnAbbr());
+						extraMap.put("longitude", sysArea.getLongitude());
+						extraMap.put("latitude", sysArea.getLatitude());
+					}))
+			.collect(Collectors.toList());
+		// 修改节点属性
+		TreeNodeProperties treeNodeProperties = TreeNodeProperties.DEFAULT_PROPERTIES;
+		treeNodeProperties.setLabelKey("areaName");
+		return TreeBuilder.of(rootId, true, treeNodeProperties).append(treeNodeList).fastBuild().toTreeList();
 	}
 
 }
