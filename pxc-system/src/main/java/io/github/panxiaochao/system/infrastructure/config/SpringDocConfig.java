@@ -36,7 +36,7 @@ public class SpringDocConfig {
 	 */
 	@Bean
 	public GroupedOpenApi defaultGroupApi() {
-		return GroupedOpenApi.builder().group("pxc-system-v1").pathsToMatch("/system/v1/**").build();
+		return GroupedOpenApi.builder().group("pxc-system-api").pathsToMatch("/system/v1/**").build();
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class SpringDocConfig {
 	 */
 	@Bean
 	public GroupedOpenApi webGroupApi() {
-		return GroupedOpenApi.builder().group("login").pathsToMatch("/web/v1/**").build();
+		return GroupedOpenApi.builder().group("web-api").pathsToMatch("/web/v1/**").build();
 	}
 
 }
