@@ -20,8 +20,10 @@ import io.github.panxiaochao.system.domain.entity.SysArea;
 import io.github.panxiaochao.system.domain.service.SysAreaDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -120,23 +122,29 @@ public class SysAreaAppService {
 		else {
 			queryRequest.setAreaLevel(2);
 		}
-		List<TreeNode<String>> treeNodeList = sysAreaDomainService.listTree(queryRequest)
+		List<TreeNode<String>> treeNodeList = sysAreaReadModelService.list(queryRequest)
 			.stream()
-			.map(sysArea -> TreeNode.of(sysArea.getAreaCode(), sysArea.getParentCode(), sysArea.getAreaName(),
-					sysArea.getSort(), (extraMap) -> {
-						extraMap.put("areaCode", sysArea.getAreaCode());
-						extraMap.put("areaLevel", sysArea.getAreaLevel());
-						extraMap.put("cityCode", sysArea.getCityCode());
-						extraMap.put("areaNameEn", sysArea.getAreaNameEn());
-						extraMap.put("areaNameEnAbbr", sysArea.getAreaNameEnAbbr());
-						extraMap.put("longitude", sysArea.getLongitude());
-						extraMap.put("latitude", sysArea.getLatitude());
+			.map(sysAreaQueryResponse -> TreeNode.of(sysAreaQueryResponse.getAreaCode(),
+					sysAreaQueryResponse.getParentCode(), sysAreaQueryResponse.getAreaName(),
+					sysAreaQueryResponse.getSort(), (extraMap) -> {
+						extraMap.put("areaCode", sysAreaQueryResponse.getAreaCode());
+						extraMap.put("areaLevel", sysAreaQueryResponse.getAreaLevel());
+						extraMap.put("cityCode", sysAreaQueryResponse.getCityCode());
+						extraMap.put("areaNameEn", sysAreaQueryResponse.getAreaNameEn());
+						extraMap.put("areaNameEnAbbr", sysAreaQueryResponse.getAreaNameEnAbbr());
+						extraMap.put("longitude", sysAreaQueryResponse.getLongitude());
+						extraMap.put("latitude", sysAreaQueryResponse.getLatitude());
 					}))
 			.collect(Collectors.toList());
 		// 修改节点属性
 		TreeNodeProperties treeNodeProperties = TreeNodeProperties.DEFAULT_PROPERTIES;
-		treeNodeProperties.setLabelKey("areaName");
-		return TreeBuilder.of(rootId, true, treeNodeProperties).append(treeNodeList).fastBuild().toTreeList();
+		treeNodeProperties.labelKey("areaName");
+		// 构建树
+		List<Tree<String>> treeList = TreeBuilder.of(rootId, true, treeNodeProperties)
+				.append(treeNodeList)
+				.fastBuild()
+				.toTreeList();
+		return CollectionUtils.isEmpty(treeList) ? new ArrayList<>() : treeList;
 	}
 
 }

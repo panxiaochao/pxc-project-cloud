@@ -1,9 +1,14 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.enums.CommonConstants;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.tree.Tree;
+import io.github.panxiaochao.core.utils.tree.TreeBuilder;
+import io.github.panxiaochao.core.utils.tree.TreeNode;
+import io.github.panxiaochao.core.utils.tree.TreeNodeProperties;
 import io.github.panxiaochao.system.application.api.request.sysorg.SysOrgCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysorg.SysOrgQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysorg.SysOrgUpdateRequest;
@@ -15,8 +20,12 @@ import io.github.panxiaochao.system.domain.entity.SysOrg;
 import io.github.panxiaochao.system.domain.service.SysOrgDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -92,8 +101,46 @@ public class SysOrgAppService {
 	 * @return 空返回
 	 */
 	public R<Void> deleteById(String id) {
-		sysOrgDomainService.deleteById(id);
+		SysOrgQueryRequest queryRequest = new SysOrgQueryRequest();
+		queryRequest.setParentId(id);
+		List<SysOrgQueryResponse> list = sysOrgReadModelService.list(queryRequest);
+		if (CollectionUtils.isEmpty(list)) {
+			sysOrgDomainService.deleteById(id);
+		}
+		else {
+			return R.fail("存在关联数据，请删除完全！");
+		}
 		return R.ok();
+	}
+
+	/**
+	 * 组织树列表
+	 * @param rootId 根节点
+	 * @return 树列表
+	 */
+	public List<Tree<String>> listTree(String rootId) {
+		SysOrgQueryRequest queryRequest = new SysOrgQueryRequest();
+		if (StringUtils.hasText(rootId)) {
+			queryRequest.setParentId(rootId);
+		}
+		else {
+			rootId = CommonConstants.MENU_TREE_ROOT_ID.toString();
+		}
+		queryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		List<TreeNode<String>> treeNodeList = sysOrgReadModelService.list(queryRequest)
+			.stream()
+			.map(s -> TreeNode.of(s.getId(), s.getParentId(), s.getOrgName(), s.getSort(), null))
+			.collect(Collectors.toList());
+		// 修改节点属性
+		TreeNodeProperties treeNodeProperties = TreeNodeProperties.DEFAULT_PROPERTIES;
+		treeNodeProperties.labelKey("title");
+		treeNodeProperties.idKey("key");
+		// 构建树
+		List<Tree<String>> treeList = TreeBuilder.of(rootId, true, treeNodeProperties)
+			.append(treeNodeList)
+			.fastBuild()
+			.toTreeList();
+		return CollectionUtils.isEmpty(treeList) ? new ArrayList<>() : treeList;
 	}
 
 }

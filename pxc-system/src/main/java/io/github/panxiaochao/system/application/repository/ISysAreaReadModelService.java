@@ -24,4 +24,11 @@ public interface ISysAreaReadModelService {
 	 */
 	List<SysAreaQueryResponse> page(Pagination pagination, SysAreaQueryRequest queryRequest);
 
+	/**
+	 * 查询列表
+	 * @param queryRequest 全国5级行政区划查询请求对象
+	 * @return 查询列表
+	 */
+	 List<SysAreaQueryResponse> list(SysAreaQueryRequest queryRequest);
+
 }

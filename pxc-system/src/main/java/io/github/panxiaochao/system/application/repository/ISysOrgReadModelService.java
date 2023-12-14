@@ -24,4 +24,11 @@ public interface ISysOrgReadModelService {
 	 */
 	List<SysOrgQueryResponse> page(Pagination pagination, SysOrgQueryRequest queryRequest);
 
+	/**
+	 * 查询列表
+	 * @param queryRequest 机构部门表查询请求对象
+	 * @return 分页结果数组
+	 */
+	List<SysOrgQueryResponse> list(SysOrgQueryRequest queryRequest);
+
 }

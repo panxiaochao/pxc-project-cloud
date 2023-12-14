@@ -31,13 +31,13 @@ public class SysOrgResponse {
 	 * 父ID
 	 */
 	@Schema(description = "父ID")
-	private Integer parentId;
+	private String parentId;
 
 	/**
 	 * 地区ID
 	 */
 	@Schema(description = "地区ID")
-	private Integer areaId;
+	private String areaId;
 
 	/**
 	 * 地区代码code

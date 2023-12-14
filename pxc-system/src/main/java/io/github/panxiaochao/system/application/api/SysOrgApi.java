@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.tree.Tree;
 import io.github.panxiaochao.system.application.api.request.sysorg.SysOrgCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysorg.SysOrgQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysorg.SysOrgUpdateRequest;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -71,6 +74,13 @@ public class SysOrgApi {
 	@DeleteMapping(value = "/{id}")
 	public R<Void> deleteById(@PathVariable("id") String id) {
 		return sysOrgAppService.deleteById(id);
+	}
+
+	@Operation(summary = "组织树形结构树", description = "组织树形结构树", method = "GET")
+	@Parameter(name = "rootId", description = "根节点")
+	@GetMapping(value = "/listTree")
+	public R<List<Tree<String>>> listTree(String rootId) {
+		return R.ok(sysOrgAppService.listTree(rootId));
 	}
 
 }

@@ -52,6 +52,19 @@ public class SysOrgServiceImpl implements ISysOrgService, ISysOrgReadModelServic
 	}
 
 	/**
+	 * 查询列表
+	 * @param queryRequest 机构部门表查询请求对象
+	 * @return 分页结果数组
+	 */
+	@Override
+	public List<SysOrgQueryResponse> list(SysOrgQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysOrgPO> lqw = lambdaQuery(queryRequest);
+		List<SysOrgPO> sysOrgPOList = sysOrgMapper.selectList(lqw);
+		return ISysOrgPOConvert.INSTANCE.toQueryResponse(sysOrgPOList);
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式
@@ -59,8 +72,8 @@ public class SysOrgServiceImpl implements ISysOrgService, ISysOrgReadModelServic
 	private LambdaQueryWrapper<SysOrgPO> lambdaQuery(SysOrgQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysOrgPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(SysOrgPO::getId);
+			// 默认按照sort升序
+			lqw.orderByAsc(SysOrgPO::getSort);
 			// 如果 父ID 不为空
 			if (queryRequest.getParentId() != null) {
 				lqw.eq(SysOrgPO::getParentId, queryRequest.getParentId());
@@ -75,7 +88,7 @@ public class SysOrgServiceImpl implements ISysOrgService, ISysOrgReadModelServic
 			}
 			// 如果 机构/部门名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getOrgName())) {
-				lqw.eq(SysOrgPO::getOrgName, queryRequest.getOrgName());
+				lqw.like(SysOrgPO::getOrgName, queryRequest.getOrgName());
 			}
 			// 如果 英文名 不为空
 			if (StringUtils.isNotBlank(queryRequest.getOrgNameEn())) {
@@ -116,14 +129,6 @@ public class SysOrgServiceImpl implements ISysOrgService, ISysOrgReadModelServic
 			// 如果 备注 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRemark())) {
 				lqw.eq(SysOrgPO::getRemark, queryRequest.getRemark());
-			}
-			// 如果 创建时间 不为空
-			if (queryRequest.getCreateTime() != null) {
-				lqw.eq(SysOrgPO::getCreateTime, queryRequest.getCreateTime());
-			}
-			// 如果 更新时间 不为空
-			if (queryRequest.getUpdateTime() != null) {
-				lqw.eq(SysOrgPO::getUpdateTime, queryRequest.getUpdateTime());
 			}
 		}
 		return lqw;

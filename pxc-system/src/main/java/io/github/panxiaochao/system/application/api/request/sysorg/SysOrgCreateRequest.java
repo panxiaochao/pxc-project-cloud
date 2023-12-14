@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
  * 机构部门表创建请求对象
@@ -25,13 +23,13 @@ public class SysOrgCreateRequest {
 	 * 父ID
 	 */
 	@Schema(description = "父ID")
-	private Integer parentId;
+	private String parentId;
 
 	/**
 	 * 地区ID
 	 */
 	@Schema(description = "地区ID")
-	private Integer areaId;
+	private String areaId;
 
 	/**
 	 * 地区代码code
@@ -104,17 +102,5 @@ public class SysOrgCreateRequest {
 	 */
 	@Schema(description = "备注")
 	private String remark;
-
-	/**
-	 * 创建时间
-	 */
-	@Schema(description = "创建时间")
-	private LocalDateTime createTime;
-
-	/**
-	 * 更新时间
-	 */
-	@Schema(description = "更新时间")
-	private LocalDateTime updateTime;
 
 }

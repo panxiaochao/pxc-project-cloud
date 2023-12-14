@@ -29,6 +29,6 @@ public interface ISysDictItemReadModelService {
 	 * @param queryRequest 数据字典配置表查询请求对象
 	 * @return 结果数组
 	 */
-	List<SysDictItemQueryResponse> selectList(SysDictItemQueryRequest queryRequest);
+	List<SysDictItemQueryResponse> list(SysDictItemQueryRequest queryRequest);
 
 }

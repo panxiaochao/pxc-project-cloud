@@ -103,7 +103,7 @@ public class SysDictAppService {
 	public R<Void> deleteById(String id) {
 		SysDictItemQueryRequest queryRequest = new SysDictItemQueryRequest();
 		queryRequest.setDictId(id);
-		List<SysDictItemQueryResponse> list = sysDictItemReadModelService.selectList(queryRequest);
+		List<SysDictItemQueryResponse> list = sysDictItemReadModelService.list(queryRequest);
 		if (CollectionUtils.isEmpty(list)) {
 			sysDictDomainService.deleteById(id);
 		}

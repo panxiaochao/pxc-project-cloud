@@ -52,6 +52,19 @@ public class SysAreaServiceImpl implements ISysAreaService, ISysAreaReadModelSer
 	}
 
 	/**
+	 * 查询列表
+	 * @param queryRequest 全国5级行政区划查询请求对象
+	 * @return 查询列表
+	 */
+	@Override
+	public List<SysAreaQueryResponse> list(SysAreaQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysAreaPO> lqw = lambdaQuery(queryRequest);
+		List<SysAreaPO> list = sysAreaMapper.selectList(lqw);
+		return ISysAreaPOConvert.INSTANCE.toQueryResponse(list);
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式
@@ -149,25 +162,6 @@ public class SysAreaServiceImpl implements ISysAreaService, ISysAreaReadModelSer
 	@Override
 	public void deleteById(String id) {
 		sysAreaMapper.deleteById(id);
-	}
-
-	/**
-	 * 前2级的区域数据
-	 * @param queryRequest 全国5级行政区划查询请求对象
-	 * @return 区域数组
-	 */
-	@Override
-	public List<SysArea> listTree(SysAreaQueryRequest queryRequest) {
-		LambdaQueryWrapper<SysAreaPO> lqw = Wrappers.lambdaQuery();
-		if (StringUtils.isNotBlank(queryRequest.getParentCode())) {
-			lqw.eq(SysAreaPO::getParentCode, queryRequest.getParentCode());
-		}
-		else {
-			lqw.le(SysAreaPO::getAreaLevel, queryRequest.getAreaLevel());
-		}
-		lqw.orderByAsc(SysAreaPO::getAreaCode);
-		List<SysAreaPO> list = sysAreaMapper.selectList(lqw);
-		return ISysAreaPOConvert.INSTANCE.toEntity(list);
 	}
 
 }

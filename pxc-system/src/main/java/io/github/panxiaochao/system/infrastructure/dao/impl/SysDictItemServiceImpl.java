@@ -58,7 +58,7 @@ public class SysDictItemServiceImpl implements ISysDictItemService, ISysDictItem
 	 * @return 结果数组
 	 */
 	@Override
-	public List<SysDictItemQueryResponse> selectList(SysDictItemQueryRequest queryRequest) {
+	public List<SysDictItemQueryResponse> list(SysDictItemQueryRequest queryRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<SysDictItemPO> lqw = lambdaQuery(queryRequest);
 		return ISysDictItemPOConvert.INSTANCE.toQueryResponse(sysDictItemMapper.selectList(lqw));
