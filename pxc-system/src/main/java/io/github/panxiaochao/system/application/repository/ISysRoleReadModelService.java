@@ -24,4 +24,11 @@ public interface ISysRoleReadModelService {
 	 */
 	List<SysRoleQueryResponse> page(Pagination pagination, SysRoleQueryRequest queryRequest);
 
+	/**
+	 * 查询列表
+	 * @param queryRequest 角色表查询请求对象
+	 * @return 结果数组
+	 */
+	List<SysRoleQueryResponse> list(SysRoleQueryRequest queryRequest);
+
 }

@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
  * 用户角色表创建请求对象
@@ -25,24 +23,12 @@ public class SysUserRoleCreateRequest {
 	 * 用户ID
 	 */
 	@Schema(description = "用户ID")
-	private Integer userId;
+	private String userId;
 
 	/**
 	 * 角色ID
 	 */
 	@Schema(description = "角色ID")
-	private Integer roleId;
-
-	/**
-	 * 创建时间
-	 */
-	@Schema(description = "创建时间")
-	private LocalDateTime createTime;
-
-	/**
-	 * 更新时间
-	 */
-	@Schema(description = "更新时间")
-	private LocalDateTime updateTime;
+	private String roleId;
 
 }

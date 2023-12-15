@@ -2,6 +2,8 @@ package io.github.panxiaochao.system.domain.repository;
 
 import io.github.panxiaochao.system.domain.entity.SysUserRole;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户角色表 Domain接口服务类.
@@ -37,5 +39,17 @@ public interface ISysUserRoleService {
 	 * @param id 主键
 	 */
 	void deleteById(String id);
+
+	/**
+	 * 批量保存
+	 * @param list SysUserRole 数据实体
+	 */
+	void saveBatch(List<SysUserRole> list);
+
+	/**
+	 * 先删除当前用户的所有关联数据
+	 * @param userId 用户Id
+	 */
+	void deleteByUserId(String userId);
 
 }

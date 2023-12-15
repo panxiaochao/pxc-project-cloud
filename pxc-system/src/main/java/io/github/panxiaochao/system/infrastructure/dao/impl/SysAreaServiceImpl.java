@@ -65,6 +65,26 @@ public class SysAreaServiceImpl implements ISysAreaService, ISysAreaReadModelSer
 	}
 
 	/**
+	 * 定制查询列表
+	 *
+	 * @param queryRequest 全国5级行政区划查询请求对象
+	 * @return 查询列表
+	 */
+	@Override
+	public List<SysAreaQueryResponse> listTree(SysAreaQueryRequest queryRequest) {
+		LambdaQueryWrapper<SysAreaPO> lqw = Wrappers.lambdaQuery();
+		if (StringUtils.isNotBlank(queryRequest.getParentCode())) {
+			lqw.eq(SysAreaPO::getParentCode, queryRequest.getParentCode());
+		}
+		else {
+			lqw.le(SysAreaPO::getAreaLevel, queryRequest.getAreaLevel());
+		}
+		lqw.orderByAsc(SysAreaPO::getSort);
+		List<SysAreaPO> list = sysAreaMapper.selectList(lqw);
+		return ISysAreaPOConvert.INSTANCE.toQueryResponse(list);
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式

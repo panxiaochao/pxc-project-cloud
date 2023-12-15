@@ -4,6 +4,7 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.system.application.api.request.sysuserrole.SysUserRoleCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserrole.SysUserRoleQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserrole.SysUserRoleUpdateRequest;
@@ -15,8 +16,13 @@ import io.github.panxiaochao.system.domain.entity.SysUserRole;
 import io.github.panxiaochao.system.domain.service.SysUserRoleDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -53,6 +59,21 @@ public class SysUserRoleAppService {
 	}
 
 	/**
+	 * 角色ID数组
+	 * @param userId 用户ID
+	 * @return 角色ID数组
+	 */
+	public List<String> rolesByUserId(String userId) {
+		SysUserRoleQueryRequest queryRequest = new SysUserRoleQueryRequest();
+		queryRequest.setUserId(userId);
+		List<SysUserRoleQueryResponse> list = sysUserRoleReadModelService.list(queryRequest);
+		if (!CollectionUtils.isEmpty(list)) {
+			return list.stream().map(SysUserRoleQueryResponse::getRoleId).collect(Collectors.toList());
+		}
+		return new ArrayList<>();
+	}
+
+	/**
 	 * 详情
 	 * @param id 主键
 	 * @return 响应对象
@@ -68,11 +89,19 @@ public class SysUserRoleAppService {
 	 * @param sysUserRoleCreateRequest 创建请求对象
 	 * @return 返回保存对象
 	 */
-	public R<SysUserRoleResponse> save(SysUserRoleCreateRequest sysUserRoleCreateRequest) {
-		SysUserRole sysUserRole = ISysUserRoleDTOConvert.INSTANCE.fromCreateRequest(sysUserRoleCreateRequest);
-		sysUserRole = sysUserRoleDomainService.save(sysUserRole);
-		SysUserRoleResponse sysUserRoleResponse = ISysUserRoleDTOConvert.INSTANCE.toResponse(sysUserRole);
-		return R.ok(sysUserRoleResponse);
+	public R<Void> save(SysUserRoleCreateRequest sysUserRoleCreateRequest) {
+		if (StringUtils.hasText(sysUserRoleCreateRequest.getRoleId())) {
+			// 以,分割roleId为字符串数组
+			String[] roleIds = sysUserRoleCreateRequest.getRoleId().split(StringPools.COMMA);
+			List<SysUserRole> list = Arrays.stream(roleIds)
+				.map(roleId -> new SysUserRole(sysUserRoleCreateRequest.getUserId(), roleId))
+				.collect(Collectors.toList());
+			// 先删除当前用户的所有关联数据
+			sysUserRoleDomainService.deleteByUserId(sysUserRoleCreateRequest.getUserId());
+			// 批量保存当前用户的最新关联数据
+			sysUserRoleDomainService.saveBatch(list);
+		}
+		return R.ok();
 	}
 
 	/**

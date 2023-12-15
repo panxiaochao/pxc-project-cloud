@@ -37,4 +37,10 @@ public class SysRoleQueryRequest {
 	@Schema(description = "角色code")
 	private String roleCode;
 
+	/**
+	 * 状态1正常，0失效
+	 */
+	@Schema(description = "状态1正常，0失效")
+	private String state;
+
 }

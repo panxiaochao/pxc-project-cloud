@@ -45,4 +45,14 @@ public class LoginWebApi {
 		return loginWebService.login(loginRequest);
 	}
 
+	/**
+	 * 登出
+	 */
+	@PostMapping("/logout")
+	@OperateLog(key = "#username", description = "登出", businessType = OperateLog.BusinessType.LOGOUT)
+	@Operation(summary = "登出接口", description = "登出接口", method = "POST")
+	public R<Void> logout(String username) {
+		return R.ok();
+	}
+
 }

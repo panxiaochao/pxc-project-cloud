@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色表 接口.
@@ -45,6 +47,12 @@ public class SysRoleApi {
 	@GetMapping(value = "/page")
 	public R<PageResponse<SysRoleQueryResponse>> page(RequestPage pageRequest, SysRoleQueryRequest queryRequest) {
 		return R.ok(sysRoleAppService.page(pageRequest, queryRequest));
+	}
+
+	@Operation(summary = "角色数组", description = "角色数组", method = "GET")
+	@GetMapping(value = "/listRole")
+	public R<List<SysRoleQueryResponse>> listRole(SysRoleQueryRequest queryRequest) {
+		return R.ok(sysRoleAppService.listRole(queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

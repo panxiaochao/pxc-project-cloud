@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.infrastructure.dao.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.system.application.api.request.sysuserrole.SysUserRoleQueryRequest;
 import io.github.panxiaochao.system.application.api.response.sysuserrole.SysUserRoleQueryResponse;
@@ -52,6 +53,19 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService, ISysUserRole
 	}
 
 	/**
+	 * 查询列表
+	 * @param queryRequest 用户角色表查询请求对象
+	 * @return 数组响应实体
+	 */
+	@Override
+	public List<SysUserRoleQueryResponse> list(SysUserRoleQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysUserRolePO> lqw = lambdaQuery(queryRequest);
+		List<SysUserRolePO> sysUserRolePOList = sysUserRoleMapper.selectList(lqw);
+		return ISysUserRolePOConvert.INSTANCE.toQueryResponse(sysUserRolePOList);
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式
@@ -60,7 +74,7 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService, ISysUserRole
 		LambdaQueryWrapper<SysUserRolePO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
 			// 默认按照主键倒序排序
-			lqw.orderByDesc(SysUserRolePO::getId);
+			// lqw.orderByDesc(SysUserRolePO::getId);
 			// 如果 用户ID 不为空
 			if (queryRequest.getUserId() != null) {
 				lqw.eq(SysUserRolePO::getUserId, queryRequest.getUserId());
@@ -68,14 +82,6 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService, ISysUserRole
 			// 如果 角色ID 不为空
 			if (queryRequest.getRoleId() != null) {
 				lqw.eq(SysUserRolePO::getRoleId, queryRequest.getRoleId());
-			}
-			// 如果 创建时间 不为空
-			if (queryRequest.getCreateTime() != null) {
-				lqw.eq(SysUserRolePO::getCreateTime, queryRequest.getCreateTime());
-			}
-			// 如果 更新时间 不为空
-			if (queryRequest.getUpdateTime() != null) {
-				lqw.eq(SysUserRolePO::getUpdateTime, queryRequest.getUpdateTime());
 			}
 		}
 		return lqw;
@@ -121,6 +127,25 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService, ISysUserRole
 	@Override
 	public void deleteById(String id) {
 		sysUserRoleMapper.deleteById(id);
+	}
+
+	/**
+	 * 批量保存
+	 * @param list SysUserRole 数据实体
+	 */
+	@Override
+	public void saveBatch(List<SysUserRole> list) {
+		List<SysUserRolePO> sysUserRolePOList = ISysUserRolePOConvert.INSTANCE.fromEntity(list);
+		Db.saveBatch(sysUserRolePOList);
+	}
+
+	/**
+	 * 先删除当前用户的所有关联数据
+	 * @param userId 用户Id
+	 */
+	@Override
+	public void deleteByUserId(String userId) {
+		sysUserRoleMapper.delete(new LambdaQueryWrapper<SysUserRolePO>().eq(SysUserRolePO::getUserId, userId));
 	}
 
 }

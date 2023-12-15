@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户角色表 接口.
@@ -48,6 +50,12 @@ public class SysUserRoleApi {
 		return R.ok(sysUserRoleAppService.page(pageRequest, queryRequest));
 	}
 
+	@Operation(summary = "角色ID数组", description = "根据用户ID查询角色ID数组", method = "GET")
+	@GetMapping(value = "/rolesByUserId")
+	public R<List<String>> rolesByUserId(String userId) {
+		return R.ok(sysUserRoleAppService.rolesByUserId(userId));
+	}
+
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
 	@Parameter(name = "id", description = "用户角色表 ID")
 	@GetMapping(value = "/{id}")
@@ -57,7 +65,7 @@ public class SysUserRoleApi {
 
 	@Operation(summary = "保存", description = "保存", method = "POST")
 	@PostMapping
-	public R<SysUserRoleResponse> save(@RequestBody SysUserRoleCreateRequest sysUserRoleCreateRequest) {
+	public R<Void> save(@RequestBody SysUserRoleCreateRequest sysUserRoleCreateRequest) {
 		return sysUserRoleAppService.save(sysUserRoleCreateRequest);
 	}
 

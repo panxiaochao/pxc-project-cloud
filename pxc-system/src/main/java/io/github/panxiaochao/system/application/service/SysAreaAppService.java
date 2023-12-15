@@ -122,11 +122,12 @@ public class SysAreaAppService {
 		else {
 			queryRequest.setAreaLevel(2);
 		}
-		List<TreeNode<String>> treeNodeList = sysAreaReadModelService.list(queryRequest)
+		List<TreeNode<String>> treeNodeList = sysAreaReadModelService.listTree(queryRequest)
 			.stream()
 			.map(sysAreaQueryResponse -> TreeNode.of(sysAreaQueryResponse.getAreaCode(),
 					sysAreaQueryResponse.getParentCode(), sysAreaQueryResponse.getAreaName(),
 					sysAreaQueryResponse.getSort(), (extraMap) -> {
+						extraMap.put("id", sysAreaQueryResponse.getId());
 						extraMap.put("areaCode", sysAreaQueryResponse.getAreaCode());
 						extraMap.put("areaLevel", sysAreaQueryResponse.getAreaLevel());
 						extraMap.put("cityCode", sysAreaQueryResponse.getCityCode());

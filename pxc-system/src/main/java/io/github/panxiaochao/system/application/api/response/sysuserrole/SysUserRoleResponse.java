@@ -31,13 +31,13 @@ public class SysUserRoleResponse {
 	 * 用户ID
 	 */
 	@Schema(description = "用户ID")
-	private Integer userId;
+	private String userId;
 
 	/**
 	 * 角色ID
 	 */
 	@Schema(description = "角色ID")
-	private Integer roleId;
+	private String roleId;
 
 	/**
 	 * 创建时间

@@ -27,12 +27,12 @@ public class SysUserRole {
 	/**
 	 * 用户ID
 	 */
-	private Integer userId;
+	private String userId;
 
 	/**
 	 * 角色ID
 	 */
-	private Integer roleId;
+	private String roleId;
 
 	/**
 	 * 创建时间
@@ -43,5 +43,10 @@ public class SysUserRole {
 	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
+
+	public SysUserRole(String userId, String roleId) {
+		this.userId = userId;
+		this.roleId = roleId;
+	}
 
 }

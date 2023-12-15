@@ -32,12 +32,18 @@ public class OperateLogEventHandler extends AbstractOperateLogHandler {
 	@Override
 	public void saveOperateLog(OperateLogDomain operateLogDomain) {
 		logger.error(operateLogDomain.toString());
-		// 登录日志
-		if (operateLogDomain.getBusinessType() == OperateLog.BusinessType.LOGIN.ordinal()) {
+		// 登录日志或者登出日志
+		if (operateLogDomain.getBusinessType() == OperateLog.BusinessType.LOGIN.ordinal()
+				|| operateLogDomain.getBusinessType() == OperateLog.BusinessType.LOGOUT.ordinal()) {
 			SysLogLoginCreateRequest sysLogLoginCreateRequest = new SysLogLoginCreateRequest();
 			// 登录账号
 			sysLogLoginCreateRequest.setLoginName(operateLogDomain.getValue().toString());
-			sysLogLoginCreateRequest.setLoginType(1);
+			if (operateLogDomain.getBusinessType() == OperateLog.BusinessType.LOGIN.ordinal()) {
+				sysLogLoginCreateRequest.setLoginType(1);
+			}
+			else {
+				sysLogLoginCreateRequest.setLoginType(2);
+			}
 			sysLogLoginCreateRequest.setIp(operateLogDomain.getIp());
 			sysLogLoginCreateRequest.setAddress(operateLogDomain.getAddress());
 			sysLogLoginCreateRequest.setBrowser(operateLogDomain.getBrowser());

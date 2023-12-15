@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.enums.CommonConstants;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -15,7 +16,9 @@ import io.github.panxiaochao.system.domain.entity.SysRole;
 import io.github.panxiaochao.system.domain.service.SysRoleDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,6 +53,17 @@ public class SysRoleAppService {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysRoleQueryResponse> list = sysRoleReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
+	}
+
+	/**
+	 * 查询列表
+	 * @param queryRequest 角色表查询请求对象
+	 * @return 结果数组
+	 */
+	public List<SysRoleQueryResponse> listRole(SysRoleQueryRequest queryRequest) {
+		queryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		List<SysRoleQueryResponse> list = sysRoleReadModelService.list(queryRequest);
+		return CollectionUtils.isEmpty(list) ? new ArrayList<>() : list;
 	}
 
 	/**

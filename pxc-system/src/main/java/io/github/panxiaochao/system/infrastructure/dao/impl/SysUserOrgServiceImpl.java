@@ -69,14 +69,6 @@ public class SysUserOrgServiceImpl implements ISysUserOrgService, ISysUserOrgRea
 			if (queryRequest.getDepartId() != null) {
 				lqw.eq(SysUserOrgPO::getDepartId, queryRequest.getDepartId());
 			}
-			// 如果 创建时间 不为空
-			if (queryRequest.getCreateTime() != null) {
-				lqw.eq(SysUserOrgPO::getCreateTime, queryRequest.getCreateTime());
-			}
-			// 如果 更新时间 不为空
-			if (queryRequest.getUpdateTime() != null) {
-				lqw.eq(SysUserOrgPO::getUpdateTime, queryRequest.getUpdateTime());
-			}
 		}
 		return lqw;
 	}

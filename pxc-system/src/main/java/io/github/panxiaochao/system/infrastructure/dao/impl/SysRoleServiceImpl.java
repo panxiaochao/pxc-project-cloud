@@ -52,6 +52,19 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 	}
 
 	/**
+	 * 查询列表
+	 * @param queryRequest 角色表查询请求对象
+	 * @return 结果数组
+	 */
+	@Override
+	public List<SysRoleQueryResponse> list(SysRoleQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysRolePO> lqw = lambdaQuery(queryRequest);
+		List<SysRolePO> sysRolePOList = sysRoleMapper.selectList(lqw);
+		return ISysRolePOConvert.INSTANCE.toQueryResponse(sysRolePOList);
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式
@@ -68,6 +81,10 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 			// 如果 角色code 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRoleCode())) {
 				lqw.eq(SysRolePO::getRoleCode, queryRequest.getRoleCode());
+			}
+			// 如果 状态1正常，0失效 不为空
+			if (StringUtils.isNotBlank(queryRequest.getState())) {
+				lqw.eq(SysRolePO::getState, queryRequest.getState());
 			}
 		}
 		return lqw;

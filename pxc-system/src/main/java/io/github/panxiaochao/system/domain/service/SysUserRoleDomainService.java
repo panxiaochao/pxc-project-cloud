@@ -5,6 +5,8 @@ import io.github.panxiaochao.system.domain.repository.ISysUserRoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户角色表 Domain服务类.
@@ -54,6 +56,22 @@ public class SysUserRoleDomainService {
 	 */
 	public void deleteById(String id) {
 		sysUserRoleService.deleteById(id);
+	}
+
+	/**
+	 * 批量保存
+	 * @param list SysUserRole 数据实体
+	 */
+	public void saveBatch(List<SysUserRole> list) {
+		sysUserRoleService.saveBatch(list);
+	}
+
+	/**
+	 * 先删除当前用户的所有关联数据
+	 * @param userId 用户Id
+	 */
+	public void deleteByUserId(String userId) {
+		sysUserRoleService.deleteByUserId(userId);
 	}
 
 }

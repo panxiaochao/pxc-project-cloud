@@ -31,13 +31,13 @@ public class SysUserOrgQueryResponse {
 	 * 用户ID
 	 */
 	@Schema(description = "用户ID")
-	private Integer userId;
+	private String userId;
 
 	/**
 	 * 机构ID
 	 */
 	@Schema(description = "机构ID")
-	private Integer departId;
+	private String departId;
 
 	/**
 	 * 创建时间
