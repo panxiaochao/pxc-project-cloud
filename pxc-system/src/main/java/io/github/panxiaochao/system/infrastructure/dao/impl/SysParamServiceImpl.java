@@ -64,7 +64,7 @@ public class SysParamServiceImpl implements ISysParamService, ISysParamReadModel
 			lqw.orderByDesc(SysParamPO::getId);
 			// 如果 参数名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getParamName())) {
-				lqw.eq(SysParamPO::getParamName, queryRequest.getParamName());
+				lqw.like(SysParamPO::getParamName, queryRequest.getParamName());
 			}
 			// 如果 参数键 不为空
 			if (StringUtils.isNotBlank(queryRequest.getParamKey())) {
@@ -81,14 +81,6 @@ public class SysParamServiceImpl implements ISysParamService, ISysParamReadModel
 			// 如果 状态1-正常 0-删除 不为空
 			if (StringUtils.isNotBlank(queryRequest.getState())) {
 				lqw.eq(SysParamPO::getState, queryRequest.getState());
-			}
-			// 如果 创建时间 不为空
-			if (queryRequest.getCreateTime() != null) {
-				lqw.eq(SysParamPO::getCreateTime, queryRequest.getCreateTime());
-			}
-			// 如果 更新时间 不为空
-			if (queryRequest.getUpdateTime() != null) {
-				lqw.eq(SysParamPO::getUpdateTime, queryRequest.getUpdateTime());
 			}
 		}
 		return lqw;

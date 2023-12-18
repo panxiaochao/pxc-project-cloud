@@ -24,4 +24,11 @@ public interface ISysDictReadModelService {
 	 */
 	List<SysDictQueryResponse> page(Pagination pagination, SysDictQueryRequest queryRequest);
 
+	/**
+	 * 查询列表
+	 * @param queryRequest 数据字典表查询请求对象
+	 * @return 结果数组
+	 */
+	List<SysDictQueryResponse> list(SysDictQueryRequest queryRequest);
+
 }

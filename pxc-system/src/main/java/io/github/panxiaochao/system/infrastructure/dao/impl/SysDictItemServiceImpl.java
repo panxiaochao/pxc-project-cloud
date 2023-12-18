@@ -78,11 +78,11 @@ public class SysDictItemServiceImpl implements ISysDictItemService, ISysDictItem
 			if (queryRequest.getDictId() != null) {
 				lqw.eq(SysDictItemPO::getDictId, queryRequest.getDictId());
 			}
-			// 如果 字典名称 不为空
+			// 如果 字典文本 不为空
 			if (StringUtils.isNotBlank(queryRequest.getDictItemText())) {
 				lqw.eq(SysDictItemPO::getDictItemText, queryRequest.getDictItemText());
 			}
-			// 如果 字典code 不为空
+			// 如果 字典值 不为空
 			if (StringUtils.isNotBlank(queryRequest.getDictItemValue())) {
 				lqw.eq(SysDictItemPO::getDictItemValue, queryRequest.getDictItemValue());
 			}

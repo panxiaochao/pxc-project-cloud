@@ -30,12 +30,12 @@ public class SysDictItem {
 	private String dictId;
 
 	/**
-	 * 字典名称
+	 * 字典文本
 	 */
 	private String dictItemText;
 
 	/**
-	 * 字典code
+	 * 字典值
 	 */
 	private String dictItemValue;
 

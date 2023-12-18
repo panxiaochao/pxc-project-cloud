@@ -4,19 +4,23 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDictItemQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysparam.SysParamQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysparam.SysParamResponse;
 import io.github.panxiaochao.system.application.convert.ISysParamDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysParamReadModelService;
+import io.github.panxiaochao.system.application.runner.helper.DictHelper;
 import io.github.panxiaochao.system.domain.entity.SysParam;
 import io.github.panxiaochao.system.domain.service.SysParamDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -41,6 +45,11 @@ public class SysParamAppService {
 	private final ISysParamReadModelService sysParamReadModelService;
 
 	/**
+	 * 系统参数常量名
+	 */
+	private static final String SYS_PARAM_TYPE = "PARAM_TYPE";
+
+	/**
 	 * 查询分页
 	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 系统参数查询请求对象
@@ -49,6 +58,16 @@ public class SysParamAppService {
 	public PageResponse<SysParamQueryResponse> page(RequestPage pageRequest, SysParamQueryRequest queryRequest) {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysParamQueryResponse> list = sysParamReadModelService.page(pagination, queryRequest);
+		list.forEach(s -> {
+			SysDictItemQueryResponse sysDictItemQueryResponse = DictHelper.getSysDictItemByValue(SYS_PARAM_TYPE,
+					s.getParamType());
+			if (Objects.isNull(sysDictItemQueryResponse)) {
+				s.setParamTypeStr(StringPools.EMPTY);
+			}
+			else {
+				s.setParamTypeStr(sysDictItemQueryResponse.getDictItemText());
+			}
+		});
 		return new PageResponse<>(pagination, list);
 	}
 

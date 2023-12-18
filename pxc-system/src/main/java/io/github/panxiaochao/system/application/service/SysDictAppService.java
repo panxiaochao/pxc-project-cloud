@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.enums.CommonConstants;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -14,13 +15,18 @@ import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDict
 import io.github.panxiaochao.system.application.convert.ISysDictDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysDictItemReadModelService;
 import io.github.panxiaochao.system.application.repository.ISysDictReadModelService;
+import io.github.panxiaochao.system.application.runner.helper.DictHelper;
 import io.github.panxiaochao.system.domain.entity.SysDict;
 import io.github.panxiaochao.system.domain.service.SysDictDomainService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -33,6 +39,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SysDictAppService {
+
+	/**
+	 * LOGGER SysDictRunner.class
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(SysDictAppService.class);
 
 	/**
 	 * 数据字典表 Domain服务类
@@ -111,6 +122,34 @@ public class SysDictAppService {
 			return R.fail("存在关联数据，请删除完全！");
 		}
 		return R.ok();
+	}
+
+	/**
+	 * 发布数据字典
+	 */
+	public void publishedData() {
+		long startTime = System.currentTimeMillis();
+		// 1.数据字典主表
+		SysDictQueryRequest sysDictQueryRequest = new SysDictQueryRequest();
+		sysDictQueryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		List<SysDictQueryResponse> sysDictQueryResponseList = sysDictReadModelService.list(sysDictQueryRequest);
+		Map<String, SysDictQueryResponse> sysDictMap = new LinkedHashMap<>();
+		sysDictQueryResponseList.forEach(s -> {
+			sysDictMap.put(s.getId(), s);
+		});
+		DictHelper.putAllSysDict(sysDictMap);
+		// 2.数据字典配置表
+		SysDictItemQueryRequest sysDictItemQueryRequest = new SysDictItemQueryRequest();
+		sysDictItemQueryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		List<SysDictItemQueryResponse> sysDictItemQueryResponseList = sysDictItemReadModelService
+			.list(sysDictItemQueryRequest);
+		Map<String, SysDictItemQueryResponse> sysDictItemMap = new LinkedHashMap<>();
+		sysDictItemQueryResponseList.forEach(s -> {
+			sysDictItemMap.put(s.getId(), s);
+		});
+		DictHelper.putAllSysDictItem(sysDictItemMap);
+		LOGGER.info("[pxc-system] dict load is success, time consuming {} ms",
+				(System.currentTimeMillis() - startTime));
 	}
 
 }

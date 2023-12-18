@@ -58,6 +58,12 @@ public class SysUserQueryResponse {
 	private String sex;
 
 	/**
+	 * 性别字符串：男，女
+	 */
+	@Schema(description = "性别：男，女")
+	private String sexStr;
+
+	/**
 	 * 地址
 	 */
 	@Schema(description = "地址")

@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.repeatsubmit.annotation.RepeatSubmitLimiter;
 import io.github.panxiaochao.system.application.api.request.sysdict.SysDictCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysdict.SysDictQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysdict.SysDictUpdateRequest;
@@ -71,6 +72,14 @@ public class SysDictApi {
 	@DeleteMapping(value = "/{id}")
 	public R<Void> deleteById(@PathVariable("id") String id) {
 		return sysDictAppService.deleteById(id);
+	}
+
+	@RepeatSubmitLimiter(interval = 3000, message = "正在发布中，请勿重复提交")
+	@Operation(summary = "发布数据字典", description = "发布数据字典", method = "GET")
+	@GetMapping(value = "/publishedData")
+	public R<Void> publishedData() {
+		sysDictAppService.publishedData();
+		return R.ok();
 	}
 
 }

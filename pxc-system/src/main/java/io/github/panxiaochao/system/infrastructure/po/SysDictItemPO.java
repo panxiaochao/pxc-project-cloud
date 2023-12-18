@@ -38,13 +38,13 @@ public class SysDictItemPO {
 	private Long dictId;
 
 	/**
-	 * 字典名称
+	 * 字典文本
 	 */
 	@TableField("dict_item_text")
 	private String dictItemText;
 
 	/**
-	 * 字典code
+	 * 字典值
 	 */
 	@TableField("dict_item_value")
 	private String dictItemValue;

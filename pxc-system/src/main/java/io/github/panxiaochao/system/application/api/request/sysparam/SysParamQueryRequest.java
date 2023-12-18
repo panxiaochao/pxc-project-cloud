@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
  * 系统参数查询请求对象
@@ -56,17 +54,5 @@ public class SysParamQueryRequest {
 	 */
 	@Schema(description = "状态1-正常 0-删除")
 	private String state;
-
-	/**
-	 * 创建时间
-	 */
-	@Schema(description = "创建时间")
-	private LocalDateTime createTime;
-
-	/**
-	 * 更新时间
-	 */
-	@Schema(description = "更新时间")
-	private LocalDateTime updateTime;
 
 }
