@@ -29,7 +29,7 @@ public class SysAreaQueryRequest {
 	 * 父ID
 	 */
 	@Schema(description = "父ID")
-	private Integer parentId;
+	private String parentId;
 
 	/**
 	 * 区划名称

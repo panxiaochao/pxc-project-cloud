@@ -74,7 +74,7 @@ public class SysMenuPO {
 	private String permissionCode;
 
 	/**
-	 * 菜单权限状态：1显示，2禁用
+	 * 菜单权限状态：1显示，0禁用
 	 */
 	@TableField("permission_status")
 	private String permissionStatus;

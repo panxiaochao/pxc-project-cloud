@@ -112,7 +112,7 @@ public class SysAreaAppService {
 	 */
 	public List<Tree<String>> listTree(String areaCode) {
 		SysAreaQueryRequest queryRequest = new SysAreaQueryRequest();
-		String rootId = CommonConstants.MENU_TREE_ROOT_ID.toString();
+		String rootId = CommonConstants.TREE_ROOT_ID.toString();
 		// 当区域code不为空的时候，说明是查询下级数据
 		if (StringUtils.hasText(areaCode)) {
 			// 设置父节点为当前区域code
@@ -138,7 +138,7 @@ public class SysAreaAppService {
 					}))
 			.collect(Collectors.toList());
 		// 修改节点属性
-		TreeNodeProperties treeNodeProperties = TreeNodeProperties.DEFAULT_PROPERTIES;
+		TreeNodeProperties treeNodeProperties = TreeNodeProperties.builder();
 		treeNodeProperties.labelKey("areaName");
 		// 构建树
 		List<Tree<String>> treeList = TreeBuilder.of(rootId, true, treeNodeProperties)

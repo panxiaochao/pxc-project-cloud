@@ -52,6 +52,19 @@ public class SysMenuServiceImpl implements ISysMenuService, ISysMenuReadModelSer
 	}
 
 	/**
+	 * 查询列表
+	 * @param queryRequest 菜单配置查询请求对象
+	 * @return 结果数组
+	 */
+	@Override
+	public List<SysMenuQueryResponse> list(SysMenuQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysMenuPO> lqw = lambdaQuery(queryRequest);
+		List<SysMenuPO> sysMenuPOList = sysMenuMapper.selectList(lqw);
+		return ISysMenuPOConvert.INSTANCE.toQueryResponse(sysMenuPOList);
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式
@@ -59,8 +72,8 @@ public class SysMenuServiceImpl implements ISysMenuService, ISysMenuReadModelSer
 	private LambdaQueryWrapper<SysMenuPO> lambdaQuery(SysMenuQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysMenuPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(SysMenuPO::getId);
+			// 默认按照排序升序排序
+			lqw.orderByAsc(SysMenuPO::getSort);
 			// 如果 父id 不为空
 			if (queryRequest.getParentId() != null) {
 				lqw.eq(SysMenuPO::getParentId, queryRequest.getParentId());
@@ -89,7 +102,7 @@ public class SysMenuServiceImpl implements ISysMenuService, ISysMenuReadModelSer
 			if (StringUtils.isNotBlank(queryRequest.getPermissionCode())) {
 				lqw.eq(SysMenuPO::getPermissionCode, queryRequest.getPermissionCode());
 			}
-			// 如果 菜单权限状态：1显示，2禁用 不为空
+			// 如果 菜单权限状态：1显示，0禁用 不为空
 			if (StringUtils.isNotBlank(queryRequest.getPermissionStatus())) {
 				lqw.eq(SysMenuPO::getPermissionStatus, queryRequest.getPermissionStatus());
 			}
@@ -132,18 +145,6 @@ public class SysMenuServiceImpl implements ISysMenuService, ISysMenuReadModelSer
 			// 如果 排序 不为空
 			if (queryRequest.getSort() != null) {
 				lqw.eq(SysMenuPO::getSort, queryRequest.getSort());
-			}
-			// 如果 创建人 不为空
-			if (queryRequest.getCreateId() != null) {
-				lqw.eq(SysMenuPO::getCreateId, queryRequest.getCreateId());
-			}
-			// 如果 创建时间 不为空
-			if (queryRequest.getCreateTime() != null) {
-				lqw.eq(SysMenuPO::getCreateTime, queryRequest.getCreateTime());
-			}
-			// 如果 更新时间 不为空
-			if (queryRequest.getUpdateTime() != null) {
-				lqw.eq(SysMenuPO::getUpdateTime, queryRequest.getUpdateTime());
 			}
 		}
 		return lqw;

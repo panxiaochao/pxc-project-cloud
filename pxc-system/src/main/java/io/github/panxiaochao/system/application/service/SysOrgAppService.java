@@ -124,7 +124,7 @@ public class SysOrgAppService {
 			queryRequest.setParentId(rootId);
 		}
 		else {
-			rootId = CommonConstants.MENU_TREE_ROOT_ID.toString();
+			rootId = CommonConstants.TREE_ROOT_ID.toString();
 		}
 		queryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
 		List<TreeNode<String>> treeNodeList = sysOrgReadModelService.list(queryRequest)
@@ -132,7 +132,7 @@ public class SysOrgAppService {
 			.map(s -> TreeNode.of(s.getId(), s.getParentId(), s.getOrgName(), s.getSort(), null))
 			.collect(Collectors.toList());
 		// 修改节点属性
-		TreeNodeProperties treeNodeProperties = TreeNodeProperties.DEFAULT_PROPERTIES;
+		TreeNodeProperties treeNodeProperties = TreeNodeProperties.builder();
 		treeNodeProperties.labelKey("title");
 		treeNodeProperties.idKey("key");
 		// 构建树

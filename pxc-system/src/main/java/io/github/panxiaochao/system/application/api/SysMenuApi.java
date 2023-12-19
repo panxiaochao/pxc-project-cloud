@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.tree.Tree;
 import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuUpdateRequest;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -71,6 +74,21 @@ public class SysMenuApi {
 	@DeleteMapping(value = "/{id}")
 	public R<Void> deleteById(@PathVariable("id") String id) {
 		return sysMenuAppService.deleteById(id);
+	}
+
+	@Operation(summary = "获取菜单表格树列表", description = "获取菜单表格树列表", method = "GET")
+	@Parameter(name = "menuId", description = "菜单ID")
+	@GetMapping(value = "/tableTree")
+	public R<List<Tree<String>>> tableTree(String menuId) {
+		return R.ok(sysMenuAppService.tableTree(menuId));
+	}
+
+	@Operation(summary = "获取菜单树列表", description = "获取菜单树列表", method = "GET")
+	@Parameter(name = "menuId", description = "菜单ID")
+	@Parameter(name = "isOnlyMenu", description = "是否只显示菜单，排除按钮")
+	@GetMapping(value = "/listTree")
+	public R<List<Tree<String>>> listTree(String menuId, boolean isOnlyMenu) {
+		return R.ok(sysMenuAppService.listTree(menuId, isOnlyMenu));
 	}
 
 }

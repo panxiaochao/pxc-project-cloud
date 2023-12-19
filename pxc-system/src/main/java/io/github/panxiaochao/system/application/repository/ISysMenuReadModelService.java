@@ -24,4 +24,11 @@ public interface ISysMenuReadModelService {
 	 */
 	List<SysMenuQueryResponse> page(Pagination pagination, SysMenuQueryRequest queryRequest);
 
+	/**
+	 * 查询列表
+	 * @param queryRequest 菜单配置查询请求对象
+	 * @return 结果数组
+	 */
+	List<SysMenuQueryResponse> list(SysMenuQueryRequest queryRequest);
+
 }

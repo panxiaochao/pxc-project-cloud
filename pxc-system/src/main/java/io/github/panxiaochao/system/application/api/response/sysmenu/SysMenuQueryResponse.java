@@ -31,7 +31,7 @@ public class SysMenuQueryResponse {
 	 * 父id
 	 */
 	@Schema(description = "父id")
-	private Integer parentId;
+	private String parentId;
 
 	/**
 	 * 菜单名称
@@ -70,9 +70,9 @@ public class SysMenuQueryResponse {
 	private String permissionCode;
 
 	/**
-	 * 菜单权限状态：1显示，2禁用
+	 * 菜单权限状态：1显示，0禁用
 	 */
-	@Schema(description = "菜单权限状态：1显示，2禁用")
+	@Schema(description = "菜单权限状态：1显示，0禁用")
 	private String permissionStatus;
 
 	/**
