@@ -28,7 +28,7 @@ public class ${entity} {
     /**
      * ${field.comment}
      */
-    private ${field.propertyType} ${field.propertyName};
+    private <#if field.propertyType="Long">String<#elseif field.propertyType="Integer">String<#else>${field.propertyType}</#if> ${field.propertyName};
     </#if>
 </#list>
 }

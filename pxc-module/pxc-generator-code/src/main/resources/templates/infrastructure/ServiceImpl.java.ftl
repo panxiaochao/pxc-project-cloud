@@ -79,7 +79,7 @@ public class ${table.serviceImplName} implements I${entity}Service, I${entity}Re
             <#elseif field.propertyName != logicDeletePropertyName!''>
             // 如果 ${field.comment} 不为空
             <#if field.propertyType="Integer">
-            if (queryRequest.get${field.propertyName?cap_first}() != null) {
+            if (StringUtils.isNotBlank(queryRequest.get${field.propertyName?cap_first}())) {
             <#elseif field.propertyType="LocalDateTime">
             if (queryRequest.get${field.propertyName?cap_first}() != null) {
             <#elseif field.propertyType="Long">
