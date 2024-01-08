@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.enums.CommonConstants;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -13,13 +14,17 @@ import io.github.panxiaochao.system.application.api.response.sysparam.SysParamQu
 import io.github.panxiaochao.system.application.api.response.sysparam.SysParamResponse;
 import io.github.panxiaochao.system.application.convert.ISysParamDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysParamReadModelService;
-import io.github.panxiaochao.system.application.runner.helper.DictHelper;
+import io.github.panxiaochao.system.application.runner.helper.CacheHelper;
 import io.github.panxiaochao.system.domain.entity.SysParam;
 import io.github.panxiaochao.system.domain.service.SysParamDomainService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -35,6 +40,11 @@ import java.util.Objects;
 public class SysParamAppService {
 
 	/**
+	 * LOGGER SysDictRunner.class
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(SysParamAppService.class);
+
+	/**
 	 * 系统参数 Domain服务类
 	 */
 	private final SysParamDomainService sysParamDomainService;
@@ -45,7 +55,7 @@ public class SysParamAppService {
 	private final ISysParamReadModelService sysParamReadModelService;
 
 	/**
-	 * 系统参数常量名
+	 * 系统参数 常量名
 	 */
 	private static final String SYS_PARAM_TYPE = "PARAM_TYPE";
 
@@ -59,7 +69,7 @@ public class SysParamAppService {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysParamQueryResponse> list = sysParamReadModelService.page(pagination, queryRequest);
 		list.forEach(s -> {
-			SysDictItemQueryResponse sysDictItemQueryResponse = DictHelper.getSysDictItemByValue(SYS_PARAM_TYPE,
+			SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(SYS_PARAM_TYPE,
 					s.getParamType());
 			if (Objects.isNull(sysDictItemQueryResponse)) {
 				s.setParamTypeStr(StringPools.EMPTY);
@@ -113,6 +123,23 @@ public class SysParamAppService {
 	public R<Void> deleteById(String id) {
 		sysParamDomainService.deleteById(id);
 		return R.ok();
+	}
+
+	/**
+	 * 发布系统参数
+	 */
+	public void publishedData() {
+		long startTime = System.currentTimeMillis();
+		SysParamQueryRequest sysParamQueryRequest = new SysParamQueryRequest();
+		sysParamQueryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		List<SysParamQueryResponse> list = sysParamReadModelService.list(sysParamQueryRequest);
+		Map<String, SysParamQueryResponse> sysParamMap = new LinkedHashMap<>();
+		list.forEach(s -> {
+			sysParamMap.put(s.getId(), s);
+		});
+		CacheHelper.putAllSysParam(sysParamMap);
+		LOGGER.info("[pxc-system] sys_param load is success, time consuming {} ms",
+				(System.currentTimeMillis() - startTime));
 	}
 
 }

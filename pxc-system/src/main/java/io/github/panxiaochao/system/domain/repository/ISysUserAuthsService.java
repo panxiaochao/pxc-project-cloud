@@ -2,6 +2,8 @@ package io.github.panxiaochao.system.domain.repository;
 
 import io.github.panxiaochao.system.domain.entity.SysUserAuths;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户授权信息表 Domain接口服务类.
@@ -37,5 +39,19 @@ public interface ISysUserAuthsService {
 	 * @param id 主键
 	 */
 	void deleteById(String id);
+
+	/**
+	 * 根据用户ID和登录类型查询列表
+	 * @param userId 用户主键
+	 * @param identityType 登录类型
+	 * @return SysUserAuths 实体列表
+	 */
+	List<SysUserAuths> listIdentityType(String userId, String identityType);
+
+	/**
+	 * 根据用户ID删除用户授权信息表所有信息
+	 * @param userId 用户主键
+	 */
+	void deleteByUserId(String userId);
 
 }

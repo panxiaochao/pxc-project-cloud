@@ -1,5 +1,8 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.component.select.Select;
+import io.github.panxiaochao.core.component.select.SelectBuilder;
+import io.github.panxiaochao.core.component.select.SelectOption;
 import io.github.panxiaochao.core.enums.CommonConstants;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
@@ -20,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -60,10 +64,14 @@ public class SysRoleAppService {
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 结果数组
 	 */
-	public List<SysRoleQueryResponse> listRole(SysRoleQueryRequest queryRequest) {
+	public List<Select<String>> listRole(SysRoleQueryRequest queryRequest) {
 		queryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
 		List<SysRoleQueryResponse> list = sysRoleReadModelService.list(queryRequest);
-		return CollectionUtils.isEmpty(list) ? new ArrayList<>() : list;
+		List<SelectOption<String>> selectOptionList = list.stream()
+			.map(m -> SelectOption.of(m.getId(), m.getRoleName(), m.getSort()))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
 	}
 
 	/**

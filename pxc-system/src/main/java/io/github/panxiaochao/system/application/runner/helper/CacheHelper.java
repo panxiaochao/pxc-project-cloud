@@ -2,6 +2,7 @@ package io.github.panxiaochao.system.application.runner.helper;
 
 import io.github.panxiaochao.system.application.api.response.sysdict.SysDictQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDictItemQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysparam.SysParamQueryResponse;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
  * @author Lypxc
  * @since 2023-12-15
  */
-public class DictHelper {
+public class CacheHelper {
 
 	/**
 	 * 数据字典 主表
@@ -31,6 +32,11 @@ public class DictHelper {
 	 * 数据字典 配置表
 	 */
 	private static final Map<String, SysDictItemQueryResponse> SYS_DICT_ITEM_MAP = new LinkedHashMap<>();
+
+	/**
+	 * 系统参数
+	 */
+	private static final Map<String, SysParamQueryResponse> SYS_PARAMS_MAP = new LinkedHashMap<>();
 
 	/**
 	 * 加载数据字典主表
@@ -48,6 +54,15 @@ public class DictHelper {
 	public static void putAllSysDictItem(Map<String, SysDictItemQueryResponse> stringSysDictItemMap) {
 		SYS_DICT_ITEM_MAP.clear();
 		SYS_DICT_ITEM_MAP.putAll(stringSysDictItemMap);
+	}
+
+	/**
+	 * 加载系统参数
+	 * @param sysParamMap 系统参数Map
+	 */
+	public static void putAllSysParam(Map<String, SysParamQueryResponse> sysParamMap) {
+		SYS_PARAMS_MAP.clear();
+		SYS_PARAMS_MAP.putAll(sysParamMap);
 	}
 
 	/**
@@ -116,6 +131,22 @@ public class DictHelper {
 			.filter(s -> s.getDictCode().equals(code))
 			.findFirst();
 		return optionalSysDict.orElse(null);
+	}
+
+	/**
+	 * 根据系统参数键值查询系统参数
+	 * @param key 键值
+	 * @return 系统参数
+	 */
+	public static SysParamQueryResponse getSysParamByKey(String key) {
+		if (!StringUtils.hasText(key)) {
+			return null;
+		}
+		Optional<SysParamQueryResponse> optionalSysParam = SYS_PARAMS_MAP.values()
+			.stream()
+			.filter(s -> s.getParamKey().equals(key))
+			.findFirst();
+		return optionalSysParam.orElse(null);
 	}
 
 }

@@ -88,6 +88,12 @@ public class SysUserQueryRequest {
 	private String fax;
 
 	/**
+	 * 岗位Code
+	 */
+	@Schema(description = "岗位Code")
+	private String postCode;
+
+	/**
 	 * 排序
 	 */
 	@Schema(description = "排序")
@@ -115,7 +121,7 @@ public class SysUserQueryRequest {
 	 * 所在区域或者部门ID，多数据请用逗号隔开
 	 */
 	@Schema(description = "所在区域或者部门ID，多数据请用逗号隔开")
-	private Integer orgId;
+	private String orgId;
 
 	/**
 	 * 所在区域或者部门编码code，多数据请用逗号隔开

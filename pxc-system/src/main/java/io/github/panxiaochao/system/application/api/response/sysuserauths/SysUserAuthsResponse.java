@@ -31,13 +31,19 @@ public class SysUserAuthsResponse {
 	 * 关联用户ID
 	 */
 	@Schema(description = "关联用户ID")
-	private Integer userId;
+	private String userId;
 
 	/**
 	 * 登录类型(手机号/邮箱/用户名/微信/微博/QQ）等
 	 */
 	@Schema(description = "登录类型(手机号/邮箱/用户名/微信/微博/QQ）等")
 	private String identityType;
+
+	/**
+	 * 登录类型字符串(手机号/邮箱/用户名/微信/微博/QQ）等
+	 */
+	@Schema(description = "登录类型(手机号/邮箱/用户名/微信/微博/QQ）等")
+	private String identityTypeStr;
 
 	/**
 	 * 登录标识(手机号/邮箱/用户名/微信/微博/QQ）等唯一标识，等同于登录账号

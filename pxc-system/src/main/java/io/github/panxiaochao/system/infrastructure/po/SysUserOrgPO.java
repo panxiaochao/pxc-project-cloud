@@ -40,8 +40,8 @@ public class SysUserOrgPO {
 	/**
 	 * 机构ID
 	 */
-	@TableField("depart_id")
-	private Integer departId;
+	@TableField("org_id")
+	private Integer orgId;
 
 	/**
 	 * 创建时间

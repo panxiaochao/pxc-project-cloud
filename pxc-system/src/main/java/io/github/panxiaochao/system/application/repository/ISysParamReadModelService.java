@@ -24,4 +24,11 @@ public interface ISysParamReadModelService {
 	 */
 	List<SysParamQueryResponse> page(Pagination pagination, SysParamQueryRequest queryRequest);
 
+	/**
+	 * 查询数组
+	 * @param queryRequest 系统参数查询请求对象
+	 * @return 结果数组
+	 */
+	List<SysParamQueryResponse> list(SysParamQueryRequest queryRequest);
+
 }

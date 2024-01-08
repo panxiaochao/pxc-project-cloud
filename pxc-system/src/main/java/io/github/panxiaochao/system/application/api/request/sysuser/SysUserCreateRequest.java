@@ -34,6 +34,18 @@ public class SysUserCreateRequest {
 	private String nickName;
 
 	/**
+	 * 登录账号
+	 */
+	@Schema(description = "登录账号")
+	private String loginName;
+
+	/**
+	 * 登录密码，不填的话，默认系统密码
+	 */
+	@Schema(description = "登录密码，不填的话，默认系统密码")
+	private String password;
+
+	/**
 	 * 身份证
 	 */
 	@Schema(description = "身份证")
@@ -82,6 +94,12 @@ public class SysUserCreateRequest {
 	private String fax;
 
 	/**
+	 * 岗位Code
+	 */
+	@Schema(description = "岗位Code")
+	private String postCode;
+
+	/**
 	 * 排序
 	 */
 	@Schema(description = "排序")
@@ -109,7 +127,7 @@ public class SysUserCreateRequest {
 	 * 所在区域或者部门ID，多数据请用逗号隔开
 	 */
 	@Schema(description = "所在区域或者部门ID，多数据请用逗号隔开")
-	private Integer orgId;
+	private String orgId;
 
 	/**
 	 * 所在区域或者部门编码code，多数据请用逗号隔开

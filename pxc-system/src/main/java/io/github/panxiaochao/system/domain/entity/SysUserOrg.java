@@ -27,12 +27,12 @@ public class SysUserOrg {
 	/**
 	 * 用户ID
 	 */
-	private Integer userId;
+	private String userId;
 
 	/**
 	 * 机构ID
 	 */
-	private Integer departId;
+	private String orgId;
 
 	/**
 	 * 创建时间

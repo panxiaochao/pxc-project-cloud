@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.application.api;
 
+import io.github.panxiaochao.core.component.select.Select;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -72,6 +75,12 @@ public class SysUserAuthsApi {
 	@DeleteMapping(value = "/{id}")
 	public R<Void> deleteById(@PathVariable("id") String id) {
 		return sysUserAuthsAppService.deleteById(id);
+	}
+
+	@Operation(summary = "获取登录类型下拉菜单", description = "获取登录类型下拉菜单", method = "GET")
+	@GetMapping(value = "/listIdentityTypes")
+	public R<List<Select<String>>> selectIdentityTypes() {
+		return R.ok(sysUserAuthsAppService.selectIdentityTypes());
 	}
 
 }

@@ -121,7 +121,7 @@ public class SysUserResponse {
 	 * 所在区域或者部门ID，多数据请用逗号隔开
 	 */
 	@Schema(description = "所在区域或者部门ID，多数据请用逗号隔开")
-	private Integer orgId;
+	private String orgId;
 
 	/**
 	 * 所在区域或者部门编码code，多数据请用逗号隔开

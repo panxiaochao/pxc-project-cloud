@@ -31,7 +31,7 @@ public class SysUserAuthsUpdateRequest {
 	 * 关联用户ID
 	 */
 	@Schema(description = "关联用户ID")
-	private Integer userId;
+	private String userId;
 
 	/**
 	 * 登录类型(手机号/邮箱/用户名/微信/微博/QQ）等
@@ -62,17 +62,5 @@ public class SysUserAuthsUpdateRequest {
 	 */
 	@Schema(description = "登录标识失效时间")
 	private LocalDateTime expireTime;
-
-	/**
-	 * 创建时间
-	 */
-	@Schema(description = "创建时间")
-	private LocalDateTime createTime;
-
-	/**
-	 * 更新时间
-	 */
-	@Schema(description = "更新时间")
-	private LocalDateTime updateTime;
 
 }

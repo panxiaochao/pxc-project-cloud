@@ -24,4 +24,11 @@ public interface ISysPostReadModelService {
 	 */
 	List<SysPostQueryResponse> page(Pagination pagination, SysPostQueryRequest queryRequest);
 
+	/**
+	 * 查询数组
+	 * @param queryRequest 岗位表查询请求对象
+	 * @return 结果数组
+	 */
+	List<SysPostQueryResponse> list(SysPostQueryRequest queryRequest);
+
 }

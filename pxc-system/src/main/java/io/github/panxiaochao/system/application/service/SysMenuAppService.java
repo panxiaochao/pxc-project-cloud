@@ -1,14 +1,14 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.component.tree.Tree;
+import io.github.panxiaochao.core.component.tree.TreeBuilder;
+import io.github.panxiaochao.core.component.tree.TreeNode;
+import io.github.panxiaochao.core.component.tree.TreeNodeProperties;
 import io.github.panxiaochao.core.enums.CommonConstants;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
-import io.github.panxiaochao.core.utils.tree.Tree;
-import io.github.panxiaochao.core.utils.tree.TreeBuilder;
-import io.github.panxiaochao.core.utils.tree.TreeNode;
-import io.github.panxiaochao.core.utils.tree.TreeNodeProperties;
 import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuUpdateRequest;
@@ -140,8 +140,6 @@ public class SysMenuAppService {
 				extraMap.put("openType", s.getOpenType());
 				extraMap.put("isRoute", s.getIsRoute());
 				extraMap.put("keepAlive", s.getKeepAlive());
-				extraMap.put("remark", s.getRemark());
-				extraMap.put("state", s.getState());
 				extraMap.put("sort", s.getSort());
 				// 按钮状态和菜单显示合为一个状态，共用
 				if (StringUtils.hasText(s.getPermissionStatus())) {

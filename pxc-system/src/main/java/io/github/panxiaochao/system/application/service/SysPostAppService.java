@@ -1,5 +1,8 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.component.select.Select;
+import io.github.panxiaochao.core.component.select.SelectBuilder;
+import io.github.panxiaochao.core.component.select.SelectOption;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -15,8 +18,11 @@ import io.github.panxiaochao.system.domain.entity.SysPost;
 import io.github.panxiaochao.system.domain.service.SysPostDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -94,6 +100,19 @@ public class SysPostAppService {
 	public R<Void> deleteById(String id) {
 		sysPostDomainService.deleteById(id);
 		return R.ok();
+	}
+
+	/**
+	 * 获取岗位下拉菜单
+	 * @return 返回通用下拉菜单
+	 */
+	public List<Select<String>> selectPosts() {
+		List<SysPostQueryResponse> list = sysPostReadModelService.list(new SysPostQueryRequest());
+		List<SelectOption<String>> selectOptionList = list.stream()
+			.map(m -> SelectOption.of(m.getPostCode(), m.getPostName(), m.getSort()))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
 	}
 
 }

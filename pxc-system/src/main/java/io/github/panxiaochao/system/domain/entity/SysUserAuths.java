@@ -27,7 +27,7 @@ public class SysUserAuths {
 	/**
 	 * 关联用户ID
 	 */
-	private Integer userId;
+	private String userId;
 
 	/**
 	 * 登录类型(手机号/邮箱/用户名/微信/微博/QQ）等

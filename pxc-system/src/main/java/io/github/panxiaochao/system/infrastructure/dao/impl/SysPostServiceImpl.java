@@ -52,6 +52,18 @@ public class SysPostServiceImpl implements ISysPostService, ISysPostReadModelSer
 	}
 
 	/**
+	 * 查询数组
+	 * @param queryRequest 岗位表查询请求对象
+	 * @return 结果数组
+	 */
+	@Override
+	public List<SysPostQueryResponse> list(SysPostQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysPostPO> lqw = lambdaQuery(queryRequest);
+		return ISysPostPOConvert.INSTANCE.toQueryResponse(sysPostMapper.selectList(lqw));
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式

@@ -1,14 +1,14 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.component.tree.Tree;
+import io.github.panxiaochao.core.component.tree.TreeBuilder;
+import io.github.panxiaochao.core.component.tree.TreeNode;
+import io.github.panxiaochao.core.component.tree.TreeNodeProperties;
 import io.github.panxiaochao.core.enums.CommonConstants;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
-import io.github.panxiaochao.core.utils.tree.Tree;
-import io.github.panxiaochao.core.utils.tree.TreeBuilder;
-import io.github.panxiaochao.core.utils.tree.TreeNode;
-import io.github.panxiaochao.core.utils.tree.TreeNodeProperties;
 import io.github.panxiaochao.system.application.api.request.sysorg.SysOrgCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysorg.SysOrgQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysorg.SysOrgUpdateRequest;
@@ -129,7 +129,8 @@ public class SysOrgAppService {
 		queryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
 		List<TreeNode<String>> treeNodeList = sysOrgReadModelService.list(queryRequest)
 			.stream()
-			.map(s -> TreeNode.of(s.getId(), s.getParentId(), s.getOrgName(), s.getSort(), null))
+			.map(s -> TreeNode.of(s.getId(), s.getParentId(), s.getOrgName(), s.getSort(),
+					(extraMap) -> extraMap.put("value", s.getId())))
 			.collect(Collectors.toList());
 		// 修改节点属性
 		TreeNodeProperties treeNodeProperties = TreeNodeProperties.builder();

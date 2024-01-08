@@ -14,6 +14,7 @@ import io.github.panxiaochao.system.infrastructure.mapper.SysUserOrgMapper;
 import io.github.panxiaochao.system.infrastructure.po.SysUserOrgPO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -62,12 +63,12 @@ public class SysUserOrgServiceImpl implements ISysUserOrgService, ISysUserOrgRea
 			// 默认按照主键倒序排序
 			lqw.orderByDesc(SysUserOrgPO::getId);
 			// 如果 用户ID 不为空
-			if (queryRequest.getUserId() != null) {
+			if (StringUtils.hasText(queryRequest.getUserId())) {
 				lqw.eq(SysUserOrgPO::getUserId, queryRequest.getUserId());
 			}
 			// 如果 机构ID 不为空
-			if (queryRequest.getDepartId() != null) {
-				lqw.eq(SysUserOrgPO::getDepartId, queryRequest.getDepartId());
+			if (StringUtils.hasText(queryRequest.getOrgId())) {
+				lqw.eq(SysUserOrgPO::getOrgId, queryRequest.getOrgId());
 			}
 		}
 		return lqw;
@@ -113,6 +114,15 @@ public class SysUserOrgServiceImpl implements ISysUserOrgService, ISysUserOrgRea
 	@Override
 	public void deleteById(String id) {
 		sysUserOrgMapper.deleteById(id);
+	}
+
+	/**
+	 * 根据用户ID删除组织关系
+	 * @param userId 用户主键
+	 */
+	@Override
+	public void deleteByUserId(String userId) {
+		sysUserOrgMapper.delete(Wrappers.lambdaQuery(SysUserOrgPO.class).eq(SysUserOrgPO::getUserId, userId));
 	}
 
 }

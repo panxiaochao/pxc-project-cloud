@@ -1702,7 +1702,7 @@ CREATE TABLE `sys_user_org`
 (
     `id`          int NOT NULL AUTO_INCREMENT COMMENT '主键',
     `user_id`     int      DEFAULT NULL COMMENT '用户ID',
-    `depart_id`   int      DEFAULT NULL COMMENT '机构ID',
+    `org_id`      int      DEFAULT NULL COMMENT '机构ID',
     `create_time` datetime DEFAULT NULL COMMENT '创建时间',
     `update_time` datetime DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE

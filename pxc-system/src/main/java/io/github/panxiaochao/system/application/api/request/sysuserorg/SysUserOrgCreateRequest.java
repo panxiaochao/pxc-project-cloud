@@ -29,6 +29,6 @@ public class SysUserOrgCreateRequest {
 	 * 机构ID
 	 */
 	@Schema(description = "机构ID")
-	private String departId;
+	private String orgId;
 
 }

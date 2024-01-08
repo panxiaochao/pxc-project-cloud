@@ -56,4 +56,12 @@ public class SysUserOrgDomainService {
 		sysUserOrgService.deleteById(id);
 	}
 
+	/**
+	 * 根据用户ID删除组织关系
+	 * @param userId 用户主键
+	 */
+	public void deleteByUserId(String userId) {
+		sysUserOrgService.deleteByUserId(userId);
+	}
+
 }

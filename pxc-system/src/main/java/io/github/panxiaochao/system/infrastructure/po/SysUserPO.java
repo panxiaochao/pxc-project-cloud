@@ -92,6 +92,12 @@ public class SysUserPO {
 	private String fax;
 
 	/**
+	 * 岗位Code
+	 */
+	@TableField("post_code")
+	private Integer postCode;
+
+	/**
 	 * 排序
 	 */
 	@TableField("sort")
@@ -119,7 +125,7 @@ public class SysUserPO {
 	 * 所在区域或者部门ID，多数据请用逗号隔开
 	 */
 	@TableField("org_id")
-	private Integer orgId;
+	private String orgId;
 
 	/**
 	 * 所在区域或者部门编码code，多数据请用逗号隔开

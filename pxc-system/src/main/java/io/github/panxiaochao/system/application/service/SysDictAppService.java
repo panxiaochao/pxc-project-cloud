@@ -15,7 +15,7 @@ import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDict
 import io.github.panxiaochao.system.application.convert.ISysDictDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysDictItemReadModelService;
 import io.github.panxiaochao.system.application.repository.ISysDictReadModelService;
-import io.github.panxiaochao.system.application.runner.helper.DictHelper;
+import io.github.panxiaochao.system.application.runner.helper.CacheHelper;
 import io.github.panxiaochao.system.domain.entity.SysDict;
 import io.github.panxiaochao.system.domain.service.SysDictDomainService;
 import lombok.RequiredArgsConstructor;
@@ -137,7 +137,7 @@ public class SysDictAppService {
 		sysDictQueryResponseList.forEach(s -> {
 			sysDictMap.put(s.getId(), s);
 		});
-		DictHelper.putAllSysDict(sysDictMap);
+		CacheHelper.putAllSysDict(sysDictMap);
 		// 2.数据字典配置表
 		SysDictItemQueryRequest sysDictItemQueryRequest = new SysDictItemQueryRequest();
 		sysDictItemQueryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
@@ -147,7 +147,7 @@ public class SysDictAppService {
 		sysDictItemQueryResponseList.forEach(s -> {
 			sysDictItemMap.put(s.getId(), s);
 		});
-		DictHelper.putAllSysDictItem(sysDictItemMap);
+		CacheHelper.putAllSysDictItem(sysDictItemMap);
 		LOGGER.info("[pxc-system] dict load is success, time consuming {} ms",
 				(System.currentTimeMillis() - startTime));
 	}

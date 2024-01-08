@@ -1,9 +1,9 @@
 package io.github.panxiaochao.system.application.api;
 
+import io.github.panxiaochao.core.component.tree.Tree;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
-import io.github.panxiaochao.core.utils.tree.Tree;
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaUpdateRequest;

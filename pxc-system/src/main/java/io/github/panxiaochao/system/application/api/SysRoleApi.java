@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.application.api;
 
+import io.github.panxiaochao.core.component.select.Select;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
@@ -51,7 +52,7 @@ public class SysRoleApi {
 
 	@Operation(summary = "角色数组", description = "角色数组", method = "GET")
 	@GetMapping(value = "/listRole")
-	public R<List<SysRoleQueryResponse>> listRole(SysRoleQueryRequest queryRequest) {
+	public R<List<Select<String>>> listRole(SysRoleQueryRequest queryRequest) {
 		return R.ok(sysRoleAppService.listRole(queryRequest));
 	}
 

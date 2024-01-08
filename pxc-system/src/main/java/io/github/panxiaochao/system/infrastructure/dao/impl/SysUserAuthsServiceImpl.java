@@ -60,10 +60,10 @@ public class SysUserAuthsServiceImpl implements ISysUserAuthsService, ISysUserAu
 	private LambdaQueryWrapper<SysUserAuthsPO> lambdaQuery(SysUserAuthsQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysUserAuthsPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(SysUserAuthsPO::getId);
+			// 默认按照创建时间升序排序
+			lqw.orderByAsc(SysUserAuthsPO::getCreateTime);
 			// 如果 关联用户ID 不为空
-			if (queryRequest.getUserId() != null) {
+			if (StringUtils.isNotBlank(queryRequest.getUserId())) {
 				lqw.eq(SysUserAuthsPO::getUserId, queryRequest.getUserId());
 			}
 			// 如果 登录类型(手机号/邮箱/用户名/微信/微博/QQ）等 不为空
@@ -85,14 +85,6 @@ public class SysUserAuthsServiceImpl implements ISysUserAuthsService, ISysUserAu
 			// 如果 登录标识失效时间 不为空
 			if (queryRequest.getExpireTime() != null) {
 				lqw.eq(SysUserAuthsPO::getExpireTime, queryRequest.getExpireTime());
-			}
-			// 如果 创建时间 不为空
-			if (queryRequest.getCreateTime() != null) {
-				lqw.eq(SysUserAuthsPO::getCreateTime, queryRequest.getCreateTime());
-			}
-			// 如果 更新时间 不为空
-			if (queryRequest.getUpdateTime() != null) {
-				lqw.eq(SysUserAuthsPO::getUpdateTime, queryRequest.getUpdateTime());
 			}
 		}
 		return lqw;
@@ -138,6 +130,36 @@ public class SysUserAuthsServiceImpl implements ISysUserAuthsService, ISysUserAu
 	@Override
 	public void deleteById(String id) {
 		sysUserAuthsMapper.deleteById(id);
+	}
+
+	/**
+	 * 根据用户ID和登录类型查询列表
+	 * @param userId 用户主键
+	 * @param identityType 登录类型
+	 * @return SysUserAuths 实体列表
+	 */
+	@Override
+	public List<SysUserAuths> listIdentityType(String userId, String identityType) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysUserAuthsPO> lqw = Wrappers.lambdaQuery();
+		// 如果 关联用户ID 不为空
+		if (StringUtils.isNotBlank(userId)) {
+			lqw.eq(SysUserAuthsPO::getUserId, userId);
+		}
+		// 如果 登录类型(手机号/邮箱/用户名/微信/微博/QQ）等 不为空
+		if (StringUtils.isNotBlank(identityType)) {
+			lqw.eq(SysUserAuthsPO::getIdentityType, identityType);
+		}
+		return ISysUserAuthsPOConvert.INSTANCE.toEntity(sysUserAuthsMapper.selectList(lqw));
+	}
+
+	/**
+	 * 根据用户ID删除用户授权信息表所有信息
+	 * @param userId 用户主键
+	 */
+	@Override
+	public void deleteByUserId(String userId) {
+		sysUserAuthsMapper.delete(Wrappers.lambdaQuery(SysUserAuthsPO.class).eq(SysUserAuthsPO::getUserId, userId));
 	}
 
 }

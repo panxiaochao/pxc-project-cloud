@@ -5,6 +5,8 @@ import io.github.panxiaochao.system.domain.repository.ISysUserAuthsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户授权信息表 Domain服务类.
@@ -56,4 +58,21 @@ public class SysUserAuthsDomainService {
 		sysUserAuthsService.deleteById(id);
 	}
 
+	/**
+	 * 根据用户ID和登录类型查询列表
+	 * @param userId 用户主键
+	 * @param identityType 登录类型
+	 * @return SysUserAuths 实体列表
+	 */
+	public List<SysUserAuths> listIdentityType(String userId, String identityType) {
+		return sysUserAuthsService.listIdentityType(userId, identityType);
+	}
+
+	/**
+	 * 根据用户ID删除用户授权信息表所有信息
+	 * @param userId 用户主键
+	 */
+    public void deleteByUserId(String userId) {
+		sysUserAuthsService.deleteByUserId(userId);
+    }
 }
