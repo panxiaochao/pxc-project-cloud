@@ -5,12 +5,14 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.date.LocalDateTimeUtil;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserUpdateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsCreateRequest;
 import io.github.panxiaochao.system.application.api.response.sysuser.SysUserQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysuser.SysUserResponse;
+import io.github.panxiaochao.system.application.constants.GlobalConstant;
 import io.github.panxiaochao.system.application.convert.ISysUserDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
 import io.github.panxiaochao.system.application.runner.helper.CacheHelper;
@@ -128,6 +130,7 @@ public class SysUserAppService {
 			sysUserAuthsCreateRequest.setCredential(CacheHelper.getSysParamByKey("sys.user.password").getParamValue());
 		}
 		sysUserAuthsCreateRequest.setVerified(CommonConstants.STATUS_NORMAL.toString());
+		sysUserAuthsCreateRequest.setExpireTime(LocalDateTimeUtil.stringToLocalDateTime(GlobalConstant.EXPIRE_TIME));
 		sysUserAuthsAppService.save(sysUserAuthsCreateRequest);
 		// 存储用户组织关联关系
 		if (StringUtils.hasText(sysUser.getOrgId())) {

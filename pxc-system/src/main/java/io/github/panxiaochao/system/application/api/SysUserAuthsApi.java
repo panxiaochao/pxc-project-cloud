@@ -78,7 +78,7 @@ public class SysUserAuthsApi {
 	}
 
 	@Operation(summary = "获取登录类型下拉菜单", description = "获取登录类型下拉菜单", method = "GET")
-	@GetMapping(value = "/listIdentityTypes")
+	@GetMapping(value = "/selectIdentityTypes")
 	public R<List<Select<String>>> selectIdentityTypes() {
 		return R.ok(sysUserAuthsAppService.selectIdentityTypes());
 	}
