@@ -1,6 +1,8 @@
 package io.github.panxiaochao.system.application.service;
 
 import io.github.panxiaochao.core.enums.CommonConstants;
+import io.github.panxiaochao.core.enums.CommonResponseEnum;
+import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -10,6 +12,7 @@ import io.github.panxiaochao.system.application.api.request.sysuser.SysUserCreat
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserUpdateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsCreateRequest;
+import io.github.panxiaochao.system.application.api.response.sysparam.SysParamQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysuser.SysUserQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysuser.SysUserResponse;
 import io.github.panxiaochao.system.application.constants.GlobalConstant;
@@ -29,6 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -127,7 +131,11 @@ public class SysUserAppService {
 			sysUserAuthsCreateRequest.setCredential(sysUserCreateRequest.getPassword());
 		}
 		else {
-			sysUserAuthsCreateRequest.setCredential(CacheHelper.getSysParamByKey("sys.user.password").getParamValue());
+			SysParamQueryResponse sysParamQueryResponse = Optional
+				.ofNullable(CacheHelper.getSysParamByKey("sys.user.password"))
+				.orElseThrow(() -> new ServerRuntimeException(CommonResponseEnum.INTERNAL_SERVER_ERROR,
+						"请在系统参数中设置键值为[sys.user.password], 值为初始化默认密码!"));
+			sysUserAuthsCreateRequest.setCredential(sysParamQueryResponse.getParamValue());
 		}
 		sysUserAuthsCreateRequest.setVerified(CommonConstants.STATUS_NORMAL.toString());
 		sysUserAuthsCreateRequest.setExpireTime(LocalDateTimeUtil.stringToLocalDateTime(GlobalConstant.EXPIRE_TIME));

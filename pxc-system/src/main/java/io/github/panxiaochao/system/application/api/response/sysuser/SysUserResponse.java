@@ -94,6 +94,12 @@ public class SysUserResponse {
 	private String fax;
 
 	/**
+	 * 岗位Code
+	 */
+	@Schema(description = "岗位Code")
+	private String postCode;
+
+	/**
 	 * 排序
 	 */
 	@Schema(description = "排序")

@@ -33,7 +33,9 @@ public class CacheRunner implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) {
+		// 数据字典缓存
 		sysDictAppService.publishedData();
+		// 系统参数缓存
 		sysParamAppService.publishedData();
 	}
 

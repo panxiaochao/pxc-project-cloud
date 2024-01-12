@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.application.service;
 import io.github.panxiaochao.core.component.select.Select;
 import io.github.panxiaochao.core.component.select.SelectBuilder;
 import io.github.panxiaochao.core.component.select.SelectOption;
+import io.github.panxiaochao.core.enums.CommonConstants;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -22,6 +23,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -76,6 +79,14 @@ public class SysPostAppService {
 	 */
 	public R<SysPostResponse> save(SysPostCreateRequest sysPostCreateRequest) {
 		SysPost sysPost = ISysPostDTOConvert.INSTANCE.fromCreateRequest(sysPostCreateRequest);
+		// 验证是否重复
+		SysPostQueryRequest queryRequest = new SysPostQueryRequest();
+		queryRequest.setPostCode(sysPost.getPostCode());
+		queryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		SysPostQueryResponse one = sysPostReadModelService.getOne(queryRequest);
+		if (Objects.nonNull(one)) {
+			return R.fail("岗位编码[" + sysPost.getPostCode() + "]已存在");
+		}
 		sysPost = sysPostDomainService.save(sysPost);
 		SysPostResponse sysPostResponse = ISysPostDTOConvert.INSTANCE.toResponse(sysPost);
 		return R.ok(sysPostResponse);
@@ -88,6 +99,23 @@ public class SysPostAppService {
 	 */
 	public R<Void> update(SysPostUpdateRequest sysPostUpdateRequest) {
 		SysPost sysPost = ISysPostDTOConvert.INSTANCE.fromUpdateRequest(sysPostUpdateRequest);
+		// 验证是否重复
+		SysPostQueryRequest queryRequest = new SysPostQueryRequest();
+		queryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		List<SysPostQueryResponse> list = sysPostReadModelService.list(queryRequest);
+		Optional<SysPostQueryResponse> optionalSysPostQueryResponse = list.stream()
+			.filter(f -> f.getId().equals(sysPost.getId()) && f.getPostCode().equals(sysPost.getPostCode()))
+			.findFirst();
+		// 没有数据，说明岗位编码变动了，需要判断岗位编码是否有重复
+		if (!optionalSysPostQueryResponse.isPresent()) {
+			optionalSysPostQueryResponse = list.stream()
+				.filter(f -> !f.getId().equals(sysPost.getId()) && f.getPostCode().equals(sysPost.getPostCode()))
+				.findFirst();
+			// 有数据，说明重复
+			if (optionalSysPostQueryResponse.isPresent()) {
+				return R.fail("岗位编码[" + sysPost.getPostCode() + "]已存在");
+			}
+		}
 		sysPostDomainService.update(sysPost);
 		return R.ok();
 	}

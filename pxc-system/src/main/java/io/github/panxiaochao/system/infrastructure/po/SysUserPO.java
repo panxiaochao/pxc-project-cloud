@@ -95,7 +95,7 @@ public class SysUserPO {
 	 * 岗位Code
 	 */
 	@TableField("post_code")
-	private Integer postCode;
+	private String postCode;
 
 	/**
 	 * 排序

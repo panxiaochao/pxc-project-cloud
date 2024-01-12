@@ -31,4 +31,10 @@ public interface ISysPostReadModelService {
 	 */
 	List<SysPostQueryResponse> list(SysPostQueryRequest queryRequest);
 
+	/**
+	 * 查询单条记录
+	 * @param queryRequest 岗位表查询请求对象
+	 * @return 结果数组
+	 */
+	SysPostQueryResponse getOne(SysPostQueryRequest queryRequest);
 }
