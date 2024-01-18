@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.repeatsubmit.annotation.RepeatSubmitLimiter;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamUpdateRequest;
@@ -71,6 +72,14 @@ public class SysParamApi {
 	@DeleteMapping(value = "/{id}")
 	public R<Void> deleteById(@PathVariable("id") String id) {
 		return sysParamAppService.deleteById(id);
+	}
+
+	@RepeatSubmitLimiter(interval = 3000, message = "正在发布中，请勿重复提交")
+	@Operation(summary = "发布系统参数", description = "发布系统参数", method = "GET")
+	@GetMapping(value = "/publishedData")
+	public R<Void> publishedData() {
+		sysParamAppService.publishedData();
+		return R.ok();
 	}
 
 }

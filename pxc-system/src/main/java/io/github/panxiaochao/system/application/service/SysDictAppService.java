@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.application.service;
 
-import io.github.panxiaochao.core.enums.CommonConstants;
+import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -131,7 +131,7 @@ public class SysDictAppService {
 		long startTime = System.currentTimeMillis();
 		// 1.数据字典主表
 		SysDictQueryRequest sysDictQueryRequest = new SysDictQueryRequest();
-		sysDictQueryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		sysDictQueryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 		List<SysDictQueryResponse> sysDictQueryResponseList = sysDictReadModelService.list(sysDictQueryRequest);
 		Map<String, SysDictQueryResponse> sysDictMap = new LinkedHashMap<>();
 		sysDictQueryResponseList.forEach(s -> {
@@ -140,7 +140,7 @@ public class SysDictAppService {
 		CacheHelper.putAllSysDict(sysDictMap);
 		// 2.数据字典配置表
 		SysDictItemQueryRequest sysDictItemQueryRequest = new SysDictItemQueryRequest();
-		sysDictItemQueryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		sysDictItemQueryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 		List<SysDictItemQueryResponse> sysDictItemQueryResponseList = sysDictItemReadModelService
 			.list(sysDictItemQueryRequest);
 		Map<String, SysDictItemQueryResponse> sysDictItemMap = new LinkedHashMap<>();

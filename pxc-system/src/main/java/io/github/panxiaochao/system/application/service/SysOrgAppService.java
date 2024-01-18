@@ -4,7 +4,7 @@ import io.github.panxiaochao.core.component.tree.Tree;
 import io.github.panxiaochao.core.component.tree.TreeBuilder;
 import io.github.panxiaochao.core.component.tree.TreeNode;
 import io.github.panxiaochao.core.component.tree.TreeNodeProperties;
-import io.github.panxiaochao.core.enums.CommonConstants;
+import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -124,9 +124,9 @@ public class SysOrgAppService {
 			queryRequest.setParentId(rootId);
 		}
 		else {
-			rootId = CommonConstants.TREE_ROOT_ID.toString();
+			rootId = CommonConstant.TREE_ROOT_ID.toString();
 		}
-		queryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 		List<TreeNode<String>> treeNodeList = sysOrgReadModelService.list(queryRequest)
 			.stream()
 			.map(s -> TreeNode.of(s.getId(), s.getParentId(), s.getOrgName(), s.getSort(),

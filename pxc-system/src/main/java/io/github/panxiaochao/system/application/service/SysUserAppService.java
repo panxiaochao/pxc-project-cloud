@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.application.service;
 
-import io.github.panxiaochao.core.enums.CommonConstants;
+import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.enums.CommonResponseEnum;
 import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.R;
@@ -137,7 +137,7 @@ public class SysUserAppService {
 						"请在系统参数中设置键值为[sys.user.password], 值为初始化默认密码!"));
 			sysUserAuthsCreateRequest.setCredential(sysParamQueryResponse.getParamValue());
 		}
-		sysUserAuthsCreateRequest.setVerified(CommonConstants.STATUS_NORMAL.toString());
+		sysUserAuthsCreateRequest.setVerified(CommonConstant.STATUS_NORMAL.toString());
 		sysUserAuthsCreateRequest.setExpireTime(LocalDateTimeUtil.stringToLocalDateTime(GlobalConstant.EXPIRE_TIME));
 		sysUserAuthsAppService.save(sysUserAuthsCreateRequest);
 		// 存储用户组织关联关系

@@ -4,7 +4,7 @@ import io.github.panxiaochao.core.component.tree.Tree;
 import io.github.panxiaochao.core.component.tree.TreeBuilder;
 import io.github.panxiaochao.core.component.tree.TreeNode;
 import io.github.panxiaochao.core.component.tree.TreeNodeProperties;
-import io.github.panxiaochao.core.enums.CommonConstants;
+import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -112,7 +112,7 @@ public class SysAreaAppService {
 	 */
 	public List<Tree<String>> listTree(String areaCode) {
 		SysAreaQueryRequest queryRequest = new SysAreaQueryRequest();
-		String rootId = CommonConstants.TREE_ROOT_ID.toString();
+		String rootId = CommonConstant.TREE_ROOT_ID.toString();
 		// 当区域code不为空的时候，说明是查询下级数据
 		if (StringUtils.hasText(areaCode)) {
 			// 设置父节点为当前区域code

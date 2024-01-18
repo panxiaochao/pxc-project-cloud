@@ -1,12 +1,14 @@
 package io.github.panxiaochao.system.application.runner.helper;
 
+import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.api.response.sysdict.SysDictQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDictItemQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysparam.SysParamQueryResponse;
+import org.redisson.api.RMap;
+import org.redisson.api.RedissonClient;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -24,27 +26,33 @@ import java.util.stream.Collectors;
 public class CacheHelper {
 
 	/**
-	 * 数据字典 主表
+	 * RedissonClient 获取, 数据采用缓存共享
 	 */
-	private static final Map<String, SysDictQueryResponse> SYS_DICT_MAP = new LinkedHashMap<>();
+	private static final RedissonClient REDISSONCLIENT = RedissonUtil.INSTANCE().ofRedissonClient();
 
 	/**
-	 * 数据字典 配置表
+	 * 数据字典 主表 REDIS_KEY
 	 */
-	private static final Map<String, SysDictItemQueryResponse> SYS_DICT_ITEM_MAP = new LinkedHashMap<>();
+	private static final String KEY_SYS_DICT = "CACHE:SYS_DICT";
 
 	/**
-	 * 系统参数
+	 * 数据字典 配置表 REDIS_KEY
 	 */
-	private static final Map<String, SysParamQueryResponse> SYS_PARAMS_MAP = new LinkedHashMap<>();
+	private static final String KEY_SYS_DICT_ITEM = "CACHE:SYS_DICT_ITEM";
+
+	/**
+	 * 系统参数 REDIS_KEY
+	 */
+	private static final String KEY_SYS_PARAM = "CACHE:SYS_PARAM";
 
 	/**
 	 * 加载数据字典主表
 	 * @param sysDictMap 数据字典Map
 	 */
 	public static void putAllSysDict(Map<String, SysDictQueryResponse> sysDictMap) {
-		SYS_DICT_MAP.clear();
-		SYS_DICT_MAP.putAll(sysDictMap);
+		RMap<String, SysDictQueryResponse> rMap = REDISSONCLIENT.getMap(KEY_SYS_DICT);
+		rMap.clear();
+		rMap.putAll(sysDictMap);
 	}
 
 	/**
@@ -52,8 +60,9 @@ public class CacheHelper {
 	 * @param stringSysDictItemMap 数据字典配置Map
 	 */
 	public static void putAllSysDictItem(Map<String, SysDictItemQueryResponse> stringSysDictItemMap) {
-		SYS_DICT_ITEM_MAP.clear();
-		SYS_DICT_ITEM_MAP.putAll(stringSysDictItemMap);
+		RMap<String, SysDictItemQueryResponse> rMap = REDISSONCLIENT.getMap(KEY_SYS_DICT_ITEM);
+		rMap.clear();
+		rMap.putAll(stringSysDictItemMap);
 	}
 
 	/**
@@ -61,8 +70,9 @@ public class CacheHelper {
 	 * @param sysParamMap 系统参数Map
 	 */
 	public static void putAllSysParam(Map<String, SysParamQueryResponse> sysParamMap) {
-		SYS_PARAMS_MAP.clear();
-		SYS_PARAMS_MAP.putAll(sysParamMap);
+		RMap<String, SysParamQueryResponse> rMap = REDISSONCLIENT.getMap(KEY_SYS_PARAM);
+		rMap.clear();
+		rMap.putAll(sysParamMap);
 	}
 
 	/**
@@ -76,9 +86,10 @@ public class CacheHelper {
 		if (Objects.isNull(sysDict)) {
 			return null;
 		}
-		Optional<SysDictItemQueryResponse> optionalSysDictItem = SYS_DICT_ITEM_MAP.values()
+		RMap<String, SysDictItemQueryResponse> rMap = REDISSONCLIENT.getMap(KEY_SYS_DICT_ITEM);
+		Optional<SysDictItemQueryResponse> optionalSysDictItem = rMap.values()
 			.stream()
-			.filter(o -> (o.getDictId().equals(sysDict.getId()) && o.getDictItemValue().equals(value)))
+			.filter(f -> (f.getDictId().equals(sysDict.getId()) && f.getDictItemValue().equals(value)))
 			.findFirst();
 		return optionalSysDictItem.orElse(null);
 	}
@@ -94,7 +105,8 @@ public class CacheHelper {
 		if (Objects.isNull(sysDict)) {
 			return null;
 		}
-		Optional<SysDictItemQueryResponse> optionalSysDictItem = SYS_DICT_ITEM_MAP.values()
+		RMap<String, SysDictItemQueryResponse> rMap = REDISSONCLIENT.getMap(KEY_SYS_DICT_ITEM);
+		Optional<SysDictItemQueryResponse> optionalSysDictItem = rMap.values()
 			.stream()
 			.filter(o -> (o.getDictId().equals(sysDict.getId()) && o.getDictItemValue().equals(text)))
 			.findFirst();
@@ -111,10 +123,8 @@ public class CacheHelper {
 		if (Objects.isNull(sysDict)) {
 			return new ArrayList<>();
 		}
-		return SYS_DICT_ITEM_MAP.values()
-			.stream()
-			.filter(o -> o.getDictId().equals(sysDict.getId()))
-			.collect(Collectors.toList());
+		RMap<String, SysDictItemQueryResponse> rMap = REDISSONCLIENT.getMap(KEY_SYS_DICT_ITEM);
+		return rMap.values().stream().filter(o -> o.getDictId().equals(sysDict.getId())).collect(Collectors.toList());
 	}
 
 	/**
@@ -126,7 +136,8 @@ public class CacheHelper {
 		if (!StringUtils.hasText(code)) {
 			return null;
 		}
-		Optional<SysDictQueryResponse> optionalSysDict = SYS_DICT_MAP.values()
+		RMap<String, SysDictQueryResponse> rMap = REDISSONCLIENT.getMap(KEY_SYS_DICT);
+		Optional<SysDictQueryResponse> optionalSysDict = rMap.values()
 			.stream()
 			.filter(s -> s.getDictCode().equals(code))
 			.findFirst();
@@ -142,7 +153,8 @@ public class CacheHelper {
 		if (!StringUtils.hasText(key)) {
 			return null;
 		}
-		Optional<SysParamQueryResponse> optionalSysParam = SYS_PARAMS_MAP.values()
+		RMap<String, SysParamQueryResponse> rMap = REDISSONCLIENT.getMap(KEY_SYS_PARAM);
+		Optional<SysParamQueryResponse> optionalSysParam = rMap.values()
 			.stream()
 			.filter(s -> s.getParamKey().equals(key))
 			.findFirst();

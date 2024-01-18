@@ -4,7 +4,7 @@ import io.github.panxiaochao.core.component.tree.Tree;
 import io.github.panxiaochao.core.component.tree.TreeBuilder;
 import io.github.panxiaochao.core.component.tree.TreeNode;
 import io.github.panxiaochao.core.component.tree.TreeNodeProperties;
-import io.github.panxiaochao.core.enums.CommonConstants;
+import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -84,7 +84,7 @@ public class SysMenuAppService {
 
 		// "0" = 一级菜单
 		if ("0".equals(sysMenu.getMenuType())) {
-			sysMenu.setParentId(CommonConstants.TREE_ROOT_ID.toString());
+			sysMenu.setParentId(CommonConstant.TREE_ROOT_ID.toString());
 		}
 		sysMenu = sysMenuDomainService.save(sysMenu);
 		SysMenuResponse sysMenuResponse = ISysMenuDTOConvert.INSTANCE.toResponse(sysMenu);
@@ -119,7 +119,7 @@ public class SysMenuAppService {
 	 */
 	public List<Tree<String>> tableTree(String menuId) {
 		SysMenuQueryRequest queryRequest = new SysMenuQueryRequest();
-		String rootId = CommonConstants.TREE_ROOT_ID.toString();
+		String rootId = CommonConstant.TREE_ROOT_ID.toString();
 		// 有数据就说明需要查下级
 		if (StringUtils.hasText(menuId)) {
 			// 设置父节点为菜单ID
@@ -145,7 +145,7 @@ public class SysMenuAppService {
 				if (StringUtils.hasText(s.getPermissionStatus())) {
 					// 是个反向操作显示
 					extraMap.put("isHidden",
-							s.getPermissionStatus().equals(CommonConstants.STATUS_NORMAL.toString()) ? "0" : "1");
+							s.getPermissionStatus().equals(CommonConstant.STATUS_NORMAL.toString()) ? "0" : "1");
 				}
 				else {
 					extraMap.put("isHidden", s.getIsHidden());
@@ -171,7 +171,7 @@ public class SysMenuAppService {
 	 */
 	public List<Tree<String>> listTree(String menuId, boolean isOnlyMenu) {
 		SysMenuQueryRequest queryRequest = new SysMenuQueryRequest();
-		String rootId = CommonConstants.TREE_ROOT_ID.toString();
+		String rootId = CommonConstant.TREE_ROOT_ID.toString();
 		// 有数据就说明需要查下级
 		if (StringUtils.hasText(menuId)) {
 			// 设置父节点为菜单ID

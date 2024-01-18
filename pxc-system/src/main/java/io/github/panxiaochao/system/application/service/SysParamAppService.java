@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.application.service;
 
-import io.github.panxiaochao.core.enums.CommonConstants;
+import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -131,7 +131,7 @@ public class SysParamAppService {
 	public void publishedData() {
 		long startTime = System.currentTimeMillis();
 		SysParamQueryRequest sysParamQueryRequest = new SysParamQueryRequest();
-		sysParamQueryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		sysParamQueryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 		List<SysParamQueryResponse> list = sysParamReadModelService.list(sysParamQueryRequest);
 		Map<String, SysParamQueryResponse> sysParamMap = new LinkedHashMap<>();
 		list.forEach(s -> {

@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.application.service;
 import io.github.panxiaochao.core.component.select.Select;
 import io.github.panxiaochao.core.component.select.SelectBuilder;
 import io.github.panxiaochao.core.component.select.SelectOption;
-import io.github.panxiaochao.core.enums.CommonConstants;
+import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -82,7 +82,7 @@ public class SysPostAppService {
 		// 验证是否重复
 		SysPostQueryRequest queryRequest = new SysPostQueryRequest();
 		queryRequest.setPostCode(sysPost.getPostCode());
-		queryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 		SysPostQueryResponse one = sysPostReadModelService.getOne(queryRequest);
 		if (Objects.nonNull(one)) {
 			return R.fail("岗位编码[" + sysPost.getPostCode() + "]已存在");
@@ -101,7 +101,7 @@ public class SysPostAppService {
 		SysPost sysPost = ISysPostDTOConvert.INSTANCE.fromUpdateRequest(sysPostUpdateRequest);
 		// 验证是否重复
 		SysPostQueryRequest queryRequest = new SysPostQueryRequest();
-		queryRequest.setState(CommonConstants.STATUS_NORMAL.toString());
+		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 		List<SysPostQueryResponse> list = sysPostReadModelService.list(queryRequest);
 		Optional<SysPostQueryResponse> optionalSysPostQueryResponse = list.stream()
 			.filter(f -> f.getId().equals(sysPost.getId()) && f.getPostCode().equals(sysPost.getPostCode()))
