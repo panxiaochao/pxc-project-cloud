@@ -31,4 +31,11 @@ public interface ISysDictReadModelService {
 	 */
 	List<SysDictQueryResponse> list(SysDictQueryRequest queryRequest);
 
+	/**
+	 * 查询单条记录
+	 * @param queryRequest 数据字典表查询请求对象
+	 * @return 数据字典表查询响应对象
+	 */
+	SysDictQueryResponse getOne(SysDictQueryRequest queryRequest);
+
 }

@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
  * 系统日志操作表更新请求对象
@@ -20,6 +18,12 @@ import java.time.LocalDateTime;
 @ToString
 @Schema(description = "系统日志操作表更新请求对象")
 public class SysLogOperateUpdateRequest {
+
+	/**
+	 * 操作标题
+	 */
+	@Schema(description = "操作标题")
+	private String opTitle;
 
 	/**
 	 * 主键
@@ -44,6 +48,12 @@ public class SysLogOperateUpdateRequest {
 	 */
 	@Schema(description = "IP")
 	private String ip;
+
+	/**
+	 * 请求地址
+	 */
+	@Schema(description = "请求地址")
+	private String address;
 
 	/**
 	 * 请求java方法
@@ -94,9 +104,9 @@ public class SysLogOperateUpdateRequest {
 	private String os;
 
 	/**
-	 * 创建时间
+	 * 操作用户
 	 */
-	@Schema(description = "创建时间")
-	private LocalDateTime createTime;
+	@Schema(description = "操作用户")
+	private String opUser;
 
 }

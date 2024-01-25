@@ -65,6 +65,24 @@ public class SysDictServiceImpl implements ISysDictService, ISysDictReadModelSer
 	}
 
 	/**
+	 * 查询单条记录
+	 * @param queryRequest 数据字典表查询请求对象
+	 * @return 数据字典表查询响应对象
+	 */
+	@Override
+	public SysDictQueryResponse getOne(SysDictQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysDictPO> lqw = lambdaQuery(queryRequest);
+		try {
+			SysDictPO sysDictPO = sysDictMapper.selectOne(lqw);
+			return ISysDictPOConvert.INSTANCE.toQueryResponse(sysDictPO);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式

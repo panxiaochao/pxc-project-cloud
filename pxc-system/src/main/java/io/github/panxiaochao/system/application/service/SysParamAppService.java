@@ -99,6 +99,13 @@ public class SysParamAppService {
 	 */
 	public R<SysParamResponse> save(SysParamCreateRequest sysParamCreateRequest) {
 		SysParam sysParam = ISysParamDTOConvert.INSTANCE.fromCreateRequest(sysParamCreateRequest);
+		SysParamQueryRequest queryRequest = new SysParamQueryRequest();
+		queryRequest.setParamKey(sysParam.getParamKey());
+		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
+		SysParamQueryResponse one = sysParamReadModelService.getOne(queryRequest);
+		if (Objects.nonNull(one)) {
+			return R.fail("系统参数[" + sysParam.getParamKey() + "]已存在");
+		}
 		sysParam = sysParamDomainService.save(sysParam);
 		SysParamResponse sysParamResponse = ISysParamDTOConvert.INSTANCE.toResponse(sysParam);
 		return R.ok(sysParamResponse);

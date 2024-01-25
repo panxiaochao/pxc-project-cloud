@@ -27,6 +27,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
@@ -90,6 +91,13 @@ public class SysDictAppService {
 	 */
 	public R<SysDictResponse> save(SysDictCreateRequest sysDictCreateRequest) {
 		SysDict sysDict = ISysDictDTOConvert.INSTANCE.fromCreateRequest(sysDictCreateRequest);
+		SysDictQueryRequest queryRequest = new SysDictQueryRequest();
+		queryRequest.setDictCode(sysDict.getDictCode());
+		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
+		SysDictQueryResponse one = sysDictReadModelService.getOne(queryRequest);
+		if (Objects.nonNull(one)) {
+			return R.fail("数据字典[" + sysDict.getDictCode() + "]已存在");
+		}
 		sysDict = sysDictDomainService.save(sysDict);
 		SysDictResponse sysDictResponse = ISysDictDTOConvert.INSTANCE.toResponse(sysDict);
 		return R.ok(sysDictResponse);

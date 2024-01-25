@@ -65,6 +65,24 @@ public class SysParamServiceImpl implements ISysParamService, ISysParamReadModel
 	}
 
 	/**
+	 * 查询单条记录
+	 * @param queryRequest 系统参数查询请求对象
+	 * @return 系统参数查询请求对象
+	 */
+	@Override
+	public SysParamQueryResponse getOne(SysParamQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysParamPO> lqw = lambdaQuery(queryRequest);
+		try {
+			SysParamPO sysParamPO = sysParamMapper.selectOne(lqw);
+			return ISysParamPOConvert.INSTANCE.toQueryResponse(sysParamPO);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式

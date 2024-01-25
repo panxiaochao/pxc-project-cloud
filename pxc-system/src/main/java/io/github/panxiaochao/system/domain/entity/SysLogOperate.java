@@ -25,6 +25,11 @@ public class SysLogOperate {
 	private String id;
 
 	/**
+	 * 操作标题
+	 */
+	private String opTitle;
+
+	/**
 	 * 日志内容
 	 */
 	private String logContent;
@@ -38,6 +43,11 @@ public class SysLogOperate {
 	 * IP
 	 */
 	private String ip;
+
+	/**
+	 * 请求地址
+	 */
+	private String address;
 
 	/**
 	 * 请求java方法
@@ -78,6 +88,11 @@ public class SysLogOperate {
 	 * 操作系统
 	 */
 	private String os;
+
+	/**
+	 * 操作用户
+	 */
+	private String opUser;
 
 	/**
 	 * 创建时间

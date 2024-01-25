@@ -35,6 +35,11 @@ public class SysRole {
 	private String roleCode;
 
 	/**
+	 * 数据权限（1.全部数据 2.自定义数据 3.本部门数据 4.本部门及以下数据 5.仅本人数据）
+	 */
+	private String dataScope;
+
+	/**
 	 * 备注
 	 */
 	private String remark;

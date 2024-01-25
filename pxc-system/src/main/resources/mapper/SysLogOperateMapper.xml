@@ -5,9 +5,11 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.infrastructure.po.SysLogOperatePO">
         <id column="id" property="id"/>
+        <result column="op_title" property="opTitle"/>
         <result column="log_content" property="logContent"/>
         <result column="operate_type" property="operateType"/>
         <result column="ip" property="ip"/>
+        <result column="address" property="address"/>
         <result column="method" property="method"/>
         <result column="request_url" property="requestUrl"/>
         <result column="request_params" property="requestParams"/>
@@ -16,13 +18,14 @@
         <result column="state" property="state"/>
         <result column="browser" property="browser"/>
         <result column="os" property="os"/>
+        <result column="op_user" property="opUser"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        , log_content, operate_type, ip, method, request_url, request_params, request_method, cost_time, state, browser, os, create_time
+        op_title, log_content, operate_type, ip, address, method, request_url, request_params, request_method, cost_time, state, browser, os, op_user, create_time
     </sql>
 
 </mapper>

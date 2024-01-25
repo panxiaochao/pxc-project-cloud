@@ -82,6 +82,10 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 			if (StringUtils.isNotBlank(queryRequest.getRoleCode())) {
 				lqw.eq(SysRolePO::getRoleCode, queryRequest.getRoleCode());
 			}
+			// 如果 数据权限 不为空
+			if (StringUtils.isNotBlank(queryRequest.getDataScope())) {
+				lqw.eq(SysRolePO::getRoleCode, queryRequest.getDataScope());
+			}
 			// 如果 状态1正常，0失效 不为空
 			if (StringUtils.isNotBlank(queryRequest.getState())) {
 				lqw.eq(SysRolePO::getState, queryRequest.getState());

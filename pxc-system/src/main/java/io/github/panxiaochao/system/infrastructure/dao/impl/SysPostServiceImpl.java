@@ -72,7 +72,13 @@ public class SysPostServiceImpl implements ISysPostService, ISysPostReadModelSer
 	public SysPostQueryResponse getOne(SysPostQueryRequest queryRequest) {
 		// 构造查询条件
 		LambdaQueryWrapper<SysPostPO> lqw = lambdaQuery(queryRequest);
-		return ISysPostPOConvert.INSTANCE.toQueryResponse(sysPostMapper.selectOne(lqw, false));
+		try {
+			SysPostPO sysPostPO = sysPostMapper.selectOne(lqw);
+			return ISysPostPOConvert.INSTANCE.toQueryResponse(sysPostPO);
+		}
+		catch (Exception e) {
+			return null;
+		}
 	}
 
 	/**

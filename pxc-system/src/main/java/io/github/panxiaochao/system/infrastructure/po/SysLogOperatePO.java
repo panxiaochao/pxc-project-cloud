@@ -32,6 +32,12 @@ public class SysLogOperatePO {
 	private Long id;
 
 	/**
+	 * 操作标题
+	 */
+	@TableField("op_title")
+	private String opTitle;
+
+	/**
 	 * 日志内容
 	 */
 	@TableField("log_content")
@@ -48,6 +54,12 @@ public class SysLogOperatePO {
 	 */
 	@TableField("ip")
 	private String ip;
+
+	/**
+	 * 请求地址
+	 */
+	@TableField("address")
+	private String address;
 
 	/**
 	 * 请求java方法
@@ -96,6 +108,12 @@ public class SysLogOperatePO {
 	 */
 	@TableField("os")
 	private String os;
+
+	/**
+	 * 操作用户
+	 */
+	@TableField("op_user")
+	private String opUser;
 
 	/**
 	 * 创建时间

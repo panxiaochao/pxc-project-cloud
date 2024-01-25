@@ -62,7 +62,6 @@ public class LoginWebService {
 
 		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(multiValueMap, headers);
 		Map<String, Object> result = MapUtil.newHashMap();
-		// TODO 需要做登录日志
 		try {
 			ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
 			Map<String, Object> body = JacksonUtil.toMap(response.getBody());

@@ -31,4 +31,11 @@ public interface ISysParamReadModelService {
 	 */
 	List<SysParamQueryResponse> list(SysParamQueryRequest queryRequest);
 
+	/**
+	 * 查询单条记录
+	 * @param queryRequest 系统参数查询请求对象
+	 * @return 系统参数查询请求对象
+	 */
+	SysParamQueryResponse getOne(SysParamQueryRequest queryRequest);
+
 }

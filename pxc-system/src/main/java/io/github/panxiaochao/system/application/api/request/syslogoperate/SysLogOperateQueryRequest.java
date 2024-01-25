@@ -22,6 +22,12 @@ import java.time.LocalDateTime;
 public class SysLogOperateQueryRequest {
 
 	/**
+	 * 操作标题
+	 */
+	@Schema(description = "操作标题")
+	private String opTitle;
+
+	/**
 	 * 主键
 	 */
 	@Schema(description = "主键")
@@ -44,6 +50,12 @@ public class SysLogOperateQueryRequest {
 	 */
 	@Schema(description = "IP")
 	private String ip;
+
+	/**
+	 * 请求地址
+	 */
+	@Schema(description = "请求地址")
+	private String address;
 
 	/**
 	 * 请求java方法
@@ -92,6 +104,12 @@ public class SysLogOperateQueryRequest {
 	 */
 	@Schema(description = "操作系统")
 	private String os;
+
+	/**
+	 * 操作用户
+	 */
+	@Schema(description = "操作用户")
+	private String opUser;
 
 	/**
 	 * 创建时间

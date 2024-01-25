@@ -28,10 +28,16 @@ public class SysLogOperateQueryResponse {
 	private String id;
 
 	/**
+	 * 操作标题
+	 */
+	@Schema(description = "操作标题")
+	private String opTitle;
+
+	/**
 	 * 日志内容
 	 */
-	@Schema(description = "日志内容")
-	private String logContent;
+//	@Schema(description = "日志内容")
+//	private String logContent;
 
 	/**
 	 * 操作类型
@@ -44,6 +50,12 @@ public class SysLogOperateQueryResponse {
 	 */
 	@Schema(description = "IP")
 	private String ip;
+
+	/**
+	 * 请求地址
+	 */
+	@Schema(description = "请求地址")
+	private String address;
 
 	/**
 	 * 请求java方法
@@ -92,6 +104,12 @@ public class SysLogOperateQueryResponse {
 	 */
 	@Schema(description = "操作系统")
 	private String os;
+
+	/**
+	 * 操作用户
+	 */
+	@Schema(description = "操作用户")
+	private String opUser;
 
 	/**
 	 * 创建时间
