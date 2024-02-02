@@ -31,4 +31,11 @@ public interface ISysRoleReadModelService {
 	 */
 	List<SysRoleQueryResponse> list(SysRoleQueryRequest queryRequest);
 
+	/**
+	 * 查询单条记录
+	 * @param queryRequest 角色表查询请求对象
+	 * @return 单条记录
+	 */
+	SysRoleQueryResponse getOne(SysRoleQueryRequest queryRequest);
+
 }

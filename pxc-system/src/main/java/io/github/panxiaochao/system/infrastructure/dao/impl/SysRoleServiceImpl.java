@@ -65,6 +65,24 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 	}
 
 	/**
+	 * 查询单条记录
+	 * @param queryRequest 角色表查询请求对象
+	 * @return 单条记录
+	 */
+	@Override
+	public SysRoleQueryResponse getOne(SysRoleQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysRolePO> lqw = lambdaQuery(queryRequest);
+		try {
+			SysRolePO sysRolePO = sysRoleMapper.selectOne(lqw);
+			return ISysRolePOConvert.INSTANCE.toQueryResponse(sysRolePO);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式

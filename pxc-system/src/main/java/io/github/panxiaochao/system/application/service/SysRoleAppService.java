@@ -23,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -92,6 +93,13 @@ public class SysRoleAppService {
 	 */
 	public R<SysRoleResponse> save(SysRoleCreateRequest sysRoleCreateRequest) {
 		SysRole sysRole = ISysRoleDTOConvert.INSTANCE.fromCreateRequest(sysRoleCreateRequest);
+		SysRoleQueryRequest queryRequest = new SysRoleQueryRequest();
+		queryRequest.setRoleCode(sysRole.getRoleCode());
+		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
+		SysRoleQueryResponse one = sysRoleReadModelService.getOne(queryRequest);
+		if (Objects.nonNull(one)) {
+			return R.fail("角色编码[" + sysRole.getRoleCode() + "]已存在");
+		}
 		sysRole = sysRoleDomainService.save(sysRole);
 		SysRoleResponse sysRoleResponse = ISysRoleDTOConvert.INSTANCE.toResponse(sysRole);
 		return R.ok(sysRoleResponse);
