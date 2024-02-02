@@ -24,4 +24,11 @@ public interface ISysUserReadModelService {
 	 */
 	List<SysUserQueryResponse> page(Pagination pagination, SysUserQueryRequest queryRequest);
 
+	/**
+	 * 查询单条记录
+	 * @param queryRequest 用户表查询请求对象
+	 * @return 结果单条记录
+	 */
+	SysUserQueryResponse getOne(SysUserQueryRequest queryRequest);
+
 }

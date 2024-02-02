@@ -3,7 +3,6 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
-import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserUpdateRequest;
@@ -44,7 +43,6 @@ public class SysUserApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	@OperateLog(title = "用户管理", description = "查询分页", businessType = OperateLog.BusinessType.QUERY)
 	public R<PageResponse<SysUserQueryResponse>> page(RequestPage pageRequest, SysUserQueryRequest queryRequest) {
 		return R.ok(sysUserAppService.page(pageRequest, queryRequest));
 	}

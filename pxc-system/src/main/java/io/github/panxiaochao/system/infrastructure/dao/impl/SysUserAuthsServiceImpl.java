@@ -53,6 +53,38 @@ public class SysUserAuthsServiceImpl implements ISysUserAuthsService, ISysUserAu
 	}
 
 	/**
+	 * 查询数组
+	 * @param queryRequest 用户授权信息表查询请求对象
+	 * @return 结果数组
+	 */
+	@Override
+	public List<SysUserAuthsQueryResponse> list(SysUserAuthsQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysUserAuthsPO> lqw = lambdaQuery(queryRequest);
+		List<SysUserAuthsPO> sysUserAuthsPOS = sysUserAuthsMapper.selectList(lqw);
+		return ISysUserAuthsPOConvert.INSTANCE.toQueryResponse(sysUserAuthsPOS);
+	}
+
+	/**
+	 * 查询单条记录
+	 * @param queryRequest 用户授权信息表查询请求对象
+	 * @param throwEx boolean 参数，为true如果存在多个结果直接抛出异常
+	 * @return 结果记录
+	 */
+	@Override
+	public SysUserAuthsQueryResponse geOne(SysUserAuthsQueryRequest queryRequest, boolean throwEx) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysUserAuthsPO> lqw = lambdaQuery(queryRequest);
+		try {
+			SysUserAuthsPO sysUserAuthsPO = sysUserAuthsMapper.selectOne(lqw, throwEx);
+			return ISysUserAuthsPOConvert.INSTANCE.toQueryResponse(sysUserAuthsPO);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式
@@ -130,27 +162,6 @@ public class SysUserAuthsServiceImpl implements ISysUserAuthsService, ISysUserAu
 	@Override
 	public void deleteById(String id) {
 		sysUserAuthsMapper.deleteById(id);
-	}
-
-	/**
-	 * 根据用户ID和登录类型查询列表
-	 * @param userId 用户主键
-	 * @param identityType 登录类型
-	 * @return SysUserAuths 实体列表
-	 */
-	@Override
-	public List<SysUserAuths> listIdentityType(String userId, String identityType) {
-		// 构造查询条件
-		LambdaQueryWrapper<SysUserAuthsPO> lqw = Wrappers.lambdaQuery();
-		// 如果 关联用户ID 不为空
-		if (StringUtils.isNotBlank(userId)) {
-			lqw.eq(SysUserAuthsPO::getUserId, userId);
-		}
-		// 如果 登录类型(手机号/邮箱/用户名/微信/微博/QQ）等 不为空
-		if (StringUtils.isNotBlank(identityType)) {
-			lqw.eq(SysUserAuthsPO::getIdentityType, identityType);
-		}
-		return ISysUserAuthsPOConvert.INSTANCE.toEntity(sysUserAuthsMapper.selectList(lqw));
 	}
 
 	/**

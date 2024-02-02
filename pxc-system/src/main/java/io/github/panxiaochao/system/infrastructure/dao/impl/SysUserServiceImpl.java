@@ -52,6 +52,25 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
 	}
 
 	/**
+	 * 查询单条记录
+	 *
+	 * @param queryRequest 用户表查询请求对象
+	 * @return 结果单条记录
+	 */
+	@Override
+	public SysUserQueryResponse getOne(SysUserQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysUserPO> lqw = lambdaQuery(queryRequest);
+		try {
+			SysUserPO sysUserPO = sysUserMapper.selectOne(lqw);
+			return ISysUserPOConvert.INSTANCE.toQueryResponse(sysUserPO);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式

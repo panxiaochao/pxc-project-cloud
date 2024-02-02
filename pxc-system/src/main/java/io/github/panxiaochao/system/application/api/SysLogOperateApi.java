@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Lypxc
  * @since 2023-12-01
  */
-@Tag(name = "系统日志操作表 接口", description = "系统日志操作表 Api接口")
+@Tag(name = "系统日志 接口", description = "系统日志 Api接口")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/system/v1/syslogoperate")

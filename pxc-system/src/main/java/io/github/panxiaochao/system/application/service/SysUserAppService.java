@@ -12,11 +12,14 @@ import io.github.panxiaochao.system.application.api.request.sysuser.SysUserCreat
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserUpdateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsCreateRequest;
+import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsQueryRequest;
 import io.github.panxiaochao.system.application.api.response.sysparam.SysParamQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysuser.SysUserQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysuser.SysUserResponse;
+import io.github.panxiaochao.system.application.api.response.sysuserauths.SysUserAuthsQueryResponse;
 import io.github.panxiaochao.system.application.constants.GlobalConstant;
 import io.github.panxiaochao.system.application.convert.ISysUserDTOConvert;
+import io.github.panxiaochao.system.application.repository.ISysUserAuthsReadModelService;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
 import io.github.panxiaochao.system.application.runner.helper.CacheHelper;
 import io.github.panxiaochao.system.domain.entity.SysOrg;
@@ -32,6 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -82,9 +86,19 @@ public class SysUserAppService {
 	private final ISysUserReadModelService sysUserReadModelService;
 
 	/**
+	 * 用户授权信息表 读模型服务
+	 */
+	private final ISysUserAuthsReadModelService sysUserAuthsReadModelService;
+
+	/**
 	 * 登录类型 常量名
 	 */
 	private static final String IDENTITY_TYPE_USERNAME = "USERNAME";
+
+	/**
+	 * 初始密码 常量名
+	 */
+	private static final String SYS_USER_PASSWORD = "sys.user.password";
 
 	/**
 	 * 查询分页
@@ -116,8 +130,16 @@ public class SysUserAppService {
 	 */
 	public R<SysUserResponse> save(SysUserCreateRequest sysUserCreateRequest) {
 		SysUser sysUser = ISysUserDTOConvert.INSTANCE.fromCreateRequest(sysUserCreateRequest);
+		// 判断登录账号是否唯一. 判断条件：登录类型+登录账号
+		SysUserAuthsQueryRequest queryRequest = new SysUserAuthsQueryRequest();
+		queryRequest.setIdentifier(sysUserCreateRequest.getLoginName());
+		queryRequest.setIdentityType(IDENTITY_TYPE_USERNAME);
+		SysUserAuthsQueryResponse one = sysUserAuthsReadModelService.geOne(queryRequest, false);
+		if (Objects.nonNull(one)) {
+			return R.fail("登录账号[" + sysUserCreateRequest.getLoginName() + "]已存在");
+		}
+		// 判断并且获取组织信息
 		if (StringUtils.hasText(sysUser.getOrgId())) {
-			// 获取组织信息
 			SysOrg sysOrg = sysOrgDomainService.getById(sysUser.getOrgId());
 			sysUser.setOrgCode(sysOrg.getOrgCode());
 		}
@@ -132,7 +154,7 @@ public class SysUserAppService {
 		}
 		else {
 			SysParamQueryResponse sysParamQueryResponse = Optional
-				.ofNullable(CacheHelper.getSysParamByKey("sys.user.password"))
+				.ofNullable(CacheHelper.getSysParamByKey(SYS_USER_PASSWORD))
 				.orElseThrow(() -> new ServerRuntimeException(CommonResponseEnum.INTERNAL_SERVER_ERROR,
 						"请在系统参数中设置键值为[sys.user.password], 值为初始化默认密码!"));
 			sysUserAuthsCreateRequest.setCredential(sysParamQueryResponse.getParamValue());

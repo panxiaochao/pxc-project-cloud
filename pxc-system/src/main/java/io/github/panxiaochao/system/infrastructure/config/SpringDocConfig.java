@@ -36,7 +36,11 @@ public class SpringDocConfig {
 	 */
 	@Bean
 	public GroupedOpenApi defaultGroupApi() {
-		return GroupedOpenApi.builder().group("pxc-system-api").pathsToMatch("/system/v1/**").build();
+		return GroupedOpenApi.builder()
+			.group("pxc-system-api")
+			.pathsToMatch("/system/v1/**")
+			.pathsToExclude("/system/v1/oauth2*/**", "/system/v1/persistentlogins/**")
+			.build();
 	}
 
 	/**

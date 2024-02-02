@@ -24,4 +24,19 @@ public interface ISysUserAuthsReadModelService {
 	 */
 	List<SysUserAuthsQueryResponse> page(Pagination pagination, SysUserAuthsQueryRequest queryRequest);
 
+	/**
+	 * 查询数组
+	 * @param queryRequest 用户授权信息表查询请求对象
+	 * @return 结果数组
+	 */
+	List<SysUserAuthsQueryResponse> list(SysUserAuthsQueryRequest queryRequest);
+
+	/**
+	 * 查询单条记录
+	 * @param queryRequest 用户授权信息表查询请求对象
+	 * @param throwEx 参数，为true如果存在多个结果直接抛出异常
+	 * @return 结果记录
+	 */
+	SysUserAuthsQueryResponse geOne(SysUserAuthsQueryRequest queryRequest, boolean throwEx);
+
 }

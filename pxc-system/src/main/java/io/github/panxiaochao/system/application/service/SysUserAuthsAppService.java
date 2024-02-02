@@ -97,12 +97,29 @@ public class SysUserAuthsAppService {
 	 */
 	public R<SysUserAuthsResponse> save(SysUserAuthsCreateRequest sysUserAuthsCreateRequest) {
 		SysUserAuths sysUserAuths = ISysUserAuthsDTOConvert.INSTANCE.fromCreateRequest(sysUserAuthsCreateRequest);
-		List<SysUserAuths> sysUserAuthsList = sysUserAuthsDomainService.listIdentityType(sysUserAuths.getUserId(),
-				sysUserAuths.getIdentityType());
-		if (!CollectionUtils.isEmpty(sysUserAuthsList)) {
-			SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
-					sysUserAuths.getIdentityType());
-			return R.fail("登录类型[" + sysDictItemQueryResponse.getDictItemText() + "]已存在");
+		SysUserAuthsQueryRequest queryRequest = new SysUserAuthsQueryRequest();
+		List<SysUserAuthsQueryResponse> list = sysUserAuthsReadModelService.list(queryRequest);
+		if (!CollectionUtils.isEmpty(list)) {
+			// 1.先判断登录类型有没有创建过
+			final SysUserAuths finalSysUserAuths = sysUserAuths;
+			boolean hasData = list.stream()
+				.anyMatch(f -> f.getIdentityType().equals(finalSysUserAuths.getIdentityType())
+						&& f.getUserId().equals(finalSysUserAuths.getUserId()));
+			if (hasData) {
+				SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
+						sysUserAuths.getIdentityType());
+				return R.fail("登录类型[" + sysDictItemQueryResponse.getDictItemText() + "]已存在");
+			}
+			// 2.再判断登录类型和登录账号，其他用户有没有新建过
+			hasData = list.stream()
+				.anyMatch(f -> f.getIdentityType().equals(finalSysUserAuths.getIdentityType())
+						&& f.getIdentifier().equals(finalSysUserAuths.getIdentifier()));
+			if (hasData) {
+				SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
+						sysUserAuths.getIdentityType());
+				return R.fail("在登录类型[" + sysDictItemQueryResponse.getDictItemText() + "]下，登录账号["
+						+ finalSysUserAuths.getIdentifier() + "]已存在");
+			}
 		}
 		sysUserAuths = sysUserAuthsDomainService.save(sysUserAuths);
 		SysUserAuthsResponse sysUserAuthsResponse = ISysUserAuthsDTOConvert.INSTANCE.toResponse(sysUserAuths);
@@ -117,16 +134,17 @@ public class SysUserAuthsAppService {
 	public R<Void> update(SysUserAuthsUpdateRequest sysUserAuthsUpdateRequest) {
 		SysUserAuths sysUserAuths = ISysUserAuthsDTOConvert.INSTANCE.fromUpdateRequest(sysUserAuthsUpdateRequest);
 		// 既然要更新，用户下查询必定有数据，至少一条
-		List<SysUserAuths> sysUserAuthsList = sysUserAuthsDomainService.listIdentityType(sysUserAuths.getUserId(),
-				null);
-		Optional<SysUserAuths> optionalSysUserAuths = sysUserAuthsList.stream()
+		SysUserAuthsQueryRequest queryRequest = new SysUserAuthsQueryRequest();
+		queryRequest.setUserId(sysUserAuths.getUserId());
+		List<SysUserAuthsQueryResponse> list = sysUserAuthsReadModelService.list(queryRequest);
+		Optional<SysUserAuthsQueryResponse> optionalSysUserAuths = list.stream()
 			.filter(f -> f.getId().equals(sysUserAuths.getId())
 					&& f.getIdentityType().equals(sysUserAuths.getIdentityType()))
 			.findFirst();
 		// 1.有数据说明是更新的是同一个登录类型
 		// 2.没有数据说明换登录类型了，需要判断这个人，其他登录类型是否有重复
 		if (!optionalSysUserAuths.isPresent()) {
-			optionalSysUserAuths = sysUserAuthsList.stream()
+			optionalSysUserAuths = list.stream()
 				.filter(f -> f.getIdentityType().equals(sysUserAuths.getIdentityType()))
 				.findFirst();
 			// 有数据了
