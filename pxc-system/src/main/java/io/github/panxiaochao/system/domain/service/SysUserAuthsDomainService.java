@@ -60,7 +60,8 @@ public class SysUserAuthsDomainService {
 	 * 根据用户ID删除用户授权信息表所有信息
 	 * @param userId 用户主键
 	 */
-    public void deleteByUserId(String userId) {
+	public void deleteByUserId(String userId) {
 		sysUserAuthsService.deleteByUserId(userId);
-    }
+	}
+
 }

@@ -142,9 +142,9 @@ public class SysAreaAppService {
 		treeNodeProperties.labelKey("areaName");
 		// 构建树
 		List<Tree<String>> treeList = TreeBuilder.of(rootId, true, treeNodeProperties)
-				.append(treeNodeList)
-				.fastBuild()
-				.toTreeList();
+			.append(treeNodeList)
+			.fastBuild()
+			.toTreeList();
 		return CollectionUtils.isEmpty(treeList) ? new ArrayList<>() : treeList;
 	}
 

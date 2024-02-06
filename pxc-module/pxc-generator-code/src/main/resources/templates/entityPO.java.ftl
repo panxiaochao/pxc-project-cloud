@@ -27,9 +27,6 @@ import java.time.LocalDateTime;
 <#if entityLombokModel>
 @Getter
 @Setter
-<#if chainModel>
-@Accessors(chain = true)
-</#if>
 </#if>
 <#if table.convert>
 @TableName("${schemaName}${table.name}")

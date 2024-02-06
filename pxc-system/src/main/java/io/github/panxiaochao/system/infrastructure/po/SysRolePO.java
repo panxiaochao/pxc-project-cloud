@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@Accessors(chain = true)
 @TableName("sys_role")
 public class SysRolePO {
 

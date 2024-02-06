@@ -37,4 +37,5 @@ public interface ISysPostReadModelService {
 	 * @return 岗位表查询响应对象
 	 */
 	SysPostQueryResponse getOne(SysPostQueryRequest queryRequest);
+
 }

@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@Accessors(chain = true)
 @TableName("persistent_logins")
 public class PersistentLoginsPO {
 

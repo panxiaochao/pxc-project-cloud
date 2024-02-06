@@ -66,7 +66,6 @@ public class SysAreaServiceImpl implements ISysAreaService, ISysAreaReadModelSer
 
 	/**
 	 * 定制查询列表
-	 *
 	 * @param queryRequest 全国5级行政区划查询请求对象
 	 * @return 查询列表
 	 */

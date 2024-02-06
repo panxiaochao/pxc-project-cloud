@@ -36,8 +36,8 @@ public class SysLogOperateQueryResponse {
 	/**
 	 * 日志内容
 	 */
-//	@Schema(description = "日志内容")
-//	private String logContent;
+	// @Schema(description = "日志内容")
+	// private String logContent;
 
 	/**
 	 * 操作类型

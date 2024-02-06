@@ -9,10 +9,12 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 /**
- * 数据字典表持久化对象结构映射
+ * <p>
+ * 数据字典表持久化对象结构映射.
+ * </p>
  *
  * @author Lypxc
- * @since 2023-12-01
+ * @since 2024-02-05
  */
 @Mapper
 public interface ISysDictPOConvert {

@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 /**
- * ${table.comment!}持久化对象结构映射
+ * <p> ${table.comment!}持久化对象结构映射. </p>
  *
  * @author ${author}
  * @since ${date}

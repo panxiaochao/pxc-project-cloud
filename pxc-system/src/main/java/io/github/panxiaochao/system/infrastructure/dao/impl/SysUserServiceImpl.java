@@ -53,7 +53,6 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
 
 	/**
 	 * 查询单条记录
-	 *
 	 * @param queryRequest 用户表查询请求对象
 	 * @return 结果单条记录
 	 */
