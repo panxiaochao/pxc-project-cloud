@@ -1,9 +1,8 @@
-package io.github.panxiaochao.system.application.web.request;
+package io.github.panxiaochao.system.auth.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 
@@ -17,7 +16,6 @@ import javax.validation.constraints.NotBlank;
  */
 @Getter
 @Setter
-@ToString
 @Schema(description = "登录 请求对象")
 public class LoginRequest {
 
@@ -29,8 +27,8 @@ public class LoginRequest {
 	@NotBlank(message = "密码不能为空")
 	private String password;
 
-	// @Schema(description = "登录类型")
-	// @NotBlank(message = "登录类型不能为空")
-	// private String loginType;
+	@Schema(description = "验证码")
+	// @NotBlank(message = "验证码不能为空")
+	private String captcha;
 
 }

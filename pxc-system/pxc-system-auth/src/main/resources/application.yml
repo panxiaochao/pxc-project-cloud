@@ -16,7 +16,7 @@ spring:
     allow-bean-definition-overriding: true
     allow-circular-references: true
   application:
-    name: pxc-system-api
+    name: pxc-system
   # 数据库
   datasource:
     url: jdbc:mysql://localhost:3306/pxc-system?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
@@ -49,7 +49,3 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     # 开发测试时使用
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-
-# 登录获取 token 地址
-pxc-auth:
-  url: http://localhost:18000/oauth2/v1/token

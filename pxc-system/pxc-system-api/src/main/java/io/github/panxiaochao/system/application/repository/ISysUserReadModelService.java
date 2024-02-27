@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.application.repository;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserQueryRequest;
 import io.github.panxiaochao.system.application.api.response.sysuser.SysUserQueryResponse;
+import io.github.panxiaochao.system.domain.entity.SysUserLogin;
 
 import java.util.List;
 
@@ -30,5 +31,13 @@ public interface ISysUserReadModelService {
 	 * @return 结果单条记录
 	 */
 	SysUserQueryResponse getOne(SysUserQueryRequest queryRequest);
+
+	/**
+	 * 根据用户名的登录类型查找用户
+	 * @param username 登录名
+	 * @param identityType 登录类型
+	 * @return 用户综合信息
+	 */
+	SysUserLogin loadUserByIdentityType(String username, String identityType);
 
 }

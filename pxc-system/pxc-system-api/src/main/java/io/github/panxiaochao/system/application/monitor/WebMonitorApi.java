@@ -1,4 +1,4 @@
-package io.github.panxiaochao.system.application.web;
+package io.github.panxiaochao.system.application.monitor;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.utils.SystemServerUtil;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/web/v1/monitor")
-public class MonitorWebApi {
+public class WebMonitorApi {
 
 	/**
 	 * 获取系统信息

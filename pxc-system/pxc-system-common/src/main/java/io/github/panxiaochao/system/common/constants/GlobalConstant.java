@@ -25,4 +25,14 @@ public interface GlobalConstant {
 	 */
 	String SUPER_USER = "root";
 
+	/**
+	 * Redis User 前缀
+	 */
+	String USER_PREFIX = "user:";
+
+	/**
+	 * 登录失败限制 key
+	 */
+	String LOGIN_FAIL_LIMIT_KEY = USER_PREFIX + "login_fail_limit:";
+
 }

@@ -16,5 +16,6 @@
     <modules>
         <module>pxc-system-api</module>
         <module>pxc-system-common</module>
+        <module>pxc-system-auth</module>
     </modules>
 </project>

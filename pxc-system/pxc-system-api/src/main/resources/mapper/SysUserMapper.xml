@@ -35,4 +35,27 @@
         , real_name, nick_name, id_card, avatar, sex, address, email, mobile, tel, fax, sort, remark, state, skins, org_id, org_code, create_time, update_time, login_nums, login_error_nums, login_time, expire_time
     </sql>
 
+    <!-- 根据用户名的登录类型查找用户 -->
+    <select id="loadUserByIdentityType" resultType="io.github.panxiaochao.system.domain.entity.SysUserLogin">
+        SELECT sua.user_id,
+               su.real_name,
+               su.nick_name,
+               su.avatar,
+               su.sex,
+               su.org_id,
+               su.org_code,
+               su.expire_time as user_expire_time,
+               sua.identity_type,
+               sua.identifier,
+               sua.credential,
+               sua.verified,
+               sua.expire_time as identifier_expire_time
+        FROM sys_user_auths sua
+                 LEFT JOIN sys_user su ON sua.user_id = su.id
+        WHERE 1 = 1
+          AND sua.identity_type = #{identityType}
+          AND sua.identifier = #{username}
+          AND su.state = '1'
+    </select>
+
 </mapper>

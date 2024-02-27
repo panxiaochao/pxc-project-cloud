@@ -1,13 +1,17 @@
 package io.github.panxiaochao.system.infrastructure.dao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserQueryRequest;
 import io.github.panxiaochao.system.application.api.response.sysuser.SysUserQueryResponse;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
+import io.github.panxiaochao.system.common.exception.UserLoginException;
 import io.github.panxiaochao.system.domain.entity.SysUser;
+import io.github.panxiaochao.system.domain.entity.SysUserLogin;
 import io.github.panxiaochao.system.domain.repository.ISysUserService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysUserPOConvert;
 import io.github.panxiaochao.system.infrastructure.mapper.SysUserMapper;
@@ -67,6 +71,26 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
 		catch (Exception e) {
 			return null;
 		}
+	}
+
+	/**
+	 * 根据用户名的登录类型查找用户
+	 * @param username 登录名
+	 * @param identityType 登录类型
+	 * @return 用户综合信息
+	 */
+	@Override
+	public SysUserLogin loadUserByIdentityType(String username, String identityType) {
+		List<SysUserLogin> sysUserLoginList = sysUserMapper.loadUserByIdentityType(username, identityType);
+		if (!CollectionUtils.isEmpty(sysUserLoginList)) {
+			if (sysUserLoginList.size() > 1) {
+				throw new ServerRuntimeException(UserLoginException.USER_MULTIPLE_EXCEPTION);
+			}
+			else {
+				return sysUserLoginList.get(0);
+			}
+		}
+		return null;
 	}
 
 	/**
