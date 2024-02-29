@@ -28,7 +28,7 @@ public class PRefreshToken extends AbstractPToken {
 	 * @param issuedAt 颁发令牌的时间
 	 * @param expiresAt 令牌的到期时间
 	 */
-	protected PRefreshToken(String tokenValue, Instant issuedAt, Instant expiresAt) {
+	public PRefreshToken(String tokenValue, Instant issuedAt, Instant expiresAt) {
 		super(tokenValue, issuedAt, expiresAt);
 	}
 

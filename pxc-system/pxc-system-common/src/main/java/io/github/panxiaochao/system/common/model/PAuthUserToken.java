@@ -15,7 +15,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class AuthUserToken {
+public class PAuthUserToken {
 
 	/**
 	 * 授权令牌
@@ -50,6 +50,6 @@ public class AuthUserToken {
 	/**
 	 * 令牌权限
 	 */
-	private String scope;
+//	private String scope;
 
 }

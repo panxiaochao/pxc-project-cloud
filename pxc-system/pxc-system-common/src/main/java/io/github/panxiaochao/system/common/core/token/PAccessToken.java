@@ -29,7 +29,7 @@ public class PAccessToken extends AbstractPToken {
 	 * @param issuedAt 颁发令牌的时间
 	 * @param expiresAt 令牌的到期时间
 	 */
-	protected PAccessToken(TokenType tokenType, String tokenValue, Instant issuedAt, Instant expiresAt) {
+	public PAccessToken(TokenType tokenType, String tokenValue, Instant issuedAt, Instant expiresAt) {
 		this(tokenType, tokenValue, issuedAt, expiresAt, Collections.emptySet());
 	}
 
@@ -41,7 +41,7 @@ public class PAccessToken extends AbstractPToken {
 	 * @param expiresAt 令牌的到期时间
 	 * @param scopes 令牌作用域（权限域）
 	 */
-	protected PAccessToken(TokenType tokenType, String tokenValue, Instant issuedAt, Instant expiresAt,
+	public PAccessToken(TokenType tokenType, String tokenValue, Instant issuedAt, Instant expiresAt,
 			Set<String> scopes) {
 		super(tokenValue, issuedAt, expiresAt);
 		Assert.notNull(tokenType, "tokenType cannot be null");

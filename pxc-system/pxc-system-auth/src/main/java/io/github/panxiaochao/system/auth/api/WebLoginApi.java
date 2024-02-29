@@ -5,7 +5,7 @@ import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
 import io.github.panxiaochao.ratelimiter.annotation.RateLimiter;
 import io.github.panxiaochao.system.auth.request.LoginRequest;
 import io.github.panxiaochao.system.auth.service.WebLoginService;
-import io.github.panxiaochao.system.common.model.AuthUserToken;
+import io.github.panxiaochao.system.common.model.PAuthUserToken;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class WebLoginApi {
 	@RateLimiter(key = "#loginRequest.username", maxCount = 1, limitTime = 3000, message = "请勿重复登录")
 	@OperateLog(key = "#loginRequest.username", description = "登录", businessType = OperateLog.BusinessType.LOGIN)
 	@Operation(summary = "登录接口", description = "登录接口", method = "POST")
-	public R<AuthUserToken> login(@RequestBody @Validated LoginRequest loginRequest) {
+	public R<PAuthUserToken> login(@RequestBody @Validated LoginRequest loginRequest) {
 		return loginWebService.login(loginRequest);
 	}
 

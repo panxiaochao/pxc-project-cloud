@@ -56,6 +56,21 @@ public class LoginUser implements Serializable {
 	private String sex;
 
 	/**
+	 * 邮箱
+	 */
+	private String email;
+
+	/**
+	 * 手机号码
+	 */
+	private String mobile;
+
+	/**
+	 * 岗位Code
+	 */
+	private String postCode;
+
+	/**
 	 * 机构ID
 	 */
 	private String orgId;

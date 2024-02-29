@@ -1,7 +1,7 @@
 package io.github.panxiaochao.system.common.core.generator;
 
+import io.github.panxiaochao.system.common.core.context.PTokenContext;
 import io.github.panxiaochao.system.common.core.token.PToken;
-import io.github.panxiaochao.system.common.core.tokentype.AbstractPTokenType;
 import org.springframework.lang.Nullable;
 
 /**
@@ -19,10 +19,10 @@ public interface PTokenGenerator<T extends PToken> {
 
 	/**
 	 * 生成令牌根据令牌类型
-	 * @param pTokenType 令牌类型
+	 * @param pTokenContext token上下文
 	 * @return 令牌
 	 */
 	@Nullable
-	T generate(AbstractPTokenType pTokenType);
+	T generate(PTokenContext pTokenContext);
 
 }

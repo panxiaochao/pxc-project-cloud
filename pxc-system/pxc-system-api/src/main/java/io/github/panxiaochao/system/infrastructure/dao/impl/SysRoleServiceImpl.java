@@ -154,4 +154,15 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 		sysRoleMapper.deleteById(id);
 	}
 
+	/**
+	 * 根据用户ID查询所有角色
+	 * @param userId 用户ID
+	 * @return 角色数组
+	 */
+	@Override
+	public List<SysRole> selectRolesByUserId(String userId) {
+		List<SysRolePO> sysRolePOList = sysRoleMapper.selectRolesByUserId(userId);
+		return ISysRolePOConvert.INSTANCE.toEntity(sysRolePOList);
+	}
+
 }

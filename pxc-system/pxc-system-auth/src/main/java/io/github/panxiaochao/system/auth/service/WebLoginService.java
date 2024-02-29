@@ -2,15 +2,25 @@ package io.github.panxiaochao.system.auth.service;
 
 import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.R;
+import io.github.panxiaochao.core.utils.IpUtil;
 import io.github.panxiaochao.core.utils.ObjectUtil;
 import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
+import io.github.panxiaochao.system.auth.config.properties.PAuthProperties;
 import io.github.panxiaochao.system.auth.request.LoginRequest;
 import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import io.github.panxiaochao.system.common.constants.LoginIdentityType;
+import io.github.panxiaochao.system.common.core.context.PTokenContext;
+import io.github.panxiaochao.system.common.core.generator.PTokenGenerator;
+import io.github.panxiaochao.system.common.core.token.PAccessToken;
+import io.github.panxiaochao.system.common.core.token.PToken;
+import io.github.panxiaochao.system.common.core.tokentype.PAccessTokenType;
+import io.github.panxiaochao.system.common.core.tokentype.PRefreshTokenType;
 import io.github.panxiaochao.system.common.exception.UserLoginException;
-import io.github.panxiaochao.system.common.model.AuthUserToken;
+import io.github.panxiaochao.system.common.model.LoginUser;
+import io.github.panxiaochao.system.common.model.PAuthUserToken;
 import io.github.panxiaochao.system.domain.entity.SysUserLogin;
+import io.github.panxiaochao.system.domain.service.SysPermissionDomainService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +51,22 @@ public class WebLoginService {
 	 */
 	private final ISysUserReadModelService sysUserReadModelService;
 
-	public R<AuthUserToken> login(LoginRequest loginRequest) {
+	/**
+	 * 用户权限聚合 Domain服务类
+	 */
+	private final SysPermissionDomainService sysPermissionDomainService;
+
+	/**
+	 * 令牌生成
+	 */
+	private final PTokenGenerator<? extends PToken> pTokenGenerator;
+
+	/**
+	 * Token自定义属性
+	 */
+	private final PAuthProperties pAuthProperties;
+
+	public R<PAuthUserToken> login(LoginRequest loginRequest) {
 		String identityType = LoginIdentityType.detect(loginRequest.getUsername());
 		SysUserLogin sysUserLogin = sysUserReadModelService.loadUserByIdentityType(loginRequest.getUsername(),
 				identityType);
@@ -51,10 +76,14 @@ public class WebLoginService {
 		// 登录校验
 		checkLogin(sysUserLogin, loginRequest);
 		// 构建登录用户
-		buildLoginUser(sysUserLogin);
+		LoginUser loginUser = buildLoginUser(sysUserLogin);
+		// 设置账号
+		loginUser.setUserName(loginRequest.getUsername());
 		// 构建Token
-		buildAuthToken(sysUserLogin);
-		return R.ok(new AuthUserToken());
+		PAuthUserToken userToken = buildAuthToken(loginUser);
+		// TODO 异步更新数据
+
+		return R.ok(userToken);
 	}
 
 	/**
@@ -104,19 +133,55 @@ public class WebLoginService {
 	/**
 	 * 构建登录用户
 	 * @param sysUserLogin 登录用户
+	 * @return 构建用户数据
 	 */
-	private void buildLoginUser(SysUserLogin sysUserLogin) {
-
-
-
-
+	private LoginUser buildLoginUser(SysUserLogin sysUserLogin) {
+		LoginUser loginUser = new LoginUser();
+		loginUser.setUserId(sysUserLogin.getUserId());
+		loginUser.setUserName(sysUserLogin.getUserName());
+		loginUser.setRealName(sysUserLogin.getRealName());
+		loginUser.setNickName(sysUserLogin.getNickName());
+		loginUser.setAvatar(sysUserLogin.getAvatar());
+		loginUser.setSex(sysUserLogin.getSex());
+		loginUser.setEmail(sysUserLogin.getEmail());
+		loginUser.setMobile(sysUserLogin.getMobile());
+		loginUser.setPostCode(sysUserLogin.getPostCode());
+		loginUser.setOrgId(sysUserLogin.getOrgId());
+		loginUser.setOrgCode(sysUserLogin.getOrgCode());
+		loginUser.setIp(IpUtil.ofRequestIp());
+		loginUser.setRoles(sysPermissionDomainService.selectRolePermission(sysUserLogin.getUserId()));
+		loginUser.setMenuPermissionCode(sysPermissionDomainService.selectMenuPermissionCode(sysUserLogin.getUserId()));
+		return loginUser;
 	}
 
 	/**
 	 * 构建Token
-	 * @param sysUserLogin 登录用户
+	 * @param loginUser 构建过的用户
+	 * @return 用户token
 	 */
-	private void buildAuthToken(SysUserLogin sysUserLogin) {
+	private PAuthUserToken buildAuthToken(LoginUser loginUser) {
+		// 构造上下文
+		PTokenContext.Builder pTokenContextBuilder = PTokenContext.builder()
+			.id(loginUser.getUserId())
+			.principal(loginUser.getUserName())
+			.accessTokenTimeToLive(pAuthProperties.getAccessTokenTimeToLive())
+			.refreshTokenTimeToLive(pAuthProperties.getRefreshTokenTimeToLive());
+		// 访问令牌
+		PTokenContext accessTokenContext = pTokenContextBuilder.pTokenType(PAccessTokenType.ACCESS_TOKEN).build();
+		PToken generateAccessToken = pTokenGenerator.generate(accessTokenContext);
+		PAccessToken accessToken = new PAccessToken(PAccessToken.TokenType.BEARER, generateAccessToken.getTokenValue(),
+				generateAccessToken.getIssuedAt(), generateAccessToken.getExpiresAt());
+		// 刷新令牌
+		PTokenContext refreshTokenContext = pTokenContextBuilder.pTokenType(PRefreshTokenType.REFRESH_TOKEN).build();
+		PToken refreshToken = pTokenGenerator.generate(refreshTokenContext);
+		// 组建令牌
+		PAuthUserToken userToken = new PAuthUserToken();
+		userToken.setAccessToken(accessToken.getTokenValue());
+		userToken.setRefreshToken(refreshToken.getTokenValue());
+		userToken.setTokenType(accessToken.getTokenType().getValue());
+		userToken.setRefreshExpireIn(pAuthProperties.getRefreshTokenTimeToLive());
+		userToken.setExpireIn(pAuthProperties.getAccessTokenTimeToLive());
+		return userToken;
 	}
 
 }

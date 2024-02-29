@@ -1,14 +1,11 @@
 package io.github.panxiaochao.system.domain.entity;
 
-import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 /**
  * <p>
@@ -57,6 +54,21 @@ public class SysUserLogin implements Serializable {
 	private String sex;
 
 	/**
+	 * 邮箱
+	 */
+	private String email;
+
+	/**
+	 * 手机号码
+	 */
+	private String mobile;
+
+	/**
+	 * 岗位Code
+	 */
+	private String postCode;
+
+	/**
 	 * 机构ID
 	 */
 	private String orgId;
@@ -67,24 +79,9 @@ public class SysUserLogin implements Serializable {
 	private String orgCode;
 
 	/**
-	 * 登录IP地址
-	 */
-	private String ip;
-
-	/**
 	 * 帐号超时期限
 	 */
 	private LocalDateTime userExpireTime;
-
-	/**
-	 * 角色集合
-	 */
-	private Set<String> roles;
-
-	/**
-	 * 菜单按钮权限集合
-	 */
-	private Set<String> menuPermissionCode;
 
 	/**
 	 * 登录类型(手机号/邮箱/用户名/微信/微博/QQ）等
@@ -110,22 +107,5 @@ public class SysUserLogin implements Serializable {
 	 * 登录标识失效时间
 	 */
 	private LocalDateTime identifierExpireTime;
-
-	/**
-	 * 是否是超级账号 - "root"
-	 */
-	public boolean isSuperUser() {
-		return GlobalConstant.SUPER_USER.equalsIgnoreCase(userName);
-	}
-
-	/**
-	 * 是否是超级管理员 - "superAdmin"
-	 */
-	public boolean isSuperAdmin() {
-		if (!CollectionUtils.isEmpty(roles)) {
-			return roles.contains(GlobalConstant.SUPER_ROLE);
-		}
-		return false;
-	}
 
 }

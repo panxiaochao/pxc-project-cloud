@@ -34,4 +34,16 @@
         , parent_id, menu_name, url, redirect_url, `component`, component_name, permission_code, permission_status, icon, menu_type, open_type, is_display, is_route, keep_alive, is_hidden, remark, state, sort, create_id, create_time, update_time
     </sql>
 
+    <select id="selectMenuPermissionCodeByUserId" resultType="String">
+        select distinct m.permission_code
+        from sys_menu m
+                 left join sys_role_menu rm on m.id = rm.menu_id
+                 left join sys_user_role sur on rm.role_id = sur.role_id
+                 left join sys_role r on r.id = sur.role_id
+        where 1 = 1
+          AND m.state = '1'
+          AND r.state = '1'
+          AND sur.user_id = #{userId}
+    </select>
+
 </mapper>

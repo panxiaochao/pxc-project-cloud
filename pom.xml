@@ -24,6 +24,7 @@
         <springdoc-openapi.version>1.7.0</springdoc-openapi.version>
         <knife4j-openapi3-spring-boot-starter.version>4.3.0</knife4j-openapi3-spring-boot-starter.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <nimbus-jose-jwt.version>9.37</nimbus-jose-jwt.version>
     </properties>
 
     <dependencyManagement>
@@ -54,6 +55,13 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+
+            <!-- nimbus-jwt -->
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${nimbus-jose-jwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

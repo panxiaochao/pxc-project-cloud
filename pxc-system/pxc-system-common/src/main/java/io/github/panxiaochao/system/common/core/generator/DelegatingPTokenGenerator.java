@@ -1,7 +1,7 @@
 package io.github.panxiaochao.system.common.core.generator;
 
+import io.github.panxiaochao.system.common.core.context.PTokenContext;
 import io.github.panxiaochao.system.common.core.token.PToken;
-import io.github.panxiaochao.system.common.core.tokentype.AbstractPTokenType;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * <p>
+ * 令牌生成委托构造类
  * </p>
  *
  * @author Lypxc
@@ -34,9 +35,9 @@ public class DelegatingPTokenGenerator implements PTokenGenerator<PToken> {
 
 	@Nullable
 	@Override
-	public PToken generate(AbstractPTokenType pTokenType) {
+	public PToken generate(PTokenContext pTokenContext) {
 		for (PTokenGenerator<PToken> tokenGenerator : this.tokenGenerators) {
-			PToken token = tokenGenerator.generate(pTokenType);
+			PToken token = tokenGenerator.generate(pTokenContext);
 			if (token != null) {
 				return token;
 			}
