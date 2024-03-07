@@ -46,6 +46,10 @@ public final class PTokenContext {
 		return (String) this.context.get(Builder.ID);
 	}
 
+	public Map<String, Object> getLoginUser() {
+		return (Map<String, Object>) this.context.get(Builder.LOGIN_USER);
+	}
+
 	public boolean hasKey(Object key) {
 		Assert.notNull(key, "key cannot be null");
 		return this.context.containsKey(key);
@@ -64,6 +68,8 @@ public final class PTokenContext {
 		public static final String PRINCIPAL = "PRINCIPAL";
 
 		public static final String ID = "ID";
+
+		public static final String LOGIN_USER = "LOGIN_USER";
 
 		private static final String ACCESS_TOKEN_TIME_TO_LIVE = "ACCESS_TOKEN_TIME_TO_LIVE";
 
@@ -92,6 +98,10 @@ public final class PTokenContext {
 
 		public Builder id(String id) {
 			return put(ID, id);
+		}
+
+		public Builder loginUser(Map<String, Object> loginUserMap) {
+			return put(LOGIN_USER, loginUserMap);
 		}
 
 		public Builder put(Object key, Object value) {

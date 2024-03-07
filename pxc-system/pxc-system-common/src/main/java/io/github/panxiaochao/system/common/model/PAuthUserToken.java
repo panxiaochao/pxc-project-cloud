@@ -30,19 +30,19 @@ public class PAuthUserToken {
 	private String refreshToken;
 
 	/**
-	 * 授权令牌 access_token 的有效期
+	 * 授权令牌 access_token 的有效期, 默认秒
 	 */
 	@JsonProperty("expire_in")
 	private Long expireIn;
 
 	/**
-	 * 刷新令牌 refresh_token 的有效期
+	 * 刷新令牌 refresh_token 的有效期, 默认秒
 	 */
 	@JsonProperty("refresh_expire_in")
 	private Long refreshExpireIn;
 
 	/**
-	 * 应用id
+	 * token_type
 	 */
 	@JsonProperty("token_type")
 	private String tokenType;

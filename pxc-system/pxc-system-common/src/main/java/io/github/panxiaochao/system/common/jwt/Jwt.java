@@ -1,6 +1,5 @@
 package io.github.panxiaochao.system.common.jwt;
 
-import com.nimbusds.jwt.JWTClaimNames;
 import io.github.panxiaochao.system.common.core.token.AbstractPToken;
 import org.springframework.util.Assert;
 
@@ -52,6 +51,29 @@ public class Jwt extends AbstractPToken {
 	 */
 	public Map<String, Object> getClaims() {
 		return this.claims;
+	}
+
+	/**
+	 * Returns the claim value as a {@code T} type. The claim value is expected to be of
+	 * type {@code T}.
+	 * @param claim the name of the claim
+	 * @param <T> the type of the claim value
+	 * @return the claim value
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T getClaim(String claim) {
+		return !hasClaim(claim) ? null : (T) getClaims().get(claim);
+	}
+
+	/**
+	 * Returns {@code true} if the claim exists in {@link #getClaims()}, otherwise
+	 * {@code false}.
+	 * @param claim the name of the claim
+	 * @return {@code true} if the claim exists, otherwise {@code false}
+	 */
+	public boolean hasClaim(String claim) {
+		Assert.notNull(claim, "claim cannot be null");
+		return getClaims().containsKey(claim);
 	}
 
 	/**
@@ -142,10 +164,10 @@ public class Jwt extends AbstractPToken {
 		 */
 		public Builder audience(final String aud) {
 			if (aud == null) {
-				claims.put(JWTClaimNames.AUDIENCE, null);
+				claims.put(com.nimbusds.jwt.JWTClaimNames.AUDIENCE, null);
 			}
 			else {
-				claims.put(JWTClaimNames.AUDIENCE, Collections.singletonList(aud));
+				claims.put(com.nimbusds.jwt.JWTClaimNames.AUDIENCE, Collections.singletonList(aud));
 			}
 			return this;
 		}

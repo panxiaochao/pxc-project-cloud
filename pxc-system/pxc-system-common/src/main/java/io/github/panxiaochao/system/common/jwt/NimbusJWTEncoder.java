@@ -42,9 +42,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 2024-02-29
  * @version 1.0
  */
-public class NimbusJwtEncoder implements JwtEncoder {
-
-	private static final String ENCODING_ERROR_MESSAGE_TEMPLATE = "An error occurred while attempting to encode the Jwt: %s";
+public class NimbusJWTEncoder implements JWTEncoder {
 
 	private static final JWSHeader DEFAULT_JWS_HEADER = new JWSHeader.Builder(JWSAlgorithm.RS256)
 		.keyID(UUID.randomUUID().toString())
@@ -60,7 +58,7 @@ public class NimbusJwtEncoder implements JwtEncoder {
 	 * Constructs a {@code NimbusJwtEncoder} using the provided parameters.
 	 * @param jwkSource the {@code com.nimbusds.jose.jwk.source.JWKSource}
 	 */
-	public NimbusJwtEncoder(JWKSource<SecurityContext> jwkSource) {
+	public NimbusJWTEncoder(JWKSource<SecurityContext> jwkSource) {
 		Assert.notNull(jwkSource, "jwkSource cannot be null");
 		this.jwkSource = jwkSource;
 	}
@@ -85,21 +83,21 @@ public class NimbusJwtEncoder implements JwtEncoder {
 			jwks = this.jwkSource.get(jwkSelector, null);
 		}
 		catch (Exception ex) {
-			throw new JwtEncodingException(JwtEncoderErrorEnum.JWT_ENCODER_ERROR,
-					String.format(JwtEncoderErrorEnum.JWT_ENCODER_ERROR.getMessage(),
+			throw new JwtEncodingException(JWTEncoderErrorEnum.JWT_ENCODER_ERROR,
+					String.format(JWTEncoderErrorEnum.JWT_ENCODER_ERROR.getMessage(),
 							"Failed to select a JWK signing key -> " + ex.getMessage()),
 					ex);
 		}
 
 		if (jwks.size() > 1) {
-			throw new JwtEncodingException(JwtEncoderErrorEnum.JWT_ENCODER_ERROR, String.format(
-					JwtEncoderErrorEnum.JWT_ENCODER_ERROR.getMessage(),
+			throw new JwtEncodingException(JWTEncoderErrorEnum.JWT_ENCODER_ERROR, String.format(
+					JWTEncoderErrorEnum.JWT_ENCODER_ERROR.getMessage(),
 					"Found multiple JWK signing keys for algorithm '" + headers.getAlgorithm().getName() + "'"));
 		}
 
 		if (jwks.isEmpty()) {
-			throw new JwtEncodingException(JwtEncoderErrorEnum.JWT_ENCODER_ERROR, String
-				.format(JwtEncoderErrorEnum.JWT_ENCODER_ERROR.getMessage(), "Failed to select a JWK signing key"));
+			throw new JwtEncodingException(JWTEncoderErrorEnum.JWT_ENCODER_ERROR, String
+				.format(JWTEncoderErrorEnum.JWT_ENCODER_ERROR.getMessage(), "Failed to select a JWK signing key"));
 		}
 
 		return jwks.get(0);
@@ -108,14 +106,14 @@ public class NimbusJwtEncoder implements JwtEncoder {
 	private String serialize(JWSHeader headers, JWTClaimsSet claims, JWK jwk) {
 		JWSHeader jwsHeader = convert(headers);
 		JWTClaimsSet jwtClaimsSet = convert(claims);
-		JWSSigner jwsSigner = this.jwsSigners.computeIfAbsent(jwk, NimbusJwtEncoder::createSigner);
+		JWSSigner jwsSigner = this.jwsSigners.computeIfAbsent(jwk, NimbusJWTEncoder::createSigner);
 		SignedJWT signedJwt = new SignedJWT(jwsHeader, jwtClaimsSet);
 		try {
 			signedJwt.sign(jwsSigner);
 		}
 		catch (JOSEException ex) {
-			throw new JwtEncodingException(JwtEncoderErrorEnum.JWT_ENCODER_ERROR,
-					String.format(JwtEncoderErrorEnum.JWT_ENCODER_ERROR.getMessage(),
+			throw new JwtEncodingException(JWTEncoderErrorEnum.JWT_ENCODER_ERROR,
+					String.format(JWTEncoderErrorEnum.JWT_ENCODER_ERROR.getMessage(),
 							"Failed to sign the JWT -> " + ex.getMessage()),
 					ex);
 		}
@@ -174,8 +172,8 @@ public class NimbusJwtEncoder implements JwtEncoder {
 			return JWS_SIGNER_FACTORY.createJWSSigner(jwk);
 		}
 		catch (JOSEException ex) {
-			throw new JwtEncodingException(JwtEncoderErrorEnum.JWT_ENCODER_ERROR,
-					String.format(JwtEncoderErrorEnum.JWT_ENCODER_ERROR.getMessage(),
+			throw new JwtEncodingException(JWTEncoderErrorEnum.JWT_ENCODER_ERROR,
+					String.format(JWTEncoderErrorEnum.JWT_ENCODER_ERROR.getMessage(),
 							"Failed to create a JWS Signer -> " + ex.getMessage()),
 					ex);
 		}
@@ -298,11 +296,11 @@ public class NimbusJwtEncoder implements JwtEncoder {
 	}
 
 	/**
-	 * 限重复提交错误码
+	 * JWT Encoder 错误码
 	 */
 	@Getter
 	@AllArgsConstructor
-	enum JwtEncoderErrorEnum implements IEnum<Integer> {
+	enum JWTEncoderErrorEnum implements IEnum<Integer> {
 
 		/**
 		 * JWT 加密错误

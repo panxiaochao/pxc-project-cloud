@@ -1,28 +1,29 @@
 package io.github.panxiaochao.system.auth.config;
 
-import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.proc.JWSVerificationKeySelector;
 import com.nimbusds.jose.proc.SecurityContext;
-import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
-import com.nimbusds.jwt.proc.DefaultJWTProcessor;
 import io.github.panxiaochao.system.auth.config.properties.PAuthProperties;
 import io.github.panxiaochao.system.common.core.generator.DelegatingPTokenGenerator;
-import io.github.panxiaochao.system.common.core.generator.JwtGenerator;
+import io.github.panxiaochao.system.common.core.generator.JWTGenerator;
 import io.github.panxiaochao.system.common.core.generator.PAccessTokenGenerator;
 import io.github.panxiaochao.system.common.core.generator.PRefreshTokenGenerator;
 import io.github.panxiaochao.system.common.core.generator.PTokenGenerator;
 import io.github.panxiaochao.system.common.core.generator.PUuidTokenGenerator;
 import io.github.panxiaochao.system.common.core.token.PToken;
-import io.github.panxiaochao.system.common.jwt.JwtEncoder;
-import io.github.panxiaochao.system.common.jwt.NimbusJwtEncoder;
+import io.github.panxiaochao.system.common.core.web.BearerTokenResolver;
+import io.github.panxiaochao.system.common.core.web.TokenResolver;
+import io.github.panxiaochao.system.common.jwt.JWTDecoder;
+import io.github.panxiaochao.system.common.jwt.JWTEncoder;
+import io.github.panxiaochao.system.common.jwt.NimbusJWTDecoderFactory;
+import io.github.panxiaochao.system.common.jwt.NimbusJWTEncoder;
 import io.github.panxiaochao.system.common.jwt.utils.JwkUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * <p>
@@ -32,9 +33,9 @@ import org.springframework.context.annotation.Configuration;
  * @since 2024-02-28
  * @version 1.0
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @RequiredArgsConstructor
-public class AuthServerConfig {
+public class AuthServerConfig implements WebMvcConfigurer {
 
 	/**
 	 * Token自定义属性
@@ -47,8 +48,8 @@ public class AuthServerConfig {
 	 */
 	@Bean
 	public PTokenGenerator<? extends PToken> pTokenGenerator(JWKSource<SecurityContext> jwkSource) {
-		JwtEncoder jwtEncoder = new NimbusJwtEncoder(jwkSource);
-		JwtGenerator jwtGenerator = new JwtGenerator(jwtEncoder);
+		JWTEncoder jwtEncoder = new NimbusJWTEncoder(jwkSource);
+		JWTGenerator jwtGenerator = new JWTGenerator(jwtEncoder);
 		return new DelegatingPTokenGenerator(jwtGenerator, new PUuidTokenGenerator(), new PAccessTokenGenerator(),
 				new PRefreshTokenGenerator());
 	}
@@ -65,14 +66,23 @@ public class AuthServerConfig {
 	}
 
 	/**
+	 * generate JwtDecoder
 	 * @param jwkSource jwkSource
 	 */
 	@Bean
-	public ConfigurableJWTProcessor<? extends SecurityContext> configurableJWTProcessor(
-			JWKSource<SecurityContext> jwkSource) {
-		ConfigurableJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
-		jwtProcessor.setJWSKeySelector(new JWSVerificationKeySelector<>(JWSAlgorithm.RS256, jwkSource));
-		return jwtProcessor;
+	public JWTDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
+		return NimbusJWTDecoderFactory.withDefault(jwkSource);
+	}
+
+	/**
+	 * token resolver
+	 * @return the token resolver bean
+	 */
+	@Bean
+	public TokenResolver tokenResolver() {
+		BearerTokenResolver bearerTokenResolver = new BearerTokenResolver();
+		bearerTokenResolver.setTokenType(pAuthProperties.getTokenType());
+		return bearerTokenResolver;
 	}
 
 }

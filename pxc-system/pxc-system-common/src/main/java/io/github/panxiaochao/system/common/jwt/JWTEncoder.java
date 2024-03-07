@@ -12,10 +12,8 @@ import com.nimbusds.jwt.JWTClaimsSet;
  * @version 1.0
  */
 @FunctionalInterface
-public interface JwtEncoder {
+public interface JWTEncoder {
 
-
-    Jwt encode(JWSHeader jwsHeader, JWTClaimsSet claims);
+	Jwt encode(JWSHeader jwsHeader, JWTClaimsSet claims);
 
 }
-

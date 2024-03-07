@@ -1,5 +1,7 @@
 package io.github.panxiaochao.system.common.model;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import io.github.panxiaochao.core.utils.JacksonUtil;
 import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.Setter;
 import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -94,6 +97,23 @@ public class LoginUser implements Serializable {
 	 * 菜单按钮权限集合
 	 */
 	private Set<String> menuPermissionCode;
+
+	/**
+	 * 对象转Map对象
+	 */
+	public Map<String, Object> toMap() {
+		return JacksonUtil.toMap(JacksonUtil.toString(this));
+	}
+
+	/**
+	 * Map to LoginUser
+	 * @param map Map数据
+	 * @return LoginUser
+	 */
+	public static LoginUser fromMap(Map<String, Object> map) {
+		return JacksonUtil.toObj(JacksonUtil.toString(map), new TypeReference<LoginUser>() {
+		});
+	}
 
 	/**
 	 * 是否是超级账号 - "root"
