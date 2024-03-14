@@ -39,7 +39,7 @@ public class OperateLogEventHandler extends AbstractOperateLogHandler {
 	 */
 	@Override
 	public void saveOperateLog(OperateLogDomain operateLogDomain) {
-		logger.error(operateLogDomain.toString());
+		logger.info(operateLogDomain.toString());
 		// 登录日志或者登出日志
 		if (operateLogDomain.getBusinessType() == OperateLog.BusinessType.LOGIN.ordinal()
 				|| operateLogDomain.getBusinessType() == OperateLog.BusinessType.LOGOUT.ordinal()) {

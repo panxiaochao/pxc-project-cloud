@@ -9,8 +9,6 @@ import com.nimbusds.jose.proc.SingleKeyJWSKeySelector;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
 import com.nimbusds.jwt.proc.JWTProcessor;
-import io.github.panxiaochao.system.common.jwt.jose.jws.MacAlgorithm;
-import io.github.panxiaochao.system.common.jwt.jose.jws.SignatureAlgorithm;
 import org.springframework.util.Assert;
 
 import javax.crypto.SecretKey;

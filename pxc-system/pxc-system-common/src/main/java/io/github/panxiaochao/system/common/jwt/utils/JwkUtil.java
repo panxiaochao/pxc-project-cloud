@@ -27,10 +27,7 @@ public final class JwkUtil {
 	}
 
 	public static RSAKey generateRsaKey() {
-		KeyPair keyPair = KeyGeneratorUtil.generateRsaKeyPair();
-		RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-		RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-		return new RSAKey.Builder(publicKey).privateKey(privateKey).keyID(UUID.randomUUID().toString()).build();
+		return generateRsaKey(null);
 	}
 
 	public static RSAKey generateRsaKey(String seed) {
@@ -38,6 +35,18 @@ public final class JwkUtil {
 		RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
 		RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
 		return new RSAKey.Builder(publicKey).privateKey(privateKey).keyID(UUID.randomUUID().toString()).build();
+	}
+
+	/**
+	 * 默认无KeyId选项
+	 * @param seed 盐种子
+	 * @return RSAKey
+	 */
+	public static RSAKey defaultRsaKey(String seed) {
+		KeyPair keyPair = KeyGeneratorUtil.generateRsaKeyPair(seed);
+		RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+		RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+		return new RSAKey.Builder(publicKey).privateKey(privateKey).keyID("JOSE").build();
 	}
 
 	public static ECKey generateEc() {

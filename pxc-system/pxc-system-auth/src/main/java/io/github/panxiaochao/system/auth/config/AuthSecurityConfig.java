@@ -23,7 +23,6 @@ import io.github.panxiaochao.system.common.jwt.utils.JwkUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * <p>
@@ -35,7 +34,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration(proxyBeanMethods = false)
 @RequiredArgsConstructor
-public class AuthServerConfig implements WebMvcConfigurer {
+public class AuthSecurityConfig {
 
 	/**
 	 * Token自定义属性
@@ -60,7 +59,7 @@ public class AuthServerConfig implements WebMvcConfigurer {
 	 */
 	@Bean
 	public JWKSource<SecurityContext> jwkSource() {
-		RSAKey rsaKey = JwkUtil.generateRsaKey(pAuthProperties.getSeed());
+		RSAKey rsaKey = JwkUtil.defaultRsaKey(pAuthProperties.getSeed());
 		JWKSet jwkSet = new JWKSet(rsaKey);
 		return new ImmutableJWKSet<>(jwkSet);
 	}
@@ -83,6 +82,18 @@ public class AuthServerConfig implements WebMvcConfigurer {
 		BearerTokenResolver bearerTokenResolver = new BearerTokenResolver();
 		bearerTokenResolver.setTokenType(pAuthProperties.getTokenType());
 		return bearerTokenResolver;
+	}
+
+	/**
+	 * The Token Authentication web mvc configurer.
+	 * @param jwtDecoder the jwt decoder
+	 * @param tokenResolver the token resolver
+	 * @return the Token Authentication web mvc configurer
+	 */
+	@Bean
+	public TokenAuthenticationWebMvcConfigurer tokenAuthenticationWebMvcConfigurer(JWTDecoder jwtDecoder,
+			TokenResolver tokenResolver) {
+		return new TokenAuthenticationWebMvcConfigurer(jwtDecoder, tokenResolver, pAuthProperties.getWhiteUrls());
 	}
 
 }

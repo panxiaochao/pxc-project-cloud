@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  */
 public class BearerTokenResolver implements TokenResolver {
 
-	private static final Pattern AUTHORIZATION_PATTERN = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+=*)$",
+	private static final Pattern AUTHORIZATION_PATTERN = Pattern.compile("^(?<token>[a-zA-Z0-9-._~+/]+=*)$",
 			Pattern.CASE_INSENSITIVE);
 
 	private boolean allowFormEncodedBodyParameter = false;
@@ -108,6 +108,9 @@ public class BearerTokenResolver implements TokenResolver {
 		String authorization = request.getHeader(this.bearerTokenHeaderName);
 		if (!StringUtils.startsWithIgnoreCase(authorization, this.tokenType)) {
 			return null;
+		}
+		else {
+			authorization = StringUtils.split(authorization, " ")[1];
 		}
 		Matcher matcher = AUTHORIZATION_PATTERN.matcher(authorization);
 		if (!matcher.matches()) {

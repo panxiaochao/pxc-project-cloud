@@ -164,7 +164,7 @@ public class WebLoginService {
 	private PAuthUserToken buildAuthToken(LoginUser loginUser) {
 		// 构造上下文
 		PTokenContext.Builder pTokenContextBuilder = PTokenContext.builder()
-			.id(loginUser.getUserId())
+			.JWSAlgorithm(pAuthProperties.getAlgorithm().getName())
 			.principal(loginUser.getUserName())
 			.loginUser(loginUser.toMap())
 			.accessTokenTimeToLive(pAuthProperties.getAccessTokenTimeToLive())

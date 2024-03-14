@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.common.core.web;
 
+import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.utils.JacksonUtil;
 import io.github.panxiaochao.system.common.core.context.SContext;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,22 +69,29 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+		// 不是HandlerMethod方法的通过
+		if (!(handler instanceof HandlerMethod)) {
+			return true;
+		}
 		// 放行白名单
 		String url = getRequestPath(request);
 		if (!CollectionUtils.isEmpty(whiteUrls) && whiteUrls.contains(url)) {
 			return true;
 		}
+		// TODO 这里必须确保 handler 是 HandlerMethod 类型时，才能进行注解鉴权
+		// if (handler instanceof HandlerMethod) {
+		// }
 		// 解析Token
 		String token;
 		try {
 			token = this.tokenResolver.resolve(request);
 		}
 		catch (TokenResolverException invalid) {
-			commence(request, response, invalid);
+			commence(response, invalid);
 			return false;
 		}
 		if (token == null) {
-			commence(request, response, null);
+			commence(response, null);
 			return false;
 		}
 		try {
@@ -95,7 +104,7 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 		}
 		catch (JwtDecodingException e) {
 			SContextHolder.clearContext();
-			onAuthenticationFailure(request, response, e);
+			commence(response, e);
 			return false;
 		}
 	}
@@ -115,32 +124,17 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 		return url;
 	}
 
-	private void commence(HttpServletRequest request, HttpServletResponse response, Exception exception) {
+	private void commence(HttpServletResponse response, ServerRuntimeException exception) {
 		try {
-			String errorMessage = exception != null ? "OAUTH_TOKEN_UNAUTHORIZED: [" + exception.getMessage() + "]"
-					: "OAUTH_TOKEN_UNAUTHORIZED";
+			String errorMessage = "token is unauthorized";
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 			response.setHeader("Content-Type", "application/json;charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.write(JacksonUtil.toString(R.fail(HttpStatus.UNAUTHORIZED.value(), errorMessage)));
+			out.write(JacksonUtil.toString(R.fail(exception.getCode(), errorMessage)));
 			out.flush();
 			out.close();
 		}
 		catch (IOException e) {
-			LOGGER.error("返回错误信息失败", e);
-		}
-	}
-
-	private void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, Exception exception) {
-		response.setStatus(HttpStatus.OK.value());
-		response.setHeader("Content-Type", "application/json;charset=UTF-8");
-		try {
-			PrintWriter out = response.getWriter();
-			out.write(JacksonUtil.toString(R.fail(HttpServletResponse.SC_FORBIDDEN, exception.getMessage())));
-			out.flush();
-			out.close();
-		}
-		catch (Exception e) {
 			LOGGER.error("返回错误信息失败", e);
 		}
 	}

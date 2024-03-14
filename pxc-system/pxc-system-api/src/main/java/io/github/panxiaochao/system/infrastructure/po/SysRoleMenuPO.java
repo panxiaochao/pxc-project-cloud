@@ -1,6 +1,7 @@
 package io.github.panxiaochao.system.infrastructure.po;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,7 @@ public class SysRoleMenuPO {
 	/**
 	 * 角色ID
 	 */
-	@TableField(value = "role_id")
+	@TableId(value = "role_id")
 	private Integer roleId;
 
 	/**

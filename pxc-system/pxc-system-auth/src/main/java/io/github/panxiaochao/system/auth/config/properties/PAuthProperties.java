@@ -1,9 +1,13 @@
 package io.github.panxiaochao.system.auth.config.properties;
 
+import io.github.panxiaochao.system.common.jwt.jose.jws.JwsAlgorithm;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -21,7 +25,7 @@ import org.springframework.stereotype.Component;
 public class PAuthProperties {
 
 	/**
-	 * Access Token Type, 注意有空格
+	 * Access Token Type
 	 */
 	private String tokenType = "Bearer";
 
@@ -39,5 +43,15 @@ public class PAuthProperties {
 	 * 加密盐种子
 	 */
 	private String seed = "@123456$";
+
+	/**
+	 * 加密算法
+	 */
+	private JwsAlgorithm algorithm = JwsAlgorithm.RS256;
+
+	/**
+	 * 白名单
+	 */
+	private List<String> whiteUrls = new ArrayList<>();
 
 }

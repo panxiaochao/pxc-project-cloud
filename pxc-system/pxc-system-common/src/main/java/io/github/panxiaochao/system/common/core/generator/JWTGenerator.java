@@ -4,13 +4,15 @@ import com.nimbusds.jose.JOSEObjectType;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jwt.JWTClaimsSet;
-import io.github.panxiaochao.core.utils.MapUtil;
+import io.github.panxiaochao.core.utils.RequestUtil;
 import io.github.panxiaochao.system.common.core.context.PTokenContext;
 import io.github.panxiaochao.system.common.core.tokentype.PAccessTokenType;
-import io.github.panxiaochao.system.common.jwt.Jwt;
 import io.github.panxiaochao.system.common.jwt.JWTEncoder;
+import io.github.panxiaochao.system.common.jwt.Jwt;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Date;
@@ -52,15 +54,16 @@ public final class JWTGenerator implements PTokenGenerator<Jwt> {
 		Date issuedAt = new Date();
 		Long accessTokenTimeToLive = pTokenContext.getAccessTokenTimeToLive();
 		Date expiresAt = Date.from(issuedAt.toInstant().plus(Duration.ofSeconds(accessTokenTimeToLive)));
-
-		JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.RS256).type(JOSEObjectType.JOSE).build();
+		// 算法
+		JWSAlgorithm algorithm = parseJWSAlgorithm(pTokenContext.getJWSAlgorithm());
+		JWSHeader jwsHeader = new JWSHeader.Builder(algorithm).type(JOSEObjectType.JWT).build();
 		JWTClaimsSet.Builder claims = new JWTClaimsSet.Builder()
 			// 发行人
-			.issuer(pTokenContext.getPrincipal())
+			.issuer(getRequestPath())
 			// 主题
 			.subject(pTokenContext.getPrincipal())
 			// 受众
-			.audience(Collections.singletonList(pTokenContext.getId()))
+			.audience(Collections.singletonList(pTokenContext.getPrincipal()))
 			// 签发时间
 			.issueTime(issuedAt)
 			// 过期时间
@@ -70,10 +73,40 @@ public final class JWTGenerator implements PTokenGenerator<Jwt> {
 			// 唯一编号
 			.jwtID(UUID.randomUUID().toString());
 		// 额外参数
-		if (MapUtil.isNotEmpty(pTokenContext.getLoginUser())) {
-			pTokenContext.getLoginUser().forEach(claims::claim);
-		}
+		// if (MapUtil.isNotEmpty(pTokenContext.getLoginUser())) {
+		// pTokenContext.getLoginUser().forEach(claims::claim);
+		// }
 		return jwtEncoder.encode(jwsHeader, claims.build());
+	}
+
+	private JWSAlgorithm parseJWSAlgorithm(String algorithm) {
+		if (StringUtils.hasText(algorithm)) {
+			// // Infer algorithm type
+			// if (algorithm.equals(Algorithm.NONE.getName())) {
+			// // Plain
+			// return JWSAlgorithm.RS256;
+			// } else if (json.containsKey(HeaderParameterNames.ENCRYPTION_ALGORITHM)) {
+			// // JWE
+			// return JWEAlgorithm.parse(algName);
+			// } else {
+			// JWS
+			return JWSAlgorithm.parse(algorithm);
+			// }
+		}
+		else {
+			return JWSAlgorithm.RS256;
+		}
+	}
+
+	private String getRequestPath() {
+		HttpServletRequest request = RequestUtil.getRequest();
+		StringBuilder url = new StringBuilder();
+		url.append(request.getScheme())
+			.append("://")
+			.append(request.getServerName())
+			.append(":")
+			.append(request.getServerPort());
+		return url.toString();
 	}
 
 }

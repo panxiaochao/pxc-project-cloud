@@ -12,6 +12,8 @@ import io.github.panxiaochao.system.common.jwt.validator.JWTValidators;
 import io.github.panxiaochao.system.common.jwt.validator.TokenValidator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 import java.text.ParseException;
@@ -27,6 +29,11 @@ import java.util.Map;
  * @version 1.0
  */
 public class NimbusJWTDecoder implements JWTDecoder {
+
+	/**
+	 * LOGGER NimbusJWTDecoder.class
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(NimbusJWTDecoder.class);
 
 	private final JWTProcessor<SecurityContext> jwtProcessor;
 
@@ -73,6 +80,7 @@ public class NimbusJWTDecoder implements JWTDecoder {
 			return JWTParser.parse(token);
 		}
 		catch (Exception ex) {
+			LOGGER.error("parseJWT is error, {}", ex.getMessage());
 			throw new JwtDecodingException(JWTDecoderErrorEnum.JWT_DECODER_ERROR,
 					String.format(JWTDecoderErrorEnum.JWT_DECODER_ERROR.getMessage(), ex.getMessage()));
 		}
@@ -94,6 +102,7 @@ public class NimbusJWTDecoder implements JWTDecoder {
             // @formatter:on
 		}
 		catch (Exception ex) {
+			LOGGER.error("createJwt is error, {}", ex.getMessage());
 			if (ex.getCause() instanceof ParseException) {
 				throw new JwtDecodingException(JWTDecoderErrorEnum.JWT_DECODER_ERROR,
 						String.format(JWTDecoderErrorEnum.JWT_DECODER_ERROR.getMessage(), "Malformed payload"), ex);

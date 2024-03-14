@@ -6,6 +6,7 @@ import org.springframework.util.Assert;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -246,16 +247,9 @@ public class Jwt extends AbstractPToken {
 		 * @return The constructed {@link Jwt}
 		 */
 		public Jwt build() {
-			Instant iat = toInstant(this.claims.get(JwtClaimNames.IAT));
-			Instant exp = toInstant(this.claims.get(JwtClaimNames.EXP));
+			Instant iat = ((Date) this.claims.get(JwtClaimNames.IAT)).toInstant();
+			Instant exp = ((Date) this.claims.get(JwtClaimNames.EXP)).toInstant();
 			return new Jwt(this.tokenValue, iat, exp, this.headers, this.claims);
-		}
-
-		private Instant toInstant(Object timestamp) {
-			if (timestamp != null) {
-				Assert.isInstanceOf(Instant.class, timestamp, "timestamps must be of type Instant");
-			}
-			return (Instant) timestamp;
 		}
 
 	}

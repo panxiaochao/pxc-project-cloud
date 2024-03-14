@@ -6,8 +6,6 @@ import org.springframework.util.Assert;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 
 /**
  * <p>
@@ -42,8 +40,8 @@ public final class PTokenContext {
 		return (String) this.context.get(Builder.PRINCIPAL);
 	}
 
-	public String getId() {
-		return (String) this.context.get(Builder.ID);
+	public String getJWSAlgorithm() {
+		return (String) this.context.get(Builder.JWS_ALGORITHM);
 	}
 
 	public Map<String, Object> getLoginUser() {
@@ -67,9 +65,9 @@ public final class PTokenContext {
 
 		public static final String PRINCIPAL = "PRINCIPAL";
 
-		public static final String ID = "ID";
-
 		public static final String LOGIN_USER = "LOGIN_USER";
+
+		public static final Object JWS_ALGORITHM = "JWS_ALGORITHM";
 
 		private static final String ACCESS_TOKEN_TIME_TO_LIVE = "ACCESS_TOKEN_TIME_TO_LIVE";
 
@@ -96,8 +94,8 @@ public final class PTokenContext {
 			return put(PRINCIPAL, principal);
 		}
 
-		public Builder id(String id) {
-			return put(ID, id);
+		public Builder JWSAlgorithm(String algorithm) {
+			return put(JWS_ALGORITHM, algorithm);
 		}
 
 		public Builder loginUser(Map<String, Object> loginUserMap) {
@@ -116,10 +114,6 @@ public final class PTokenContext {
 		 * @return the {@link PTokenContext}
 		 */
 		public PTokenContext build() {
-			Object id = this.context.get(ID);
-			if (Objects.isNull(id)) {
-				this.context.put(ID, UUID.randomUUID().toString());
-			}
 			return new PTokenContext(this.context);
 		}
 
