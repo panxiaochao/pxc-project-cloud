@@ -50,4 +50,9 @@ public interface GlobalConstant {
 	 */
 	String LOGIN_FAIL_LIMIT_KEY = REDIS_ROOT_KEY + "login_fail_limit:";
 
+	/**
+	 * 查询遍历Redis key限制数量
+	 */
+	int KEY_COUNT = 100;
+
 }

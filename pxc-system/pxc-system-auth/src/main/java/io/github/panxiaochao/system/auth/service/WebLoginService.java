@@ -2,11 +2,15 @@ package io.github.panxiaochao.system.auth.service;
 
 import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.R;
+import io.github.panxiaochao.core.response.page.PageResponse;
+import io.github.panxiaochao.core.response.page.Pagination;
+import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.IpUtil;
 import io.github.panxiaochao.core.utils.ObjectUtil;
 import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
+import io.github.panxiaochao.system.auth.api.response.TokenOnlineQueryResponse;
 import io.github.panxiaochao.system.auth.config.properties.PAuthProperties;
 import io.github.panxiaochao.system.auth.request.LoginRequest;
 import io.github.panxiaochao.system.common.constants.GlobalConstant;
@@ -30,7 +34,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * <p>
@@ -103,7 +111,7 @@ public class WebLoginService {
 		}
 		// 账号登录错误次数不超过5次
 		String loginFailLimitKey = GlobalConstant.LOGIN_FAIL_LIMIT_KEY + loginRequest.getUsername();
-		long loginFailNums = ObjectUtil.getIfNull(RedissonUtil.INSTANCE().get(loginFailLimitKey), 0L);
+		long loginFailNums = ObjectUtil.getIfNull(RedissonUtil.get(loginFailLimitKey), 0L);
 		if (loginFailNums > 4) {
 			throw new ServerRuntimeException(UserLoginException.USER_LOGIN_FAIL_EXCEED_EXCEPTION);
 		}
@@ -120,15 +128,15 @@ public class WebLoginService {
 		if (!loginRequest.getPassword().equals(sysUserLogin.getCredential())) {
 			// 错误次数加一
 			loginFailNums++;
-			RedissonUtil.INSTANCE().set(loginFailLimitKey, loginFailNums);
+			RedissonUtil.set(loginFailLimitKey, loginFailNums);
 			if (loginFailNums > 4) {
 				// 锁定10分钟
-				RedissonUtil.INSTANCE().expireIfNotSet(loginFailLimitKey, Duration.ofMinutes(10));
+				RedissonUtil.expireIfNotSet(loginFailLimitKey, Duration.ofMinutes(10));
 			}
 			throw new ServerRuntimeException(UserLoginException.USER_PASSWORD_ILLEGAL_EXCEPTION);
 		}
 		else {
-			RedissonUtil.INSTANCE().delete(loginFailLimitKey);
+			RedissonUtil.delete(loginFailLimitKey);
 		}
 	}
 
@@ -184,17 +192,27 @@ public class WebLoginService {
 		userToken.setExpireIn(pAuthProperties.getAccessTokenTimeToLive());
 		// 缓存令牌, 提前1分钟失效，以免击穿或穿透
 		Duration expire = Duration.ofSeconds(userToken.getExpireIn() - 60);
-		RedissonUtil.INSTANCE()
-			.set(GlobalConstant.LOGIN_USER_TOKEN_PREFIX + userToken.getAccessToken(), userToken.getAccessToken(),
-					expire);
-		RedissonUtil.INSTANCE()
-			.set(GlobalConstant.LOGIN_USER_TOKEN_PREFIX + userToken.getRefreshToken(), userToken.getRefreshToken(),
-					Duration.ofSeconds(userToken.getRefreshExpireIn() - 60));
-		RedissonUtil.INSTANCE().set(GlobalConstant.LOGIN_USER_PREFIX + loginUser.getUserName(), loginUser, expire);
-		RedissonUtil.INSTANCE()
-			.set(GlobalConstant.LOGIN_USER_ONLINE_PREFIX + userToken.getAccessToken(),
-					String.join(StringPools.COLON, loginUser.getUserId(), loginUser.getUserName()), expire);
+		RedissonUtil.set(GlobalConstant.LOGIN_USER_TOKEN_PREFIX + userToken.getAccessToken(),
+				userToken.getAccessToken(), expire);
+		RedissonUtil.set(GlobalConstant.LOGIN_USER_TOKEN_PREFIX + userToken.getRefreshToken(),
+				userToken.getRefreshToken(), Duration.ofSeconds(userToken.getRefreshExpireIn() - 60));
+		RedissonUtil.set(GlobalConstant.LOGIN_USER_PREFIX + loginUser.getUserName(), loginUser, expire);
+		RedissonUtil.set(GlobalConstant.LOGIN_USER_ONLINE_PREFIX + userToken.getAccessToken(),
+				String.join(StringPools.COLON, loginUser.getUserId(), loginUser.getUserName()), expire);
 		return userToken;
+	}
+
+	public PageResponse<TokenOnlineQueryResponse> tokenPage(RequestPage pageRequest, String username) {
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+		List<TokenOnlineQueryResponse> list = new ArrayList<>();
+		String key = String.format("%s*", GlobalConstant.LOGIN_USER_ONLINE_PREFIX);
+		// 分页
+		long start = (pageRequest.getPageNo() - 1) * pageRequest.getPageSize();
+		Set<String> keySet = RedissonUtil.getKeysByPattern(key, GlobalConstant.KEY_COUNT);
+		String[] keys = keySet.stream().skip(start).limit(pageRequest.getPageSize()).toArray(String[]::new);
+		Map<String, String> tokenMap = RedissonUtil.get(keys);
+
+		return new PageResponse<>(pagination, list);
 	}
 
 }

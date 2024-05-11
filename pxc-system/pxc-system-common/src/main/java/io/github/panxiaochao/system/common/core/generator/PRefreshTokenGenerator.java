@@ -38,7 +38,7 @@ public class PRefreshTokenGenerator implements PTokenGenerator<PRefreshToken> {
 
 	public String generateKey() {
 		final Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
-		byte[] key = RandomUtil.INSTANCE().getBytesRandom(96);
+		byte[] key = RandomUtil.getBytesRandom(96);
 		byte[] base64EncodedKey = encoder.encode(key);
 		return new String(base64EncodedKey);
 	}

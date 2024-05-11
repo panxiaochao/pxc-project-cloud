@@ -72,7 +72,7 @@ public final class JWTGenerator implements PTokenGenerator<Jwt> {
 			.notBeforeTime(issuedAt)
 			// 唯一编号
 			.jwtID(UUID.randomUUID().toString());
-		// 额外参数
+		// TODO 额外参数
 		// if (MapUtil.isNotEmpty(pTokenContext.getLoginUser())) {
 		// pTokenContext.getLoginUser().forEach(claims::claim);
 		// }

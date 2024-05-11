@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "系统监控 接口", description = "系统监控 Api接口")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/web/v1/monitor")
-public class WebMonitorApi {
+@RequestMapping("/web/v1/server")
+public class ServerMonitorApi {
 
 	/**
 	 * 获取系统信息

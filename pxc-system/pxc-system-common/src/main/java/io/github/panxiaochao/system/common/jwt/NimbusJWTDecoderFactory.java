@@ -9,6 +9,7 @@ import com.nimbusds.jose.proc.SingleKeyJWSKeySelector;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
 import com.nimbusds.jwt.proc.JWTProcessor;
+import io.github.panxiaochao.system.common.jwt.jose.jws.JwsAlgorithm;
 import org.springframework.util.Assert;
 
 import javax.crypto.SecretKey;
@@ -90,12 +91,12 @@ public class NimbusJWTDecoderFactory {
 		 * The value should be one of
 		 * <a href="https://tools.ietf.org/html/rfc7518#section-3.3" target=
 		 * "_blank">RS256, RS384, or RS512</a>.
-		 * @param signatureAlgorithm the algorithm to use
+		 * @param jwsAlgorithm the algorithm to use
 		 * @return a {@link PublicKeyJwtDecoderBuilder} for further configurations
 		 */
-		public PublicKeyJwtDecoderBuilder signatureAlgorithm(SignatureAlgorithm signatureAlgorithm) {
-			Assert.notNull(signatureAlgorithm, "signatureAlgorithm cannot be null");
-			this.jwsAlgorithm = JWSAlgorithm.parse(signatureAlgorithm.getName());
+		public PublicKeyJwtDecoderBuilder signatureAlgorithm(JwsAlgorithm jwsAlgorithm) {
+			Assert.notNull(jwsAlgorithm, "jwsAlgorithm cannot be null");
+			this.jwsAlgorithm = JWSAlgorithm.parse(jwsAlgorithm.getName());
 			return this;
 		}
 
@@ -105,7 +106,6 @@ public class NimbusJWTDecoderFactory {
 		 * {@link NimbusJWTDecoder}.
 		 * @param jwtProcessorCustomizer the callback used to alter the processor
 		 * @return a {@link PublicKeyJwtDecoderBuilder} for further configurations
-		 * @since 5.4
 		 */
 		public PublicKeyJwtDecoderBuilder jwtProcessorCustomizer(
 				Consumer<ConfigurableJWTProcessor<SecurityContext>> jwtProcessorCustomizer) {
@@ -165,12 +165,12 @@ public class NimbusJWTDecoderFactory {
 		 * The value should be one of
 		 * <a href="https://tools.ietf.org/html/rfc7518#section-3.2" target=
 		 * "_blank">HS256, HS384 or HS512</a>.
-		 * @param macAlgorithm the MAC algorithm to use
+		 * @param jwsAlgorithm the MAC algorithm to use
 		 * @return a {@link SecretKeyJwtDecoderBuilder} for further configurations
 		 */
-		public SecretKeyJwtDecoderBuilder macAlgorithm(MacAlgorithm macAlgorithm) {
-			Assert.notNull(macAlgorithm, "macAlgorithm cannot be null");
-			this.jwsAlgorithm = JWSAlgorithm.parse(macAlgorithm.getName());
+		public SecretKeyJwtDecoderBuilder macAlgorithm(JwsAlgorithm jwsAlgorithm) {
+			Assert.notNull(jwsAlgorithm, "jwsAlgorithm cannot be null");
+			this.jwsAlgorithm = JWSAlgorithm.parse(jwsAlgorithm.getName());
 			return this;
 		}
 

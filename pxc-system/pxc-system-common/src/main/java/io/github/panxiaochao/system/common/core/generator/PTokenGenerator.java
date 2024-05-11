@@ -2,7 +2,6 @@ package io.github.panxiaochao.system.common.core.generator;
 
 import io.github.panxiaochao.system.common.core.context.PTokenContext;
 import io.github.panxiaochao.system.common.core.token.PToken;
-import org.springframework.lang.Nullable;
 
 /**
  * <p>
@@ -22,7 +21,6 @@ public interface PTokenGenerator<T extends PToken> {
 	 * @param pTokenContext token上下文
 	 * @return 令牌
 	 */
-	@Nullable
 	T generate(PTokenContext pTokenContext);
 
 }

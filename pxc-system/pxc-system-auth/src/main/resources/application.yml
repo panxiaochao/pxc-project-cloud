@@ -5,9 +5,6 @@ server:
     context-path: /
 
 spring:
-  operatelog:
-    log-type: other
-    handler: io.github.panxiaochao.system.application.event.OperateLogEventHandler
   servlet:
     multipart:
       max-file-size: 20MB
@@ -36,9 +33,13 @@ spring:
     url: 127.0.0.1
     port: 6379
     database: 0
-  # 是否开启跨域
-  pxc-web:
+  # 开启框架配置
+  pxc-framework:
+    # 是否开启跨域
     cors: true
+    operatelog:
+      log-type: other
+      handler: io.github.panxiaochao.system.application.event.OperateLogEventHandler
 
 # mybatis-plus 配置
 mybatis-plus:
@@ -53,3 +54,5 @@ mybatis-plus:
 p-auth:
   white-urls:
     - /web/v1/login
+    - /web/v1/logout
+  algorithm: rs512

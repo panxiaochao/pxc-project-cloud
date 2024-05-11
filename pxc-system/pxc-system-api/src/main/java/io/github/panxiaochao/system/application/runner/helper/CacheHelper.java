@@ -28,7 +28,7 @@ public class CacheHelper {
 	/**
 	 * RedissonClient 获取, 数据采用缓存共享
 	 */
-	private static final RedissonClient REDISSONCLIENT = RedissonUtil.INSTANCE().ofRedissonClient();
+	private static final RedissonClient REDISSONCLIENT = RedissonUtil.ofRedissonClient();
 
 	/**
 	 * 数据字典 主表 REDIS_KEY
