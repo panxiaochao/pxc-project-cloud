@@ -31,19 +31,19 @@ public interface GlobalConstant {
 	String REDIS_ROOT_KEY = "Auth-user:";
 
 	/**
-	 * LOGIN_USER_TOKEN 前缀
+	 * LOGIN_TOKEN 前缀
 	 */
-	String LOGIN_USER_TOKEN_PREFIX = REDIS_ROOT_KEY + "loginUser:token:";
+	String LOGIN_TOKEN_PREFIX = REDIS_ROOT_KEY + "login:token:";
 
 	/**
-	 * LOGIN_USER 前缀
+	 * LOGIN 前缀
 	 */
-	String LOGIN_USER_PREFIX = REDIS_ROOT_KEY + "loginUser:user:";
+	String LOGIN_PREFIX = REDIS_ROOT_KEY + "login:user:";
 
 	/**
-	 * LOGIN_USER_ONLINE 前缀
+	 * LOGIN_ONLINE 前缀
 	 */
-	String LOGIN_USER_ONLINE_PREFIX = REDIS_ROOT_KEY + "loginUser:online:";
+	String LOGIN_ONLINE_PREFIX = REDIS_ROOT_KEY + "login:online:";
 
 	/**
 	 * 登录失败限制 key

@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.common.core.generator;
 import io.github.panxiaochao.core.utils.RandomUtil;
 import io.github.panxiaochao.system.common.core.context.PTokenContext;
 import io.github.panxiaochao.system.common.core.token.PRefreshToken;
-import io.github.panxiaochao.system.common.core.tokentype.PRefreshTokenType;
+import io.github.panxiaochao.system.common.core.tokentype.PTokenType;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -27,9 +27,10 @@ public class PRefreshTokenGenerator implements PTokenGenerator<PRefreshToken> {
 	 */
 	@Override
 	public PRefreshToken generate(PTokenContext pTokenContext) {
-		if (!PRefreshTokenType.REFRESH_TOKEN.equals(pTokenContext.getPTokenType())) {
+		if (!PTokenType.REFRESH_TOKEN.equals(pTokenContext.getPTokenType())) {
 			return null;
 		}
+
 		Instant issuedAt = Instant.now();
 		Long refreshTokenTimeToLive = pTokenContext.getRefreshTokenTimeToLive();
 		Instant expiresAt = issuedAt.plus(Duration.ofSeconds(refreshTokenTimeToLive));

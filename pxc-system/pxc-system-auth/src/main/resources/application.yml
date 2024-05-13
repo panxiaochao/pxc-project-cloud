@@ -40,6 +40,12 @@ spring:
     operatelog:
       log-type: other
       handler: io.github.panxiaochao.system.application.event.OperateLogEventHandler
+    auth:
+      white-urls:
+        - /web/v1/login
+        - /web/v1/logout
+      algorithm: rs512
+      token-style: simple_uuid
 
 # mybatis-plus 配置
 mybatis-plus:
@@ -50,9 +56,3 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     # 开发测试时使用
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-
-p-auth:
-  white-urls:
-    - /web/v1/login
-    - /web/v1/logout
-  algorithm: rs512

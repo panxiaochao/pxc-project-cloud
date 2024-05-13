@@ -7,7 +7,6 @@ import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.IpUtil;
 import io.github.panxiaochao.core.utils.ObjectUtil;
-import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
 import io.github.panxiaochao.system.auth.api.response.TokenOnlineQueryResponse;
@@ -19,10 +18,8 @@ import io.github.panxiaochao.system.common.core.context.PTokenContext;
 import io.github.panxiaochao.system.common.core.generator.PTokenGenerator;
 import io.github.panxiaochao.system.common.core.token.PRefreshToken;
 import io.github.panxiaochao.system.common.core.token.PToken;
-import io.github.panxiaochao.system.common.core.tokentype.PAccessTokenType;
-import io.github.panxiaochao.system.common.core.tokentype.PRefreshTokenType;
+import io.github.panxiaochao.system.common.core.tokentype.PTokenType;
 import io.github.panxiaochao.system.common.exception.UserLoginException;
-import io.github.panxiaochao.system.common.jwt.Jwt;
 import io.github.panxiaochao.system.common.model.LoginUser;
 import io.github.panxiaochao.system.common.model.PAuthUserToken;
 import io.github.panxiaochao.system.domain.entity.SysUserLogin;
@@ -91,8 +88,6 @@ public class WebLoginService {
 		loginUser.setUserName(loginRequest.getUsername());
 		// 构建Token
 		PAuthUserToken userToken = buildAuthToken(loginUser);
-		// TODO 异步更新数据
-
 		return R.ok(userToken);
 	}
 
@@ -178,34 +173,35 @@ public class WebLoginService {
 			.accessTokenTimeToLive(pAuthProperties.getAccessTokenTimeToLive())
 			.refreshTokenTimeToLive(pAuthProperties.getRefreshTokenTimeToLive());
 		// 访问令牌
-		PTokenContext accessTokenContext = pTokenContextBuilder.pTokenType(PAccessTokenType.ACCESS_TOKEN).build();
-		Jwt jwt = (Jwt) pTokenGenerator.generate(accessTokenContext);
+		PTokenContext accessTokenContext = pTokenContextBuilder.pTokenType(pAuthProperties.getTokenStyle().getType())
+			.build();
+		PToken token = pTokenGenerator.generate(accessTokenContext);
 		// 刷新令牌
-		PTokenContext refreshTokenContext = pTokenContextBuilder.pTokenType(PRefreshTokenType.REFRESH_TOKEN).build();
+		PTokenContext refreshTokenContext = pTokenContextBuilder.pTokenType(PTokenType.REFRESH_TOKEN).build();
 		PRefreshToken refreshToken = (PRefreshToken) pTokenGenerator.generate(refreshTokenContext);
 		// 组建令牌
-		PAuthUserToken userToken = new PAuthUserToken();
-		userToken.setAccessToken(jwt.getTokenValue());
-		userToken.setRefreshToken(refreshToken.getTokenValue());
-		userToken.setTokenType(pAuthProperties.getTokenType());
-		userToken.setRefreshExpireIn(pAuthProperties.getRefreshTokenTimeToLive());
-		userToken.setExpireIn(pAuthProperties.getAccessTokenTimeToLive());
-		// 缓存令牌, 提前1分钟失效，以免击穿或穿透
-		Duration expire = Duration.ofSeconds(userToken.getExpireIn() - 60);
-		RedissonUtil.set(GlobalConstant.LOGIN_USER_TOKEN_PREFIX + userToken.getAccessToken(),
-				userToken.getAccessToken(), expire);
-		RedissonUtil.set(GlobalConstant.LOGIN_USER_TOKEN_PREFIX + userToken.getRefreshToken(),
-				userToken.getRefreshToken(), Duration.ofSeconds(userToken.getRefreshExpireIn() - 60));
-		RedissonUtil.set(GlobalConstant.LOGIN_USER_PREFIX + loginUser.getUserName(), loginUser, expire);
-		RedissonUtil.set(GlobalConstant.LOGIN_USER_ONLINE_PREFIX + userToken.getAccessToken(),
-				String.join(StringPools.COLON, loginUser.getUserId(), loginUser.getUserName()), expire);
-		return userToken;
+		PAuthUserToken authUserToken = new PAuthUserToken();
+		authUserToken.setAccessToken(token.getTokenValue());
+		authUserToken.setRefreshToken(refreshToken.getTokenValue());
+		authUserToken.setTokenType(pAuthProperties.getTokenType());
+		authUserToken.setRefreshExpireIn(pAuthProperties.getRefreshTokenTimeToLive());
+		authUserToken.setExpireIn(pAuthProperties.getAccessTokenTimeToLive());
+		// 缓存令牌, 提前30秒失效，以免击穿或穿透
+		Duration expire = Duration.ofSeconds(authUserToken.getExpireIn() - 30);
+		// Auth-user:login:token:[authUserToken]
+		RedissonUtil.set(GlobalConstant.LOGIN_TOKEN_PREFIX + authUserToken.getAccessToken(), authUserToken, expire);
+		// Auth-user:login:online:[loginUser]
+		RedissonUtil.set(GlobalConstant.LOGIN_ONLINE_PREFIX + authUserToken.getAccessToken(), loginUser, expire);
+		return authUserToken;
 	}
 
+	/**
+	 * 在线用户分页令牌管理
+	 */
 	public PageResponse<TokenOnlineQueryResponse> tokenPage(RequestPage pageRequest, String username) {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<TokenOnlineQueryResponse> list = new ArrayList<>();
-		String key = String.format("%s*", GlobalConstant.LOGIN_USER_ONLINE_PREFIX);
+		String key = String.format("%s*", GlobalConstant.LOGIN_ONLINE_PREFIX);
 		// 分页
 		long start = (pageRequest.getPageNo() - 1) * pageRequest.getPageSize();
 		Set<String> keySet = RedissonUtil.getKeysByPattern(key, GlobalConstant.KEY_COUNT);

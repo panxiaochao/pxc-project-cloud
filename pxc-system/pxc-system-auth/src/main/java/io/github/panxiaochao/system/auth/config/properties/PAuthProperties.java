@@ -1,6 +1,8 @@
 package io.github.panxiaochao.system.auth.config.properties;
 
+import io.github.panxiaochao.system.common.core.tokentype.PTokenType;
 import io.github.panxiaochao.system.common.jwt.jose.jws.JwsAlgorithm;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,7 +22,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "p-auth", ignoreInvalidFields = true)
+@ConfigurationProperties(prefix = "spring.pxc-framework.auth", ignoreInvalidFields = true)
 @Component
 public class PAuthProperties {
 
@@ -50,8 +52,40 @@ public class PAuthProperties {
 	private JwsAlgorithm algorithm = JwsAlgorithm.RS256;
 
 	/**
+	 * Token 样式风格（默认可取值：uuid、simple-uuid、random-128、jwt）
+	 */
+	private TokenType tokenStyle = TokenType.UUID;
+
+	/**
 	 * 白名单
 	 */
 	private List<String> whiteUrls = new ArrayList<>();
+
+	@Getter
+	@AllArgsConstructor
+	public enum TokenType {
+
+		/**
+		 * tokenType - uuid
+		 */
+		UUID("uuid", PTokenType.UUID_TOKEN),
+		/**
+		 * tokenType - simple-uuid
+		 */
+		SIMPLE_UUID("simple-uuid", PTokenType.SIMPLE_UUID_TOKEN),
+		/**
+		 * tokenType - random-128
+		 */
+		random("random-128", PTokenType.ACCESS_TOKEN),
+		/**
+		 * tokenType - jwt
+		 */
+		JWT("jwt", PTokenType.JWT_TOKEN);
+
+		private final String name;
+
+		private final PTokenType type;
+
+	}
 
 }

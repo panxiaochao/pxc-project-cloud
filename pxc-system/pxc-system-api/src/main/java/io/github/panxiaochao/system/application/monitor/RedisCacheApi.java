@@ -40,10 +40,19 @@ public class RedisCacheApi {
 	 * 获取缓存监控列表
 	 * <p>
 	 * RedisConnection info 命令: <br/>
-	 * <pre> server: 常规信息 clients: 客户端连接部分 memory: 内存消耗相关信息 persistence: RDB和AOF相关信息
-	 * stats: 统计信息 replication: 主/从复制信息 cpu: CPU消耗统计 commandstats: Redis命令统计 cluster: 集群部分
-	 * keyspace: 数据库、key相关统计
-	 *
+	 * <pre>
+	 *     server: 常规信息
+	 *     clients: 客户端连接部分
+	 *     memory: 内存消耗相关信息
+	 *     persistence: RDB和AOF相关信息
+	 *     stats: 统计信息
+	 *     replication: 主/从复制信息
+	 *     cpu: CPU消耗统计
+	 *     commandstats:
+	 *     Redis命令统计
+	 *     cluster: 集群部分
+	 *     keyspace: 数据库、key相关统计
+	 *</pre>
 	 * </p>
 	 */
 	@Operation(summary = "获取系统信息", description = "获取系统信息", method = "GET")

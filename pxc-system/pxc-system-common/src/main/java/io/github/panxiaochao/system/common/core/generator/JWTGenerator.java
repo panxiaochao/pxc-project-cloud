@@ -1,12 +1,13 @@
 package io.github.panxiaochao.system.common.core.generator;
 
+import com.nimbusds.jose.Algorithm;
 import com.nimbusds.jose.JOSEObjectType;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jwt.JWTClaimsSet;
 import io.github.panxiaochao.core.utils.RequestUtil;
 import io.github.panxiaochao.system.common.core.context.PTokenContext;
-import io.github.panxiaochao.system.common.core.tokentype.PAccessTokenType;
+import io.github.panxiaochao.system.common.core.tokentype.PTokenType;
 import io.github.panxiaochao.system.common.jwt.JWTEncoder;
 import io.github.panxiaochao.system.common.jwt.Jwt;
 import org.springframework.util.Assert;
@@ -47,7 +48,7 @@ public final class JWTGenerator implements PTokenGenerator<Jwt> {
 	 */
 	@Override
 	public Jwt generate(PTokenContext pTokenContext) {
-		if (!PAccessTokenType.ACCESS_TOKEN.equals(pTokenContext.getPTokenType())) {
+		if (!PTokenType.JWT_TOKEN.equals(pTokenContext.getPTokenType())) {
 			return null;
 		}
 
@@ -81,17 +82,19 @@ public final class JWTGenerator implements PTokenGenerator<Jwt> {
 
 	private JWSAlgorithm parseJWSAlgorithm(String algorithm) {
 		if (StringUtils.hasText(algorithm)) {
-			// // Infer algorithm type
-			// if (algorithm.equals(Algorithm.NONE.getName())) {
-			// // Plain
-			// return JWSAlgorithm.RS256;
-			// } else if (json.containsKey(HeaderParameterNames.ENCRYPTION_ALGORITHM)) {
+			// Infer algorithm type
+			if (algorithm.equals(Algorithm.NONE.getName())) {
+				// Plain
+				return JWSAlgorithm.RS256;
+			}
+			// else if (json.containsKey(HeaderParameterNames.ENCRYPTION_ALGORITHM)) {
 			// // JWE
 			// return JWEAlgorithm.parse(algName);
-			// } else {
-			// JWS
-			return JWSAlgorithm.parse(algorithm);
 			// }
+			else {
+				// JWS
+				return JWSAlgorithm.parse(algorithm);
+			}
 		}
 		else {
 			return JWSAlgorithm.RS256;
