@@ -1,21 +1,28 @@
 package io.github.panxiaochao.system.auth.api;
 
+import cn.hutool.core.util.StrUtil;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
 import io.github.panxiaochao.ratelimiter.annotation.RateLimiter;
 import io.github.panxiaochao.system.auth.api.response.TokenOnlineQueryResponse;
 import io.github.panxiaochao.system.auth.request.LoginRequest;
 import io.github.panxiaochao.system.auth.service.WebLoginService;
+import io.github.panxiaochao.system.common.core.token.PAccessToken;
 import io.github.panxiaochao.system.common.model.PAuthUserToken;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,15 +61,29 @@ public class WebLoginApi {
 	@PostMapping("/logout")
 	@OperateLog(key = "#username", description = "登出", businessType = OperateLog.BusinessType.LOGOUT)
 	@Operation(summary = "登出接口", description = "登出接口", method = "POST")
-	public R<Void> logout(String username) {
-		return R.ok();
+	public R<Boolean> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
+		if (StrUtil.isBlank(authHeader)) {
+			return R.ok();
+		}
+		String tokenValue = authHeader.replace(PAccessToken.TokenType.BEARER.getValue(), StringPools.EMPTY).trim();
+		return removeToken(tokenValue);
+	}
+
+	/**
+	 * 移除令牌
+	 * @param token token
+	 */
+	@DeleteMapping("/remove/{token}")
+	@OperateLog(key = "#token", title = "登录管理", description = "移除令牌", businessType = OperateLog.BusinessType.DELETE)
+	@Operation(summary = "移除令牌", description = "移除令牌", method = "DELETE")
+	public R<Boolean> removeToken(@PathVariable("token") String token) {
+		return R.ok(loginWebService.removeToken(token));
 	}
 
 	/**
 	 * 在线用户分页令牌管理
 	 */
 	@GetMapping("/token/page")
-	@OperateLog(key = "#username", description = "登出", businessType = OperateLog.BusinessType.LOGOUT)
 	@Operation(summary = "在线用户分页令牌管理", description = "在线用户分页令牌管理", method = "GET")
 	public R<PageResponse<TokenOnlineQueryResponse>> tokenPage(RequestPage pageRequest, String username) {
 		return R.ok(loginWebService.tokenPage(pageRequest, username));

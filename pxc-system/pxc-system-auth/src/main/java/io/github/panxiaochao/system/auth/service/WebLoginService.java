@@ -5,12 +5,15 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.CollectionUtil;
 import io.github.panxiaochao.core.utils.IpUtil;
 import io.github.panxiaochao.core.utils.ObjectUtil;
+import io.github.panxiaochao.core.utils.date.LocalDateTimeUtil;
 import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
 import io.github.panxiaochao.system.auth.api.response.TokenOnlineQueryResponse;
 import io.github.panxiaochao.system.auth.config.properties.PAuthProperties;
+import io.github.panxiaochao.system.auth.convert.ITokenOnlineDTOConvert;
 import io.github.panxiaochao.system.auth.request.LoginRequest;
 import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import io.github.panxiaochao.system.common.constants.LoginIdentityType;
@@ -32,6 +35,7 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -88,6 +92,7 @@ public class WebLoginService {
 		loginUser.setUserName(loginRequest.getUsername());
 		// 构建Token
 		PAuthUserToken userToken = buildAuthToken(loginUser);
+		// TODO 异步更新用户数据，比如登录时间、登录ip等数据
 		return R.ok(userToken);
 	}
 
@@ -154,6 +159,7 @@ public class WebLoginService {
 		loginUser.setOrgId(sysUserLogin.getOrgId());
 		loginUser.setOrgCode(sysUserLogin.getOrgCode());
 		loginUser.setIp(IpUtil.ofRequestIp());
+		loginUser.setLoginTime(LocalDateTime.now());
 		loginUser.setRoles(sysPermissionDomainService.selectRolePermission(sysUserLogin.getUserId()));
 		loginUser.setMenuPermissionCode(sysPermissionDomainService.selectMenuPermissionCode(sysUserLogin.getUserId()));
 		return loginUser;
@@ -180,19 +186,29 @@ public class WebLoginService {
 		PTokenContext refreshTokenContext = pTokenContextBuilder.pTokenType(PTokenType.REFRESH_TOKEN).build();
 		PRefreshToken refreshToken = (PRefreshToken) pTokenGenerator.generate(refreshTokenContext);
 		// 组建令牌
-		PAuthUserToken authUserToken = new PAuthUserToken();
-		authUserToken.setAccessToken(token.getTokenValue());
-		authUserToken.setRefreshToken(refreshToken.getTokenValue());
-		authUserToken.setTokenType(pAuthProperties.getTokenType());
-		authUserToken.setRefreshExpireIn(pAuthProperties.getRefreshTokenTimeToLive());
-		authUserToken.setExpireIn(pAuthProperties.getAccessTokenTimeToLive());
+		loginUser.setAccessToken(token.getTokenValue());
+		loginUser.setExpiresAt(Date.from(token.getExpiresAt()).getTime());
+		loginUser.setIssuedAt(Date.from(token.getIssuedAt()).getTime());
+		loginUser.setRefreshToken(refreshToken.getTokenValue());
+		loginUser.setTokenType(pAuthProperties.getTokenType());
+		loginUser.setRefreshExpireIn(pAuthProperties.getRefreshTokenTimeToLive());
+		loginUser.setExpireIn(pAuthProperties.getAccessTokenTimeToLive());
+
 		// 缓存令牌, 提前30秒失效，以免击穿或穿透
-		Duration expire = Duration.ofSeconds(authUserToken.getExpireIn() - 30);
+		Duration expire = Duration.ofSeconds(loginUser.getExpireIn() - 30);
 		// Auth-user:login:token:[authUserToken]
-		RedissonUtil.set(GlobalConstant.LOGIN_TOKEN_PREFIX + authUserToken.getAccessToken(), authUserToken, expire);
-		// Auth-user:login:online:[loginUser]
-		RedissonUtil.set(GlobalConstant.LOGIN_ONLINE_PREFIX + authUserToken.getAccessToken(), loginUser, expire);
-		return authUserToken;
+		RedissonUtil.set(GlobalConstant.LOGIN_TOKEN_PREFIX + loginUser.getAccessToken(), loginUser, expire);
+		return loginUser;
+	}
+
+	/**
+	 * 移除令牌
+	 * @param token 令牌
+	 * @return true or false
+	 */
+	public Boolean removeToken(String token) {
+		RedissonUtil.delete(GlobalConstant.LOGIN_TOKEN_PREFIX + token);
+		return true;
 	}
 
 	/**
@@ -201,13 +217,16 @@ public class WebLoginService {
 	public PageResponse<TokenOnlineQueryResponse> tokenPage(RequestPage pageRequest, String username) {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<TokenOnlineQueryResponse> list = new ArrayList<>();
-		String key = String.format("%s*", GlobalConstant.LOGIN_ONLINE_PREFIX);
+		String key = String.format("%s*", GlobalConstant.LOGIN_TOKEN_PREFIX);
 		// 分页
 		long start = (pageRequest.getPageNo() - 1) * pageRequest.getPageSize();
 		Set<String> keySet = RedissonUtil.getKeysByPattern(key, GlobalConstant.KEY_COUNT);
-		String[] keys = keySet.stream().skip(start).limit(pageRequest.getPageSize()).toArray(String[]::new);
-		Map<String, String> tokenMap = RedissonUtil.get(keys);
-
+		if (!keySet.isEmpty()) {
+			String[] keys = keySet.stream().skip(start).limit(pageRequest.getPageSize()).toArray(String[]::new);
+			Map<String, LoginUser> tokenMap = RedissonUtil.get(keys);
+			list = ITokenOnlineDTOConvert.INSTANCE.toQueryResponse(CollectionUtil.toList(tokenMap.values()));
+			list.forEach(s -> s.setExpireAtStr(LocalDateTimeUtil.longToLocalDateTime(s.getExpiresAt())));
+		}
 		return new PageResponse<>(pagination, list);
 	}
 

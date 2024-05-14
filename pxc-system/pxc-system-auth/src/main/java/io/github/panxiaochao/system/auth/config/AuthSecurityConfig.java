@@ -81,6 +81,7 @@ public class AuthSecurityConfig {
 	public TokenResolver tokenResolver() {
 		BearerTokenResolver bearerTokenResolver = new BearerTokenResolver();
 		bearerTokenResolver.setTokenType(pAuthProperties.getTokenType());
+		bearerTokenResolver.setBearerTokenHeaderName(pAuthProperties.getTokenHeaderName());
 		return bearerTokenResolver;
 	}
 
@@ -93,7 +94,8 @@ public class AuthSecurityConfig {
 	@Bean
 	public TokenAuthenticationWebMvcConfigurer tokenAuthenticationWebMvcConfigurer(JWTDecoder jwtDecoder,
 			TokenResolver tokenResolver) {
-		return new TokenAuthenticationWebMvcConfigurer(jwtDecoder, tokenResolver, pAuthProperties.getWhiteUrls());
+		return new TokenAuthenticationWebMvcConfigurer(jwtDecoder, tokenResolver,
+				pAuthProperties.getTokenStyle().getType(), pAuthProperties.getWhiteUrls());
 	}
 
 }

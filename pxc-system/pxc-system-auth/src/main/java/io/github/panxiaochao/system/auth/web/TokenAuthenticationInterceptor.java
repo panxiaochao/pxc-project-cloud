@@ -1,14 +1,22 @@
-package io.github.panxiaochao.system.common.core.web;
+package io.github.panxiaochao.system.auth.web;
 
 import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.utils.JacksonUtil;
+import io.github.panxiaochao.core.utils.StrUtil;
+import io.github.panxiaochao.redis.utils.RedissonUtil;
+import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import io.github.panxiaochao.system.common.core.context.SContext;
 import io.github.panxiaochao.system.common.core.context.SContextHolder;
+import io.github.panxiaochao.system.common.core.tokentype.PTokenType;
+import io.github.panxiaochao.system.common.core.web.TokenResolver;
+import io.github.panxiaochao.system.common.core.web.exception.TokenAuthenticationException;
 import io.github.panxiaochao.system.common.core.web.exception.TokenResolverException;
+import io.github.panxiaochao.system.common.exception.TokenException;
 import io.github.panxiaochao.system.common.jwt.JWTDecoder;
 import io.github.panxiaochao.system.common.jwt.Jwt;
 import io.github.panxiaochao.system.common.jwt.exception.JwtDecodingException;
+import io.github.panxiaochao.system.common.model.LoginUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +54,8 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 
 	private JWTDecoder jwtDecoder;
 
+	private PTokenType tokenType;
+
 	public TokenAuthenticationInterceptor() {
 	}
 
@@ -67,6 +78,12 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 		return this;
 	}
 
+	public TokenAuthenticationInterceptor setTokenType(PTokenType tokenType) {
+		Assert.notNull(tokenType, "tokenType cannot be null");
+		this.tokenType = tokenType;
+		return this;
+	}
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 		// 不是HandlerMethod方法的通过
@@ -81,24 +98,31 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 		// TODO 这里必须确保 handler 是 HandlerMethod 类型时，才能进行注解鉴权
 		// if (handler instanceof HandlerMethod) {
 		// }
-		// 解析Token
-		String token;
-		try {
-			token = this.tokenResolver.resolve(request);
+		LoginUser loginUser = null;
+		// 从浏览器参数中获取特定参数的 token
+		String token = request.getParameter("token");
+		// 获取请求头部 Authorization
+		String headToken = getHeadToken(request, response);
+		if (StrUtil.isNotBlank(headToken)) {
+			if (PTokenType.JWT_TOKEN.equals(tokenType)) {
+				Jwt jwt = this.jwtDecoder.decode(token);
+				if (null == jwt || System.currentTimeMillis() > Date.from(jwt.getExpiresAt()).getTime()) {
+					commence(response, new TokenAuthenticationException(TokenException.TOKEN_EXPIRE_EXCEPTION));
+				}
+			}
+			loginUser = getRedisToken(headToken, response);
 		}
-		catch (TokenResolverException invalid) {
-			commence(response, invalid);
+		else if (StrUtil.isNotBlank(token)) {
+			// 浏览器参数token判断逻辑
+		}
+		if (StrUtil.isAllBlank(token, headToken)) {
+			commence(response, new TokenAuthenticationException(TokenException.TOKEN_EMPTY_EXCEPTION));
 			return false;
 		}
-		if (token == null) {
-			commence(response, null);
-			return false;
-		}
 		try {
-			// SecurityContextHolder 上下文构建存储 jwt
-			Jwt jwt = this.jwtDecoder.decode(token);
+			// SecurityContextHolder 上下文构建存储 Token
 			SContext context = SContextHolder.createEmptyContext();
-			context.setToken(jwt);
+			context.setLoginUser(loginUser);
 			SContextHolder.setContext(context);
 			return true;
 		}
@@ -109,10 +133,34 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 		}
 	}
 
+	private LoginUser getRedisToken(String headToken, HttpServletResponse response) {
+		LoginUser loginUser = RedissonUtil.get(GlobalConstant.LOGIN_TOKEN_PREFIX + headToken);
+		// Redis为空或者当前时间已大于过期时间
+		if (null == loginUser || System.currentTimeMillis() > loginUser.getExpiresAt()) {
+			commence(response, new TokenAuthenticationException(TokenException.TOKEN_EXPIRE_EXCEPTION));
+		}
+		return loginUser;
+	}
+
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) {
 		SContextHolder.clearContext();
+	}
+
+	/**
+	 * 获取请求 HeadToken
+	 */
+	private String getHeadToken(HttpServletRequest request, HttpServletResponse response) {
+		// 解析 head token
+		String headToken = null;
+		try {
+			headToken = this.tokenResolver.resolve(request);
+		}
+		catch (TokenResolverException invalid) {
+			commence(response, invalid);
+		}
+		return headToken;
 	}
 
 	private String getRequestPath(HttpServletRequest request) {

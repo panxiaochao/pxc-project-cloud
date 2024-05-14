@@ -57,6 +57,11 @@ public class PAuthProperties {
 	private TokenType tokenStyle = TokenType.UUID;
 
 	/**
+	 * Head Token名称
+	 */
+	private String tokenHeaderName = "Authorization";
+
+	/**
 	 * 白名单
 	 */
 	private List<String> whiteUrls = new ArrayList<>();

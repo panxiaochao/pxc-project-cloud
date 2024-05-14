@@ -33,13 +33,13 @@ public class PAuthUserToken {
 	 * 授权令牌 access_token 的有效期, 默认秒
 	 */
 	@JsonProperty("expire_in")
-	private Long expireIn;
+	private long expireIn;
 
 	/**
 	 * 刷新令牌 refresh_token 的有效期, 默认秒
 	 */
 	@JsonProperty("refresh_expire_in")
-	private Long refreshExpireIn;
+	private long refreshExpireIn;
 
 	/**
 	 * token_type

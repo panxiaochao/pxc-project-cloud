@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.common.core.context;
 
-import io.github.panxiaochao.system.common.core.token.PToken;
+import io.github.panxiaochao.system.common.model.LoginUser;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.ObjectUtils;
@@ -19,41 +19,42 @@ public class SContextImpl implements SContext {
 
 	private static final long serialVersionUID = 1L;
 
-	private PToken token;
+	private LoginUser loginUser;
 
 	public SContextImpl() {
 	}
 
-	public SContextImpl(PToken token) {
-		this.token = token;
+	public SContextImpl(LoginUser loginUser) {
+		this.loginUser = loginUser;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof SContextImpl) {
 			SContextImpl other = (SContextImpl) obj;
-			if ((this.getToken() == null) && (other.getToken() == null)) {
+			if ((this.getLoginUser() == null) && (other.getLoginUser() == null)) {
 				return true;
 			}
-			return (this.getToken() != null) && (other.getToken() != null) && this.getToken().equals(other.getToken());
+			return (this.getLoginUser() != null) && (other.getLoginUser() != null)
+					&& this.getLoginUser().equals(other.getLoginUser());
 		}
 		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return ObjectUtils.nullSafeHashCode(this.token);
+		return ObjectUtils.nullSafeHashCode(this.loginUser);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getClass().getSimpleName()).append(" [");
-		if (this.token == null) {
-			sb.append("Null token");
+		if (this.loginUser == null) {
+			sb.append("Null loginUser");
 		}
 		else {
-			sb.append("PToken=").append(this.token);
+			sb.append("LoginUser=").append(this.loginUser);
 		}
 		sb.append("]");
 		return sb.toString();

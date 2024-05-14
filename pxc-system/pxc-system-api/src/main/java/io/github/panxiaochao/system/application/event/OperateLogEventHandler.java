@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.application.event;
 
+import io.github.panxiaochao.core.utils.ObjectUtil;
 import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
 import io.github.panxiaochao.operate.log.core.domain.OperateLogDomain;
 import io.github.panxiaochao.operate.log.core.handler.AbstractOperateLogHandler;
@@ -7,6 +8,8 @@ import io.github.panxiaochao.system.application.api.request.sysloglogin.SysLogLo
 import io.github.panxiaochao.system.application.api.request.syslogoperate.SysLogOperateCreateRequest;
 import io.github.panxiaochao.system.application.service.SysLogLoginAppService;
 import io.github.panxiaochao.system.application.service.SysLogOperateAppService;
+import io.github.panxiaochao.system.common.core.context.SContextHolder;
+import io.github.panxiaochao.system.common.model.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -45,7 +48,8 @@ public class OperateLogEventHandler extends AbstractOperateLogHandler {
 				|| operateLogDomain.getBusinessType() == OperateLog.BusinessType.LOGOUT.ordinal()) {
 			SysLogLoginCreateRequest sysLogLoginCreateRequest = new SysLogLoginCreateRequest();
 			// 登录账号
-			sysLogLoginCreateRequest.setLoginName(operateLogDomain.getValue().toString());
+			sysLogLoginCreateRequest.setLoginName(
+					ObjectUtil.isEmpty(operateLogDomain.getValue()) ? null : operateLogDomain.getValue().toString());
 			if (operateLogDomain.getBusinessType() == OperateLog.BusinessType.LOGIN.ordinal()) {
 				sysLogLoginCreateRequest.setLoginType(1);
 			}
@@ -96,6 +100,10 @@ public class OperateLogEventHandler extends AbstractOperateLogHandler {
 			createRequest.setState(operateLogDomain.getCode().toString());
 			createRequest.setBrowser(operateLogDomain.getBrowser());
 			createRequest.setOs(operateLogDomain.getOs());
+			LoginUser loginUser = SContextHolder.getContext().getLoginUser();
+			if (null != loginUser) {
+				createRequest.setOpUser(loginUser.getUserName());
+			}
 			sysLogOperateAppService.save(createRequest);
 		}
 	}

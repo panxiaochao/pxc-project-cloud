@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 在线会话查询响应对象
@@ -19,67 +21,40 @@ import lombok.ToString;
 @ToString
 @Schema(description = "用户授权信息表查询响应对象")
 public class TokenOnlineQueryResponse {
-    private String id;
 
-    private Long userId;
+	/**
+	 * 用户ID
+	 */
+	private String userId;
 
-    private String clientId;
+	/**
+	 * 用户账号
+	 */
+	private String userName;
 
-    private String username;
+	/**
+	 * 登录IP地址
+	 */
+	private String ip;
 
-    private String accessToken;
+	/**
+	 * 登录时间
+	 */
+	private LocalDateTime loginTime;
 
-    private String issuedAt;
+	/**
+	 * 授权令牌
+	 */
+	private String accessToken;
 
-    private String expiresAt;
+	/*
+	 * 授权令牌 access_token 过期时间
+	 */
+	private long expiresAt;
 
-    /**
-     * 会话编号
-     */
-    private String tokenId;
+	/*
+	 * 授权令牌 access_token 过期时间 字符串
+	 */
+	private LocalDateTime expireAtStr;
 
-    /**
-     * 部门名称
-     */
-    private String deptName;
-
-    /**
-     * 用户名称
-     */
-    private String userName;
-
-    /**
-     * 客户端
-     */
-    private String clientKey;
-
-    /**
-     * 设备类型
-     */
-    private String deviceType;
-
-    /**
-     * 登录IP地址
-     */
-    private String ipaddr;
-
-    /**
-     * 登录地址
-     */
-    private String loginLocation;
-
-    /**
-     * 浏览器类型
-     */
-    private String browser;
-
-    /**
-     * 操作系统
-     */
-    private String os;
-
-    /**
-     * 登录时间
-     */
-    private Long loginTime;
 }

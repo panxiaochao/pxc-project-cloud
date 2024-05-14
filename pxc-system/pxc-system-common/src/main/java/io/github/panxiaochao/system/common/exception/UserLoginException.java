@@ -6,6 +6,7 @@ import lombok.Getter;
 
 /**
  * <p>
+ * 用户账号登录 异常类
  * </p>
  *
  * @author Lypxc

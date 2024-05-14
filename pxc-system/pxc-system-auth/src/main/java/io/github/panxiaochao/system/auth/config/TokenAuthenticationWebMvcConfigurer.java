@@ -1,6 +1,7 @@
 package io.github.panxiaochao.system.auth.config;
 
-import io.github.panxiaochao.system.common.core.web.TokenAuthenticationInterceptor;
+import io.github.panxiaochao.system.auth.web.TokenAuthenticationInterceptor;
+import io.github.panxiaochao.system.common.core.tokentype.PTokenType;
 import io.github.panxiaochao.system.common.core.web.TokenResolver;
 import io.github.panxiaochao.system.common.jwt.JWTDecoder;
 import org.springframework.util.Assert;
@@ -27,6 +28,8 @@ public class TokenAuthenticationWebMvcConfigurer implements WebMvcConfigurer {
 
 	private final List<String> whiteUrls;
 
+	private final PTokenType tokenType;
+
 	//@formatter:off
 	public static final String[] SWAGGER_EXCLUDE = {
 			"/swagger-ui.html",
@@ -42,18 +45,21 @@ public class TokenAuthenticationWebMvcConfigurer implements WebMvcConfigurer {
 	};
 	//@formatter:on
 
-	public TokenAuthenticationWebMvcConfigurer(JWTDecoder jwtDecoder, TokenResolver tokenResolver) {
+	public TokenAuthenticationWebMvcConfigurer(JWTDecoder jwtDecoder, TokenResolver tokenResolver,
+			PTokenType tokenType) {
 		this.whiteUrls = Collections.emptyList();
 		this.tokenResolver = tokenResolver;
 		this.jwtDecoder = jwtDecoder;
+		this.tokenType = tokenType;
 	}
 
-	public TokenAuthenticationWebMvcConfigurer(JWTDecoder jwtDecoder, TokenResolver tokenResolver,
+	public TokenAuthenticationWebMvcConfigurer(JWTDecoder jwtDecoder, TokenResolver tokenResolver, PTokenType tokenType,
 			List<String> whiteUrls) {
 		Assert.notEmpty(whiteUrls, "whiteUrls cannot be empty");
 		this.whiteUrls = whiteUrls;
 		this.tokenResolver = tokenResolver;
 		this.jwtDecoder = jwtDecoder;
+		this.tokenType = tokenType;
 	}
 
 	@Override
@@ -61,7 +67,8 @@ public class TokenAuthenticationWebMvcConfigurer implements WebMvcConfigurer {
 		TokenAuthenticationInterceptor interceptor = new TokenAuthenticationInterceptor()
 			.setTokenResolver(tokenResolver)
 			.setJwtDecoder(jwtDecoder)
-			.setWhiteUrls(whiteUrls);
+			.setWhiteUrls(whiteUrls)
+			.setTokenType(tokenType);
 		registry.addInterceptor(interceptor).addPathPatterns("/**").excludePathPatterns(SWAGGER_EXCLUDE);
 	}
 

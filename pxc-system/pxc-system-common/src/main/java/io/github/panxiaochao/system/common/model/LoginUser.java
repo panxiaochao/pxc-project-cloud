@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LoginUser implements Serializable {
+public class LoginUser extends PAuthUserToken implements Serializable {
 
 	private static final long serialVersionUID = 5755227248230027443L;
 
@@ -89,6 +90,11 @@ public class LoginUser implements Serializable {
 	private String ip;
 
 	/**
+	 * 登录时间
+	 */
+	private LocalDateTime loginTime;
+
+	/**
 	 * 角色集合
 	 */
 	private Set<String> roles;
@@ -97,6 +103,16 @@ public class LoginUser implements Serializable {
 	 * 菜单按钮权限集合
 	 */
 	private Set<String> menuPermissionCode;
+
+	/**
+	 * 颁发令牌的时间
+	 */
+	private long issuedAt;
+
+	/**
+	 * 令牌的到期时间
+	 */
+	private long expiresAt;
 
 	/**
 	 * 对象转Map对象

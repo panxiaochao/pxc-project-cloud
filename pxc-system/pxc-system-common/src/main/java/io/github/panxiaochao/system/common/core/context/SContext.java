@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.common.core.context;
 
-import io.github.panxiaochao.system.common.core.token.PToken;
+import io.github.panxiaochao.system.common.model.LoginUser;
 
 import java.io.Serializable;
 
@@ -16,17 +16,17 @@ import java.io.Serializable;
 public interface SContext extends Serializable {
 
 	/**
-	 * Obtains the currently PToken.
-	 * @return the <code>PToken</code> or <code>null</code> if no PToken information is
+	 * Obtains the currently LoginUser.
+	 * @return the <code>LoginUser</code> or <code>null</code> if no LoginUser information is
 	 * available
 	 */
-	PToken getToken();
+	LoginUser getLoginUser();
 
 	/**
-	 * Changes the currently PToken, or removes the PToken information.
-	 * @param token the new <code>PToken</code> token, or <code>null</code> if no further
+	 * Changes the currently LoginUser, or removes the LoginUser information.
+	 * @param loginUser the new <code>LoginUser</code>
 	 * PToken information should be stored
 	 */
-	void setToken(PToken token);
+	void setLoginUser(LoginUser loginUser);
 
 }
