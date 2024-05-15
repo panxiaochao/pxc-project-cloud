@@ -148,4 +148,14 @@ public class LoginUser extends PAuthUserToken implements Serializable {
 		return false;
 	}
 
+	public PAuthUserToken toAuthUserToken() {
+		PAuthUserToken authUserToken = new PAuthUserToken();
+		authUserToken.setAccessToken(this.getAccessToken());
+		authUserToken.setRefreshToken(this.getRefreshToken());
+		authUserToken.setExpireIn(this.getExpireIn());
+		authUserToken.setRefreshExpireIn(this.getRefreshExpireIn());
+		authUserToken.setTokenType(this.getTokenType());
+		return authUserToken;
+	}
+
 }

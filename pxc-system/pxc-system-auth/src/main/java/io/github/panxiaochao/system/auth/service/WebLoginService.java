@@ -8,6 +8,7 @@ import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.CollectionUtil;
 import io.github.panxiaochao.core.utils.IpUtil;
 import io.github.panxiaochao.core.utils.ObjectUtil;
+import io.github.panxiaochao.core.utils.SpringContextUtil;
 import io.github.panxiaochao.core.utils.date.LocalDateTimeUtil;
 import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
@@ -92,7 +93,8 @@ public class WebLoginService {
 		loginUser.setUserName(loginRequest.getUsername());
 		// 构建Token
 		PAuthUserToken userToken = buildAuthToken(loginUser);
-		// TODO 异步更新用户数据，比如登录时间、登录ip等数据
+		// 异步更新用户数据，比如登录时间
+		SpringContextUtil.publishEvent(loginUser);
 		return R.ok(userToken);
 	}
 
@@ -198,7 +200,7 @@ public class WebLoginService {
 		Duration expire = Duration.ofSeconds(loginUser.getExpireIn() - 30);
 		// Auth-user:login:token:[authUserToken]
 		RedissonUtil.set(GlobalConstant.LOGIN_TOKEN_PREFIX + loginUser.getAccessToken(), loginUser, expire);
-		return loginUser;
+		return loginUser.toAuthUserToken();
 	}
 
 	/**

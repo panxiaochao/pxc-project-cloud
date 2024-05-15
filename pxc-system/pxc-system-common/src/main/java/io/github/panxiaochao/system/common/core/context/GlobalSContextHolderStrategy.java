@@ -1,5 +1,7 @@
 package io.github.panxiaochao.system.common.core.context;
 
+import org.springframework.util.Assert;
+
 /**
  * <p>
  * </p>
@@ -38,8 +40,8 @@ public class GlobalSContextHolderStrategy implements SContextHolderStrategy {
 	 */
 	@Override
 	public void setContext(SContext context) {
-		// Assert.notNull(context, "Only non-null SContext instances are permitted");
-		// this.CONTEXT_HOLDER = context;
+		Assert.notNull(context, "Only non-null SContext instances are permitted");
+		this.CONTEXT_HOLDER = context;
 	}
 
 	/**

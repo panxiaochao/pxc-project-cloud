@@ -35,6 +35,8 @@ spring:
     database: 0
   # 开启框架配置
   pxc-framework:
+    # 是否开启异步
+    async: true
     # 是否开启跨域
     cors: true
     operatelog:

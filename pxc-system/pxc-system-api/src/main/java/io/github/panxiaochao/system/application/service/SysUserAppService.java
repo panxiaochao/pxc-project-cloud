@@ -1,6 +1,5 @@
 package io.github.panxiaochao.system.application.service;
 
-import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.enums.CommonResponseEnum;
 import io.github.panxiaochao.core.exception.ServerRuntimeException;
@@ -22,6 +21,7 @@ import io.github.panxiaochao.system.application.convert.ISysUserDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysUserAuthsReadModelService;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
 import io.github.panxiaochao.system.application.runner.helper.CacheHelper;
+import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import io.github.panxiaochao.system.domain.entity.SysOrg;
 import io.github.panxiaochao.system.domain.entity.SysUser;
 import io.github.panxiaochao.system.domain.entity.SysUserOrg;
@@ -34,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -199,6 +200,16 @@ public class SysUserAppService {
 		sysUserRoleDomainService.deleteByUserId(id);
 		// 4.删除密码管理信息
 		sysUserAuthsDomainService.deleteByUserId(id);
+		return R.ok();
+	}
+
+	/**
+	 * 记录用户登录信息
+	 * @param userId 用户ID
+	 * @param loginTime 登录信息
+	 */
+	public R<Void> updateUserLogin(String userId, LocalDateTime loginTime) {
+		sysUserDomainService.updateUserLogin(userId, loginTime);
 		return R.ok();
 	}
 

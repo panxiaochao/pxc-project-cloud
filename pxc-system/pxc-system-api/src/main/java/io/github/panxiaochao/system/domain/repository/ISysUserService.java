@@ -2,6 +2,8 @@ package io.github.panxiaochao.system.domain.repository;
 
 import io.github.panxiaochao.system.domain.entity.SysUser;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 用户表 Domain接口服务类.
@@ -37,5 +39,12 @@ public interface ISysUserService {
 	 * @param id 主键
 	 */
 	void deleteById(String id);
+
+	/**
+	 * 记录用户登录信息
+	 * @param userId 用户ID
+	 * @param loginTime 登录信息
+	 */
+	void updateUserLogin(String userId, LocalDateTime loginTime);
 
 }

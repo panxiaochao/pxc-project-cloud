@@ -5,6 +5,8 @@ import io.github.panxiaochao.system.domain.repository.ISysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 用户表 Domain服务类.
@@ -54,6 +56,15 @@ public class SysUserDomainService {
 	 */
 	public void deleteById(String id) {
 		sysUserService.deleteById(id);
+	}
+
+	/**
+	 * 记录用户登录信息
+	 * @param userId 用户ID
+	 * @param loginTime 登录信息
+	 */
+	public void updateUserLogin(String userId, LocalDateTime loginTime) {
+		sysUserService.updateUserLogin(userId, loginTime);
 	}
 
 }

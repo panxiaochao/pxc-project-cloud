@@ -50,6 +50,6 @@ public class PAuthUserToken {
 	/**
 	 * 令牌权限
 	 */
-//	private String scope;
+	// private String scope;
 
 }

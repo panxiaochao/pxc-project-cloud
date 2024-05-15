@@ -1,6 +1,7 @@
 package io.github.panxiaochao.system.infrastructure.dao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -167,6 +169,18 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
 	@Override
 	public void deleteById(String id) {
 		sysUserMapper.deleteById(id);
+	}
+
+	/**
+	 * 记录用户登录信息
+	 * @param userId 用户ID
+	 * @param loginTime 登录信息
+	 */
+	@Override
+	public void updateUserLogin(String userId, LocalDateTime loginTime) {
+		sysUserMapper.update(new LambdaUpdateWrapper<SysUserPO>().eq(SysUserPO::getId, userId)
+			.set(SysUserPO::getLoginTime, loginTime)
+			.setSql("login_nums = login_nums + 1"));
 	}
 
 }
