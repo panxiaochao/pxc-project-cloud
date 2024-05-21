@@ -35,4 +35,5 @@ public class ${entity}UpdateRequest {
     private <#if field.propertyType="Long">String<#elseif field.propertyType="Integer">String<#else>${field.propertyType}</#if> ${field.propertyName};
     </#if>
 </#list>
+
 }

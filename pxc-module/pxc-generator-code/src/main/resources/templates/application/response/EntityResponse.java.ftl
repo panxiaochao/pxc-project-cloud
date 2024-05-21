@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 public class ${entity}Response {
 <#list table.fields as field>
     <#if field.keyFlag>
+
     /**
      * ${field.comment}
      */
@@ -35,4 +36,5 @@ public class ${entity}Response {
     private <#if field.propertyType="Long">String<#elseif field.propertyType="Integer">String<#else>${field.propertyType}</#if> ${field.propertyName};
     </#if>
 </#list>
+
 }

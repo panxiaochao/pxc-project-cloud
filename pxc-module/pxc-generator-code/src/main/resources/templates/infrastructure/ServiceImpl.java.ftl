@@ -64,9 +64,27 @@ public class ${table.serviceImplName} implements I${entity}Service, I${entity}Re
     }
 
     /**
+     * 查询单条记录
+     * @param queryRequest ${table.comment!}查询请求对象
+     * @return ${table.comment!}查询响应对象
+     */
+    @Override
+    public ${entity}QueryResponse getOne(${entity}QueryRequest queryRequest) {
+        // 构造查询条件
+        LambdaQueryWrapper<${entity}PO> lqw = lambdaQuery(queryRequest);
+        try {
+            ${entity}PO ${entity?uncap_first}PO = ${entity?uncap_first}Mapper.selectOne(lqw);
+            return I${entity}POConvert.INSTANCE.toQueryResponse(${entity?uncap_first}PO);
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
      * 查询条件
-     * @param queryRequest 角色表查询请求对象
-     * @return 角色表Lambda表达式
+     * @param queryRequest ${table.comment!}查询请求对象
+     * @return ${table.comment!}Lambda表达式
      */
     private LambdaQueryWrapper<${entity}PO> lambdaQuery(${entity}QueryRequest queryRequest) {
         LambdaQueryWrapper<${entity}PO> lqw = Wrappers.lambdaQuery();

@@ -30,4 +30,11 @@ public interface I${entity}ReadModelService {
      */
     List<${entity}QueryResponse> selectList(${entity}QueryRequest queryRequest);
 
+    /**
+     * 查询单条记录
+     * @param queryRequest ${table.comment!}查询请求对象
+     * @return ${table.comment!}查询响应对象
+     */
+    ${entity}QueryResponse getOne(${entity}QueryRequest queryRequest);
+
 }

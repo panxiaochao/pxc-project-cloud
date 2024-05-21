@@ -27,7 +27,7 @@ public class PxcMybatisPlusGeneratorTest {
 			.entityName("po")
 			.insertFields("create_time")
 			.updateFields("update_time")
-			.includes("database_field_type", "sys_role_menu")
+			.includes("database_source")
 			.build();
 	}
 
