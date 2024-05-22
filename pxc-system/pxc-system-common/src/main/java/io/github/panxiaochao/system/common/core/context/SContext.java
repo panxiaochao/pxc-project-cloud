@@ -17,15 +17,14 @@ public interface SContext extends Serializable {
 
 	/**
 	 * Obtains the currently LoginUser.
-	 * @return the <code>LoginUser</code> or <code>null</code> if no LoginUser information is
-	 * available
+	 * @return the <code>LoginUser</code> or <code>null</code> if no LoginUser information
+	 * is available
 	 */
 	LoginUser getLoginUser();
 
 	/**
 	 * Changes the currently LoginUser, or removes the LoginUser information.
-	 * @param loginUser the new <code>LoginUser</code>
-	 * PToken information should be stored
+	 * @param loginUser the new <code>LoginUser</code> PToken information should be stored
 	 */
 	void setLoginUser(LoginUser loginUser);
 

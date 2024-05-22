@@ -59,7 +59,6 @@ public class WebLoginApi {
 	 * 登出
 	 */
 	@PostMapping("/logout")
-	@OperateLog(key = "#username", description = "登出", businessType = OperateLog.BusinessType.LOGOUT)
 	@Operation(summary = "登出接口", description = "登出接口", method = "POST")
 	public R<Boolean> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
 		if (StrUtil.isBlank(authHeader)) {
@@ -74,7 +73,6 @@ public class WebLoginApi {
 	 * @param token token
 	 */
 	@DeleteMapping("/remove/{token}")
-	@OperateLog(key = "#token", title = "登录管理", description = "移除令牌", businessType = OperateLog.BusinessType.DELETE)
 	@Operation(summary = "移除令牌", description = "移除令牌", method = "DELETE")
 	public R<Boolean> removeToken(@PathVariable("token") String token) {
 		return R.ok(loginWebService.removeToken(token));

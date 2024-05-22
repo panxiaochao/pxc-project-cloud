@@ -45,7 +45,7 @@ public class SysRoleMenuApi {
 	@Operation(summary = "查询角色下的菜单权限", description = "查询角色下的菜单权限", method = "GET")
 	@Parameter(name = "roleId", description = "角色ID")
 	@GetMapping("/queryRoleMenus")
-	public R<List<String>> queryRoleMenus(@RequestParam String roleId){
+	public R<List<String>> queryRoleMenus(@RequestParam String roleId) {
 		return sysRoleMenuAppService.queryRoleMenus(roleId);
 	}
 

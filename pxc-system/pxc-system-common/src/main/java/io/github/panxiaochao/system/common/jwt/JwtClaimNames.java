@@ -9,42 +9,44 @@ package io.github.panxiaochao.system.common.jwt;
  * @version 1.0
  */
 public interface JwtClaimNames {
-    /**
-     * {@code iss} - the Issuer claim identifies the principal that issued the JWT
-     */
-    String ISS = "iss";
 
-    /**
-     * {@code sub} - the Subject claim identifies the principal that is the subject of the
-     * JWT
-     */
-    String SUB = "sub";
+	/**
+	 * {@code iss} - the Issuer claim identifies the principal that issued the JWT
+	 */
+	String ISS = "iss";
 
-    /**
-     * {@code aud} - the Audience claim identifies the recipient(s) that the JWT is
-     * intended for
-     */
-    String AUD = "aud";
+	/**
+	 * {@code sub} - the Subject claim identifies the principal that is the subject of the
+	 * JWT
+	 */
+	String SUB = "sub";
 
-    /**
-     * {@code exp} - the Expiration time claim identifies the expiration time on or after
-     * which the JWT MUST NOT be accepted for processing
-     */
-    String EXP = "exp";
+	/**
+	 * {@code aud} - the Audience claim identifies the recipient(s) that the JWT is
+	 * intended for
+	 */
+	String AUD = "aud";
 
-    /**
-     * {@code nbf} - the Not Before claim identifies the time before which the JWT MUST
-     * NOT be accepted for processing
-     */
-    String NBF = "nbf";
+	/**
+	 * {@code exp} - the Expiration time claim identifies the expiration time on or after
+	 * which the JWT MUST NOT be accepted for processing
+	 */
+	String EXP = "exp";
 
-    /**
-     * {@code iat} - The Issued at claim identifies the time at which the JWT was issued
-     */
-    String IAT = "iat";
+	/**
+	 * {@code nbf} - the Not Before claim identifies the time before which the JWT MUST
+	 * NOT be accepted for processing
+	 */
+	String NBF = "nbf";
 
-    /**
-     * {@code jti} - The JWT ID claim provides a unique identifier for the JWT
-     */
-    String JTI = "jti";
+	/**
+	 * {@code iat} - The Issued at claim identifies the time at which the JWT was issued
+	 */
+	String IAT = "iat";
+
+	/**
+	 * {@code jti} - The JWT ID claim provides a unique identifier for the JWT
+	 */
+	String JTI = "jti";
+
 }

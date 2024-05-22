@@ -13,19 +13,20 @@ import io.github.panxiaochao.core.ienums.IEnum;
  */
 public class TokenResolverException extends ServerRuntimeException {
 
-    public TokenResolverException(IEnum<Integer> responseEnum) {
-        super(responseEnum);
-    }
+	public TokenResolverException(IEnum<Integer> responseEnum) {
+		super(responseEnum);
+	}
 
-    public TokenResolverException(IEnum<Integer> responseEnum, String message) {
-        super(responseEnum, message);
-    }
+	public TokenResolverException(IEnum<Integer> responseEnum, String message) {
+		super(responseEnum, message);
+	}
 
-    public TokenResolverException(IEnum<Integer> responseEnum, Throwable cause) {
-        super(responseEnum, cause);
-    }
+	public TokenResolverException(IEnum<Integer> responseEnum, Throwable cause) {
+		super(responseEnum, cause);
+	}
 
-    public TokenResolverException(IEnum<Integer> responseEnum, String message, Throwable cause) {
-        super(responseEnum, message, cause);
-    }
+	public TokenResolverException(IEnum<Integer> responseEnum, String message, Throwable cause) {
+		super(responseEnum, message, cause);
+	}
+
 }

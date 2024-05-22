@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
  * @since 2024-03-07
  * @version 1.0
  */
-public class ThreadLocalSContextHolderStrategy implements SContextHolderStrategy{
+public class ThreadLocalSContextHolderStrategy implements SContextHolderStrategy {
 
 	private static final ThreadLocal<SContext> CONTEXT_HOLDER = new ThreadLocal<>();
 

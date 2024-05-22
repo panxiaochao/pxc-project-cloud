@@ -46,37 +46,41 @@ public class SysRoleMenuAppService {
 	 * @param queryRequest 角色菜单表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-//	public PageResponse<SysRoleMenuQueryResponse> page(RequestPage pageRequest,
-// SysRoleMenuQueryRequest queryRequest) {
-// Pagination pagination = new Pagination(pageRequest.getPageNo(),
-// pageRequest.getPageSize());
-// List<SysRoleMenuQueryResponse> list = sysRoleMenuReadModelService.page(pagination,
-// queryRequest);
-// return new PageResponse<>(pagination, list);
-// }
+	// public PageResponse<SysRoleMenuQueryResponse> page(RequestPage pageRequest,
+	// SysRoleMenuQueryRequest queryRequest) {
+	// Pagination pagination = new Pagination(pageRequest.getPageNo(),
+	// pageRequest.getPageSize());
+	// List<SysRoleMenuQueryResponse> list = sysRoleMenuReadModelService.page(pagination,
+	// queryRequest);
+	// return new PageResponse<>(pagination, list);
+	// }
 
 	/**
 	 * 详情
 	 * @param id 主键
 	 * @return 响应对象
 	 */
-//	public R<SysRoleMenuResponse> getById(String id) {
-//		SysRoleMenu sysRoleMenu = sysRoleMenuDomainService.getById(id);
-//		SysRoleMenuResponse sysRoleMenuResponse = ISysRoleMenuDTOConvert.INSTANCE.toResponse(sysRoleMenu);
-//		return R.ok(sysRoleMenuResponse);
-//	}
+	// public R<SysRoleMenuResponse> getById(String id) {
+	// SysRoleMenu sysRoleMenu = sysRoleMenuDomainService.getById(id);
+	// SysRoleMenuResponse sysRoleMenuResponse =
+	// ISysRoleMenuDTOConvert.INSTANCE.toResponse(sysRoleMenu);
+	// return R.ok(sysRoleMenuResponse);
+	// }
 
 	/**
 	 * 保存
 	 * @param sysRoleMenuCreateRequest 创建请求对象
 	 * @return 返回保存对象
 	 */
-//	public R<SysRoleMenuResponse> save(SysRoleMenuCreateRequest sysRoleMenuCreateRequest) {
-//		SysRoleMenu sysRoleMenu = ISysRoleMenuDTOConvert.INSTANCE.fromCreateRequest(sysRoleMenuCreateRequest);
-//		sysRoleMenu = sysRoleMenuDomainService.save(sysRoleMenu);
-//		SysRoleMenuResponse sysRoleMenuResponse = ISysRoleMenuDTOConvert.INSTANCE.toResponse(sysRoleMenu);
-//		return R.ok(sysRoleMenuResponse);
-//	}
+	// public R<SysRoleMenuResponse> save(SysRoleMenuCreateRequest
+	// sysRoleMenuCreateRequest) {
+	// SysRoleMenu sysRoleMenu =
+	// ISysRoleMenuDTOConvert.INSTANCE.fromCreateRequest(sysRoleMenuCreateRequest);
+	// sysRoleMenu = sysRoleMenuDomainService.save(sysRoleMenu);
+	// SysRoleMenuResponse sysRoleMenuResponse =
+	// ISysRoleMenuDTOConvert.INSTANCE.toResponse(sysRoleMenu);
+	// return R.ok(sysRoleMenuResponse);
+	// }
 
 	/**
 	 * 保存, 先删后增，批量保存
@@ -106,21 +110,22 @@ public class SysRoleMenuAppService {
 	 * @param sysRoleMenuUpdateRequest 更新请求对象
 	 * @return 空返回
 	 */
-//	public R<Void> update(SysRoleMenuUpdateRequest sysRoleMenuUpdateRequest) {
-//		SysRoleMenu sysRoleMenu = ISysRoleMenuDTOConvert.INSTANCE.fromUpdateRequest(sysRoleMenuUpdateRequest);
-//		sysRoleMenuDomainService.update(sysRoleMenu);
-//		return R.ok();
-//	}
+	// public R<Void> update(SysRoleMenuUpdateRequest sysRoleMenuUpdateRequest) {
+	// SysRoleMenu sysRoleMenu =
+	// ISysRoleMenuDTOConvert.INSTANCE.fromUpdateRequest(sysRoleMenuUpdateRequest);
+	// sysRoleMenuDomainService.update(sysRoleMenu);
+	// return R.ok();
+	// }
 
 	/**
 	 * 根据主键删除
 	 * @param id 主键
 	 * @return 空返回
 	 */
-//	public R<Void> deleteById(String id) {
-//		sysRoleMenuDomainService.deleteById(id);
-//		return R.ok();
-//	}
+	// public R<Void> deleteById(String id) {
+	// sysRoleMenuDomainService.deleteById(id);
+	// return R.ok();
+	// }
 
 	/**
 	 * 查询角色下的菜单权限

@@ -58,3 +58,13 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     # 开发测试时使用
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+# 暴露指标
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    jmx:
+      exposure:
+        include: "*"

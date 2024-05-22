@@ -24,6 +24,12 @@
             <artifactId>pxc-framework-util</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- pxc-framework-redis 插件 -->
+        <dependency>
+            <groupId>io.github.panxiaochao</groupId>
+            <artifactId>pxc-framework-redis</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!-- knife4j -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>

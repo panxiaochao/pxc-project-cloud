@@ -91,6 +91,7 @@ public class SysMenuApi {
 	public R<List<Tree<String>>> listTree(String menuId, boolean isOnlyMenu) {
 		return R.ok(sysMenuAppService.listTree(menuId, isOnlyMenu));
 	}
+
 	@Operation(summary = "获取所有菜单树下拉", description = "获取所有菜单树下拉，用于下拉角色关联权限", method = "GET")
 	@GetMapping(value = "/queryForAllTree")
 	public R<Map<String, Object>> queryForAllTree() {

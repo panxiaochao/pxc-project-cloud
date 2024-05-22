@@ -44,7 +44,7 @@
                su.sex,
                su.org_id,
                su.org_code,
-               su.expire_time as user_expire_time,
+               su.expire_time  as user_expire_time,
                sua.identity_type,
                sua.identifier,
                sua.credential,

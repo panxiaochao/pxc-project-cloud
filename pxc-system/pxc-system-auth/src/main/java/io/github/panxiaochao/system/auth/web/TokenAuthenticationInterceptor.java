@@ -120,7 +120,7 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		try {
-			// SecurityContextHolder 上下文构建存储 Token
+			// SContextHolder 上下文构建存储 Token
 			SContext context = SContextHolder.createEmptyContext();
 			context.setLoginUser(loginUser);
 			SContextHolder.setContext(context);
