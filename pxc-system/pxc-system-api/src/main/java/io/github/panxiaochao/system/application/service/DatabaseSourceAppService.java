@@ -27,6 +27,7 @@ import org.springframework.util.CollectionUtils;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -88,6 +89,13 @@ public class DatabaseSourceAppService {
 	public R<DatabaseSourceResponse> save(DatabaseSourceCreateRequest databaseSourceCreateRequest) {
 		DatabaseSource databaseSource = IDatabaseSourceDTOConvert.INSTANCE
 			.fromCreateRequest(databaseSourceCreateRequest);
+		// 验证是否重复
+		DatabaseSourceQueryRequest queryRequest = new DatabaseSourceQueryRequest();
+		queryRequest.setDbCode(databaseSource.getDbCode());
+		DatabaseSourceQueryResponse one = databaseSourceReadModelService.getOne(queryRequest);
+		if (Objects.nonNull(one)) {
+			return R.fail("数据库编码[" + one.getDbCode() + "]已存在");
+		}
 		databaseSource = databaseSourceDomainService.save(databaseSource);
 		DatabaseSourceResponse databaseSourceResponse = IDatabaseSourceDTOConvert.INSTANCE.toResponse(databaseSource);
 		return R.ok(databaseSourceResponse);

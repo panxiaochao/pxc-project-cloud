@@ -1,7 +1,5 @@
 package io.github.panxiaochao.system.auth.service;
 
-import cn.hutool.http.useragent.UserAgent;
-import cn.hutool.http.useragent.UserAgentUtil;
 import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
@@ -10,7 +8,6 @@ import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.CollectionUtil;
 import io.github.panxiaochao.core.utils.IpUtil;
 import io.github.panxiaochao.core.utils.ObjectUtil;
-import io.github.panxiaochao.core.utils.RequestUtil;
 import io.github.panxiaochao.core.utils.SpringContextUtil;
 import io.github.panxiaochao.core.utils.date.LocalDateTimeUtil;
 import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
@@ -202,8 +199,8 @@ public class WebLoginService {
 		loginUser.setRefreshExpireIn(pAuthProperties.getRefreshTokenTimeToLive());
 		loginUser.setExpireIn(pAuthProperties.getAccessTokenTimeToLive());
 
-		// 缓存令牌, 提前30秒失效，以免击穿或穿透
-		Duration expire = Duration.ofSeconds(loginUser.getExpireIn() - 30);
+		// 缓存令牌
+		Duration expire = Duration.ofSeconds(loginUser.getExpireIn());
 		// Auth-user:login:token:[authUserToken]
 		RedissonUtil.set(GlobalConstant.LOGIN_TOKEN_PREFIX + loginUser.getAccessToken(), loginUser, expire);
 		return loginUser.toAuthUserToken();
@@ -217,7 +214,10 @@ public class WebLoginService {
 	public Boolean removeToken(String token) {
 		LoginUser loginUser = RedissonUtil.getAndDelete(GlobalConstant.LOGIN_TOKEN_PREFIX + token);
 		LoginContextHelper.clear();
-		recordLogOutLog(loginUser);
+		// 用户数据不为空
+		if (null != loginUser) {
+			recordLogOutLog(loginUser);
+		}
 		return true;
 	}
 
@@ -226,30 +226,12 @@ public class WebLoginService {
 	 * @param loginUser 用户信息
 	 */
 	private void recordLogOutLog(LoginUser loginUser) {
-		OperateLogDomain operateLogDomain = new OperateLogDomain();
-		String className = WebLoginService.class.getName();
-		String methodName = "removeToken";
-		operateLogDomain.setClassName(WebLoginService.class.getSimpleName());
-		operateLogDomain.setClassMethod(className + "." + methodName + "()");
+		OperateLogDomain operateLogDomain = OperateLogDomain.build(null, WebLoginService.class, "removeToken");
 		operateLogDomain.setTitle("登录管理");
 		operateLogDomain.setDescription("移除令牌");
 		operateLogDomain.setBusinessType(OperateLog.BusinessType.LOGOUT.ordinal());
 		operateLogDomain.setOperateUsertype(OperateLog.OperatorUserType.WEB.ordinal());
-		operateLogDomain.setRequestUrl(RequestUtil.getRequest().getRequestURI());
-		operateLogDomain.setRequestMethod(RequestUtil.getRequest().getMethod());
-		operateLogDomain.setRequestContentType(RequestUtil.getRequest().getContentType());
-		operateLogDomain.setIp(IpUtil.ofRequestIp());
-		operateLogDomain.setRequestDateTime(LocalDateTime.now());
-		operateLogDomain.setCode(1);
-		// 设置请求浏览器和操作系统
-		String uaString = RequestUtil.getRequest().getHeader("User-Agent").toLowerCase();
-		UserAgent userAgent = UserAgentUtil.parse(uaString);
-		operateLogDomain.setBrowser(userAgent.getBrowser().toString() + " " + userAgent.getVersion());
-		operateLogDomain.setOs(userAgent.getPlatform().toString() + " " + userAgent.getOs().toString());
-		operateLogDomain.setCostTime(0);
-		if (null != loginUser) {
-			operateLogDomain.setValue(loginUser.getUserName());
-		}
+		operateLogDomain.setValue(loginUser.getUserName());
 		SpringContextUtil.publishEvent(operateLogDomain);
 	}
 

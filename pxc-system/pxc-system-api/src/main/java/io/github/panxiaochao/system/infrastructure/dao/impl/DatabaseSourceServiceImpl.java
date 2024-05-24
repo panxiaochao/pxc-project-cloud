@@ -94,7 +94,7 @@ public class DatabaseSourceServiceImpl implements IDatabaseSourceService, IDatab
 			lqw.orderByDesc(DatabaseSourcePO::getId);
 			// 如果 数据库名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getDbName())) {
-				lqw.eq(DatabaseSourcePO::getDbName, queryRequest.getDbName());
+				lqw.like(DatabaseSourcePO::getDbName, queryRequest.getDbName());
 			}
 			// 如果 数据源编码 不为空
 			if (StringUtils.isNotBlank(queryRequest.getDbCode())) {
