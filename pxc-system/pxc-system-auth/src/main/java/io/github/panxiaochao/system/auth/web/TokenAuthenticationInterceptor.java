@@ -123,6 +123,8 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 			// 缓存中Token数据已失效
 			if (null == loginUser) {
 				commence(response, new TokenAuthenticationException(TokenException.TOKEN_EXPIRE_EXCEPTION));
+				// doc:2024-06-05 18:45:49 [fix: 修复报错直接返回false]
+				return false;
 			}
 			// SContextHolder 上下文构建存储 Token
 			SContext context = SContextHolder.createEmptyContext();
