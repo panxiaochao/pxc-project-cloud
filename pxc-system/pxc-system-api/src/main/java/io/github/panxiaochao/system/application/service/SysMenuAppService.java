@@ -206,7 +206,7 @@ public class SysMenuAppService {
 	 * 获取所有菜单树下拉
 	 * @return 集合对象数据，包含下拉菜单数据，所有菜单ID集合
 	 */
-	public Map<String, Object> queryForAll() {
+	public Map<String, Object> queryAllTree() {
 		SysMenuQueryRequest queryRequest = new SysMenuQueryRequest();
 		String rootId = CommonConstant.TREE_ROOT_ID.toString();
 		List<SysMenuQueryResponse> list = sysMenuReadModelService.list(queryRequest);

@@ -1,12 +1,11 @@
 package io.github.panxiaochao.system.common.utils;
 
-import io.github.panxiaochao.core.utils.ObjectUtil;
 import io.github.panxiaochao.system.common.core.context.SContextHolder;
 import io.github.panxiaochao.system.common.model.LoginUser;
 
 /**
  * <p>
- * 登录上下文助手
+ * 登录用户 上下文助手
  * </p>
  *
  * @author Lypxc
@@ -19,11 +18,7 @@ public class LoginContextHelper {
 	 * 获取用户
 	 */
 	public static LoginUser getLoginUser() {
-		LoginUser loginUser = SContextHolder.getContext().getLoginUser();
-		if (ObjectUtil.isEmpty(loginUser)) {
-			return null;
-		}
-		return loginUser;
+        return SContextHolder.getContext().getLoginUser();
 	}
 
 	/**

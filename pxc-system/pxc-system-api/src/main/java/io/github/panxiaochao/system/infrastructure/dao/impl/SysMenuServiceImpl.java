@@ -192,4 +192,35 @@ public class SysMenuServiceImpl implements ISysMenuService, ISysMenuReadModelSer
 		sysMenuMapper.deleteById(id);
 	}
 
+	/**
+	 * 根据用户ID查询权限
+	 * @param userId 用户ID
+	 * @return 权限列表
+	 */
+	@Override
+	public List<String> selectMenuPermissionCodeByUserId(String userId) {
+		return sysMenuMapper.selectMenuPermissionCodeByUserId(userId);
+	}
+
+	/**
+	 * 根据角色ID查询权限
+	 * @param roleId 角色ID
+	 * @return 权限列表
+	 */
+	@Override
+	public List<String> selectMenuPermissionCodeByRoleId(String roleId) {
+		return sysMenuMapper.selectMenuPermissionCodeByRoleId(roleId);
+	}
+
+	/**
+	 * 根据用户ID查询菜单列表（用户权限下的菜单）
+	 * @param userId 用户ID
+	 * @return 菜单列表
+	 */
+	@Override
+	public List<SysMenuQueryResponse> selectMenuByUserId(String userId) {
+		List<SysMenuPO> sysMenuPOList = sysMenuMapper.selectMenuByUserId(userId);
+		return ISysMenuPOConvert.INSTANCE.toQueryResponse(sysMenuPOList);
+	}
+
 }

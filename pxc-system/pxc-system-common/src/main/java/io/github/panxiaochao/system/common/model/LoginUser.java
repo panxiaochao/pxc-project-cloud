@@ -102,7 +102,7 @@ public class LoginUser extends PAuthUserToken implements Serializable {
 	/**
 	 * 菜单按钮权限集合
 	 */
-	private Set<String> menuPermissionCode;
+	private Set<String> permissions;
 
 	/**
 	 * 颁发令牌的时间

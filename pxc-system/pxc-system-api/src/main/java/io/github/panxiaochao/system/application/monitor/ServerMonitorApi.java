@@ -30,7 +30,7 @@ public class ServerMonitorApi {
 	@Operation(summary = "获取系统信息", description = "获取系统信息", method = "GET")
 	@GetMapping
 	public R<ServerInfo> monitor() {
-		return R.ok(SystemServerUtil.INSTANCE().getServerInfo());
+		return R.ok(SystemServerUtil.getServerInfo());
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class ServerMonitorApi {
 	@Operation(summary = "获取网络速率", description = "获取网络速率", method = "GET")
 	@GetMapping("/networkInterfaces")
 	public R<Object> networkInterfaces() {
-		return R.ok(SystemServerUtil.INSTANCE().ofNetworkInterfaces());
+		return R.ok(SystemServerUtil.ofNetworkInterfaces());
 	}
 
 }

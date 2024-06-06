@@ -38,4 +38,11 @@ public interface ISysRoleReadModelService {
 	 */
 	SysRoleQueryResponse getOne(SysRoleQueryRequest queryRequest);
 
+	/**
+	 * 根据用户ID查询所有角色
+	 * @param userId 用户ID
+	 * @return 角色数组
+	 */
+	List<SysRoleQueryResponse> selectRolesByUserId(String userId);
+
 }

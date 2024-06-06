@@ -160,9 +160,9 @@ public class SysRoleServiceImpl implements ISysRoleService, ISysRoleReadModelSer
 	 * @return 角色数组
 	 */
 	@Override
-	public List<SysRole> selectRolesByUserId(String userId) {
+	public List<SysRoleQueryResponse> selectRolesByUserId(String userId) {
 		List<SysRolePO> sysRolePOList = sysRoleMapper.selectRolesByUserId(userId);
-		return ISysRolePOConvert.INSTANCE.toEntity(sysRolePOList);
+		return ISysRolePOConvert.INSTANCE.toQueryResponse(sysRolePOList);
 	}
 
 }

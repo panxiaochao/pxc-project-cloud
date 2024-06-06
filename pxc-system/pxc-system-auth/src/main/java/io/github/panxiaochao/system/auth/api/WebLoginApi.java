@@ -1,12 +1,14 @@
 package io.github.panxiaochao.system.auth.api;
 
 import cn.hutool.core.util.StrUtil;
+import io.github.panxiaochao.core.component.tree.Tree;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
 import io.github.panxiaochao.ratelimiter.annotation.RateLimiter;
+import io.github.panxiaochao.system.auth.api.response.LoginUserResponse;
 import io.github.panxiaochao.system.auth.api.response.TokenOnlineQueryResponse;
 import io.github.panxiaochao.system.auth.request.LoginRequest;
 import io.github.panxiaochao.system.auth.service.WebLoginService;
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -52,7 +56,7 @@ public class WebLoginApi {
 	@OperateLog(key = "#loginRequest.username", description = "登录", businessType = OperateLog.BusinessType.LOGIN)
 	@Operation(summary = "登录接口", description = "登录接口", method = "POST")
 	public R<PAuthUserToken> login(@RequestBody @Validated LoginRequest loginRequest) {
-		return loginWebService.login(loginRequest);
+		return R.ok(loginWebService.login(loginRequest));
 	}
 
 	/**
@@ -86,6 +90,24 @@ public class WebLoginApi {
 	@Operation(summary = "在线用户分页令牌管理", description = "在线用户分页令牌管理", method = "GET")
 	public R<PageResponse<TokenOnlineQueryResponse>> tokenPage(RequestPage pageRequest, String username) {
 		return R.ok(loginWebService.tokenPage(pageRequest, username));
+	}
+
+	/**
+	 * 获取当前登录用户信息
+	 */
+	@GetMapping("/userinfo")
+	@Operation(summary = "获取当前登录用户信息", description = "获取当前登录用户信息", method = "GET")
+	public R<LoginUserResponse> userinfo() {
+		return R.ok(loginWebService.userinfo());
+	}
+
+	/**
+	 * 根据当前用户查询菜单列表（用户权限下的菜单）
+	 */
+	@GetMapping("/currentUserRouters")
+	@Operation(summary = "根据当前用户查询菜单列表", description = "根据当前用户查询菜单列表（用户权限下的菜单）", method = "GET")
+	public R<List<Tree<String>>> currentUserRouters() {
+		return R.ok(loginWebService.currentUserRouters());
 	}
 
 }

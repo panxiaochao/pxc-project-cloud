@@ -93,9 +93,9 @@ public class SysMenuApi {
 	}
 
 	@Operation(summary = "获取所有菜单树下拉", description = "获取所有菜单树下拉，用于下拉角色关联权限", method = "GET")
-	@GetMapping(value = "/queryForAllTree")
-	public R<Map<String, Object>> queryForAllTree() {
-		return R.ok(sysMenuAppService.queryForAll());
+	@GetMapping(value = "/queryAllTree")
+	public R<Map<String, Object>> queryAllTree() {
+		return R.ok(sysMenuAppService.queryAllTree());
 	}
 
 }

@@ -1,10 +1,15 @@
 package io.github.panxiaochao.system.auth.service;
 
+import io.github.panxiaochao.core.component.tree.Tree;
+import io.github.panxiaochao.core.component.tree.TreeBuilder;
+import io.github.panxiaochao.core.component.tree.TreeNode;
+import io.github.panxiaochao.core.component.tree.TreeNodeProperties;
+import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.exception.ServerRuntimeException;
-import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.BooleanUtil;
 import io.github.panxiaochao.core.utils.CollectionUtil;
 import io.github.panxiaochao.core.utils.IpUtil;
 import io.github.panxiaochao.core.utils.ObjectUtil;
@@ -13,9 +18,12 @@ import io.github.panxiaochao.core.utils.date.LocalDateTimeUtil;
 import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
 import io.github.panxiaochao.operate.log.core.domain.OperateLogDomain;
 import io.github.panxiaochao.redis.utils.RedissonUtil;
+import io.github.panxiaochao.system.application.api.response.sysmenu.SysMenuQueryResponse;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
+import io.github.panxiaochao.system.auth.api.response.LoginUserResponse;
 import io.github.panxiaochao.system.auth.api.response.TokenOnlineQueryResponse;
 import io.github.panxiaochao.system.auth.config.properties.PAuthProperties;
+import io.github.panxiaochao.system.auth.convert.ILoginUserDTOConvert;
 import io.github.panxiaochao.system.auth.convert.ITokenOnlineDTOConvert;
 import io.github.panxiaochao.system.auth.request.LoginRequest;
 import io.github.panxiaochao.system.common.constants.GlobalConstant;
@@ -35,6 +43,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -44,6 +53,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -81,7 +91,7 @@ public class WebLoginService {
 	 */
 	private final PAuthProperties pAuthProperties;
 
-	public R<PAuthUserToken> login(LoginRequest loginRequest) {
+	public PAuthUserToken login(LoginRequest loginRequest) {
 		String identityType = LoginIdentityType.detect(loginRequest.getUsername());
 		SysUserLogin sysUserLogin = sysUserReadModelService.loadUserByIdentityType(loginRequest.getUsername(),
 				identityType);
@@ -98,7 +108,7 @@ public class WebLoginService {
 		PAuthUserToken userToken = buildAuthToken(loginUser);
 		// 异步更新用户数据，比如登录时间
 		SpringContextUtil.publishEvent(loginUser);
-		return R.ok(userToken);
+		return userToken;
 	}
 
 	/**
@@ -166,7 +176,7 @@ public class WebLoginService {
 		loginUser.setIp(IpUtil.ofRequestIp());
 		loginUser.setLoginTime(LocalDateTime.now());
 		loginUser.setRoles(sysPermissionDomainService.selectRolePermission(sysUserLogin.getUserId()));
-		loginUser.setMenuPermissionCode(sysPermissionDomainService.selectMenuPermissionCode(sysUserLogin.getUserId()));
+		loginUser.setPermissions(sysPermissionDomainService.selectMenuPermissionCode(sysUserLogin.getUserId()));
 		return loginUser;
 	}
 
@@ -253,6 +263,50 @@ public class WebLoginService {
 			list.forEach(s -> s.setExpireAtStr(LocalDateTimeUtil.longToLocalDateTime(s.getExpiresAt())));
 		}
 		return new PageResponse<>(pagination, list);
+	}
+
+	/**
+	 * 获取当前登录用户信息
+	 * @return 当前登录用户对象
+	 */
+	public LoginUserResponse userinfo() {
+		LoginUser loginUser = LoginContextHelper.getLoginUser();
+		return ILoginUserDTOConvert.INSTANCE.toQueryResponse(loginUser);
+	}
+
+	/**
+	 * 根据当前用户查询菜单列表（用户权限下的菜单）
+	 * @return 菜单列表
+	 */
+	public List<Tree<String>> currentUserRouters() {
+		LoginUser loginUser = LoginContextHelper.getLoginUser();
+		List<SysMenuQueryResponse> list = sysPermissionDomainService.selectMenu(loginUser.getUserId());
+		List<TreeNode<String>> treeNodeList = list.stream()
+			.map(s -> TreeNode.of(s.getId(), s.getParentId(), s.getMenuName(), s.getSort(), (extraMap) -> {
+				extraMap.put("path", s.getUrl());
+				extraMap.put("redirect", s.getRedirectUrl());
+				extraMap.put("component", s.getComponent());
+				extraMap.put("name", s.getComponentName());
+				extraMap.put("permissionCode", s.getPermissionCode());
+				extraMap.put("permissionStatus", s.getPermissionStatus());
+				extraMap.put("icon", s.getIcon());
+				extraMap.put("menuType", s.getMenuType());
+				extraMap.put("openType", BooleanUtil.toBoolean(s.getOpenType()));
+				extraMap.put("route", BooleanUtil.toBoolean(s.getIsRoute()));
+				extraMap.put("keepAlive", BooleanUtil.toBoolean(s.getKeepAlive()));
+				extraMap.put("hidden", BooleanUtil.toBoolean(s.getIsHidden()));
+			}))
+			.collect(Collectors.toList());
+		// 修改节点属性
+		TreeNodeProperties treeNodeProperties = TreeNodeProperties.builder();
+		treeNodeProperties.labelKey("title");
+		treeNodeProperties.idKey("key");
+		// 构建树
+		List<Tree<String>> treeList = TreeBuilder.of(CommonConstant.TREE_ROOT_ID.toString(), false, treeNodeProperties)
+			.append(treeNodeList)
+			.fastBuild()
+			.toTreeList();
+		return CollectionUtils.isEmpty(treeList) ? new ArrayList<>() : treeList;
 	}
 
 }
