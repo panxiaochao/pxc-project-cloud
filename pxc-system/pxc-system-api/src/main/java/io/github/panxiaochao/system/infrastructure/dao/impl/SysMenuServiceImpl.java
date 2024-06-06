@@ -102,10 +102,6 @@ public class SysMenuServiceImpl implements ISysMenuService, ISysMenuReadModelSer
 			if (StringUtils.isNotBlank(queryRequest.getPermissionCode())) {
 				lqw.eq(SysMenuPO::getPermissionCode, queryRequest.getPermissionCode());
 			}
-			// 如果 菜单权限状态：1显示，0禁用 不为空
-			if (StringUtils.isNotBlank(queryRequest.getPermissionStatus())) {
-				lqw.eq(SysMenuPO::getPermissionStatus, queryRequest.getPermissionStatus());
-			}
 			// 如果 菜单图标 不为空
 			if (StringUtils.isNotBlank(queryRequest.getIcon())) {
 				lqw.eq(SysMenuPO::getIcon, queryRequest.getIcon());
@@ -117,14 +113,6 @@ public class SysMenuServiceImpl implements ISysMenuService, ISysMenuReadModelSer
 			// 如果 打开页面方式： 0-内部；1-外链（默认值0） 不为空
 			if (StringUtils.isNotBlank(queryRequest.getOpenType())) {
 				lqw.eq(SysMenuPO::getOpenType, queryRequest.getOpenType());
-			}
-			// 如果 是否显示：0-否；1-是（默认值1） 不为空
-			if (StringUtils.isNotBlank(queryRequest.getIsDisplay())) {
-				lqw.eq(SysMenuPO::getIsDisplay, queryRequest.getIsDisplay());
-			}
-			// 如果 是否路由菜单：0-不是 1-是（默认值1） 不为空
-			if (StringUtils.isNotBlank(queryRequest.getIsRoute())) {
-				lqw.eq(SysMenuPO::getIsRoute, queryRequest.getIsRoute());
 			}
 			// 如果 是否缓存页面：0-不是 1-是（默认值0） 不为空
 			if (StringUtils.isNotBlank(queryRequest.getKeepAlive())) {

@@ -12,12 +12,9 @@
         <result column="component" property="component"/>
         <result column="component_name" property="componentName"/>
         <result column="permission_code" property="permissionCode"/>
-        <result column="permission_status" property="permissionStatus"/>
         <result column="icon" property="icon"/>
         <result column="menu_type" property="menuType"/>
         <result column="open_type" property="openType"/>
-        <result column="is_display" property="isDisplay"/>
-        <result column="is_route" property="isRoute"/>
         <result column="keep_alive" property="keepAlive"/>
         <result column="is_hidden" property="isHidden"/>
         <result column="remark" property="remark"/>
@@ -31,7 +28,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        , parent_id, menu_name, url, redirect_url, `component`, component_name, permission_code, permission_status, icon, menu_type, open_type, is_display, is_route, keep_alive, is_hidden, remark, state, sort, create_id, create_time, update_time
+        , parent_id, menu_name, url, redirect_url, `component`, component_name, permission_code, icon, menu_type, open_type, keep_alive, is_hidden, remark, state, sort, create_id, create_time, update_time
     </sql>
 
     <select id="selectMenuByUserId" resultMap="BaseResultMap">
@@ -43,12 +40,9 @@
                         m.component,
                         m.component_name,
                         m.permission_code,
-                        m.permission_status,
                         m.icon,
                         m.menu_type,
                         m.open_type,
-                        m.is_display,
-                        m.is_route,
                         m.keep_alive,
                         m.is_hidden,
                         m.remark,
@@ -61,7 +55,8 @@
                  left join sys_role_menu rm on m.id = rm.menu_id
                  left join sys_user_role sur on rm.role_id = sur.role_id
                  left join sys_role r on sur.role_id = r.id
-        where r.state = '1'
+        where m.state = '1'
+          AND r.state = '1'
           AND m.menu_type in ('0', '1')
           AND sur.user_id = #{userId}
         order by m.parent_id, m.sort
@@ -83,7 +78,7 @@
         select distinct m.perms
         from sys_menu m
                  left join sys_role_menu rm on m.menu_id = rm.menu_id
-        where m.status = '1'
+        where m.state = '1'
           AND m.menu_type = '2'
           and rm.role_id = #{roleId}
     </select>

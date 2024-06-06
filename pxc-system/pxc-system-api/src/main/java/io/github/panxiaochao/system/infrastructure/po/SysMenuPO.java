@@ -72,12 +72,6 @@ public class SysMenuPO {
 	private String permissionCode;
 
 	/**
-	 * 菜单权限状态：1显示，0禁用
-	 */
-	@TableField("permission_status")
-	private String permissionStatus;
-
-	/**
 	 * 菜单图标
 	 */
 	@TableField("icon")
@@ -94,18 +88,6 @@ public class SysMenuPO {
 	 */
 	@TableField("open_type")
 	private String openType;
-
-	/**
-	 * 是否显示：0-否；1-是（默认值1）
-	 */
-	@TableField("is_display")
-	private String isDisplay;
-
-	/**
-	 * 是否路由菜单：0-不是 1-是（默认值1）
-	 */
-	@TableField("is_route")
-	private String isRoute;
 
 	/**
 	 * 是否缓存页面：0-不是 1-是（默认值0）

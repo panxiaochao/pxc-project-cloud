@@ -126,6 +126,7 @@ public class SysMenuAppService {
 		if (StringUtils.hasText(menuId)) {
 			// 设置父节点为菜单ID
 			queryRequest.setParentId(menuId);
+			queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 			rootId = menuId;
 		}
 		List<SysMenuQueryResponse> list = sysMenuReadModelService.list(queryRequest);
@@ -136,22 +137,13 @@ public class SysMenuAppService {
 				extraMap.put("component", s.getComponent());
 				extraMap.put("componentName", s.getComponentName());
 				extraMap.put("permissionCode", s.getPermissionCode());
-				extraMap.put("permissionStatus", s.getPermissionStatus());
 				extraMap.put("icon", s.getIcon());
 				extraMap.put("menuType", s.getMenuType());
 				extraMap.put("openType", s.getOpenType());
-				extraMap.put("isRoute", s.getIsRoute());
 				extraMap.put("keepAlive", s.getKeepAlive());
 				extraMap.put("sort", s.getSort());
-				// 按钮状态和菜单显示合为一个状态，共用
-				if (StringUtils.hasText(s.getPermissionStatus())) {
-					// 是个反向操作显示
-					extraMap.put("isHidden",
-							s.getPermissionStatus().equals(CommonConstant.STATUS_NORMAL.toString()) ? "0" : "1");
-				}
-				else {
-					extraMap.put("isHidden", s.getIsHidden());
-				}
+				extraMap.put("isHidden", s.getIsHidden());
+				extraMap.put("state", s.getState());
 			}))
 			.collect(Collectors.toList());
 		// 修改节点属性
@@ -178,6 +170,7 @@ public class SysMenuAppService {
 		if (StringUtils.hasText(menuId)) {
 			// 设置父节点为菜单ID
 			queryRequest.setParentId(menuId);
+			queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 			rootId = menuId;
 		}
 		List<SysMenuQueryResponse> list = sysMenuReadModelService.list(queryRequest);
@@ -208,6 +201,7 @@ public class SysMenuAppService {
 	 */
 	public Map<String, Object> queryAllTree() {
 		SysMenuQueryRequest queryRequest = new SysMenuQueryRequest();
+		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 		String rootId = CommonConstant.TREE_ROOT_ID.toString();
 		List<SysMenuQueryResponse> list = sysMenuReadModelService.list(queryRequest);
 		// 所有菜单ID结合

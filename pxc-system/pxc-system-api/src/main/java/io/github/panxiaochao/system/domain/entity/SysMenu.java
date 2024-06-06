@@ -60,11 +60,6 @@ public class SysMenu {
 	private String permissionCode;
 
 	/**
-	 * 菜单权限状态：1显示，0禁用
-	 */
-	private String permissionStatus;
-
-	/**
 	 * 菜单图标
 	 */
 	private String icon;
@@ -78,16 +73,6 @@ public class SysMenu {
 	 * 打开页面方式： 0-内部；1-外链（默认值0）
 	 */
 	private String openType;
-
-	/**
-	 * 是否显示：0-否；1-是（默认值1）
-	 */
-	private String isDisplay;
-
-	/**
-	 * 是否路由菜单：0-不是 1-是（默认值1）
-	 */
-	private String isRoute;
 
 	/**
 	 * 是否缓存页面：0-不是 1-是（默认值0）

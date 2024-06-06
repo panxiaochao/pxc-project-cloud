@@ -287,12 +287,8 @@ public class WebLoginService {
 				extraMap.put("redirect", s.getRedirectUrl());
 				extraMap.put("component", s.getComponent());
 				extraMap.put("name", s.getComponentName());
-				extraMap.put("permissionCode", s.getPermissionCode());
-				extraMap.put("permissionStatus", s.getPermissionStatus());
 				extraMap.put("icon", s.getIcon());
-				extraMap.put("menuType", s.getMenuType());
 				extraMap.put("openType", BooleanUtil.toBoolean(s.getOpenType()));
-				extraMap.put("route", BooleanUtil.toBoolean(s.getIsRoute()));
 				extraMap.put("keepAlive", BooleanUtil.toBoolean(s.getKeepAlive()));
 				extraMap.put("hidden", BooleanUtil.toBoolean(s.getIsHidden()));
 			}))
