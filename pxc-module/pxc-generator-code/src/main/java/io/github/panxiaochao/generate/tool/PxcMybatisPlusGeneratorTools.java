@@ -19,15 +19,25 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.IFill;
-import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.baomidou.mybatisplus.generator.config.PackageConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import io.github.panxiaochao.generate.enhance.EnhanceFreemarkerTemplateEngine;
 import io.github.panxiaochao.generate.enums.GenerateDbType;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -126,7 +136,11 @@ public class PxcMybatisPlusGeneratorTools {
 			.naming(NamingStrategy.underline_to_camel)
 			.columnNaming(NamingStrategy.underline_to_camel)
 			.idType(IdType.AUTO);
-//			.formatFileName("%sPO");
+		// 逻辑删除字段
+		if (StringUtils.hasText(builder.logicDeleteColumnName)) {
+			strategyBuilder.entityBuilder().logicDeleteColumnName(builder.logicDeleteColumnName);
+		}
+		// .formatFileName("%sPO");
 		if (!CollectionUtils.isEmpty(builder.insertFields)) {
 			strategyBuilder.entityBuilder().addTableFills(builder.insertFields);
 		}
@@ -237,6 +251,11 @@ public class PxcMybatisPlusGeneratorTools {
 		 * Entity包名
 		 */
 		private String entity = "entity";
+
+		/**
+		 * 逻辑删除字段
+		 */
+		private String logicDeleteColumnName;
 
 		/**
 		 * 新增填充字段
@@ -354,6 +373,11 @@ public class PxcMybatisPlusGeneratorTools {
 
 		public Builder excludes(List<String> excludes) {
 			this.excludes.addAll(excludes);
+			return this;
+		}
+
+		public Builder logicDeleteColumnName(String deleteColumnName) {
+			this.logicDeleteColumnName = deleteColumnName;
 			return this;
 		}
 

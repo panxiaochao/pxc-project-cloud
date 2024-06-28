@@ -25,9 +25,10 @@ public class PxcMybatisPlusGeneratorTest {
 			.parent("io.github.panxiaochao")
 			.moduleName("system")
 			.entityName("po")
+			.logicDeleteColumnName("deleted")
 			.insertFields("create_time")
 			.updateFields("update_time")
-			.includes("database_source")
+			.includes("sys_tenant", "sys_tenant_package", "sys_tenant_package_menu")
 			.build();
 	}
 
