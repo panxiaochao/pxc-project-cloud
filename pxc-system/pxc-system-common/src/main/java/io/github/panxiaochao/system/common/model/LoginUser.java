@@ -6,6 +6,7 @@ import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
@@ -24,6 +25,7 @@ import java.util.Set;
  */
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class LoginUser extends PAuthUserToken implements Serializable {
 

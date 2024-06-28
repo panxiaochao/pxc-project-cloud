@@ -211,7 +211,7 @@ public class WebLoginService {
 
 		// 缓存令牌
 		Duration expire = Duration.ofSeconds(loginUser.getExpireIn());
-		// Auth-user:login:token:[authUserToken]
+		// docs(WebLoginService)[2024-32-07 15:32:19]: 令牌格式:Auth-user:login:token:[authUserToken]
 		RedissonUtil.set(GlobalConstant.LOGIN_TOKEN_PREFIX + loginUser.getAccessToken(), loginUser, expire);
 		return loginUser.toAuthUserToken();
 	}
@@ -223,11 +223,15 @@ public class WebLoginService {
 	 */
 	public Boolean removeToken(String token) {
 		LoginUser loginUser = RedissonUtil.getAndDelete(GlobalConstant.LOGIN_TOKEN_PREFIX + token);
-		LoginContextHelper.clear();
-		// 用户数据不为空
+		// 用户数据不为空, 记录退出日志
 		if (null != loginUser) {
+			System.out.println(loginUser);
 			recordLogOutLog(loginUser);
 		}
+		else {
+			LOGGER.error("无效Token:{}", token);
+		}
+		LoginContextHelper.clear();
 		return true;
 	}
 
