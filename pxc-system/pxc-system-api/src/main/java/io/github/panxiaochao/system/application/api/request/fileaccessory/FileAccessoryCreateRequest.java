@@ -73,7 +73,7 @@ public class FileAccessoryCreateRequest {
 	 * 创建人
 	 */
 	@Schema(description = "创建人")
-	private Long createId;
+	private Integer createId;
 
 	/**
 	 * 创建时间

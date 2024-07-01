@@ -64,7 +64,6 @@ public class WebLoginApi {
 	 */
 	@PostMapping("/logout")
 	@Operation(summary = "登出接口", description = "登出接口", method = "POST")
-	@OperateLog(key = "#authHeader", description = "登出", businessType = OperateLog.BusinessType.LOGOUT)
 	public R<Boolean> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
 		if (StrUtil.isBlank(authHeader)) {
 			return R.ok();

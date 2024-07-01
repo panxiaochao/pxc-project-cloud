@@ -70,7 +70,7 @@ public class SysTenantPackagePO {
 	/**
 	 * 创建人
 	 */
-	@TableField("create_id")
+	@TableField(value = "create_id", fill = FieldFill.INSERT)
 	private Integer createId;
 
 	/**

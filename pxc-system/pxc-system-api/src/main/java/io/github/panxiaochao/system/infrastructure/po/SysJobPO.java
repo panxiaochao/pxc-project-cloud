@@ -92,8 +92,8 @@ public class SysJobPO {
 	/**
 	 * 创建人
 	 */
-	@TableField("create_id")
-	private Long createId;
+	@TableField(value = "create_id", fill = FieldFill.INSERT)
+	private Integer createId;
 
 	/**
 	 * 创建时间
