@@ -109,6 +109,8 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 				Jwt jwt = this.jwtDecoder.decode(token);
 				if (null == jwt || System.currentTimeMillis() > Date.from(jwt.getExpiresAt()).getTime()) {
 					commence(response, new TokenAuthenticationException(TokenException.TOKEN_EXPIRE_EXCEPTION));
+					// fix(preHandle)[2024-07-01 16:52:42]:修复报错直接返回false
+					return false;
 				}
 			}
 			loginUser = getRedisToken(headToken, response);
@@ -145,9 +147,9 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 
 	private LoginUser getRedisToken(String headToken, HttpServletResponse response) {
 		LoginUser loginUser = RedissonUtil.get(GlobalConstant.LOGIN_TOKEN_PREFIX + headToken);
-		// Redis为空或者当前时间已大于过期时间
 		if (null == loginUser || System.currentTimeMillis() > loginUser.getExpiresAt()) {
-			commence(response, new TokenAuthenticationException(TokenException.TOKEN_EXPIRE_EXCEPTION));
+			// fix(getRedisToken)[2024-07-01 16:50:25]: Redis为空或者当前时间已大于过期时间
+			return null;
 		}
 		return loginUser;
 	}
@@ -167,8 +169,10 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 		try {
 			headToken = this.tokenResolver.resolve(request);
 		}
-		catch (TokenResolverException invalid) {
-			commence(response, invalid);
+		catch (TokenResolverException e) {
+			// fix(getHeadToken)[2024-07-01 16:55:50]: 报错直接打印，返回NULL
+			LOGGER.error("TokenResolver is error", e);
+			return null;
 		}
 		return headToken;
 	}
