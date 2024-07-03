@@ -37,6 +37,8 @@ public class CloudMetaObjectHandlerCustomizer implements IMetaObjectHandler {
 		LoginUser loginUser = LoginContextHelper.getLoginUser();
 		if (fillValIfNullByName(FIELD_CREATE_ID, loginUser, metaObject)) {
 			metaObject.setValue(FIELD_CREATE_ID, Integer.valueOf(loginUser.getUserId()));
+		}
+		if (fillValIfNullByName(FIELD_UPDATE_ID, loginUser, metaObject)) {
 			metaObject.setValue(FIELD_UPDATE_ID, Integer.valueOf(loginUser.getUserId()));
 		}
 	}
