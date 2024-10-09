@@ -96,9 +96,6 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 		if (!CollectionUtils.isEmpty(whiteUrls) && whiteUrls.contains(url)) {
 			return true;
 		}
-		// TODO 这里必须确保 handler 是 HandlerMethod 类型时，才能进行注解鉴权
-		// if (handler instanceof HandlerMethod) {
-		// }
 		LoginUser loginUser = null;
 		// 从浏览器参数中获取特定参数的 token
 		String token = request.getParameter("token");

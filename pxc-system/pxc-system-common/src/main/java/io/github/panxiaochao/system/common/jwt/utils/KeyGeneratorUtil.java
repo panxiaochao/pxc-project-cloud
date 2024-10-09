@@ -18,6 +18,14 @@ import java.security.spec.EllipticCurve;
  * 密钥生成工具.
  * </p>
  *
+ * <ul>
+ * <li>{@code AES} (128)</li>
+ * <li>{@code DES} (56)</li>
+ * <li>{@code DESede} (168)</li>
+ * <li>{@code HmacSHA1}</li>
+ * <li>{@code HmacSHA256}</li>
+ * </ul>
+ *
  * @author Lypxc
  * @since 2022-12-14
  */

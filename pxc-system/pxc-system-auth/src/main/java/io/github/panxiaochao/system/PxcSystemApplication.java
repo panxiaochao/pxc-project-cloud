@@ -39,15 +39,14 @@ public class PxcSystemApplication {
 		if (!StringUtils.hasText(path) || PATH.equals(path)) {
 			path = "";
 		}
-		//@formatter:off
-		LOG.info("\n----------------------------------------------------------\n" +
-				"{} is running! Access URLs:\n" +
-				"Local    访问网址: \thttp://localhost:{}{}\n" +
-				"External 访问网址: \thttp://{}:{}{}\n" +
-				"Doc      访问网址: \thttp://{}:{}{}/doc.html" +
-				"\n----------------------------------------------------------\n",
-				applicationName, port, path, ip, port, path, ip, port, path);
-		//@formatter:on
+		StringBuilder banner = new StringBuilder();
+		banner.append("\n----------------------------------------------------------\n");
+		banner.append("{} is running! Access URLs:\n");
+		banner.append("Local    访问网址: \thttp://localhost:{}{}\n");
+		banner.append("External 访问网址: \thttp://{}:{}{}\n");
+		banner.append("Doc      访问网址: \thttp://{}:{}{}/doc.html");
+		banner.append("\n----------------------------------------------------------\n");
+		LOG.info(banner.toString(), applicationName, port, path, ip, port, path, ip, port, path);
 	}
 
 }

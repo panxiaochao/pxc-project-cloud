@@ -9,10 +9,12 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+
     <artifactId>pxc-system</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>系统POM工程</description>
+
     <modules>
         <module>pxc-system-api</module>
         <module>pxc-system-common</module>
