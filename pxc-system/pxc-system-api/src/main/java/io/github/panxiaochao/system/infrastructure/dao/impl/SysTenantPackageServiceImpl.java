@@ -90,8 +90,8 @@ public class SysTenantPackageServiceImpl implements ISysTenantPackageService, IS
 	private LambdaQueryWrapper<SysTenantPackagePO> lambdaQuery(SysTenantPackageQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysTenantPackagePO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(SysTenantPackagePO::getId);
+			// 默认按照创建时间倒序排序
+			lqw.orderByDesc(SysTenantPackagePO::getCreateTime);
 			// 如果 租户套餐id 不为空
 			if (queryRequest.getPackageId() != null) {
 				lqw.eq(SysTenantPackagePO::getPackageId, queryRequest.getPackageId());

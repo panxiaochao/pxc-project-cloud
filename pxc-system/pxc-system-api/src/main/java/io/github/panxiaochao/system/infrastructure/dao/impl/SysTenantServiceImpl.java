@@ -90,8 +90,8 @@ public class SysTenantServiceImpl implements ISysTenantService, ISysTenantReadMo
 	private LambdaQueryWrapper<SysTenantPO> lambdaQuery(SysTenantQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysTenantPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(SysTenantPO::getId);
+			// 默认按照创建时间倒序排序
+			lqw.orderByDesc(SysTenantPO::getCreateTime);
 			// 如果 租户编号 不为空
 			if (queryRequest.getTenantId() != null) {
 				lqw.eq(SysTenantPO::getTenantId, queryRequest.getTenantId());
@@ -102,7 +102,7 @@ public class SysTenantServiceImpl implements ISysTenantService, ISysTenantReadMo
 			}
 			// 如果 联系人 不为空
 			if (StringUtils.isNotBlank(queryRequest.getContactUserName())) {
-				lqw.eq(SysTenantPO::getContactUserName, queryRequest.getContactUserName());
+				lqw.like(SysTenantPO::getContactUserName, queryRequest.getContactUserName());
 			}
 			// 如果 联系电话 不为空
 			if (StringUtils.isNotBlank(queryRequest.getContactPhone())) {

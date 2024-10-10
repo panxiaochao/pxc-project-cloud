@@ -1,5 +1,9 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.component.select.Select;
+import io.github.panxiaochao.core.component.select.SelectBuilder;
+import io.github.panxiaochao.core.component.select.SelectOption;
+import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -15,8 +19,11 @@ import io.github.panxiaochao.system.domain.entity.SysTenantPackage;
 import io.github.panxiaochao.system.domain.service.SysTenantPackageDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -99,6 +106,22 @@ public class SysTenantPackageAppService {
 	public R<Void> deleteById(String id) {
 		sysTenantPackageDomainService.deleteById(id);
 		return R.ok();
+	}
+
+	/**
+	 * 获取租户套餐下拉菜单
+	 * @return List<Select<String>>
+	 */
+	public List<Select<String>> selectPackages() {
+		SysTenantPackageQueryRequest sysTenantPackageQueryRequest = new SysTenantPackageQueryRequest();
+		sysTenantPackageQueryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
+		List<SysTenantPackageQueryResponse> list = sysTenantPackageReadModelService
+			.selectList(sysTenantPackageQueryRequest);
+		List<SelectOption<String>> selectOptionList = list.stream()
+			.map(m -> SelectOption.of(m.getPackageId(), m.getPackageName(), m.getSort()))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
 	}
 
 }

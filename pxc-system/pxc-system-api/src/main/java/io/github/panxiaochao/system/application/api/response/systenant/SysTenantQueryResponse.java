@@ -40,6 +40,12 @@ public class SysTenantQueryResponse {
 	private String packageId;
 
 	/**
+	 * 租户套餐名称
+	 */
+	@Schema(description = "租户套餐名称")
+	private String packageName;
+
+	/**
 	 * 联系人
 	 */
 	@Schema(description = "联系人")
@@ -86,6 +92,12 @@ public class SysTenantQueryResponse {
 	 */
 	@Schema(description = "租户模式：0字段模式，1数据库模式")
 	private String mode;
+
+	/**
+	 * 租户模式：0字段模式，1数据库模式
+	 */
+	@Schema(description = "租户模式字符串")
+	private String modeStr;
 
 	/**
 	 * 删除标志：0正常，1删除
