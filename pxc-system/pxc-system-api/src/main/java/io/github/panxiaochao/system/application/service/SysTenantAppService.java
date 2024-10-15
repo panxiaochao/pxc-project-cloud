@@ -8,6 +8,8 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.PatternPools;
+import io.github.panxiaochao.core.utils.RegexUtil;
 import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.system.application.api.request.systenant.SysTenantCreateRequest;
 import io.github.panxiaochao.system.application.api.request.systenant.SysTenantQueryRequest;
@@ -31,7 +33,6 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -65,11 +66,6 @@ public class SysTenantAppService {
 	 * 租户模式 常量名
 	 */
 	private static final String TENANT_MODE = "TENANT_MODE";
-
-	/**
-	 * 数字
-	 */
-	public final static Pattern NUMBERS = Pattern.compile("\\d+");
 
 	/**
 	 * 查询分页
@@ -123,8 +119,15 @@ public class SysTenantAppService {
 	 */
 	public R<SysTenantResponse> save(SysTenantCreateRequest sysTenantCreateRequest) {
 		SysTenant sysTenant = ISysTenantDTOConvert.INSTANCE.fromCreateRequest(sysTenantCreateRequest);
-		if (!NUMBERS.matcher(sysTenant.getTenantId()).matches()) {
+		if (!RegexUtil.isMatch(PatternPools.NUMBERS, sysTenant.getTenantId())) {
 			return R.fail("填写租户编号为数字类型!");
+		}
+		SysTenantQueryRequest queryRequest = new SysTenantQueryRequest();
+		queryRequest.setTenantId(sysTenant.getTenantId());
+		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
+		SysTenantQueryResponse one = sysTenantReadModelService.getOne(queryRequest);
+		if (Objects.nonNull(one)) {
+			return R.fail("租户编码[" + sysTenant.getTenantId() + "]已存在");
 		}
 		sysTenant = sysTenantDomainService.save(sysTenant);
 		SysTenantResponse sysTenantResponse = ISysTenantDTOConvert.INSTANCE.toResponse(sysTenant);
@@ -138,15 +141,8 @@ public class SysTenantAppService {
 	 */
 	public R<Void> update(SysTenantUpdateRequest sysTenantUpdateRequest) {
 		SysTenant sysTenant = ISysTenantDTOConvert.INSTANCE.fromUpdateRequest(sysTenantUpdateRequest);
-		if (!NUMBERS.matcher(sysTenant.getTenantId()).matches()) {
+		if (!RegexUtil.isMatch(PatternPools.NUMBERS, sysTenant.getTenantId())) {
 			return R.fail("填写租户编号为数字类型!");
-		}
-		SysTenantQueryRequest queryRequest = new SysTenantQueryRequest();
-		queryRequest.setTenantId(sysTenant.getTenantId());
-		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
-		SysTenantQueryResponse one = sysTenantReadModelService.getOne(queryRequest);
-		if (Objects.nonNull(one)) {
-			return R.fail("租户编码[" + sysTenant.getTenantId() + "]已存在");
 		}
 		sysTenantDomainService.update(sysTenant);
 		return R.ok();

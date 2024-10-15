@@ -47,7 +47,7 @@ public class SysTenantPackagePO {
 	 */
 	@TableField("deleted")
 	@TableLogic
-	private Integer deleted;
+	private String deleted;
 
 	/**
 	 * 备注

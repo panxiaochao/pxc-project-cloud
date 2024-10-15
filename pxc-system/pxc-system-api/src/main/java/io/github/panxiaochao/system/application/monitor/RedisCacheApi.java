@@ -1,7 +1,7 @@
 package io.github.panxiaochao.system.application.monitor;
 
 import io.github.panxiaochao.core.response.R;
-import io.github.panxiaochao.core.utils.ConvertUtils;
+import io.github.panxiaochao.core.utils.ConvertUtil;
 import io.github.panxiaochao.core.utils.StrUtil;
 import io.github.panxiaochao.system.application.api.response.redis.RedisCacheInfoResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -67,7 +67,7 @@ public class RedisCacheApi {
 				Map<String, Object> data = new HashMap<>(2);
 				String propertyVal = commandStats.getProperty(key);
 				data.put("name", StrUtil.removeStart(key, "cmdstat_"));
-				int value = ConvertUtils.toInt(StrUtil.substringBetween(propertyVal, "calls=", ",usec"), 0);
+				int value = ConvertUtil.toInt(StrUtil.substringBetween(propertyVal, "calls=", ",usec"), 0);
 				data.put("value", value);
 				pieList.add(data);
 			});
