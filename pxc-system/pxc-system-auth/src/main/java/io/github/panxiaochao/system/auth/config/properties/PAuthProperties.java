@@ -62,7 +62,20 @@ public class PAuthProperties {
 	private String tokenHeaderName = "Authorization";
 
 	/**
-	 * 白名单
+	 * 白名单, 格式如下
+	 *
+	 * <pre>
+	 *     /adc/**,*
+	 *     /abc,*
+	 *     /abc,get
+	 *     /abc,GET
+	 *     /abc,POST
+	 *     /abc,PUT
+	 *     /abc,post
+	 *     /abd/{id},delete
+	 *     /abc
+	 *     /adc/**\/acc,*
+	 * </pre>
 	 */
 	private List<String> whiteUrls = new ArrayList<>();
 

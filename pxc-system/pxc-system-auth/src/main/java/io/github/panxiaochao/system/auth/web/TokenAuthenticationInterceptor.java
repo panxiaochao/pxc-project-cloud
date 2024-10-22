@@ -4,6 +4,7 @@ import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.utils.JacksonUtil;
 import io.github.panxiaochao.core.utils.StrUtil;
+import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import io.github.panxiaochao.system.common.core.context.SContext;
@@ -20,6 +21,8 @@ import io.github.panxiaochao.system.common.model.LoginUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -30,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,13 +52,13 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(TokenAuthenticationInterceptor.class);
 
-	private List<String> whiteUrls;
-
 	private TokenResolver tokenResolver;
 
 	private JWTDecoder jwtDecoder;
 
 	private PTokenType tokenType;
+
+	private final List<RequestMatcher> requestMatchers = new ArrayList<>();
 
 	public TokenAuthenticationInterceptor() {
 	}
@@ -73,8 +77,17 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 	}
 
 	public TokenAuthenticationInterceptor setWhiteUrls(List<String> whiteUrls) {
-		Assert.notNull(whiteUrls, "whiteUrls cannot be null");
-		this.whiteUrls = whiteUrls;
+		if (!CollectionUtils.isEmpty(whiteUrls)) {
+			whiteUrls.forEach(url -> {
+				String[] splits = StrUtil.split(url, StringPools.COMMA);
+				if (splits.length > 1 && !splits[1].equals(StringPools.ASTERISK)) {
+					requestMatchers.add(new AntPathRequestMatcher(splits[0], splits[1].toUpperCase()));
+				}
+				else {
+					requestMatchers.add(new AntPathRequestMatcher(splits[0]));
+				}
+			});
+		}
 		return this;
 	}
 
@@ -92,8 +105,9 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 		}
 		// 放行白名单
 		String url = getRequestPath(request);
-		LOGGER.info("url:{}", url);
-		if (!CollectionUtils.isEmpty(whiteUrls) && whiteUrls.contains(url)) {
+		LOGGER.info("url:{}, method:{}", url, request.getMethod());
+		if (!CollectionUtils.isEmpty(requestMatchers)
+				&& requestMatchers.stream().anyMatch(matcher -> matcher.matches(request))) {
 			return true;
 		}
 		LoginUser loginUser = null;

@@ -51,6 +51,8 @@ spring:
       white-urls:
         - /web/v1/login
         - /web/v1/logout
+        - /system/v1/sysuser/page
+        - /system/v1/sysuser/{id},delete
       algorithm: rs512
       token-style: simple_uuid
 
