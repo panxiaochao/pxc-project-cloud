@@ -105,7 +105,7 @@ public class TokenAuthenticationInterceptor implements HandlerInterceptor {
 		}
 		// 放行白名单
 		String url = getRequestPath(request);
-		LOGGER.info("url:{}, method:{}", url, request.getMethod());
+		LOGGER.info("url:{}, method:[{}]", url, request.getMethod());
 		if (!CollectionUtils.isEmpty(requestMatchers)
 				&& requestMatchers.stream().anyMatch(matcher -> matcher.matches(request))) {
 			return true;

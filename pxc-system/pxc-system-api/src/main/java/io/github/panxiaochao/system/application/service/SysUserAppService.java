@@ -7,6 +7,7 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.StrUtil;
 import io.github.panxiaochao.core.utils.date.LocalDateTimeUtil;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserQueryRequest;
@@ -182,6 +183,10 @@ public class SysUserAppService {
 	 */
 	public R<Void> update(SysUserUpdateRequest sysUserUpdateRequest) {
 		SysUser sysUser = ISysUserDTOConvert.INSTANCE.fromUpdateRequest(sysUserUpdateRequest);
+		// fix(update)[2024-10-25 17:28:40]: 解决前端传空字符串的问题
+		if (StrUtil.isBlank(sysUser.getOrgId())) {
+			sysUser.setOrgId(null);
+		}
 		sysUserDomainService.update(sysUser);
 		return R.ok();
 	}
