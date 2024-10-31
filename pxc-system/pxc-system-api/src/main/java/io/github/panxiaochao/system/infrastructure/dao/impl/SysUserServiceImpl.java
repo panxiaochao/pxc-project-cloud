@@ -103,8 +103,8 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
 	private LambdaQueryWrapper<SysUserPO> lambdaQuery(SysUserQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysUserPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(SysUserPO::getId);
+			// 默认按照创建时间倒序排序
+			lqw.orderByDesc(SysUserPO::getCreateTime);
 			// 如果 用户真实姓名 不为空
 			if (StringUtils.isNotBlank(queryRequest.getRealName())) {
 				lqw.like(SysUserPO::getRealName, queryRequest.getRealName());
@@ -124,6 +124,10 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
 			// 如果 状态：1正常，0不正常 不为空
 			if (StringUtils.isNotBlank(queryRequest.getState())) {
 				lqw.eq(SysUserPO::getState, queryRequest.getState());
+			}
+			// 如果 手机号码 不为空
+			if (StringUtils.isNotBlank(queryRequest.getMobile())) {
+				lqw.eq(SysUserPO::getMobile, queryRequest.getMobile());
 			}
 		}
 		return lqw;

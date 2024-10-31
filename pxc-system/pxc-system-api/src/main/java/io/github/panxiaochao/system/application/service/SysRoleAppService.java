@@ -69,7 +69,9 @@ public class SysRoleAppService {
 		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 		List<SysRoleQueryResponse> list = sysRoleReadModelService.list(queryRequest);
 		List<SelectOption<String>> selectOptionList = list.stream()
-			.map(m -> SelectOption.of(m.getId(), m.getRoleName(), m.getSort()))
+			.map(m -> SelectOption.of(m.getId(), m.getRoleName(), m.getSort(), (extraMap) -> {
+				extraMap.put("label", m.getRoleName());
+			}))
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;

@@ -51,7 +51,12 @@ spring:
       white-urls:
         - /web/v1/login
         - /web/v1/logout
-        - /**
+        - /system/v1/sysuser/**
+        - /system/v1/syspost/**
+        - /system/v1/sysorg/**
+        - /system/v1/sysuserrole/**
+        - /system/v1/sysrole/**
+        - /system/v1/sysarea/**
       algorithm: rs512
       token-style: simple_uuid
 
