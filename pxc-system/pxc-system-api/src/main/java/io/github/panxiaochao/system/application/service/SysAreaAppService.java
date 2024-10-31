@@ -1,5 +1,8 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.component.select.Select;
+import io.github.panxiaochao.core.component.select.SelectBuilder;
+import io.github.panxiaochao.core.component.select.SelectOption;
 import io.github.panxiaochao.core.component.tree.Tree;
 import io.github.panxiaochao.core.component.tree.TreeBuilder;
 import io.github.panxiaochao.core.component.tree.TreeNode;
@@ -14,8 +17,10 @@ import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaQuery
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaUpdateRequest;
 import io.github.panxiaochao.system.application.api.response.sysarea.SysAreaQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysarea.SysAreaResponse;
+import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDictItemQueryResponse;
 import io.github.panxiaochao.system.application.convert.ISysAreaDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysAreaReadModelService;
+import io.github.panxiaochao.system.application.runner.helper.CacheHelper;
 import io.github.panxiaochao.system.domain.entity.SysArea;
 import io.github.panxiaochao.system.domain.service.SysAreaDomainService;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +53,11 @@ public class SysAreaAppService {
 	 * 全国5级行政区划 读模型服务
 	 */
 	private final ISysAreaReadModelService sysAreaReadModelService;
+
+	/**
+	 * 区域层级 常量名
+	 */
+	private static final String AREA_LEVEL = "AREA_LEVEL";
 
 	/**
 	 * 查询分页
@@ -146,6 +156,23 @@ public class SysAreaAppService {
 			.fastBuild()
 			.toTreeList();
 		return CollectionUtils.isEmpty(treeList) ? new ArrayList<>() : treeList;
+	}
+
+	/**
+	 * 获取区域层级下拉菜单
+	 * @return 返回通用下拉菜单
+	 */
+	public List<Select<Integer>> selectAreaLevels() {
+		List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(AREA_LEVEL);
+		// fix(selectAreaLevels)[2024-10-31 16:08:35]: 修改key类型为Integer
+		List<SelectOption<Integer>> selectOptionList = list.stream()
+			.map(m -> SelectOption.of(Integer.valueOf(m.getDictItemValue()), m.getDictItemText(), m.getSort(),
+					(extraMap) -> {
+						extraMap.put("label", m.getDictItemText());
+					}))
+			.collect(Collectors.toList());
+		List<Select<Integer>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
 	}
 
 }

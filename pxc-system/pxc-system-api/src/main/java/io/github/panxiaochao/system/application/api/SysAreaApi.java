@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.application.api;
 
+import io.github.panxiaochao.core.component.select.Select;
 import io.github.panxiaochao.core.component.tree.Tree;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
@@ -81,6 +82,12 @@ public class SysAreaApi {
 	@GetMapping(value = "/listTree")
 	public R<List<Tree<String>>> listTree(String areaCode) {
 		return R.ok(sysAreaAppService.listTree(areaCode));
+	}
+
+	@Operation(summary = "获取区域层级下拉菜单", description = "获取区域层级下拉菜单", method = "GET")
+	@GetMapping(value = "/selectAreaLevels")
+	public R<List<Select<Integer>>> selectAreaLevels() {
+		return R.ok(sysAreaAppService.selectAreaLevels());
 	}
 
 }
