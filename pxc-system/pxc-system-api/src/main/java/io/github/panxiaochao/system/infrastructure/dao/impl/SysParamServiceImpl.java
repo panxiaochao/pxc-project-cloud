@@ -90,8 +90,8 @@ public class SysParamServiceImpl implements ISysParamService, ISysParamReadModel
 	private LambdaQueryWrapper<SysParamPO> lambdaQuery(SysParamQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysParamPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(SysParamPO::getId);
+			// 默认按照时间倒序排序
+			lqw.orderByDesc(SysParamPO::getCreateTime);
 			// 如果 参数名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getParamName())) {
 				lqw.like(SysParamPO::getParamName, queryRequest.getParamName());

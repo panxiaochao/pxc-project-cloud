@@ -145,6 +145,7 @@ public class SysAreaAppService {
 						extraMap.put("areaNameEnAbbr", sysAreaQueryResponse.getAreaNameEnAbbr());
 						extraMap.put("longitude", sysAreaQueryResponse.getLongitude());
 						extraMap.put("latitude", sysAreaQueryResponse.getLatitude());
+						extraMap.put("parentPath", sysAreaQueryResponse.getParentPath());
 					}))
 			.collect(Collectors.toList());
 		// 修改节点属性

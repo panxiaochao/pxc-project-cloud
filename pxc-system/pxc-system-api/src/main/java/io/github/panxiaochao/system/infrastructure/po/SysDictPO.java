@@ -45,7 +45,7 @@ public class SysDictPO {
 	 * 字典类型：0为string,1为number
 	 */
 	@TableField("dict_type")
-	private Integer dictType;
+	private String dictType;
 
 	/**
 	 * 备注

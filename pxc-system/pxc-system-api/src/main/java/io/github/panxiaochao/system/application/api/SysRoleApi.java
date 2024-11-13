@@ -82,4 +82,10 @@ public class SysRoleApi {
 		return sysRoleAppService.deleteById(id);
 	}
 
+	@Operation(summary = "获取数据权限下拉菜单", description = "获取数据权限下拉菜单", method = "GET")
+	@GetMapping(value = "/selectDataScopes")
+	public R<List<Select<String>>> selectDataScopes() {
+		return R.ok(sysRoleAppService.selectDataScopes());
+	}
+
 }

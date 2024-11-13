@@ -57,6 +57,14 @@ spring:
         - /system/v1/sysuserrole/**
         - /system/v1/sysrole/**
         - /system/v1/sysarea/**
+        - /system/v1/syslogoperate/**
+        - /system/v1/sysloglogin/**
+        - /system/v1/sysdict/**
+        - /system/v1/sysdictitem/**
+        - /system/v1/sysparam/**
+        - /web/v1/server/**
+        - /web/v1/redis/**
+        - /web/v1/token/**
       algorithm: rs512
       token-style: simple_uuid
 
@@ -73,10 +81,15 @@ mybatis-plus:
 
 # 暴露指标
 #management:
+#  endpoint:
+#    health:
+#      enabled: false
 #  endpoints:
 #    web:
 #      exposure:
 #        include: "*"
+#        exclude: "*"
 #    jmx:
 #      exposure:
 #        include: "*"
+#        exclude: "*"

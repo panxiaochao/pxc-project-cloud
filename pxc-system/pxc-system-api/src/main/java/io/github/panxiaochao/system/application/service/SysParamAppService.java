@@ -1,5 +1,8 @@
 package io.github.panxiaochao.system.application.service;
 
+import io.github.panxiaochao.core.component.select.Select;
+import io.github.panxiaochao.core.component.select.SelectBuilder;
+import io.github.panxiaochao.core.component.select.SelectOption;
 import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
@@ -21,11 +24,14 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +63,7 @@ public class SysParamAppService {
 	/**
 	 * 系统参数 常量名
 	 */
-	private static final String SYS_PARAM_TYPE = "PARAM_TYPE";
+	private static final String PARAM_TYPE = "PARAM_TYPE";
 
 	/**
 	 * 查询分页
@@ -69,7 +75,7 @@ public class SysParamAppService {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysParamQueryResponse> list = sysParamReadModelService.page(pagination, queryRequest);
 		list.forEach(s -> {
-			SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(SYS_PARAM_TYPE,
+			SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(PARAM_TYPE,
 					s.getParamType());
 			if (Objects.isNull(sysDictItemQueryResponse)) {
 				s.setParamTypeStr(StringPools.EMPTY);
@@ -147,6 +153,21 @@ public class SysParamAppService {
 		CacheHelper.putAllSysParam(sysParamMap);
 		LOGGER.info("[pxc-system] sys_param load is success, time consuming {} ms",
 				(System.currentTimeMillis() - startTime));
+	}
+
+	/**
+	 * 获取参数类型选项
+	 * @return 返回通用结果
+	 */
+	public List<Select<String>> selectParamTypes() {
+		List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(PARAM_TYPE);
+		List<SelectOption<String>> selectOptionList = list.stream()
+			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(), (extraMap) -> {
+				extraMap.put("label", m.getDictItemText());
+			}))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
 	}
 
 }

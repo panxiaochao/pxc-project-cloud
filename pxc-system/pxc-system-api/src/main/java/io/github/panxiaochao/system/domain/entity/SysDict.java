@@ -37,7 +37,7 @@ public class SysDict {
 	/**
 	 * 字典类型：0为string,1为number
 	 */
-	private Integer dictType;
+	private String dictType;
 
 	/**
 	 * 备注

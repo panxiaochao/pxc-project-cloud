@@ -3,12 +3,8 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.core.component.select.Select;
 import io.github.panxiaochao.core.component.tree.Tree;
 import io.github.panxiaochao.core.response.R;
-import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaCreateRequest;
-import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysarea.SysAreaUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.sysarea.SysAreaQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysarea.SysAreaResponse;
 import io.github.panxiaochao.system.application.service.SysAreaAppService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,12 +40,6 @@ public class SysAreaApi {
 	 * 全国5级行政区划 服务
 	 */
 	private final SysAreaAppService sysAreaAppService;
-
-	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
-	@GetMapping(value = "/page")
-	public R<PageResponse<SysAreaQueryResponse>> page(RequestPage pageRequest, SysAreaQueryRequest queryRequest) {
-		return R.ok(sysAreaAppService.page(pageRequest, queryRequest));
-	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
 	@Parameter(name = "id", description = "全国5级行政区划 ID")

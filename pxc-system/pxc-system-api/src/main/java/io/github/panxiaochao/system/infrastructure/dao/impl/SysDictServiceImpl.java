@@ -90,8 +90,9 @@ public class SysDictServiceImpl implements ISysDictService, ISysDictReadModelSer
 	private LambdaQueryWrapper<SysDictPO> lambdaQuery(SysDictQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysDictPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照sort升序
+			// 默认按照创建时间降序、sort升序
 			lqw.orderByAsc(SysDictPO::getSort);
+			lqw.orderByDesc(SysDictPO::getCreateTime);
 			// 如果 字典名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getDictName())) {
 				lqw.like(SysDictPO::getDictName, queryRequest.getDictName());

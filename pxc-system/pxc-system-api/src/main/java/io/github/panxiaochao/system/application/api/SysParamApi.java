@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.application.api;
 
+import io.github.panxiaochao.core.component.select.Select;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -72,6 +75,12 @@ public class SysParamApi {
 	@DeleteMapping(value = "/{id}")
 	public R<Void> deleteById(@PathVariable("id") String id) {
 		return sysParamAppService.deleteById(id);
+	}
+
+	@Operation(summary = "获取参数类型选项", description = "获取参数类型选项", method = "GET")
+	@GetMapping(value = "/selectParamTypes")
+	public R<List<Select<String>>> selectPosts() {
+		return R.ok(sysParamAppService.selectParamTypes());
 	}
 
 	@RepeatSubmitLimiter(interval = 3000, message = "正在发布中，请勿重复提交")

@@ -84,7 +84,7 @@ public class OperateLogEventHandler extends AbstractOperateLogHandler {
 			sysLogLoginCreateRequest.setState(operateLogDomain.getCode().toString());
 			// 失败的情况
 			if (operateLogDomain.getCode() == 0) {
-				sysLogLoginCreateRequest.setRemark(operateLogDomain.getErrorMessage());
+				sysLogLoginCreateRequest.setRemark(operateLogDomain.getErrorSimpleMessage());
 			}
 			sysLogLoginAppService.save(sysLogLoginCreateRequest);
 		}

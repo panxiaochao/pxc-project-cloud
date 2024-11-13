@@ -11,10 +11,12 @@ import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.system.application.api.request.sysrole.SysRoleCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysrole.SysRoleQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysrole.SysRoleUpdateRequest;
+import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDictItemQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysrole.SysRoleQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysrole.SysRoleResponse;
 import io.github.panxiaochao.system.application.convert.ISysRoleDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysRoleReadModelService;
+import io.github.panxiaochao.system.application.runner.helper.CacheHelper;
 import io.github.panxiaochao.system.domain.entity.SysRole;
 import io.github.panxiaochao.system.domain.service.SysRoleDomainService;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +49,11 @@ public class SysRoleAppService {
 	 * 角色表 读模型服务
 	 */
 	private final ISysRoleReadModelService sysRoleReadModelService;
+
+	/**
+	 * 数据权限 常量名
+	 */
+	private static final String DATA_SCOPE = "DATA_SCOPE";
 
 	/**
 	 * 查询分页
@@ -126,6 +133,21 @@ public class SysRoleAppService {
 	public R<Void> deleteById(String id) {
 		sysRoleDomainService.deleteById(id);
 		return R.ok();
+	}
+
+	/**
+	 * 获取数据权限下拉菜单
+	 * @return 返回通用下拉菜单
+	 */
+	public List<Select<String>> selectDataScopes() {
+		List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(DATA_SCOPE);
+		List<SelectOption<String>> selectOptionList = list.stream()
+			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(), (extraMap) -> {
+				extraMap.put("label", m.getDictItemText());
+			}))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
 	}
 
 }
