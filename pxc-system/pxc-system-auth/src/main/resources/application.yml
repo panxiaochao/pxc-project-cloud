@@ -65,6 +65,9 @@ spring:
         - /web/v1/server/**
         - /web/v1/redis/**
         - /web/v1/token/**
+        - /system/v1/systenant/**
+        - /system/v1/systenantpackage/**
+        - /system/v1/systenantpackagemenu/**
       algorithm: rs512
       token-style: simple_uuid
 
