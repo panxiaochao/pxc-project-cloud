@@ -134,7 +134,8 @@ public class SysTenantPackageAppService {
 		List<SysTenantPackageQueryResponse> list = sysTenantPackageReadModelService
 			.selectList(sysTenantPackageQueryRequest);
 		List<SelectOption<String>> selectOptionList = list.stream()
-			.map(m -> SelectOption.of(m.getPackageId(), m.getPackageName(), m.getSort()))
+			.map(m -> SelectOption.of(m.getPackageId(), m.getPackageName(), m.getSort(),
+					(extraMap) -> extraMap.put("label", m.getPackageName())))
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;

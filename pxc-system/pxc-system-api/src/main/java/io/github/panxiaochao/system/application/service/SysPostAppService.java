@@ -137,9 +137,7 @@ public class SysPostAppService {
 	public List<Select<String>> selectPosts() {
 		List<SysPostQueryResponse> list = sysPostReadModelService.list(new SysPostQueryRequest());
 		List<SelectOption<String>> selectOptionList = list.stream()
-			.map(m -> SelectOption.of(m.getPostCode(), m.getPostName(), m.getSort(), (extraMap) -> {
-				extraMap.put("label", m.getPostName());
-			}))
+			.map(m -> SelectOption.of(m.getPostCode(), m.getPostName(), m.getSort(), (extraMap) -> extraMap.put("label", m.getPostName())))
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;

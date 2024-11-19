@@ -165,7 +165,8 @@ public class SysTenantAppService {
 	public List<Select<String>> selectModes() {
 		List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(TENANT_MODE);
 		List<SelectOption<String>> selectOptionList = list.stream()
-			.map(m -> SelectOption.of(false, m.getId(), m.getDictItemText(), m.getDictItemValue(), m.getSort(), null))
+			.map(m -> SelectOption.of(false, m.getId(), m.getDictItemText(), m.getDictItemValue(), m.getSort(),
+					(extraMap) -> extraMap.put("label", m.getDictItemText())))
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
