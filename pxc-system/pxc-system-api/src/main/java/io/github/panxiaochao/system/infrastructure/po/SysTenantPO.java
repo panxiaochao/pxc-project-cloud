@@ -34,13 +34,13 @@ public class SysTenantPO {
 	 * 租户编号
 	 */
 	@TableField("tenant_id")
-	private Long tenantId;
+	private String tenantId;
 
 	/**
 	 * 租户套餐编号
 	 */
 	@TableField("package_id")
-	private Long packageId;
+	private String packageId;
 
 	/**
 	 * 联系人
@@ -113,7 +113,7 @@ public class SysTenantPO {
 	 * 租户状态：1正常，0不正常
 	 */
 	@TableField("state")
-	private Integer state;
+	private String state;
 
 	/**
 	 * 排序

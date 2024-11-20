@@ -34,7 +34,7 @@ public class SysTenantPackagePO {
 	 * 租户套餐id
 	 */
 	@TableField("package_id")
-	private Long packageId;
+	private String packageId;
 
 	/**
 	 * 套餐名称
@@ -59,7 +59,7 @@ public class SysTenantPackagePO {
 	 * 租户套餐状态：1正常，0不正常
 	 */
 	@TableField("state")
-	private Integer state;
+	private String state;
 
 	/**
 	 * 排序

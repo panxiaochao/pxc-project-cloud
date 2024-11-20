@@ -23,7 +23,7 @@ public class SysTenantPackageMenuPO {
 	 * 租户套餐id
 	 */
 	@TableId(value = "package_id")
-	private Long packageId;
+	private String packageId;
 
 	/**
 	 * 菜单ID
