@@ -4,6 +4,7 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.system.application.api.request.systenantpackagemenu.SysTenantPackageMenuCreateRequest;
 import io.github.panxiaochao.system.application.api.request.systenantpackagemenu.SysTenantPackageMenuQueryRequest;
 import io.github.panxiaochao.system.application.api.request.systenantpackagemenu.SysTenantPackageMenuUpdateRequest;
@@ -15,8 +16,13 @@ import io.github.panxiaochao.system.domain.entity.SysTenantPackageMenu;
 import io.github.panxiaochao.system.domain.service.SysTenantPackageMenuDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -100,6 +106,41 @@ public class SysTenantPackageMenuAppService {
 	public R<Void> deleteById(String id) {
 		sysTenantPackageMenuDomainService.deleteById(id);
 		return R.ok();
+	}
+
+	/**
+	 * 保存套餐关联菜单
+	 */
+	public void savePackageMenus(SysTenantPackageMenuCreateRequest sysTenantPackageMenuCreateRequest) {
+		if (StringUtils.hasText(sysTenantPackageMenuCreateRequest.getMenuId())) {
+			// 分割菜单ID
+			String[] menuIds = StringUtils.tokenizeToStringArray(sysTenantPackageMenuCreateRequest.getMenuId(),
+					StringPools.COMMA);
+			List<SysTenantPackageMenu> list = Arrays.stream(menuIds)
+				.map(menuId -> new SysTenantPackageMenu(sysTenantPackageMenuCreateRequest.getPackageId(), menuId))
+				.collect(Collectors.toList());
+			// 先删除当前租户套餐相关的菜单数据
+			sysTenantPackageMenuDomainService.deleteByPackageId(sysTenantPackageMenuCreateRequest.getPackageId());
+			// 在批量保存保存当前租户套餐关联的菜单数据
+			sysTenantPackageMenuDomainService.saveBath(list);
+		}
+		else {
+			// 菜单ID为空，说明是删除全部
+			sysTenantPackageMenuDomainService.deleteByPackageId(sysTenantPackageMenuCreateRequest.getPackageId());
+		}
+	}
+
+	/**
+	 * 查询租户套餐下的菜单权限
+	 * @param packageId 租户套餐ID
+	 * @return 权限菜单集合
+	 */
+	public R<List<String>> queryPackageMenus(String packageId) {
+		SysTenantPackageMenuQueryRequest queryRequest = new SysTenantPackageMenuQueryRequest();
+		queryRequest.setPackageId(packageId);
+		List<SysTenantPackageMenuQueryResponse> list = sysTenantPackageMenuReadModelService.selectList(queryRequest);
+		List<String> ids = list.stream().map(SysTenantPackageMenuQueryResponse::getMenuId).collect(Collectors.toList());
+		return R.ok(CollectionUtils.isEmpty(ids) ? new ArrayList<>() : ids);
 	}
 
 }

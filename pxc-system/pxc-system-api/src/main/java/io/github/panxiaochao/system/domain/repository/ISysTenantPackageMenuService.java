@@ -2,6 +2,8 @@ package io.github.panxiaochao.system.domain.repository;
 
 import io.github.panxiaochao.system.domain.entity.SysTenantPackageMenu;
 
+import java.util.List;
+
 /**
  * <p>
  * 租户套餐菜单表 Domain接口服务类.
@@ -38,4 +40,15 @@ public interface ISysTenantPackageMenuService {
 	 */
 	void deleteById(String id);
 
+	/**
+	 * 删除当前租户套餐的所有关联数据
+	 * @param packageId 租户套餐Id
+	 */
+	void deleteByPackageId(String packageId);
+
+	/**
+	 * 批量保存
+	 * @param list SysTenantPackageMenu 数据实体
+	 */
+	void saveBath(List<SysTenantPackageMenu> list);
 }

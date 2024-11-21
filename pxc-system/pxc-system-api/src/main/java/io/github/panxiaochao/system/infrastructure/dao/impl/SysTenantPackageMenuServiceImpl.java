@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.infrastructure.dao.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.system.application.api.request.systenantpackagemenu.SysTenantPackageMenuQueryRequest;
 import io.github.panxiaochao.system.application.api.response.systenantpackagemenu.SysTenantPackageMenuQueryResponse;
@@ -141,6 +142,25 @@ public class SysTenantPackageMenuServiceImpl
 	@Override
 	public void deleteById(String id) {
 		sysTenantPackageMenuMapper.deleteById(id);
+	}
+
+	/**
+	 * 删除当前租户套餐的所有关联数据
+	 * @param packageId 租户套餐Id
+	 */
+	@Override
+	public void deleteByPackageId(String packageId) {
+		sysTenantPackageMenuMapper.delete(new LambdaQueryWrapper<SysTenantPackageMenuPO>().eq(SysTenantPackageMenuPO::getPackageId, packageId));
+	}
+
+	/**
+	 * 批量保存
+	 * @param list SysTenantPackageMenu 数据实体
+	 */
+	@Override
+	public void saveBath(List<SysTenantPackageMenu> list) {
+		List<SysTenantPackageMenuPO> sysRoleMenuPOList = ISysTenantPackageMenuPOConvert.INSTANCE.fromEntity(list);
+		Db.saveBatch(sysRoleMenuPOList);
 	}
 
 }

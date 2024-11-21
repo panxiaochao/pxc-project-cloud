@@ -8,8 +8,6 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
-import io.github.panxiaochao.core.utils.PatternPools;
-import io.github.panxiaochao.core.utils.RegexUtil;
 import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.system.application.api.request.systenant.SysTenantCreateRequest;
 import io.github.panxiaochao.system.application.api.request.systenant.SysTenantQueryRequest;
@@ -76,11 +74,12 @@ public class SysTenantAppService {
 	public PageResponse<SysTenantQueryResponse> page(RequestPage pageRequest, SysTenantQueryRequest queryRequest) {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysTenantQueryResponse> list = sysTenantReadModelService.page(pagination, queryRequest);
+		// 字典翻译
 		SysTenantPackageQueryRequest sysTenantPackageQueryRequest = new SysTenantPackageQueryRequest();
 		sysTenantPackageQueryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
-		// 字典翻译
 		List<SysTenantPackageQueryResponse> sysTenantPackageQueryResponseList = sysTenantPackageReadModelService
 			.selectList(sysTenantPackageQueryRequest);
+		// 数据翻译
 		list.forEach(s -> {
 			if (StringUtils.hasText(s.getMode())) {
 				SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(TENANT_MODE,
@@ -119,9 +118,6 @@ public class SysTenantAppService {
 	 */
 	public R<SysTenantResponse> save(SysTenantCreateRequest sysTenantCreateRequest) {
 		SysTenant sysTenant = ISysTenantDTOConvert.INSTANCE.fromCreateRequest(sysTenantCreateRequest);
-		if (!RegexUtil.isMatch(PatternPools.NUMBERS, sysTenant.getTenantId())) {
-			return R.fail("填写租户编号为数字类型!");
-		}
 		SysTenantQueryRequest queryRequest = new SysTenantQueryRequest();
 		queryRequest.setTenantId(sysTenant.getTenantId());
 		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
@@ -141,9 +137,6 @@ public class SysTenantAppService {
 	 */
 	public R<Void> update(SysTenantUpdateRequest sysTenantUpdateRequest) {
 		SysTenant sysTenant = ISysTenantDTOConvert.INSTANCE.fromUpdateRequest(sysTenantUpdateRequest);
-		if (!RegexUtil.isMatch(PatternPools.NUMBERS, sysTenant.getTenantId())) {
-			return R.fail("填写租户编号为数字类型!");
-		}
 		sysTenantDomainService.update(sysTenant);
 		return R.ok();
 	}

@@ -27,4 +27,9 @@ public class SysTenantPackageMenu {
 	 */
 	private String menuId;
 
+	public SysTenantPackageMenu(String packageId, String menuId) {
+		this.packageId = packageId;
+		this.menuId = menuId;
+	}
+
 }

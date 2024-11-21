@@ -5,6 +5,8 @@ import io.github.panxiaochao.system.domain.repository.ISysTenantPackageMenuServi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 租户套餐菜单表 Domain服务类.
@@ -56,4 +58,19 @@ public class SysTenantPackageMenuDomainService {
 		sysTenantPackageMenuService.deleteById(id);
 	}
 
+	/**
+	 * 删除当前租户套餐的所有关联数据
+	 * @param packageId 角色Id
+	 */
+	public void deleteByPackageId(String packageId) {
+		sysTenantPackageMenuService.deleteByPackageId(packageId);
+	}
+
+	/**
+	 * 批量保存
+	 * @param list SysTenantPackageMenu 数据实体
+	 */
+	public void saveBath(List<SysTenantPackageMenu> list) {
+		sysTenantPackageMenuService.saveBath(list);
+	}
 }

@@ -19,4 +19,16 @@ import lombok.ToString;
 @Schema(description = "租户套餐菜单表创建请求对象")
 public class SysTenantPackageMenuCreateRequest {
 
+	/**
+	 * 租户套餐id
+	 */
+	@Schema(description = "租户套餐id")
+	private String packageId;
+
+	/**
+	 * 菜单ID
+	 */
+	@Schema(description = "菜单ID")
+	private String menuId;
+
 }

@@ -8,8 +8,6 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
-import io.github.panxiaochao.core.utils.PatternPools;
-import io.github.panxiaochao.core.utils.RegexUtil;
 import io.github.panxiaochao.system.application.api.request.systenantpackage.SysTenantPackageCreateRequest;
 import io.github.panxiaochao.system.application.api.request.systenantpackage.SysTenantPackageQueryRequest;
 import io.github.panxiaochao.system.application.api.request.systenantpackage.SysTenantPackageUpdateRequest;
@@ -83,9 +81,6 @@ public class SysTenantPackageAppService {
 	public R<SysTenantPackageResponse> save(SysTenantPackageCreateRequest sysTenantPackageCreateRequest) {
 		SysTenantPackage sysTenantPackage = ISysTenantPackageDTOConvert.INSTANCE
 			.fromCreateRequest(sysTenantPackageCreateRequest);
-		if (!RegexUtil.isMatch(PatternPools.NUMBERS, sysTenantPackage.getPackageId())) {
-			return R.fail("填写租户编号为数字类型!");
-		}
 		SysTenantPackageQueryRequest queryRequest = new SysTenantPackageQueryRequest();
 		queryRequest.setPackageId(sysTenantPackage.getPackageId());
 		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
@@ -107,9 +102,6 @@ public class SysTenantPackageAppService {
 	public R<Void> update(SysTenantPackageUpdateRequest sysTenantPackageUpdateRequest) {
 		SysTenantPackage sysTenantPackage = ISysTenantPackageDTOConvert.INSTANCE
 			.fromUpdateRequest(sysTenantPackageUpdateRequest);
-		if (!RegexUtil.isMatch(PatternPools.NUMBERS, sysTenantPackage.getPackageId())) {
-			return R.fail("填写租户编号为数字类型!");
-		}
 		sysTenantPackageDomainService.update(sysTenantPackage);
 		return R.ok();
 	}
@@ -121,6 +113,7 @@ public class SysTenantPackageAppService {
 	 */
 	public R<Void> deleteById(String id) {
 		sysTenantPackageDomainService.deleteById(id);
+		// TODO: 删除相关资源
 		return R.ok();
 	}
 
