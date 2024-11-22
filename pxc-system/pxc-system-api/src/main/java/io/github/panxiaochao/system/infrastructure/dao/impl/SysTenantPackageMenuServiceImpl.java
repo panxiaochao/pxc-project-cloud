@@ -14,6 +14,7 @@ import io.github.panxiaochao.system.infrastructure.convert.ISysTenantPackageMenu
 import io.github.panxiaochao.system.infrastructure.mapper.SysTenantPackageMenuMapper;
 import io.github.panxiaochao.system.infrastructure.po.SysTenantPackageMenuPO;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -92,10 +93,14 @@ public class SysTenantPackageMenuServiceImpl
 	private LambdaQueryWrapper<SysTenantPackageMenuPO> lambdaQuery(SysTenantPackageMenuQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysTenantPackageMenuPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(SysTenantPackageMenuPO::getPackageId);
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(SysTenantPackageMenuPO::getMenuId);
+			// 如果 租户套餐id 不为空
+			if (StringUtils.isNotBlank(queryRequest.getPackageId())) {
+				lqw.eq(SysTenantPackageMenuPO::getPackageId, queryRequest.getPackageId());
+			}
+			// 如果 菜单ID 不为空
+			if (StringUtils.isNotBlank(queryRequest.getMenuId())) {
+				lqw.eq(SysTenantPackageMenuPO::getMenuId, queryRequest.getMenuId());
+			}
 		}
 		return lqw;
 	}
@@ -150,7 +155,8 @@ public class SysTenantPackageMenuServiceImpl
 	 */
 	@Override
 	public void deleteByPackageId(String packageId) {
-		sysTenantPackageMenuMapper.delete(new LambdaQueryWrapper<SysTenantPackageMenuPO>().eq(SysTenantPackageMenuPO::getPackageId, packageId));
+		sysTenantPackageMenuMapper.delete(
+				new LambdaQueryWrapper<SysTenantPackageMenuPO>().eq(SysTenantPackageMenuPO::getPackageId, packageId));
 	}
 
 	/**

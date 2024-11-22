@@ -17,6 +17,7 @@ import io.github.panxiaochao.system.application.convert.ISysTenantPackageDTOConv
 import io.github.panxiaochao.system.application.repository.ISysTenantPackageReadModelService;
 import io.github.panxiaochao.system.domain.entity.SysTenantPackage;
 import io.github.panxiaochao.system.domain.service.SysTenantPackageDomainService;
+import io.github.panxiaochao.system.domain.service.SysTenantPackageMenuDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -42,6 +43,11 @@ public class SysTenantPackageAppService {
 	 * 租户套餐表 Domain服务类
 	 */
 	private final SysTenantPackageDomainService sysTenantPackageDomainService;
+
+	/**
+	 * 租户套餐菜单表 Domain服务类
+	 */
+	private final SysTenantPackageMenuDomainService sysTenantPackageMenuDomainService;
 
 	/**
 	 * 租户套餐表 读模型服务
@@ -112,8 +118,12 @@ public class SysTenantPackageAppService {
 	 * @return 空返回
 	 */
 	public R<Void> deleteById(String id) {
-		sysTenantPackageDomainService.deleteById(id);
-		// TODO: 删除相关资源
+		SysTenantPackage sysTenantPackage = sysTenantPackageDomainService.getById(id);
+		String packageId = sysTenantPackage.getPackageId();
+		// 1.删除租户套餐资源
+		sysTenantPackageDomainService.deleteById(sysTenantPackage.getId());
+		// 2.删除租户套餐关联的菜单权限
+		sysTenantPackageMenuDomainService.deleteByPackageId(packageId);
 		return R.ok();
 	}
 

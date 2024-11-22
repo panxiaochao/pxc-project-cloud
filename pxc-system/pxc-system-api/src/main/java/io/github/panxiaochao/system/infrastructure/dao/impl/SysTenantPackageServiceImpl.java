@@ -93,7 +93,7 @@ public class SysTenantPackageServiceImpl implements ISysTenantPackageService, IS
 			// 默认按照创建时间倒序排序
 			lqw.orderByDesc(SysTenantPackagePO::getCreateTime);
 			// 如果 租户套餐id 不为空
-			if (queryRequest.getPackageId() != null) {
+			if (StringUtils.isNotBlank(queryRequest.getPackageId())) {
 				lqw.eq(SysTenantPackagePO::getPackageId, queryRequest.getPackageId());
 			}
 			// 如果 套餐名称 不为空

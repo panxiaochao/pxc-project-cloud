@@ -93,11 +93,11 @@ public class SysTenantServiceImpl implements ISysTenantService, ISysTenantReadMo
 			// 默认按照创建时间倒序排序
 			lqw.orderByDesc(SysTenantPO::getCreateTime);
 			// 如果 租户编号 不为空
-			if (queryRequest.getTenantId() != null) {
+			if (StringUtils.isNotBlank(queryRequest.getTenantId())) {
 				lqw.eq(SysTenantPO::getTenantId, queryRequest.getTenantId());
 			}
 			// 如果 租户套餐编号 不为空
-			if (queryRequest.getPackageId() != null) {
+			if (StringUtils.isNotBlank(queryRequest.getPackageId())) {
 				lqw.eq(SysTenantPO::getPackageId, queryRequest.getPackageId());
 			}
 			// 如果 联系人 不为空

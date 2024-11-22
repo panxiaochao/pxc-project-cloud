@@ -73,8 +73,6 @@ public class SysRoleMenuServiceImpl implements ISysRoleMenuService, ISysRoleMenu
 	private LambdaQueryWrapper<SysRoleMenuPO> lambdaQuery(SysRoleMenuQueryRequest queryRequest) {
 		LambdaQueryWrapper<SysRoleMenuPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(SysRoleMenuPO::getMenuId);
 			if (StringUtils.isNoneBlank(queryRequest.getRoleId())) {
 				lqw.eq(SysRoleMenuPO::getRoleId, queryRequest.getRoleId());
 			}

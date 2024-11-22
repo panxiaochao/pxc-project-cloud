@@ -69,6 +69,7 @@ spring:
         - /system/v1/systenantpackage/**
         - /system/v1/systenantpackagemenu/**
         - /system/v1/sysmenu/**
+        - /system/v1/sysrolemenu/**
       algorithm: rs512
       token-style: simple_uuid
 
