@@ -58,4 +58,13 @@
           AND su.state = '1'
     </select>
 
+    <!-- 根据租户ID查询所有关联用户 -->
+    <select id="selectPageByTenantId" resultMap="BaseResultMap">
+        SELECT su.*
+        FROM sys_tenant_user stu
+                 LEFT JOIN sys_user su ON stu.user_id = su.id
+        WHERE stu.tenant_id = #{tenantId}
+          AND su.state = '1'
+    </select>
+
 </mapper>

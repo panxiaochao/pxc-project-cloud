@@ -73,4 +73,5 @@ public class SysTenantPackageMenuDomainService {
 	public void saveBath(List<SysTenantPackageMenu> list) {
 		sysTenantPackageMenuService.saveBath(list);
 	}
+
 }

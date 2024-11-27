@@ -2,6 +2,7 @@ package io.github.panxiaochao.system.infrastructure.dao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -185,6 +186,21 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
 		sysUserMapper.update(new LambdaUpdateWrapper<SysUserPO>().eq(SysUserPO::getId, userId)
 			.set(SysUserPO::getLoginTime, loginTime)
 			.setSql("login_nums = login_nums + 1"));
+	}
+
+	/**
+	 * 根据租户ID查询所有关联用户
+	 * @param pagination 分页属性对象
+	 * @param tenantId 租户ID
+	 * @return 用户数组
+	 */
+	@Override
+	public List<SysUserQueryResponse> selectPageByTenantId(Pagination pagination, String tenantId) {
+		// 分页查询
+		IPage<SysUserPO> page = sysUserMapper
+			.selectPageByTenantId(Page.of(pagination.getPageNo(), pagination.getPageSize()), tenantId);
+		pagination.setTotal(page.getTotal());
+		return ISysUserPOConvert.INSTANCE.toQueryResponse(page.getRecords());
 	}
 
 }

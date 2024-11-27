@@ -218,4 +218,16 @@ public class SysUserAppService {
 		return R.ok();
 	}
 
+	/**
+	 * 根据租户ID查询所有关联用户
+	 * @param pageRequest 请求分页参数对象
+	 * @param tenantId 租户ID
+	 * @return 分页数组响应实体
+	 */
+	public PageResponse<SysUserQueryResponse> selectPageByTenantId(RequestPage pageRequest, String tenantId) {
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+		List<SysUserQueryResponse> list = sysUserReadModelService.selectPageByTenantId(pagination, tenantId);
+		return new PageResponse<>(pagination, list);
+	}
+
 }

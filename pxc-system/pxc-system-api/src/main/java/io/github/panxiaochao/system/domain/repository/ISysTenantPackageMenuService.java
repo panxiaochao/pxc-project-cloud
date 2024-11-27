@@ -51,4 +51,5 @@ public interface ISysTenantPackageMenuService {
 	 * @param list SysTenantPackageMenu 数据实体
 	 */
 	void saveBath(List<SysTenantPackageMenu> list);
+
 }

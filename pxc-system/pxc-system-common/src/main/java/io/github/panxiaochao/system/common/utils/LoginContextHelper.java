@@ -18,7 +18,7 @@ public class LoginContextHelper {
 	 * 获取用户
 	 */
 	public static LoginUser getLoginUser() {
-        return SContextHolder.getContext().getLoginUser();
+		return SContextHolder.getContext().getLoginUser();
 	}
 
 	/**

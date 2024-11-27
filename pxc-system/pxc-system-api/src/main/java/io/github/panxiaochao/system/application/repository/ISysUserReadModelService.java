@@ -40,4 +40,12 @@ public interface ISysUserReadModelService {
 	 */
 	SysUserLogin loadUserByIdentityType(String username, String identityType);
 
+	/**
+	 * 根据租户ID查询所有关联用户
+	 * @param pagination 分页属性对象
+	 * @param tenantId 租户ID
+	 * @return 用户数组
+	 */
+	List<SysUserQueryResponse> selectPageByTenantId(Pagination pagination, String tenantId);
+
 }

@@ -73,4 +73,10 @@ public class SysUserApi {
 		return sysUserAppService.deleteById(id);
 	}
 
+	@Operation(summary = "根据租户ID查询所有关联用户", description = "根据租户ID查询所有关联用户", method = "GET")
+	@GetMapping(value = "/selectPageByTenantId")
+	public R<PageResponse<SysUserQueryResponse>> selectPageByTenantId(RequestPage pageRequest, String tenantId) {
+		return R.ok(sysUserAppService.selectPageByTenantId(pageRequest, tenantId));
+	}
+
 }

@@ -211,7 +211,8 @@ public class WebLoginService {
 
 		// 缓存令牌
 		Duration expire = Duration.ofSeconds(loginUser.getExpireIn());
-		// docs(WebLoginService)[2024-32-07 15:32:19]: 令牌格式:Auth-user:login:token:[authUserToken]
+		// docs(WebLoginService)[2024-32-07 15:32:19]:
+		// 令牌格式:Auth-user:login:token:[authUserToken]
 		RedissonUtil.set(GlobalConstant.LOGIN_TOKEN_PREFIX + loginUser.getAccessToken(), loginUser, expire);
 		return loginUser.toAuthUserToken();
 	}

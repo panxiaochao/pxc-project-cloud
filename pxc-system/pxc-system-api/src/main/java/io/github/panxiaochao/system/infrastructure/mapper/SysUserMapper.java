@@ -1,6 +1,7 @@
 package io.github.panxiaochao.system.infrastructure.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.panxiaochao.system.domain.entity.SysUserLogin;
 import io.github.panxiaochao.system.infrastructure.po.SysUserPO;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,5 +26,13 @@ public interface SysUserMapper extends BaseMapper<SysUserPO> {
 	 * @return 用户综合信息
 	 */
 	List<SysUserLogin> loadUserByIdentityType(String username, String identityType);
+
+	/**
+	 * 根据租户ID查询所有关联用户
+	 * @param page 分页
+	 * @param tenantId 租户ID
+	 * @return 用户数组
+	 */
+	IPage<SysUserPO> selectPageByTenantId(IPage<SysUserPO> page, String tenantId);
 
 }

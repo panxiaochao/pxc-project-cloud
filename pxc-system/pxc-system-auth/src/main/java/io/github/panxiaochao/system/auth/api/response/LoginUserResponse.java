@@ -21,49 +21,50 @@ import java.util.Set;
 @ToString
 @Schema(description = "当前登录用户对象")
 public class LoginUserResponse {
-    /**
-     * 用户ID
-     */
-    private String userId;
 
-    /**
-     * 用户账号
-     */
-    private String userName;
+	/**
+	 * 用户ID
+	 */
+	private String userId;
 
-    /**
-     * 真实姓名
-     */
-    private String realName;
+	/**
+	 * 用户账号
+	 */
+	private String userName;
 
-    /**
-     * 用户昵称
-     */
-    private String nickName;
+	/**
+	 * 真实姓名
+	 */
+	private String realName;
 
-    /**
-     * 用户头像
-     */
-    private String avatar;
+	/**
+	 * 用户昵称
+	 */
+	private String nickName;
 
-    /**
-     * 邮箱
-     */
-    private String email;
+	/**
+	 * 用户头像
+	 */
+	private String avatar;
 
-    /**
-     * 手机号码
-     */
-    private String mobile;
+	/**
+	 * 邮箱
+	 */
+	private String email;
 
-    /**
-     * 角色集合
-     */
-    private Set<String> roles;
+	/**
+	 * 手机号码
+	 */
+	private String mobile;
+
+	/**
+	 * 角色集合
+	 */
+	private Set<String> roles;
 
 	/**
 	 * 权限集合
 	 */
-    private Set<String> permissions;
+	private Set<String> permissions;
 
 }

@@ -105,7 +105,7 @@ public class DatabaseSourcePO {
 	 * 租户ID
 	 */
 	@TableField("tenant_id")
-	private Integer tenantId;
+	private String tenantId;
 
 	/**
 	 * 创建人
