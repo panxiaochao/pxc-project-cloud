@@ -221,12 +221,27 @@ public class SysUserAppService {
 	/**
 	 * 根据租户ID查询所有关联用户
 	 * @param pageRequest 请求分页参数对象
-	 * @param tenantId 租户ID
+	 * @param queryRequest 用户表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysUserQueryResponse> selectPageByTenantId(RequestPage pageRequest, String tenantId) {
+	public PageResponse<SysUserQueryResponse> selectTenantUserPage(RequestPage pageRequest,
+			SysUserQueryRequest queryRequest) {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
-		List<SysUserQueryResponse> list = sysUserReadModelService.selectPageByTenantId(pagination, tenantId);
+		List<SysUserQueryResponse> list = sysUserReadModelService.selectTenantUserPage(pagination, queryRequest);
+		return new PageResponse<>(pagination, list);
+	}
+
+	/**
+	 * 根据租户ID查询无关联用户分页
+	 * @param pageRequest 请求分页参数对象
+	 * @param queryRequest 用户表查询请求对象
+	 * @return 分页数组响应实体
+	 */
+	public PageResponse<SysUserQueryResponse> selectNoExistsTenantUserPage(RequestPage pageRequest,
+			SysUserQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+		List<SysUserQueryResponse> list = sysUserReadModelService.selectNoExistsTenantUserPage(pagination,
+				queryRequest);
 		return new PageResponse<>(pagination, list);
 	}
 

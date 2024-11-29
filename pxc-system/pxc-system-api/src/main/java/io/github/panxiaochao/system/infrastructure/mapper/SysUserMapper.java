@@ -2,9 +2,11 @@ package io.github.panxiaochao.system.infrastructure.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.github.panxiaochao.system.application.api.request.sysuser.SysUserQueryRequest;
 import io.github.panxiaochao.system.domain.entity.SysUserLogin;
 import io.github.panxiaochao.system.infrastructure.po.SysUserPO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -30,9 +32,17 @@ public interface SysUserMapper extends BaseMapper<SysUserPO> {
 	/**
 	 * 根据租户ID查询所有关联用户
 	 * @param page 分页
-	 * @param tenantId 租户ID
+	 * @param queryRequest 角色表查询请求对象
 	 * @return 用户数组
 	 */
-	IPage<SysUserPO> selectPageByTenantId(IPage<SysUserPO> page, String tenantId);
+	IPage<SysUserPO> selectTenantUserPage(IPage<SysUserPO> page, @Param("ew") SysUserQueryRequest queryRequest);
+
+	/**
+	 * 根据租户ID查询无关联用户分页
+	 * @param page 分页
+	 * @param queryRequest 角色表查询请求对象
+	 * @return 用户数组
+	 */
+	IPage<SysUserPO> selectNoExistsTenantUserPage(IPage<SysUserPO> page, @Param("ew") SysUserQueryRequest queryRequest);
 
 }

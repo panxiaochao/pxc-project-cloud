@@ -165,4 +165,10 @@ public class SysUserQueryRequest {
 	@Schema(description = "帐号超时期限")
 	private LocalDateTime expireTime;
 
+	/**
+	 * 租户ID
+	 */
+	@Schema(description = "租户ID")
+	private String tenantId;
+
 }

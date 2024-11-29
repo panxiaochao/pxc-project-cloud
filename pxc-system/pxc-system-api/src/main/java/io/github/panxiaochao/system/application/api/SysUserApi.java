@@ -74,9 +74,16 @@ public class SysUserApi {
 	}
 
 	@Operation(summary = "根据租户ID查询所有关联用户", description = "根据租户ID查询所有关联用户", method = "GET")
-	@GetMapping(value = "/selectPageByTenantId")
-	public R<PageResponse<SysUserQueryResponse>> selectPageByTenantId(RequestPage pageRequest, String tenantId) {
-		return R.ok(sysUserAppService.selectPageByTenantId(pageRequest, tenantId));
+	@GetMapping(value = "/selectTenantUserPage")
+	public R<PageResponse<SysUserQueryResponse>> selectTenantUserPage(RequestPage pageRequest, SysUserQueryRequest queryRequest) {
+		return R.ok(sysUserAppService.selectTenantUserPage(pageRequest, queryRequest));
+	}
+
+	@Operation(summary = "根据租户ID查询无关联用户分页", description = "根据租户ID查询无关联用户分页", method = "GET")
+	@GetMapping(value = "/selectNoExistsTenantUserPage")
+	public R<PageResponse<SysUserQueryResponse>> selectNoExistsTenantUserPage(RequestPage pageRequest,
+																			  SysUserQueryRequest queryRequest) {
+		return R.ok(sysUserAppService.selectNoExistsTenantUserPage(pageRequest, queryRequest));
 	}
 
 }

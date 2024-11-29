@@ -43,9 +43,17 @@ public interface ISysUserReadModelService {
 	/**
 	 * 根据租户ID查询所有关联用户
 	 * @param pagination 分页属性对象
-	 * @param tenantId 租户ID
+	 * @param queryRequest 用户表查询请求对象
 	 * @return 用户数组
 	 */
-	List<SysUserQueryResponse> selectPageByTenantId(Pagination pagination, String tenantId);
+	List<SysUserQueryResponse> selectTenantUserPage(Pagination pagination, SysUserQueryRequest queryRequest);
+
+	/**
+	 * 根据租户ID查询无关联用户分页
+	 * @param pagination 分页属性对象
+	 * @param queryRequest 用户表查询请求对象
+	 * @return 用户数组
+	 */
+	List<SysUserQueryResponse> selectNoExistsTenantUserPage(Pagination pagination, SysUserQueryRequest queryRequest);
 
 }

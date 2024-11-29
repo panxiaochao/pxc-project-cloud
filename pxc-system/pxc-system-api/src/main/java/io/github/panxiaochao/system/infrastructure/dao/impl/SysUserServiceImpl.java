@@ -191,14 +191,29 @@ public class SysUserServiceImpl implements ISysUserService, ISysUserReadModelSer
 	/**
 	 * 根据租户ID查询所有关联用户
 	 * @param pagination 分页属性对象
-	 * @param tenantId 租户ID
+	   * @param queryRequest 角色表查询请求对象
 	 * @return 用户数组
 	 */
 	@Override
-	public List<SysUserQueryResponse> selectPageByTenantId(Pagination pagination, String tenantId) {
+	public List<SysUserQueryResponse> selectTenantUserPage(Pagination pagination, SysUserQueryRequest queryRequest) {
 		// 分页查询
 		IPage<SysUserPO> page = sysUserMapper
-			.selectPageByTenantId(Page.of(pagination.getPageNo(), pagination.getPageSize()), tenantId);
+			.selectTenantUserPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), queryRequest);
+		pagination.setTotal(page.getTotal());
+		return ISysUserPOConvert.INSTANCE.toQueryResponse(page.getRecords());
+	}
+
+	/**
+	 * 根据租户ID查询无关联用户分页
+	 * @param pagination 分页属性对象
+	 * @param queryRequest 角色表查询请求对象
+	 * @return 用户数组
+	 */
+	@Override
+	public List<SysUserQueryResponse> selectNoExistsTenantUserPage(Pagination pagination, SysUserQueryRequest queryRequest) {
+		// 分页查询
+		IPage<SysUserPO> page = sysUserMapper
+				.selectNoExistsTenantUserPage(Page.of(pagination.getPageNo(), pagination.getPageSize()), queryRequest);
 		pagination.setTotal(page.getTotal());
 		return ISysUserPOConvert.INSTANCE.toQueryResponse(page.getRecords());
 	}

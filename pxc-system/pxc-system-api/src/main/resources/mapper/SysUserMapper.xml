@@ -58,13 +58,36 @@
           AND su.state = '1'
     </select>
 
-    <!-- 根据租户ID查询所有关联用户 -->
-    <select id="selectPageByTenantId" resultMap="BaseResultMap">
+    <!-- 根据租户ID查询所有关联用户分页 -->
+    <select id="selectTenantUserPage" resultMap="BaseResultMap">
         SELECT su.*
         FROM sys_tenant_user stu
-                 LEFT JOIN sys_user su ON stu.user_id = su.id
-        WHERE stu.tenant_id = #{tenantId}
-          AND su.state = '1'
+        LEFT JOIN sys_user su ON stu.user_id = su.id
+        WHERE stu.tenant_id = #{ew.tenantId}
+        AND su.state = '1'
+        <if test="ew.realName !=null and ew.realName != '' ">
+            AND su.real_name like concat('%', #{ew.realName}, '%')
+        </if>
+        <if test="ew.mobile !=null and ew.mobile != '' ">
+            AND su.mobile = #{ew.mobile}
+        </if>
+    </select>
+
+    <!-- 根据租户ID查询无关联用户分页 -->
+    <select id="selectNoExistsTenantUserPage" resultMap="BaseResultMap">
+        SELECT su.*
+        FROM sys_user su
+        WHERE state = 1
+        AND NOT EXISTS (SELECT 1
+        FROM sys_tenant_user stu
+        WHERE stu.tenant_id = #{ew.tenantId}
+        AND su.id = stu.user_id)
+        <if test="ew.realName !=null and ew.realName != '' ">
+            AND su.real_name like concat('%', #{ew.realName}, '%')
+        </if>
+        <if test="ew.mobile !=null and ew.mobile != '' ">
+            AND su.mobile = #{ew.mobile}
+        </if>
     </select>
 
 </mapper>
