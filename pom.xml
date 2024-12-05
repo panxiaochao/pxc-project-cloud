@@ -1,14 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>io.github.panxiaochao</groupId>
-        <artifactId>pxc-spring-boot-starter-parent</artifactId>
-        <version>2.0.8-SNAPSHOT</version>
-        <relativePath/>
-    </parent>
-
+    <groupId>io.github.panxiaochao</groupId>
     <name>pxc-project-cloud</name>
     <artifactId>pxc-project-cloud</artifactId>
     <version>1.0.0-SNAPSHOT</version>
@@ -23,12 +16,23 @@
     <properties>
         <springdoc-openapi.version>1.8.0</springdoc-openapi.version>
         <knife4j-openapi3-spring-boot-starter.version>4.5.0</knife4j-openapi3-spring-boot-starter.version>
+        <lombok.version>1.18.36</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <nimbus-jose-jwt.version>9.47</nimbus-jose-jwt.version>
+        <pxc-framework.version>2.0.8-SNAPSHOT</pxc-framework.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- pxc-framework 依赖管理 -->
+            <dependency>
+                <groupId>io.github.panxiaochao</groupId>
+                <artifactId>pxc-framework-bom</artifactId>
+                <version>${pxc-framework.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- SpringDoc 依赖管理 -->
             <dependency>
                 <groupId>org.springdoc</groupId>
