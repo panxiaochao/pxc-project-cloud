@@ -52,9 +52,8 @@
                sua.expire_time as identifier_expire_time
         FROM sys_user_auths sua
                  LEFT JOIN sys_user su ON sua.user_id = su.id
-        WHERE 1 = 1
+        WHERE sua.identifier = #{username}
           AND sua.identity_type = #{identityType}
-          AND sua.identifier = #{username}
           AND su.state = '1'
     </select>
 

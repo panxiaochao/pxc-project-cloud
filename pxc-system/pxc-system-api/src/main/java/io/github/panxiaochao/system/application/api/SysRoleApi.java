@@ -46,8 +46,8 @@ public class SysRoleApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysRoleQueryResponse>> page(RequestPage pageRequest, SysRoleQueryRequest queryRequest) {
-		return R.ok(sysRoleAppService.page(pageRequest, queryRequest));
+	public R<PageResponse<SysRoleQueryResponse>> page(RequestPage requestPage, SysRoleQueryRequest queryRequest) {
+		return R.ok(sysRoleAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "角色数组", description = "角色数组", method = "GET")

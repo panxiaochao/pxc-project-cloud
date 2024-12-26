@@ -51,12 +51,12 @@ public class SysOrgAppService {
 
 	/**
 	 * 查询分页
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 机构部门表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysOrgQueryResponse> page(RequestPage pageRequest, SysOrgQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+	public PageResponse<SysOrgQueryResponse> page(RequestPage requestPage, SysOrgQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysOrgQueryResponse> list = sysOrgReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}

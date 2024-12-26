@@ -46,8 +46,8 @@ public class SysTenantApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysTenantQueryResponse>> page(RequestPage pageRequest, SysTenantQueryRequest queryRequest) {
-		return R.ok(sysTenantAppService.page(pageRequest, queryRequest));
+	public R<PageResponse<SysTenantQueryResponse>> page(RequestPage requestPage, SysTenantQueryRequest queryRequest) {
+		return R.ok(sysTenantAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

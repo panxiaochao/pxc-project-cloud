@@ -87,8 +87,8 @@ public class WebLoginApi {
 	 */
 	@GetMapping("/token/page")
 	@Operation(summary = "在线用户分页令牌管理", description = "在线用户分页令牌管理", method = "GET")
-	public R<PageResponse<TokenOnlineQueryResponse>> tokenPage(RequestPage pageRequest, String username) {
-		return R.ok(loginWebService.tokenPage(pageRequest, username));
+	public R<PageResponse<TokenOnlineQueryResponse>> tokenPage(RequestPage requestPage, String username) {
+		return R.ok(loginWebService.tokenPage(requestPage, username));
 	}
 
 	/**

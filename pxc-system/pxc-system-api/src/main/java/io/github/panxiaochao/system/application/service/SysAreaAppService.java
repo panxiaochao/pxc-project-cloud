@@ -61,12 +61,12 @@ public class SysAreaAppService {
 
 	/**
 	 * 查询分页
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 全国5级行政区划查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysAreaQueryResponse> page(RequestPage pageRequest, SysAreaQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+	public PageResponse<SysAreaQueryResponse> page(RequestPage requestPage, SysAreaQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysAreaQueryResponse> list = sysAreaReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}

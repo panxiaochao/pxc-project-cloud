@@ -104,12 +104,12 @@ public class SysUserAppService {
 
 	/**
 	 * 查询分页
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 用户表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysUserQueryResponse> page(RequestPage pageRequest, SysUserQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+	public PageResponse<SysUserQueryResponse> page(RequestPage requestPage, SysUserQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysUserQueryResponse> list = sysUserReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}
@@ -220,26 +220,26 @@ public class SysUserAppService {
 
 	/**
 	 * 根据租户ID查询所有关联用户
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 用户表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysUserQueryResponse> selectTenantUserPage(RequestPage pageRequest,
+	public PageResponse<SysUserQueryResponse> selectTenantUserPage(RequestPage requestPage,
 			SysUserQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysUserQueryResponse> list = sysUserReadModelService.selectTenantUserPage(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}
 
 	/**
 	 * 根据租户ID查询无关联用户分页
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 用户表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysUserQueryResponse> selectNoExistsTenantUserPage(RequestPage pageRequest,
+	public PageResponse<SysUserQueryResponse> selectNoExistsTenantUserPage(RequestPage requestPage,
 			SysUserQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysUserQueryResponse> list = sysUserReadModelService.selectNoExistsTenantUserPage(pagination,
 				queryRequest);
 		return new PageResponse<>(pagination, list);

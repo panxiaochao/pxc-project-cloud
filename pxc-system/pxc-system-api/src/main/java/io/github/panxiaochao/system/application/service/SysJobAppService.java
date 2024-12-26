@@ -42,12 +42,12 @@ public class SysJobAppService {
 
 	/**
 	 * 查询分页
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 定时任务调度表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysJobQueryResponse> page(RequestPage pageRequest, SysJobQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+	public PageResponse<SysJobQueryResponse> page(RequestPage requestPage, SysJobQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysJobQueryResponse> list = sysJobReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}

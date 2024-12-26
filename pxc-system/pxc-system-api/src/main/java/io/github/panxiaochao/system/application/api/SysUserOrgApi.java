@@ -43,8 +43,8 @@ public class SysUserOrgApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysUserOrgQueryResponse>> page(RequestPage pageRequest, SysUserOrgQueryRequest queryRequest) {
-		return R.ok(sysUserOrgAppService.page(pageRequest, queryRequest));
+	public R<PageResponse<SysUserOrgQueryResponse>> page(RequestPage requestPage, SysUserOrgQueryRequest queryRequest) {
+		return R.ok(sysUserOrgAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

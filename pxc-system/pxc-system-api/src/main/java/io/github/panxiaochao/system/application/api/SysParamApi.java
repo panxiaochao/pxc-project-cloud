@@ -47,8 +47,8 @@ public class SysParamApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysParamQueryResponse>> page(RequestPage pageRequest, SysParamQueryRequest queryRequest) {
-		return R.ok(sysParamAppService.page(pageRequest, queryRequest));
+	public R<PageResponse<SysParamQueryResponse>> page(RequestPage requestPage, SysParamQueryRequest queryRequest) {
+		return R.ok(sysParamAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

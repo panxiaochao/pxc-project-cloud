@@ -46,8 +46,8 @@ public class SysOrgApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysOrgQueryResponse>> page(RequestPage pageRequest, SysOrgQueryRequest queryRequest) {
-		return R.ok(sysOrgAppService.page(pageRequest, queryRequest));
+	public R<PageResponse<SysOrgQueryResponse>> page(RequestPage requestPage, SysOrgQueryRequest queryRequest) {
+		return R.ok(sysOrgAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

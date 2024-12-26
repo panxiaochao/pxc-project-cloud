@@ -43,9 +43,9 @@ public class PersistentLoginsApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<PersistentLoginsQueryResponse>> page(RequestPage pageRequest,
+	public R<PageResponse<PersistentLoginsQueryResponse>> page(RequestPage requestPage,
 			PersistentLoginsQueryRequest queryRequest) {
-		return R.ok(persistentLoginsAppService.page(pageRequest, queryRequest));
+		return R.ok(persistentLoginsAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

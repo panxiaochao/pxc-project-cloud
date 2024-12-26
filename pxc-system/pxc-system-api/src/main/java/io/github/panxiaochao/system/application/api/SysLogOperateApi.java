@@ -43,9 +43,9 @@ public class SysLogOperateApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysLogOperateQueryResponse>> page(RequestPage pageRequest,
+	public R<PageResponse<SysLogOperateQueryResponse>> page(RequestPage requestPage,
 			SysLogOperateQueryRequest queryRequest) {
-		return R.ok(sysLogOperateAppService.page(pageRequest, queryRequest));
+		return R.ok(sysLogOperateAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

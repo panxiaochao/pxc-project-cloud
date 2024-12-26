@@ -43,9 +43,9 @@ public class Oauth2RegisteredClientApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<Oauth2RegisteredClientQueryResponse>> page(RequestPage pageRequest,
+	public R<PageResponse<Oauth2RegisteredClientQueryResponse>> page(RequestPage requestPage,
 			Oauth2RegisteredClientQueryRequest queryRequest) {
-		return R.ok(oauth2RegisteredClientAppService.page(pageRequest, queryRequest));
+		return R.ok(oauth2RegisteredClientAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

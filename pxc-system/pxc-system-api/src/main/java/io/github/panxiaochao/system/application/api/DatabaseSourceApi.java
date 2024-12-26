@@ -46,9 +46,9 @@ public class DatabaseSourceApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<DatabaseSourceQueryResponse>> page(RequestPage pageRequest,
+	public R<PageResponse<DatabaseSourceQueryResponse>> page(RequestPage requestPage,
 			DatabaseSourceQueryRequest queryRequest) {
-		return R.ok(databaseSourceAppService.page(pageRequest, queryRequest));
+		return R.ok(databaseSourceAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

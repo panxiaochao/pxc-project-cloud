@@ -43,8 +43,8 @@ public class SysUserApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysUserQueryResponse>> page(RequestPage pageRequest, SysUserQueryRequest queryRequest) {
-		return R.ok(sysUserAppService.page(pageRequest, queryRequest));
+	public R<PageResponse<SysUserQueryResponse>> page(RequestPage requestPage, SysUserQueryRequest queryRequest) {
+		return R.ok(sysUserAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
@@ -75,15 +75,15 @@ public class SysUserApi {
 
 	@Operation(summary = "根据租户ID查询所有关联用户", description = "根据租户ID查询所有关联用户", method = "GET")
 	@GetMapping(value = "/selectTenantUserPage")
-	public R<PageResponse<SysUserQueryResponse>> selectTenantUserPage(RequestPage pageRequest, SysUserQueryRequest queryRequest) {
-		return R.ok(sysUserAppService.selectTenantUserPage(pageRequest, queryRequest));
+	public R<PageResponse<SysUserQueryResponse>> selectTenantUserPage(RequestPage requestPage, SysUserQueryRequest queryRequest) {
+		return R.ok(sysUserAppService.selectTenantUserPage(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "根据租户ID查询无关联用户分页", description = "根据租户ID查询无关联用户分页", method = "GET")
 	@GetMapping(value = "/selectNoExistsTenantUserPage")
-	public R<PageResponse<SysUserQueryResponse>> selectNoExistsTenantUserPage(RequestPage pageRequest,
+	public R<PageResponse<SysUserQueryResponse>> selectNoExistsTenantUserPage(RequestPage requestPage,
 																			  SysUserQueryRequest queryRequest) {
-		return R.ok(sysUserAppService.selectNoExistsTenantUserPage(pageRequest, queryRequest));
+		return R.ok(sysUserAppService.selectNoExistsTenantUserPage(requestPage, queryRequest));
 	}
 
 }

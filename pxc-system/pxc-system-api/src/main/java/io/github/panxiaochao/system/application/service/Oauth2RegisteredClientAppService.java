@@ -42,13 +42,13 @@ public class Oauth2RegisteredClientAppService {
 
 	/**
 	 * 查询分页
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<Oauth2RegisteredClientQueryResponse> page(RequestPage pageRequest,
+	public PageResponse<Oauth2RegisteredClientQueryResponse> page(RequestPage requestPage,
 			Oauth2RegisteredClientQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<Oauth2RegisteredClientQueryResponse> list = oauth2RegisteredClientReadModelService.page(pagination,
 				queryRequest);
 		return new PageResponse<>(pagination, list);

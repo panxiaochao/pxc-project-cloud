@@ -42,13 +42,13 @@ public class SysLogOperateAppService {
 
 	/**
 	 * 查询分页
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 系统日志操作表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysLogOperateQueryResponse> page(RequestPage pageRequest,
+	public PageResponse<SysLogOperateQueryResponse> page(RequestPage requestPage,
 			SysLogOperateQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysLogOperateQueryResponse> list = sysLogOperateReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}

@@ -43,9 +43,9 @@ public class SysLogLoginApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysLogLoginQueryResponse>> page(RequestPage pageRequest,
+	public R<PageResponse<SysLogLoginQueryResponse>> page(RequestPage requestPage,
 			SysLogLoginQueryRequest queryRequest) {
-		return R.ok(sysLogLoginAppService.page(pageRequest, queryRequest));
+		return R.ok(sysLogLoginAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

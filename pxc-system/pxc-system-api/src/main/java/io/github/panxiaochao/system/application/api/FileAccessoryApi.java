@@ -43,9 +43,9 @@ public class FileAccessoryApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<FileAccessoryQueryResponse>> page(RequestPage pageRequest,
+	public R<PageResponse<FileAccessoryQueryResponse>> page(RequestPage requestPage,
 			FileAccessoryQueryRequest queryRequest) {
-		return R.ok(fileAccessoryAppService.page(pageRequest, queryRequest));
+		return R.ok(fileAccessoryAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

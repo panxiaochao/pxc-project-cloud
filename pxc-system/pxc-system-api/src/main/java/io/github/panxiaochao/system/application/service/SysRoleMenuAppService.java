@@ -42,14 +42,14 @@ public class SysRoleMenuAppService {
 
 	/**
 	 * 查询分页
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 角色菜单表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	// public PageResponse<SysRoleMenuQueryResponse> page(RequestPage pageRequest,
+	// public PageResponse<SysRoleMenuQueryResponse> page(RequestPage requestPage,
 	// SysRoleMenuQueryRequest queryRequest) {
-	// Pagination pagination = new Pagination(pageRequest.getPageNo(),
-	// pageRequest.getPageSize());
+	// Pagination pagination = new Pagination(requestPage.getPageNo(),
+	// requestPage.getPageSize());
 	// List<SysRoleMenuQueryResponse> list = sysRoleMenuReadModelService.page(pagination,
 	// queryRequest);
 	// return new PageResponse<>(pagination, list);

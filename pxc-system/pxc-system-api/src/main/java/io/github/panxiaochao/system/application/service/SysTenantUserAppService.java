@@ -46,13 +46,13 @@ public class SysTenantUserAppService {
 
 	/**
 	 * 查询分页
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 租户用户表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysTenantUserQueryResponse> page(RequestPage pageRequest,
+	public PageResponse<SysTenantUserQueryResponse> page(RequestPage requestPage,
 			SysTenantUserQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysTenantUserQueryResponse> list = sysTenantUserReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}

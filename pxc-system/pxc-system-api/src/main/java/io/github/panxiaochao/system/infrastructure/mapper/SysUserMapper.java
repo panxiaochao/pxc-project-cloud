@@ -27,7 +27,8 @@ public interface SysUserMapper extends BaseMapper<SysUserPO> {
 	 * @param identityType 登录类型
 	 * @return 用户综合信息
 	 */
-	List<SysUserLogin> loadUserByIdentityType(String username, String identityType);
+	List<SysUserLogin> loadUserByIdentityType(@Param("username") String username,
+			@Param("identityType") String identityType);
 
 	/**
 	 * 根据租户ID查询所有关联用户

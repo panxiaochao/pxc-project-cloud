@@ -43,8 +43,8 @@ public class SysJobApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysJobQueryResponse>> page(RequestPage pageRequest, SysJobQueryRequest queryRequest) {
-		return R.ok(sysJobAppService.page(pageRequest, queryRequest));
+	public R<PageResponse<SysJobQueryResponse>> page(RequestPage requestPage, SysJobQueryRequest queryRequest) {
+		return R.ok(sysJobAppService.page(requestPage, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

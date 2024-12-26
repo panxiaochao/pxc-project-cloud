@@ -42,12 +42,12 @@ public class SysDictItemAppService {
 
 	/**
 	 * 查询分页
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 数据字典配置表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysDictItemQueryResponse> page(RequestPage pageRequest, SysDictItemQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+	public PageResponse<SysDictItemQueryResponse> page(RequestPage requestPage, SysDictItemQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysDictItemQueryResponse> list = sysDictItemReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}

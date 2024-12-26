@@ -42,13 +42,13 @@ public class Oauth2AuthorizationConsentAppService {
 
 	/**
 	 * 查询分页
-	 * @param pageRequest 请求分页参数对象
+	 * @param requestPage 请求分页参数对象
 	 * @param queryRequest 查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<Oauth2AuthorizationConsentQueryResponse> page(RequestPage pageRequest,
+	public PageResponse<Oauth2AuthorizationConsentQueryResponse> page(RequestPage requestPage,
 			Oauth2AuthorizationConsentQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
+		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<Oauth2AuthorizationConsentQueryResponse> list = oauth2AuthorizationConsentReadModelService.page(pagination,
 				queryRequest);
 		return new PageResponse<>(pagination, list);
