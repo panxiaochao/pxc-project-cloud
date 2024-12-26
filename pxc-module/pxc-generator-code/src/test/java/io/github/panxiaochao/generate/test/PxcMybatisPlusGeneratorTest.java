@@ -23,12 +23,12 @@ public class PxcMybatisPlusGeneratorTest {
 			// .outputDir("E:/work_2023/test")
 			.outputDir("/Users/Lypxc/Documents/project/generate_pxc")
 			.parent("io.github.panxiaochao")
-			.moduleName("system")
+			.moduleName("code.generator")
 			.entityName("po")
 			// .logicDeleteColumnName("deleted")
 			// .insertFields("create_time")
 			// .updateFields("update_time")
-			.includes("sys_tenant_user")
+			.includes("gen_table", "gen_table_column")
 			.build();
 	}
 

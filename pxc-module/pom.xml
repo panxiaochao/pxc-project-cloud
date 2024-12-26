@@ -17,6 +17,7 @@
 
     <modules>
         <module>pxc-generator-code</module>
+        <module>pxc-code-generator</module>
     </modules>
 
 </project>
