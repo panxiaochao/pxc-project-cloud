@@ -13,7 +13,6 @@
     <artifactId>pxc-code-generator</artifactId>
     <description>pxc code generator 代码生成可视化模块</description>
 
-
     <dependencies>
         <dependency>
             <groupId>io.github.panxiaochao</groupId>
@@ -28,6 +27,10 @@
             <groupId>io.github.panxiaochao</groupId>
             <artifactId>pxc-framework-mybatis-plus</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.github.panxiaochao</groupId>
+            <artifactId>pxc-framework-dynamic-datasource</artifactId>
+        </dependency>
         <!-- mapstruct -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -36,6 +39,11 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+            <version>5.8.34</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
