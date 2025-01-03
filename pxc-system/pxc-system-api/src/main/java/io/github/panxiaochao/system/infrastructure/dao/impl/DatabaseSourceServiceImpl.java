@@ -90,8 +90,8 @@ public class DatabaseSourceServiceImpl implements IDatabaseSourceService, IDatab
 	private LambdaQueryWrapper<DatabaseSourcePO> lambdaQuery(DatabaseSourceQueryRequest queryRequest) {
 		LambdaQueryWrapper<DatabaseSourcePO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(DatabaseSourcePO::getId);
+			// 默认按照创建时间倒序排序
+			lqw.orderByDesc(DatabaseSourcePO::getCreateTime);
 			// 如果 数据库名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getDbName())) {
 				lqw.like(DatabaseSourcePO::getDbName, queryRequest.getDbName());

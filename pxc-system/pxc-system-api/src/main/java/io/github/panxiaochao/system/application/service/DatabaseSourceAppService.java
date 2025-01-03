@@ -129,8 +129,10 @@ public class DatabaseSourceAppService {
 	public List<Select<String>> selectDbSources() {
 		List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(DB_SOURCE);
 		List<SelectOption<String>> selectOptionList = list.stream()
-			.map(m -> SelectOption.of(false, m.getId(), m.getDictItemText(), m.getDictItemValue(), m.getSort(),
-					extraMap -> extraMap.put("url", m.getRemark())))
+			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(), extraMap -> {
+				extraMap.put("url", m.getRemark());
+				extraMap.put("label", m.getDictItemText());
+			}))
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
@@ -154,13 +156,13 @@ public class DatabaseSourceAppService {
 		// 连接成功
 		if (testConnectionValid) {
 			databaseSource.setTestConn(CommonConstant.OK.toString());
-			databaseSource.setTestConnTime(LocalDateTime.now());
-			return R.ok(IDatabaseSourceDTOConvert.INSTANCE.toResponse(databaseSource));
 		}
 		else {
 			databaseSource.setTestConn(CommonConstant.FAIL.toString());
 		}
-		return R.fail("数据库连接失败", IDatabaseSourceDTOConvert.INSTANCE.toResponse(databaseSource));
+		databaseSource.setTestConnTime(LocalDateTime.now());
+		// refactor(testConn)[2025-01-03 11:25:40]: 兼容新版本代码
+		return R.ok(IDatabaseSourceDTOConvert.INSTANCE.toResponse(databaseSource));
 	}
 
 }

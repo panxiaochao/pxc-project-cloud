@@ -154,7 +154,8 @@ public class DatabaseFieldTypeAppService {
 	public List<Select<String>> selectDbTypes() {
 		List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(DB_TYPE);
 		List<SelectOption<String>> selectOptionList = list.stream()
-			.map(m -> SelectOption.of(false, m.getId(), m.getDictItemText(), m.getDictItemValue(), m.getSort(), null))
+			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(),
+					extraMap -> extraMap.put("label", m.getDictItemText())))
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
@@ -167,7 +168,8 @@ public class DatabaseFieldTypeAppService {
 	public List<Select<String>> selectJavaTypes() {
 		List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(JAVA_TYPE);
 		List<SelectOption<String>> selectOptionList = list.stream()
-			.map(m -> SelectOption.of(false, m.getId(), m.getDictItemText(), m.getDictItemValue(), m.getSort(), null))
+			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(),
+					extraMap -> extraMap.put("label", m.getDictItemText())))
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;

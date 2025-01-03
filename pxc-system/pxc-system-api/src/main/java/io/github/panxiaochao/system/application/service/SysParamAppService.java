@@ -162,9 +162,7 @@ public class SysParamAppService {
 	public List<Select<String>> selectParamTypes() {
 		List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(PARAM_TYPE);
 		List<SelectOption<String>> selectOptionList = list.stream()
-			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(), (extraMap) -> {
-				extraMap.put("label", m.getDictItemText());
-			}))
+			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(), (extraMap) -> extraMap.put("label", m.getDictItemText())))
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
