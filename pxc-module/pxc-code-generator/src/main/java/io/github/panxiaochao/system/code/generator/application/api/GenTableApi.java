@@ -1,13 +1,16 @@
 package io.github.panxiaochao.system.code.generator.application.api;
 
-import io.github.panxiaochao.system.code.generator.application.api.request.gentable.GenTableCreateRequest;
-import io.github.panxiaochao.system.code.generator.application.api.request.gentable.GenTableUpdateRequest;
-import io.github.panxiaochao.system.code.generator.application.api.response.gentable.GenTableResponse;
-import io.github.panxiaochao.system.code.generator.application.api.response.gentable.TableMetaQueryResponse;
-import io.github.panxiaochao.system.code.generator.application.service.GenTableAppService;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.system.code.generator.application.api.request.gentable.DsQueryRequest;
+import io.github.panxiaochao.system.code.generator.application.api.request.gentable.GenTableCreateRequest;
+import io.github.panxiaochao.system.code.generator.application.api.request.gentable.GenTableQueryRequest;
+import io.github.panxiaochao.system.code.generator.application.api.request.gentable.GenTableUpdateRequest;
+import io.github.panxiaochao.system.code.generator.application.api.response.gentable.GenTableQueryResponse;
+import io.github.panxiaochao.system.code.generator.application.api.response.gentable.GenTableResponse;
+import io.github.panxiaochao.system.code.generator.application.api.response.gentable.TableMetaQueryResponse;
+import io.github.panxiaochao.system.code.generator.application.service.GenTableAppService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,6 +23,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -40,17 +45,23 @@ public class GenTableApi {
 	 */
 	private final GenTableAppService genTableAppService;
 
-	// @Operation(summary = "查询分页", description = "查询分页", method = "GET")
-	// @GetMapping(value = "/page")
-	// public R<PageResponse<GenTableQueryResponse>> page(RequestPage requestPage,
-	// GenTableQueryRequest queryRequest) {
-	// return R.ok(genTableAppService.page(requestPage, queryRequest));
-	// }
+	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
+	@GetMapping(value = "/page")
+	public R<PageResponse<GenTableQueryResponse>> page(RequestPage requestPage, GenTableQueryRequest queryRequest) {
+		return R.ok(genTableAppService.page(requestPage, queryRequest));
+	}
 
 	@Operation(summary = "查询动态数据源下的元数据表分页", description = "查询动态数据源下的元数据表分页", method = "GET")
 	@GetMapping(value = "/queryDsTablePage")
-	public R<PageResponse<TableMetaQueryResponse>> queryDsTablePage(RequestPage requestPage) {
-		return R.ok(genTableAppService.queryDsTablePage(requestPage));
+	public R<PageResponse<TableMetaQueryResponse>> queryDsTablePage(RequestPage requestPage,
+			DsQueryRequest dsQueryRequest) {
+		return R.ok(genTableAppService.queryDsTablePage(requestPage, dsQueryRequest));
+	}
+
+	@Operation(summary = "查询动态数据源下的元数据表", description = "查询动态数据源下的元数据表分", method = "GET")
+	@GetMapping(value = "/queryDsTable")
+	public R<List<TableMetaQueryResponse>> queryDsTable(DsQueryRequest dsQueryRequest) {
+		return R.ok(genTableAppService.queryDsTable(dsQueryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")
@@ -77,6 +88,20 @@ public class GenTableApi {
 	@DeleteMapping(value = "/{id}")
 	public R<Void> deleteById(@PathVariable("id") String id) {
 		return genTableAppService.deleteById(id);
+	}
+
+	// @Operation(summary = "同步动态数据源状态", description = "同步动态数据源状态", method = "GET")
+	// @GetMapping(value = "/syncDataSource")
+	// public R<Void> syncDataSource(){
+	// return genTableAppService.syncDataSource();
+	// }
+
+	@Operation(summary = "通过选择数据源导入需要生成代码的数据表", description = "通过选择数据源导入需要生成代码的数据表", method = "POST")
+	@PostMapping(value = "/importTables/{datasourceId}/{dbName}")
+	public R<Void> importTables(@PathVariable("datasourceId") String datasourceId,
+			@PathVariable("dbName") String dbName, @RequestBody List<String> tableNames) {
+		genTableAppService.importTables(datasourceId, dbName, tableNames);
+		return R.ok();
 	}
 
 }

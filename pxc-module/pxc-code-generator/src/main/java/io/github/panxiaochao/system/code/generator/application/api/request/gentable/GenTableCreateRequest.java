@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
  * 代码生成表创建请求对象
@@ -134,23 +132,5 @@ public class GenTableCreateRequest {
 	 */
 	@Schema(description = "基类ID")
 	private String baseclassId;
-
-	/**
-	 * 创建人
-	 */
-	@Schema(description = "创建人")
-	private String createId;
-
-	/**
-	 * 创建时间
-	 */
-	@Schema(description = "创建时间")
-	private LocalDateTime createTime;
-
-	/**
-	 * 更新时间
-	 */
-	@Schema(description = "更新时间")
-	private LocalDateTime updateTime;
 
 }

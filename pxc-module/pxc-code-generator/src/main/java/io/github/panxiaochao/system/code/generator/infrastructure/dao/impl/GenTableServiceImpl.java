@@ -90,8 +90,8 @@ public class GenTableServiceImpl implements IGenTableService, IGenTableReadModel
 	private LambdaQueryWrapper<GenTablePO> lambdaQuery(GenTableQueryRequest queryRequest) {
 		LambdaQueryWrapper<GenTablePO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(GenTablePO::getId);
+			// 默认按照创建时间倒序排序
+			lqw.orderByDesc(GenTablePO::getCreateTime);
 			// 如果 表名 不为空
 			if (StringUtils.isNotBlank(queryRequest.getTableName())) {
 				lqw.eq(GenTablePO::getTableName, queryRequest.getTableName());
@@ -167,18 +167,6 @@ public class GenTableServiceImpl implements IGenTableService, IGenTableReadModel
 			// 如果 基类ID 不为空
 			if (queryRequest.getBaseclassId() != null) {
 				lqw.eq(GenTablePO::getBaseclassId, queryRequest.getBaseclassId());
-			}
-			// 如果 创建人 不为空
-			if (StringUtils.isNotBlank(queryRequest.getCreateId())) {
-				lqw.eq(GenTablePO::getCreateId, queryRequest.getCreateId());
-			}
-			// 如果 创建时间 不为空
-			if (queryRequest.getCreateTime() != null) {
-				lqw.eq(GenTablePO::getCreateTime, queryRequest.getCreateTime());
-			}
-			// 如果 更新时间 不为空
-			if (queryRequest.getUpdateTime() != null) {
-				lqw.eq(GenTablePO::getUpdateTime, queryRequest.getUpdateTime());
 			}
 		}
 		return lqw;

@@ -22,10 +22,16 @@ import java.time.LocalDateTime;
 public class GenTableColumnQueryRequest {
 
 	/**
-	 *
+	 *主键
 	 */
-	@Schema(description = "")
+	@Schema(description = "主键")
 	private String id;
+
+	/**
+	 * 表ID
+	 */
+	@Schema(description = "表ID")
+	private String tableId;
 
 	/**
 	 * 表名称

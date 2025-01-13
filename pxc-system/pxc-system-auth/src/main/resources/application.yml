@@ -37,7 +37,7 @@ spring:
   # 开启框架配置
   pxc-framework:
     dynamic:
-      query-ds-sql: "SELECT db_type `name`, db_jdbc_url 'url', db_username 'username', db_password 'password' FROM database_source"
+      query-ds-sql: "SELECT db_code `name`, db_jdbc_url 'url', db_username 'username', db_password 'password' FROM database_source"
     # 是否开启异步
     async: true
     # 是否开启跨域

@@ -28,6 +28,12 @@ public class GenTableColumnQueryResponse {
 	private String id;
 
 	/**
+	 * 表ID
+	 */
+	@Schema(description = "表ID")
+	private String tableId;
+
+	/**
 	 * 表名称
 	 */
 	@Schema(description = "表名称")

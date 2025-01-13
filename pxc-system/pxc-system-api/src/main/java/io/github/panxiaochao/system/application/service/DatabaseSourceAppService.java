@@ -160,9 +160,26 @@ public class DatabaseSourceAppService {
 		else {
 			databaseSource.setTestConn(CommonConstant.FAIL.toString());
 		}
-		databaseSource.setTestConnTime(LocalDateTime.now());
 		// refactor(testConn)[2025-01-03 11:25:40]: 兼容新版本代码
+		databaseSource.setTestConnTime(LocalDateTime.now());
 		return R.ok(IDatabaseSourceDTOConvert.INSTANCE.toResponse(databaseSource));
+	}
+
+	/**
+	 * 获取所有数据源管理下拉菜单
+	 * @return 下拉列表
+	 */
+	public List<Select<String>> selectDataSourceList() {
+		List<DatabaseSourceQueryResponse> databaseSourceQueryResponseList = databaseSourceReadModelService
+			.selectList(new DatabaseSourceQueryRequest());
+		List<SelectOption<String>> selectOptionList = databaseSourceQueryResponseList.stream()
+			.map(m -> SelectOption.of(m.getDbCode(), m.getDbName(), extraMap -> {
+				extraMap.put("label", m.getDbName());
+			}))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
+
 	}
 
 }

@@ -77,6 +77,12 @@ public class DatabaseSourceApi {
 		return databaseSourceAppService.deleteById(id);
 	}
 
+	@Operation(summary = "获取所有数据源管理下拉菜单", description = "获取所有数据源管理下拉菜单", method = "GET")
+	@GetMapping(value = "/selectDataSourceList")
+	public R<List<Select<String>>> selectDataSourceList() {
+		return R.ok(databaseSourceAppService.selectDataSourceList());
+	}
+
 	@Operation(summary = "获取数据源类型下拉菜单", description = "获取数据源类型下拉菜单", method = "GET")
 	@GetMapping(value = "/selectDbSources")
 	public R<List<Select<String>>> selectDbTypes() {

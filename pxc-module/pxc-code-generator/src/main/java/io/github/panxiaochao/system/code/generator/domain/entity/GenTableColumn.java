@@ -25,6 +25,11 @@ public class GenTableColumn {
 	private String id;
 
 	/**
+	 * 表ID
+	 */
+	private String tableId;
+
+	/**
 	 * 表名称
 	 */
 	private String tableName;

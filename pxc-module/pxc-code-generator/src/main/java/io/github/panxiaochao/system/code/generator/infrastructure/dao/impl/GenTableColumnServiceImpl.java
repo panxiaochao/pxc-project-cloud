@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.code.generator.infrastructure.dao.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.system.code.generator.application.api.request.gentablecolumn.GenTableColumnQueryRequest;
 import io.github.panxiaochao.system.code.generator.application.api.response.gentablecolumn.GenTableColumnQueryResponse;
 import io.github.panxiaochao.system.code.generator.application.repository.IGenTableColumnReadModelService;
@@ -11,7 +12,6 @@ import io.github.panxiaochao.system.code.generator.domain.repository.IGenTableCo
 import io.github.panxiaochao.system.code.generator.infrastructure.convert.IGenTableColumnPOConvert;
 import io.github.panxiaochao.system.code.generator.infrastructure.mapper.GenTableColumnMapper;
 import io.github.panxiaochao.system.code.generator.infrastructure.po.GenTableColumnPO;
-import io.github.panxiaochao.core.response.page.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -95,6 +95,10 @@ public class GenTableColumnServiceImpl implements IGenTableColumnService, IGenTa
 			// 如果 表名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getTableName())) {
 				lqw.eq(GenTableColumnPO::getTableName, queryRequest.getTableName());
+			}
+			// 如果 表ID 不为空
+			if (StringUtils.isNotBlank(queryRequest.getTableId())) {
+				lqw.eq(GenTableColumnPO::getTableId, queryRequest.getTableId());
 			}
 			// 如果 字段名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getFieldName())) {
