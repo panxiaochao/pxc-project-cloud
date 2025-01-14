@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.panxiaochao</groupId>
+        <artifactId>pxc-modules</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>pxc-system-development</artifactId>
+    <description>pxc system development 系统开发模块，包括数据库管理、字段管理、生成代码等</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.panxiaochao</groupId>
+            <artifactId>pxc-framework-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.panxiaochao</groupId>
+            <artifactId>pxc-framework-util</artifactId>
+        </dependency>
+        <!-- pxc-framework-redis 插件 -->
+        <dependency>
+            <groupId>io.github.panxiaochao</groupId>
+            <artifactId>pxc-framework-redis</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Mybatis plus -->
+        <dependency>
+            <groupId>io.github.panxiaochao</groupId>
+            <artifactId>pxc-framework-mybatis-plus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.panxiaochao</groupId>
+            <artifactId>pxc-framework-dynamic-datasource</artifactId>
+        </dependency>
+        <!-- mapstruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+            <version>5.8.34</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+</project>

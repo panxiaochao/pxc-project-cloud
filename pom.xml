@@ -4,21 +4,27 @@
     <groupId>io.github.panxiaochao</groupId>
     <name>pxc-project-cloud</name>
     <artifactId>pxc-project-cloud</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <!-- 模块 -->
     <modules>
-        <module>pxc-system</module>
-        <module>pxc-module</module>
+        <module>pxc-modules</module>
+        <module>pxc-system-auth</module>
+        <module>pxc-system-common</module>
     </modules>
 
     <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springdoc-openapi.version>1.8.0</springdoc-openapi.version>
         <knife4j-openapi3-spring-boot-starter.version>4.5.0</knife4j-openapi3-spring-boot-starter.version>
         <lombok.version>1.18.36</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <nimbus-jose-jwt.version>9.47</nimbus-jose-jwt.version>
+        <sa-token.version>1.39.0</sa-token.version>
         <pxc-framework.version>2.0.8-SNAPSHOT</pxc-framework.version>
     </properties>
 
@@ -61,11 +67,25 @@
                 <version>${mapstruct.version}</version>
             </dependency>
 
-            <!-- nimbus-jwt -->
+            <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
             <dependency>
-                <groupId>com.nimbusds</groupId>
-                <artifactId>nimbus-jose-jwt</artifactId>
-                <version>${nimbus-jose-jwt.version}</version>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-redis-jackson</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <!-- Sa-Token 整合 jwt -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-jwt</artifactId>
+                <version>${sa-token.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -75,6 +95,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
                 <configuration>
                     <annotationProcessorPaths>
                         <path>

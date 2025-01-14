@@ -4,7 +4,3 @@
 # 技术栈
 - springboot 2.7.X
 - JDK 1.8
-
-# 代办计划
-- [ ] 用户表loginNums，loginErrorNums是否合理
-- [ ] 自建简易JWT鉴权模块
