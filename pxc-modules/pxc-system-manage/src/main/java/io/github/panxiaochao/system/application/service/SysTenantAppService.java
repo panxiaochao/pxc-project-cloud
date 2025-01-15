@@ -13,14 +13,13 @@ import io.github.panxiaochao.system.application.api.request.systenant.SysTenantC
 import io.github.panxiaochao.system.application.api.request.systenant.SysTenantQueryRequest;
 import io.github.panxiaochao.system.application.api.request.systenant.SysTenantUpdateRequest;
 import io.github.panxiaochao.system.application.api.request.systenantpackage.SysTenantPackageQueryRequest;
-import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDictItemQueryResponse;
 import io.github.panxiaochao.system.application.api.response.systenant.SysTenantQueryResponse;
 import io.github.panxiaochao.system.application.api.response.systenant.SysTenantResponse;
 import io.github.panxiaochao.system.application.api.response.systenantpackage.SysTenantPackageQueryResponse;
 import io.github.panxiaochao.system.application.convert.ISysTenantDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysTenantPackageReadModelService;
 import io.github.panxiaochao.system.application.repository.ISysTenantReadModelService;
-import io.github.panxiaochao.system.application.runner.helper.CacheHelper;
+import io.github.panxiaochao.system.common.cache.CacheHelper;
 import io.github.panxiaochao.system.domain.entity.SysTenant;
 import io.github.panxiaochao.system.domain.service.SysTenantDomainService;
 import lombok.RequiredArgsConstructor;
@@ -82,10 +81,10 @@ public class SysTenantAppService {
 		// 数据翻译
 		list.forEach(s -> {
 			if (StringUtils.hasText(s.getMode())) {
-				SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(TENANT_MODE,
+				CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(TENANT_MODE,
 						s.getMode());
-				if (Objects.nonNull(sysDictItemQueryResponse)) {
-					s.setModeStr(sysDictItemQueryResponse.getDictItemText());
+				if (Objects.nonNull(sysDictItem)) {
+					s.setModeStr(sysDictItem.getDictItemText());
 				}
 			}
 			if (StringUtils.hasText(s.getPackageId())) {
@@ -156,7 +155,7 @@ public class SysTenantAppService {
 	 * @return List<Select<String>>
 	 */
 	public List<Select<String>> selectModes() {
-		List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(TENANT_MODE);
+		List<CacheHelper.SysDictItem> list = CacheHelper.getSysDictItemListByCode(TENANT_MODE);
 		List<SelectOption<String>> selectOptionList = list.stream()
 			.map(m -> SelectOption.of(false, m.getId(), m.getDictItemText(), m.getDictItemValue(), m.getSort(),
 					(extraMap) -> extraMap.put("label", m.getDictItemText())))

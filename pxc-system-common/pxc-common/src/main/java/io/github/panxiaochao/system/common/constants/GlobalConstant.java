@@ -26,31 +26,6 @@ public interface GlobalConstant {
 	String SUPER_USER = "root";
 
 	/**
-	 * Redis Login 前缀 KEY
-	 */
-	String REDIS_ROOT_KEY = "Auth-user:";
-
-	/**
-	 * LOGIN_TOKEN 前缀
-	 */
-	String LOGIN_TOKEN_PREFIX = REDIS_ROOT_KEY + "login:token:";
-
-	/**
-	 * LOGIN 前缀
-	 */
-	String LOGIN_PREFIX = REDIS_ROOT_KEY + "login:user:";
-
-	/**
-	 * LOGIN_ONLINE 前缀
-	 */
-	String LOGIN_ONLINE_PREFIX = REDIS_ROOT_KEY + "login:online:";
-
-	/**
-	 * 登录失败限制 key
-	 */
-	String LOGIN_FAIL_LIMIT_KEY = REDIS_ROOT_KEY + "login_fail_limit:";
-
-	/**
 	 * 查询遍历Redis key限制数量
 	 */
 	int KEY_COUNT = 100;

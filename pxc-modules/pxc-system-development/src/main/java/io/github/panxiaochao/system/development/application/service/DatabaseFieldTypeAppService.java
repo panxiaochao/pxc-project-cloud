@@ -1,11 +1,14 @@
 package io.github.panxiaochao.system.development.application.service;
 
 import io.github.panxiaochao.core.component.select.Select;
+import io.github.panxiaochao.core.component.select.SelectBuilder;
+import io.github.panxiaochao.core.component.select.SelectOption;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.CharPools;
+import io.github.panxiaochao.system.common.cache.CacheHelper;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtype.DatabaseFieldTypeCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtype.DatabaseFieldTypeQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtype.DatabaseFieldTypeUpdateRequest;
@@ -19,7 +22,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -64,13 +69,14 @@ public class DatabaseFieldTypeAppService {
 		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<DatabaseFieldTypeQueryResponse> list = databaseFieldTypeReadModelService.page(pagination, queryRequest);
 		list.forEach(s -> {
-			// SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(DB_TYPE,
-			// 		s.getDbType());
+			// SysDictItemQueryResponse sysDictItemQueryResponse =
+			// CacheHelper.getSysDictItemByValue(DB_TYPE,
+			// s.getDbType());
 			// if (Objects.isNull(sysDictItemQueryResponse)) {
-			// 	s.setDbTypeStr(StringPools.EMPTY);
+			// s.setDbTypeStr(StringPools.EMPTY);
 			// }
 			// else {
-			// 	s.setDbTypeStr(sysDictItemQueryResponse.getDictItemText());
+			// s.setDbTypeStr(sysDictItemQueryResponse.getDictItemText());
 			// }
 		});
 		return new PageResponse<>(pagination, list);
@@ -144,14 +150,13 @@ public class DatabaseFieldTypeAppService {
 	 * @return 返回通用下拉菜单
 	 */
 	public List<Select<String>> selectDbTypes() {
-		// List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(DB_TYPE);
-		// List<SelectOption<String>> selectOptionList = list.stream()
-		// 	.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(),
-		// 			extraMap -> extraMap.put("label", m.getDictItemText())))
-		// 	.collect(Collectors.toList());
-		// List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
-		// return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
-		return null;
+		List<CacheHelper.SysDictItem> list = CacheHelper.getSysDictItemListByCode(DB_TYPE);
+		List<SelectOption<String>> selectOptionList = list.stream()
+			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(),
+					extraMap -> extraMap.put("label", m.getDictItemText())))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
 	}
 
 	/**
@@ -159,14 +164,13 @@ public class DatabaseFieldTypeAppService {
 	 * @return 返回通用下拉菜单
 	 */
 	public List<Select<String>> selectJavaTypes() {
-		// List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(DB_TYPE);
-		// List<SelectOption<String>> selectOptionList = list.stream()
-		// 	.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(),
-		// 			extraMap -> extraMap.put("label", m.getDictItemText())))
-		// 	.collect(Collectors.toList());
-		// List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
-		// return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
-		return null;
+		List<CacheHelper.SysDictItem> list = CacheHelper.getSysDictItemListByCode(DB_TYPE);
+		List<SelectOption<String>> selectOptionList = list.stream()
+			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(),
+					extraMap -> extraMap.put("label", m.getDictItemText())))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
 	}
 
 }

@@ -18,6 +18,11 @@
             <artifactId>pxc-framework-util</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.github.panxiaochao</groupId>
+            <artifactId>pxc-framework-redis</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>

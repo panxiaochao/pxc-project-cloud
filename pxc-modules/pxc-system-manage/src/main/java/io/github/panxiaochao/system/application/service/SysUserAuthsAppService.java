@@ -11,12 +11,11 @@ import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDictItemQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysuserauths.SysUserAuthsQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysuserauths.SysUserAuthsResponse;
 import io.github.panxiaochao.system.application.convert.ISysUserAuthsDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysUserAuthsReadModelService;
-import io.github.panxiaochao.system.application.runner.helper.CacheHelper;
+import io.github.panxiaochao.system.common.cache.CacheHelper;
 import io.github.panxiaochao.system.domain.entity.SysUserAuths;
 import io.github.panxiaochao.system.domain.service.SysUserAuthsDomainService;
 import lombok.RequiredArgsConstructor;
@@ -67,13 +66,13 @@ public class SysUserAuthsAppService {
 		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysUserAuthsQueryResponse> list = sysUserAuthsReadModelService.page(pagination, queryRequest);
 		list.forEach(s -> {
-			SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
+			CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
 					s.getIdentityType());
-			if (Objects.isNull(sysDictItemQueryResponse)) {
+			if (Objects.isNull(sysDictItem)) {
 				s.setIdentityTypeStr(StringPools.EMPTY);
 			}
 			else {
-				s.setIdentityTypeStr(sysDictItemQueryResponse.getDictItemText());
+				s.setIdentityTypeStr(sysDictItem.getDictItemText());
 			}
 		});
 		return new PageResponse<>(pagination, list);
@@ -106,18 +105,18 @@ public class SysUserAuthsAppService {
 				.anyMatch(f -> f.getIdentityType().equals(finalSysUserAuths.getIdentityType())
 						&& f.getUserId().equals(finalSysUserAuths.getUserId()));
 			if (hasData) {
-				SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
+				CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
 						sysUserAuths.getIdentityType());
-				return R.fail("登录类型[" + sysDictItemQueryResponse.getDictItemText() + "]已存在");
+				return R.fail("登录类型[" + sysDictItem.getDictItemText() + "]已存在");
 			}
 			// 2.再判断登录类型和登录账号，其他用户有没有新建过
 			hasData = list.stream()
 				.anyMatch(f -> f.getIdentityType().equals(finalSysUserAuths.getIdentityType())
 						&& f.getIdentifier().equals(finalSysUserAuths.getIdentifier()));
 			if (hasData) {
-				SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
+				CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
 						sysUserAuths.getIdentityType());
-				return R.fail("在登录类型[" + sysDictItemQueryResponse.getDictItemText() + "]下，登录账号["
+				return R.fail("在登录类型[" + sysDictItem.getDictItemText() + "]下，登录账号["
 						+ finalSysUserAuths.getIdentifier() + "]已存在");
 			}
 		}
@@ -149,9 +148,9 @@ public class SysUserAuthsAppService {
 				.findFirst();
 			// 有数据了
 			if (optionalSysUserAuths.isPresent()) {
-				SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
+				CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
 						sysUserAuths.getIdentityType());
-				return R.fail("登录类型[" + sysDictItemQueryResponse.getDictItemText() + "]已存在");
+				return R.fail("登录类型[" + sysDictItem.getDictItemText() + "]已存在");
 			}
 		}
 		sysUserAuthsDomainService.update(sysUserAuths);
@@ -173,7 +172,7 @@ public class SysUserAuthsAppService {
 	 * @return 返回通用下拉菜单
 	 */
 	public List<Select<String>> selectIdentityTypes() {
-		List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(IDENTITY_TYPE);
+		List<CacheHelper.SysDictItem> list = CacheHelper.getSysDictItemListByCode(IDENTITY_TYPE);
 		List<SelectOption<String>> selectOptionList = list.stream()
 			.map(m -> SelectOption.of(false, m.getId(), m.getDictItemText(), m.getDictItemValue(), m.getSort(), null))
 			.collect(Collectors.toList());

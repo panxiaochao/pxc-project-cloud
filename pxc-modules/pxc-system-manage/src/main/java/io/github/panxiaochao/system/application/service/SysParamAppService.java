@@ -9,27 +9,29 @@ import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.StringPools;
+import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamUpdateRequest;
-import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDictItemQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysparam.SysParamQueryResponse;
 import io.github.panxiaochao.system.application.api.response.sysparam.SysParamResponse;
 import io.github.panxiaochao.system.application.convert.ISysParamDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysParamReadModelService;
-import io.github.panxiaochao.system.application.runner.helper.CacheHelper;
+import io.github.panxiaochao.system.common.cache.CacheHelper;
+import io.github.panxiaochao.system.common.constants.RedisConstant;
 import io.github.panxiaochao.system.domain.entity.SysParam;
 import io.github.panxiaochao.system.domain.service.SysParamDomainService;
 import lombok.RequiredArgsConstructor;
+import org.redisson.api.RBatch;
+import org.redisson.api.RMapAsync;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -75,13 +77,12 @@ public class SysParamAppService {
 		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysParamQueryResponse> list = sysParamReadModelService.page(pagination, queryRequest);
 		list.forEach(s -> {
-			SysDictItemQueryResponse sysDictItemQueryResponse = CacheHelper.getSysDictItemByValue(PARAM_TYPE,
-					s.getParamType());
-			if (Objects.isNull(sysDictItemQueryResponse)) {
+			CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(PARAM_TYPE, s.getParamType());
+			if (Objects.isNull(sysDictItem)) {
 				s.setParamTypeStr(StringPools.EMPTY);
 			}
 			else {
-				s.setParamTypeStr(sysDictItemQueryResponse.getDictItemText());
+				s.setParamTypeStr(sysDictItem.getDictItemText());
 			}
 		});
 		return new PageResponse<>(pagination, list);
@@ -142,15 +143,22 @@ public class SysParamAppService {
 	 * 发布系统参数
 	 */
 	public void publishedData() {
+		RedissonClient redissonClient = RedissonUtil.ofRedissonClient();
+		RBatch batch = redissonClient.createBatch();
 		long startTime = System.currentTimeMillis();
 		SysParamQueryRequest sysParamQueryRequest = new SysParamQueryRequest();
 		sysParamQueryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 		List<SysParamQueryResponse> list = sysParamReadModelService.list(sysParamQueryRequest);
-		Map<String, SysParamQueryResponse> sysParamMap = new LinkedHashMap<>();
+		RedissonUtil.deleteKeyByPattern(RedisConstant.KEY_ALL_SYS_PARAM);
 		list.forEach(s -> {
-			sysParamMap.put(s.getId(), s);
+			RMapAsync<String, Object> sysParamMap = batch.getMap(RedisConstant.KEY_SYS_PARAM + s.getParamKey());
+			sysParamMap.putAsync("id", s.getId());
+			sysParamMap.putAsync("paramName", s.getParamName());
+			sysParamMap.putAsync("paramKey", s.getParamKey());
+			sysParamMap.putAsync("paramValue", s.getParamValue());
+			sysParamMap.putAsync("paramType", s.getParamType());
 		});
-		CacheHelper.putAllSysParam(sysParamMap);
+		batch.execute();
 		LOGGER.info("[pxc-system] sys_param load is success, time consuming {} ms",
 				(System.currentTimeMillis() - startTime));
 	}
@@ -160,9 +168,10 @@ public class SysParamAppService {
 	 * @return 返回通用结果
 	 */
 	public List<Select<String>> selectParamTypes() {
-		List<SysDictItemQueryResponse> list = CacheHelper.getSysDictItemListByCode(PARAM_TYPE);
+		List<CacheHelper.SysDictItem> list = CacheHelper.getSysDictItemListByCode(PARAM_TYPE);
 		List<SelectOption<String>> selectOptionList = list.stream()
-			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(), (extraMap) -> extraMap.put("label", m.getDictItemText())))
+			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(),
+					(extraMap) -> extraMap.put("label", m.getDictItemText())))
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;

@@ -5,6 +5,7 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.api.request.sysdict.SysDictCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysdict.SysDictQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysdict.SysDictUpdateRequest;
@@ -15,19 +16,23 @@ import io.github.panxiaochao.system.application.api.response.sysdictitem.SysDict
 import io.github.panxiaochao.system.application.convert.ISysDictDTOConvert;
 import io.github.panxiaochao.system.application.repository.ISysDictItemReadModelService;
 import io.github.panxiaochao.system.application.repository.ISysDictReadModelService;
-import io.github.panxiaochao.system.application.runner.helper.CacheHelper;
+import io.github.panxiaochao.system.common.constants.RedisConstant;
 import io.github.panxiaochao.system.domain.entity.SysDict;
 import io.github.panxiaochao.system.domain.service.SysDictDomainService;
 import lombok.RequiredArgsConstructor;
+import org.redisson.api.RBatch;
+import org.redisson.api.RMapAsync;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -136,26 +141,41 @@ public class SysDictAppService {
 	 * 发布数据字典
 	 */
 	public void publishedData() {
+		RedissonClient redissonClient = RedissonUtil.ofRedissonClient();
+		RBatch batch = redissonClient.createBatch();
 		long startTime = System.currentTimeMillis();
 		// 1.数据字典主表
 		SysDictQueryRequest sysDictQueryRequest = new SysDictQueryRequest();
 		sysDictQueryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 		List<SysDictQueryResponse> sysDictQueryResponseList = sysDictReadModelService.list(sysDictQueryRequest);
-		Map<String, SysDictQueryResponse> sysDictMap = new LinkedHashMap<>();
-		sysDictQueryResponseList.forEach(s -> {
-			sysDictMap.put(s.getId(), s);
-		});
-		CacheHelper.putAllSysDict(sysDictMap);
 		// 2.数据字典配置表
 		SysDictItemQueryRequest sysDictItemQueryRequest = new SysDictItemQueryRequest();
 		sysDictItemQueryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
 		List<SysDictItemQueryResponse> sysDictItemQueryResponseList = sysDictItemReadModelService
 			.list(sysDictItemQueryRequest);
-		Map<String, SysDictItemQueryResponse> sysDictItemMap = new LinkedHashMap<>();
-		sysDictItemQueryResponseList.forEach(s -> {
-			sysDictItemMap.put(s.getId(), s);
+		RedissonUtil.deleteKeyByPattern(RedisConstant.KEY_ALL_SYS_DICT);
+		sysDictQueryResponseList.forEach(s -> {
+			RMapAsync<String, Object> sysDictMap = batch.getMap(RedisConstant.KEY_SYS_DICT + s.getDictCode());
+			sysDictMap.putAsync("id", s.getId());
+			sysDictMap.putAsync("dictName", s.getDictName());
+			sysDictMap.putAsync("dictCode", s.getDictCode());
+			sysDictMap.putAsync("dictType", s.getDictType());
+			sysDictMap.putAsync("sort", s.getSort());
+			List<Map<String, Object>> sysDictItemList = sysDictItemQueryResponseList.stream()
+				.filter(sd -> sd.getDictId().equals(s.getId()))
+				.map(sd -> {
+					Map<String, Object> map = new HashMap<>();
+					map.put("id", sd.getId());
+					map.put("dictId", sd.getDictId());
+					map.put("dictItemText", sd.getDictItemText());
+					map.put("dictItemValue", sd.getDictItemValue());
+					map.put("sort", sd.getSort());
+					return map;
+				})
+				.collect(Collectors.toList());
+			sysDictMap.putAsync("sysDictItemList", sysDictItemList);
 		});
-		CacheHelper.putAllSysDictItem(sysDictItemMap);
+		batch.execute();
 		LOGGER.info("[pxc-system] dict load is success, time consuming {} ms",
 				(System.currentTimeMillis() - startTime));
 	}
