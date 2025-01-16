@@ -1,14 +1,14 @@
 package io.github.panxiaochao.system.development.application.api;
 
+import io.github.panxiaochao.core.response.R;
+import io.github.panxiaochao.core.response.page.PageResponse;
+import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnUpdateRequest;
 import io.github.panxiaochao.system.development.application.api.response.gentablecolumn.GenTableColumnQueryResponse;
 import io.github.panxiaochao.system.development.application.api.response.gentablecolumn.GenTableColumnResponse;
 import io.github.panxiaochao.system.development.application.service.GenTableColumnAppService;
-import io.github.panxiaochao.core.response.R;
-import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

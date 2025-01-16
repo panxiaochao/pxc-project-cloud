@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 public class GenTableColumnQueryRequest {
 
 	/**
-	 *主键
+	 * 主键
 	 */
 	@Schema(description = "主键")
 	private String id;

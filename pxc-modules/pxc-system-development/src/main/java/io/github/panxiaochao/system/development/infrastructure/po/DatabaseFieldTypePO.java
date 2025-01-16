@@ -30,12 +30,6 @@ public class DatabaseFieldTypePO {
 	private Integer id;
 
 	/**
-	 * 数据库类型
-	 */
-	@TableField("db_type")
-	private String dbType;
-
-	/**
 	 * 数据库字段类型
 	 */
 	@TableField("column_type")

@@ -5,7 +5,6 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.development.infrastructure.po.DatabaseFieldTypePO">
         <id column="id" property="id"/>
-        <result column="db_type" property="dbType"/>
         <result column="column_type" property="columnType"/>
         <result column="java_type" property="javaType"/>
         <result column="package_name" property="packageName"/>
@@ -16,7 +15,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        , db_type, column_type, java_type, package_name, create_time, update_time
+        , column_type, java_type, package_name, create_time, update_time
     </sql>
 
 </mapper>

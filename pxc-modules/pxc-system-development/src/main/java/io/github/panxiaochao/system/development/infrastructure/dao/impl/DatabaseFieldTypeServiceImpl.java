@@ -73,13 +73,8 @@ public class DatabaseFieldTypeServiceImpl implements IDatabaseFieldTypeService, 
 	private LambdaQueryWrapper<DatabaseFieldTypePO> lambdaQuery(DatabaseFieldTypeQueryRequest queryRequest) {
 		LambdaQueryWrapper<DatabaseFieldTypePO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照数据库类型倒序排序
-			lqw.orderByDesc(DatabaseFieldTypePO::getDbType);
-			lqw.orderByAsc(DatabaseFieldTypePO::getColumnType);
-			// 如果 数据库类型 不为空
-			if (StringUtils.isNotBlank(queryRequest.getDbType())) {
-				lqw.eq(DatabaseFieldTypePO::getDbType, queryRequest.getDbType());
-			}
+			// 默认按照创建时间倒序排序
+			lqw.orderByAsc(DatabaseFieldTypePO::getCreateTime);
 			// 如果 数据库字段类型 不为空
 			if (StringUtils.isNotBlank(queryRequest.getColumnType())) {
 				lqw.eq(DatabaseFieldTypePO::getColumnType, queryRequest.getColumnType());

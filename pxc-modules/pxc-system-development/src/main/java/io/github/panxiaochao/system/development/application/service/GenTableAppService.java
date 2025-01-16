@@ -220,10 +220,8 @@ public class GenTableAppService {
 			// 根据dbName获取数据源信息
 			DatabaseSource databaseSource = databaseSourceDomainService.getById(databaseId);
 			// 数据表字段类型数组
-			DatabaseFieldTypeQueryRequest databaseFieldTypeQueryRequest = new DatabaseFieldTypeQueryRequest();
-			databaseFieldTypeQueryRequest.setDbType(databaseSource.getDbType());
 			List<DatabaseFieldTypeQueryResponse> databaseFieldTypeQueryResponseList = databaseFieldTypeReadModelService
-				.selectList(databaseFieldTypeQueryRequest);
+				.selectList(new DatabaseFieldTypeQueryRequest());
 			for (String tableName : tableNames) {
 				// 1.检验tableName是否已存在
 				GenTableQueryRequest queryRequest = new GenTableQueryRequest();

@@ -20,12 +20,6 @@ import lombok.ToString;
 public class DatabaseFieldTypeCreateRequest {
 
 	/**
-	 * 数据库类型
-	 */
-	@Schema(description = "数据库类型")
-	private String dbType;
-
-	/**
 	 * 数据库字段类型
 	 */
 	@Schema(description = "数据库字段类型")

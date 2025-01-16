@@ -8,7 +8,6 @@ import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.CharPools;
-import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.system.common.cache.CacheHelper;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtype.DatabaseFieldTypeCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtype.DatabaseFieldTypeQueryRequest;
@@ -25,7 +24,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -70,15 +68,6 @@ public class DatabaseFieldTypeAppService {
 			DatabaseFieldTypeQueryRequest queryRequest) {
 		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<DatabaseFieldTypeQueryResponse> list = databaseFieldTypeReadModelService.page(pagination, queryRequest);
-		list.forEach(s -> {
-			CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(DB_TYPE, s.getDbType());
-			if (Objects.isNull(sysDictItem)) {
-				s.setDbTypeStr(StringPools.EMPTY);
-			}
-			else {
-				s.setDbTypeStr(sysDictItem.getDictItemValue());
-			}
-		});
 		return new PageResponse<>(pagination, list);
 	}
 
@@ -104,12 +93,10 @@ public class DatabaseFieldTypeAppService {
 			.fromCreateRequest(databaseFieldTypeCreateRequest);
 		// 判断 数据库下字段类型是否唯一
 		DatabaseFieldTypeQueryRequest queryRequest = new DatabaseFieldTypeQueryRequest();
-		queryRequest.setDbType(databaseFieldType.getDbType());
 		queryRequest.setColumnType(databaseFieldType.getColumnType());
 		List<DatabaseFieldTypeQueryResponse> list = databaseFieldTypeReadModelService.selectList(queryRequest);
 		if (!CollectionUtils.isEmpty(list)) {
-			return R.fail(String.format("数据库[%s]下字段类型[%s]已存在", databaseFieldType.getDbType().toUpperCase(),
-					databaseFieldType.getColumnType()));
+			return R.fail(String.format("字段类型[%s]已存在", databaseFieldType.getColumnType()));
 		}
 		String javaType = databaseFieldType.getPackageName()
 			.substring(databaseFieldType.getPackageName().lastIndexOf(CharPools.DOT) + 1);
