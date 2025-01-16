@@ -35,7 +35,7 @@ public class CodeGeneratorProperties {
 	/**
 	 * 生成代码的模块名
 	 */
-	private String moduleName = "admin";
+	private String moduleName = "system";
 
 	/**
 	 * 生成代码的后端路径

@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -85,7 +86,8 @@ public class CacheHelper {
 		if (!StringUtils.hasText(code)) {
 			return null;
 		}
-		return JacksonUtil.toBean(RedissonUtil.getMapAll(RedisConstant.KEY_SYS_DICT + code));
+		Map<String, Object> mapAll = RedissonUtil.getMapAll(RedisConstant.KEY_SYS_DICT + code);
+		return JacksonUtil.toBean(JacksonUtil.toString(mapAll), SysDict.class);
 	}
 
 	/**
@@ -97,7 +99,8 @@ public class CacheHelper {
 		if (!StringUtils.hasText(key)) {
 			return null;
 		}
-		return JacksonUtil.toBean(RedissonUtil.getMapAll(RedisConstant.KEY_SYS_PARAM + key));
+		Map<String, Object> mapAll = RedissonUtil.getMapAll(RedisConstant.KEY_SYS_PARAM + key);
+		return JacksonUtil.toBean(JacksonUtil.toString(mapAll), SysParam.class);
 	}
 
 	/**

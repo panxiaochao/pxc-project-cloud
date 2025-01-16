@@ -36,7 +36,7 @@ import java.util.List;
 @Tag(name = "数据库-数据源管理 接口", description = "数据库-数据源管理 Api接口")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/system/v1/databasesource")
+@RequestMapping("/development/v1/databasesource")
 public class DatabaseSourceApi {
 
 	/**

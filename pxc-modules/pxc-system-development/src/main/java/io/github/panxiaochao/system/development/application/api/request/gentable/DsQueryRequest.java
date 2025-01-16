@@ -26,9 +26,9 @@ public class DsQueryRequest {
 	private String tableName;
 
 	/**
-	 * 数据源名
+	 * 数据源ID
 	 */
-	@Schema(description = "数据源名")
-	private String dbName;
+	@Schema(description = "数据源ID")
+	private String databaseId;
 
 }

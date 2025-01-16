@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.development.infrastructure.dao.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnQueryRequest;
 import io.github.panxiaochao.system.development.application.api.response.gentablecolumn.GenTableColumnQueryResponse;
@@ -220,6 +221,16 @@ public class GenTableColumnServiceImpl implements IGenTableColumnService, IGenTa
 	}
 
 	/**
+	 * 批量保存
+	 * @param list GenTableColumn 数据实体
+	 */
+	@Override
+	public void saveBatch(List<GenTableColumn> list) {
+		List<GenTableColumnPO> genTableColumnPOList = IGenTableColumnPOConvert.INSTANCE.fromEntity(list);
+		Db.saveBatch(genTableColumnPOList);
+	}
+
+	/**
 	 * 根据主键更新
 	 * @param genTableColumn GenTableColumn 实体
 	 */
@@ -236,6 +247,16 @@ public class GenTableColumnServiceImpl implements IGenTableColumnService, IGenTa
 	@Override
 	public void deleteById(String id) {
 		genTableColumnMapper.deleteById(id);
+	}
+
+	/**
+	 * 根据表ID删除
+	 * @param tableId 表主键
+	 */
+	@Override
+	public void deleteByTableId(String tableId) {
+		genTableColumnMapper
+			.delete(new LambdaQueryWrapper<GenTableColumnPO>().eq(GenTableColumnPO::getTableId, tableId));
 	}
 
 }

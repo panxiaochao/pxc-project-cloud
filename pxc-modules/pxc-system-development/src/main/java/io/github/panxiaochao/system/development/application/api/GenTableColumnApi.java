@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "代码生成表字段 接口", description = "代码生成表字段 Api接口")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/codegen/v1/gentablecolumn")
+@RequestMapping("/development/v1/gentablecolumn")
 public class GenTableColumnApi {
 
 	/**

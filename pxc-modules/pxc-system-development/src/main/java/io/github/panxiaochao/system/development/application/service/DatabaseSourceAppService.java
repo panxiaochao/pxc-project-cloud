@@ -10,6 +10,7 @@ import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.JdbcUtil;
 import io.github.panxiaochao.system.common.cache.CacheHelper;
+import io.github.panxiaochao.system.common.constants.DbTypes;
 import io.github.panxiaochao.system.development.application.api.request.databasesource.DatabaseSourceCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasesource.DatabaseSourceQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasesource.DatabaseSourceUpdateRequest;
@@ -54,7 +55,7 @@ public class DatabaseSourceAppService {
 	/**
 	 * 数据源类型 常量名
 	 */
-	private static final String DB_SOURCE = "DB_SOURCE";
+	private static final String DB_TYPE = "DB_TYPE";
 
 	/**
 	 * 查询分页
@@ -126,11 +127,12 @@ public class DatabaseSourceAppService {
 	 * 获取数据源类型下拉菜单
 	 */
 	public List<Select<String>> selectDbSources() {
-		List<CacheHelper.SysDictItem> list = CacheHelper.getSysDictItemListByCode(DB_SOURCE);
+		List<CacheHelper.SysDictItem> list = CacheHelper.getSysDictItemListByCode(DB_TYPE);
 		List<SelectOption<String>> selectOptionList = list.stream()
 			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(), extraMap -> {
-				// TODO
-				// extraMap.put("url", m.getRemark());
+				DbTypes dbTypes = DbTypes.getDbTypes(m.getDictItemValue());
+				extraMap.put("url", Objects.isNull(dbTypes) ? "" : dbTypes.getUrl());
+				extraMap.put("driver", Objects.isNull(dbTypes) ? "" : dbTypes.getDriverClassName());
 				extraMap.put("label", m.getDictItemText());
 			}))
 			.collect(Collectors.toList());
@@ -173,8 +175,9 @@ public class DatabaseSourceAppService {
 		List<DatabaseSourceQueryResponse> databaseSourceQueryResponseList = databaseSourceReadModelService
 			.selectList(new DatabaseSourceQueryRequest());
 		List<SelectOption<String>> selectOptionList = databaseSourceQueryResponseList.stream()
-			.map(m -> SelectOption.of(m.getDbCode(), m.getDbName(), extraMap -> {
+			.map(m -> SelectOption.of(m.getId(), m.getDbName(), extraMap -> {
 				extraMap.put("label", m.getDbName());
+				extraMap.put("dbCode", m.getDbCode());
 			}))
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();

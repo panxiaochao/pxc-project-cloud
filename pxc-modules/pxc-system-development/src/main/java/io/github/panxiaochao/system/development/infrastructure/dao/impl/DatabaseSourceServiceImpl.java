@@ -14,6 +14,8 @@ import io.github.panxiaochao.system.development.infrastructure.mapper.DatabaseSo
 import io.github.panxiaochao.system.development.infrastructure.po.DatabaseSourcePO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DatabaseSourceServiceImpl implements IDatabaseSourceService, IDatabaseSourceReadModelService {
+
+	/**
+	 * LOGGER DatabaseSourceServiceImpl.class
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseSourceServiceImpl.class);
 
 	/**
 	 * 角色表 持久化接口
@@ -78,6 +85,7 @@ public class DatabaseSourceServiceImpl implements IDatabaseSourceService, IDatab
 			return IDatabaseSourcePOConvert.INSTANCE.toQueryResponse(databaseSourcePO);
 		}
 		catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			return null;
 		}
 	}

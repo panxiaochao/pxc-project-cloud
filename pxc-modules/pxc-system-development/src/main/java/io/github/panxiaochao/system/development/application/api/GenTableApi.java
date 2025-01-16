@@ -37,7 +37,7 @@ import java.util.List;
 @Tag(name = "代码生成表 接口", description = "代码生成表 Api接口")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/codegen/v1/gentable")
+@RequestMapping("/development/v1/gentable")
 public class GenTableApi {
 
 	/**
@@ -97,10 +97,9 @@ public class GenTableApi {
 	// }
 
 	@Operation(summary = "通过选择数据源导入需要生成代码的数据表", description = "通过选择数据源导入需要生成代码的数据表", method = "POST")
-	@PostMapping(value = "/importTables/{datasourceId}/{dbName}")
-	public R<Void> importTables(@PathVariable("datasourceId") String datasourceId,
-			@PathVariable("dbName") String dbName, @RequestBody List<String> tableNames) {
-		genTableAppService.importTables(datasourceId, dbName, tableNames);
+	@PostMapping(value = "/importTables/{databaseId}")
+	public R<Void> importTables(@PathVariable("databaseId") String databaseId, @RequestBody List<String> tableNames) {
+		genTableAppService.importTables(databaseId, tableNames);
 		return R.ok();
 	}
 

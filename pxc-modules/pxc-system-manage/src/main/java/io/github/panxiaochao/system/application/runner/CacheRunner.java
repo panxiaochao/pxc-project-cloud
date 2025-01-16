@@ -1,7 +1,9 @@
 package io.github.panxiaochao.system.application.runner;
 
+import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.service.SysDictAppService;
 import io.github.panxiaochao.system.application.service.SysParamAppService;
+import io.github.panxiaochao.system.common.constants.RedisConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -34,9 +36,13 @@ public class CacheRunner implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) {
 		// 数据字典缓存
-		sysDictAppService.publishedData();
+		if (RedissonUtil.getKeysByPattern(RedisConstant.KEY_ALL_SYS_DICT).isEmpty()) {
+			sysDictAppService.publishedData();
+		}
 		// 系统参数缓存
-		sysParamAppService.publishedData();
+		if (RedissonUtil.getKeysByPattern(RedisConstant.KEY_ALL_SYS_PARAM).isEmpty()) {
+			sysParamAppService.publishedData();
+		}
 	}
 
 }

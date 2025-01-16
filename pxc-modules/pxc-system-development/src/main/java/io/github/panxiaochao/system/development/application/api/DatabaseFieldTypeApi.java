@@ -36,7 +36,7 @@ import java.util.List;
 @Tag(name = "数据库字段类型码表 接口", description = "数据库字段类型码表 Api接口")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/system/v1/databasefieldtype")
+@RequestMapping("/development/v1/databasefieldtype")
 public class DatabaseFieldTypeApi {
 
 	/**

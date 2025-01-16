@@ -5,6 +5,8 @@ import io.github.panxiaochao.system.development.domain.repository.IGenTableColum
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 代码生成表字段 Domain服务类.
@@ -41,6 +43,14 @@ public class GenTableColumnDomainService {
 	}
 
 	/**
+	 * 批量保存
+	 * @param list GenTableColumn 数据实体
+	 */
+	public void saveBatch(List<GenTableColumn> list) {
+		genTableColumnService.saveBatch(list);
+	}
+
+	/**
 	 * 根据主键更新
 	 * @param genTableColumn GenTableColumn 实体
 	 */
@@ -54,6 +64,14 @@ public class GenTableColumnDomainService {
 	 */
 	public void deleteById(String id) {
 		genTableColumnService.deleteById(id);
+	}
+
+	/**
+	 * 根据表ID删除
+	 * @param tableId 表主键
+	 */
+	public void deleteByTableId(String tableId) {
+		genTableColumnService.deleteByTableId(tableId);
 	}
 
 }
