@@ -1,7 +1,6 @@
 package io.github.panxiaochao.system.application.event;
 
 import io.github.panxiaochao.system.application.service.SysUserAppService;
-import io.github.panxiaochao.system.common.model.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

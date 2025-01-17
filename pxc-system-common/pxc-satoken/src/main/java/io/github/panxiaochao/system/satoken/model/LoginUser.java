@@ -1,4 +1,4 @@
-package io.github.panxiaochao.system.common.model;
+package io.github.panxiaochao.system.satoken.model;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.github.panxiaochao.core.utils.JacksonUtil;
@@ -6,11 +6,11 @@ import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,12 +20,11 @@ import java.util.Set;
  * </p>
  *
  * @author Lypxc
- * @since 2024-02-20
+ * @since 2025-01-17
  * @version 1.0
  */
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class LoginUser implements Serializable {
 
@@ -97,14 +96,19 @@ public class LoginUser implements Serializable {
 	private LocalDateTime loginTime;
 
 	/**
+	 * 登录设备
+	 */
+	private String loginDevice;
+
+	/**
 	 * 角色集合
 	 */
-	private Set<String> roles;
+	private Set<String> roles = new HashSet<>();
 
 	/**
 	 * 菜单按钮权限集合
 	 */
-	private Set<String> permissions;
+	private Set<String> permissions = new HashSet<>();
 
 	/**
 	 * 颁发令牌的时间

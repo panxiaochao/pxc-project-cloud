@@ -1,7 +1,7 @@
 package io.github.panxiaochao.system.auth.convert;
 
 import io.github.panxiaochao.system.auth.api.response.TokenOnlineQueryResponse;
-import io.github.panxiaochao.system.common.model.LoginUser;
+import io.github.panxiaochao.system.satoken.model.LoginUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

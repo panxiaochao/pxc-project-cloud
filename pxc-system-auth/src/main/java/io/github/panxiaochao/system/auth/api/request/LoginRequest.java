@@ -1,4 +1,4 @@
-package io.github.panxiaochao.system.auth.request;
+package io.github.panxiaochao.system.auth.api.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -27,8 +27,11 @@ public class LoginRequest {
 	@NotBlank(message = "密码不能为空")
 	private String password;
 
+	@Schema(description = "登录设备")
+	@NotBlank(message = "登录设备不能为空")
+	private String loginDevice;
+
 	@Schema(description = "验证码")
-	// @NotBlank(message = "验证码不能为空")
 	private String captcha;
 
 }

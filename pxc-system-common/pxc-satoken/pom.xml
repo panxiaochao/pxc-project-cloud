@@ -13,7 +13,12 @@
     <artifactId>pxc-satoken</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>io.github.panxiaochao</groupId>
+            <artifactId>pxc-common</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>io.github.panxiaochao</groupId>
             <artifactId>pxc-core</artifactId>
@@ -23,10 +28,6 @@
         <dependency>
             <groupId>io.github.panxiaochao</groupId>
             <artifactId>pxc-framework-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.github.panxiaochao</groupId>
-            <artifactId>pxc-framework-cache</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.dev33</groupId>
@@ -39,6 +40,14 @@
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-jwt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

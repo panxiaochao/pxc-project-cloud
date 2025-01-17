@@ -26,6 +26,8 @@
         <mapstruct.version>1.6.3</mapstruct.version>
         <sa-token.version>1.39.0</sa-token.version>
         <hutool.version>5.8.35</hutool.version>
+        <caffeine.version>3.1.8</caffeine.version>
+        <commons-pool2.version>2.12.0</commons-pool2.version>
         <pxc-framework.version>2.0.8-SNAPSHOT</pxc-framework.version>
     </properties>
 
@@ -96,6 +98,18 @@
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-jwt</artifactId>
                 <version>${sa-token.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
