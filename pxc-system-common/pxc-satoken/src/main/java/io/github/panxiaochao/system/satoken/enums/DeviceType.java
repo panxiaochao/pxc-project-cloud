@@ -67,7 +67,7 @@ public enum DeviceType {
 				return deviceType;
 			}
 		}
-		throw new RuntimeException("登录设备暂不支持！");
+		throw new RuntimeException(String.format("登录设备'[%s]'暂不支持！", device));
 	}
 
 }

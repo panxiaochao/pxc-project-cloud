@@ -89,3 +89,4 @@ sa-token:
   # 白名单 URL
   white-urls:
     - /web/v1/login
+    - /system/v1/**

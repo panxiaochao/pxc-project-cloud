@@ -61,8 +61,10 @@ public class OperateLogEventHandler extends AbstractOperateLogHandler {
 					sysLogLoginCreateRequest.setLoginName(opValue.toString());
 					sysLogLoginCreateRequest.setRemark(String.format("%s登出成功！", opValue));
 				}
+				else {
+					sysLogLoginCreateRequest.setRemark("Token失效登出！");
+				}
 				sysLogLoginCreateRequest.setLoginType(2);
-				sysLogLoginCreateRequest.setRemark("Token失效登出！");
 			}
 			sysLogLoginCreateRequest.setIp(operateLogDomain.getIp());
 			sysLogLoginCreateRequest.setAddress(operateLogDomain.getAddress());
