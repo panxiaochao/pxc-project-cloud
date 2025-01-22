@@ -30,4 +30,9 @@ public interface GlobalConstant {
 	 */
 	int KEY_COUNT = 100;
 
+	/**
+	 * Token 前缀
+	 */
+	String TOKEN_PREFIX = "Bearer";
+
 }

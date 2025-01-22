@@ -30,6 +30,7 @@ import io.github.panxiaochao.system.common.constants.RedisConstant;
 import io.github.panxiaochao.system.common.exception.UserLoginException;
 import io.github.panxiaochao.system.domain.entity.SysUserLogin;
 import io.github.panxiaochao.system.domain.service.SysPermissionDomainService;
+import io.github.panxiaochao.system.satoken.enums.DeviceType;
 import io.github.panxiaochao.system.satoken.model.LoginUser;
 import io.github.panxiaochao.system.satoken.utils.LoginHelper;
 import lombok.RequiredArgsConstructor;
@@ -82,8 +83,8 @@ public class WebLoginService {
 		checkLogin(sysUserLogin, loginRequest);
 		// 构建登录用户
 		LoginUser loginUser = buildLoginUser(sysUserLogin);
-		// 登录设备
-		loginUser.setLoginDevice(loginUser.getLoginDevice());
+		// 登录设备, 并且检验
+		loginUser.setLoginDevice(loginRequest.getLoginDevice());
 		// 构建Token
 		UserTokenResponse userToken = buildAuthToken(loginUser);
 		// 异步更新用户数据，比如登录时间
@@ -98,7 +99,8 @@ public class WebLoginService {
 	 */
 	private void checkLogin(SysUserLogin sysUserLogin, LoginRequest loginRequest) {
 		// TODO 验证码
-
+		// 登录设备, 并且检验
+		DeviceType.ofDevice(loginRequest.getLoginDevice());
 		// 账号已过期
 		if (sysUserLogin.getUserExpireTime() != null
 				&& sysUserLogin.getUserExpireTime().isBefore(LocalDateTime.now())) {
@@ -183,7 +185,7 @@ public class WebLoginService {
 	 * @return true or false
 	 */
 	public Boolean removeToken(String token) {
-		LoginUser loginUser = RedissonUtil.getAndDelete(RedisConstant.LOGIN_TOKEN_PREFIX + token);
+		LoginUser loginUser = LoginHelper.getLoginUser(token);
 		// 用户数据不为空, 记录退出日志
 		if (null != loginUser) {
 			recordLogOutLog(loginUser);
@@ -191,6 +193,8 @@ public class WebLoginService {
 		else {
 			LOGGER.error("无效Token:{}", token);
 		}
+		// 登出
+		StpUtil.logout(loginUser.getUserId(), loginUser.getLoginDevice());
 		return true;
 	}
 
@@ -203,7 +207,12 @@ public class WebLoginService {
 		operateLogDomain.setTitle("登录管理");
 		operateLogDomain.setDescription("移除令牌");
 		operateLogDomain.setBusinessType(OperateLog.BusinessType.LOGOUT.ordinal());
-		operateLogDomain.setOperateUsertype(OperateLog.OperatorUserType.WEB.ordinal());
+		if (DeviceType.PC.equals(DeviceType.ofDevice(loginUser.getLoginDevice()))) {
+			operateLogDomain.setOperateUsertype(OperateLog.OperatorUserType.WEB.ordinal());
+		}
+		else {
+			operateLogDomain.setOperateUsertype(OperateLog.OperatorUserType.MOBILE.ordinal());
+		}
 		operateLogDomain.setValue(loginUser.getUserName());
 		SpringContextUtil.publishEvent(operateLogDomain);
 	}
@@ -218,12 +227,16 @@ public class WebLoginService {
 		// String key = String.format("%s*", RedisConstant.LOGIN_TOKEN_PREFIX);
 		// // 分页
 		// long start = (requestPage.getPageNo() - 1) * requestPage.getPageSize();
-		// Set<String> keySet = RedissonUtil.getKeysByPattern(key, GlobalConstant.KEY_COUNT);
+		// Set<String> keySet = RedissonUtil.getKeysByPattern(key,
+		// GlobalConstant.KEY_COUNT);
 		// if (!keySet.isEmpty()) {
-		// 	String[] keys = keySet.stream().skip(start).limit(requestPage.getPageSize()).toArray(String[]::new);
-		// 	Map<String, LoginUser> tokenMap = RedissonUtil.get(keys);
-		// 	list = ITokenOnlineDTOConvert.INSTANCE.toQueryResponse(CollectionUtil.toList(tokenMap.values()));
-		// 	list.forEach(s -> s.setExpireAtStr(LocalDateTimeUtil.longToLocalDateTime(s.getExpiresAt())));
+		// String[] keys =
+		// keySet.stream().skip(start).limit(requestPage.getPageSize()).toArray(String[]::new);
+		// Map<String, LoginUser> tokenMap = RedissonUtil.get(keys);
+		// list =
+		// ITokenOnlineDTOConvert.INSTANCE.toQueryResponse(CollectionUtil.toList(tokenMap.values()));
+		// list.forEach(s ->
+		// s.setExpireAtStr(LocalDateTimeUtil.longToLocalDateTime(s.getExpiresAt())));
 		// }
 		return new PageResponse<>(pagination, list);
 	}

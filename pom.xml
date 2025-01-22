@@ -26,8 +26,9 @@
         <mapstruct.version>1.6.3</mapstruct.version>
         <sa-token.version>1.39.0</sa-token.version>
         <hutool.version>5.8.35</hutool.version>
-        <caffeine.version>3.1.8</caffeine.version>
+        <caffeine.version>2.9.2</caffeine.version>
         <commons-pool2.version>2.12.0</commons-pool2.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
         <pxc-framework.version>2.0.8-SNAPSHOT</pxc-framework.version>
     </properties>
 
@@ -110,6 +111,13 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
                 <version>${commons-pool2.version}</version>
+            </dependency>
+
+            <!-- validation-api jdk1.8版本 -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

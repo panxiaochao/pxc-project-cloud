@@ -1,6 +1,8 @@
 package io.github.panxiaochao.system.satoken.config;
 
+import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.interceptor.SaInterceptor;
+import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
 import io.github.panxiaochao.system.satoken.config.properties.SaTokenProperties;
@@ -48,7 +50,10 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
 		whitelist.addAll(Arrays.asList(SWAGGER_EXCLUDE));
 		// 注册 Sa-Token 拦截器，定义详细认证规则
 		registry.addInterceptor(new SaInterceptor(handler -> {
-			SaRouter.match("/**").check(r -> StpUtil.checkLogin());
+			System.out.println("--------- 请求进入了拦截器，访问的 path 是：" + SaHolder.getRequest().getRequestPath());
+			System.out.println("--------- 请求进入了拦截器，访问的 head 是：" + SaHolder.getRequest().getHeader("Authorization"));
+			System.out.println("--------- 请求进入了拦截器，访问的 Method 是：" + SaHolder.getRequest().getMethod());
+			SaRouter.match("/**").notMatch(SaHttpMethod.OPTIONS).check(r -> StpUtil.checkLogin());
 		})).addPathPatterns("/**").excludePathPatterns(whitelist);
 	}
 

@@ -53,7 +53,7 @@ public class LoginHelper {
 	 */
 	public static LoginUser getLoginUser() {
 		SaSession session = StpUtil.getTokenSession();
-		if (cn.hutool.core.util.ObjectUtil.isNull(session)) {
+		if (ObjectUtil.isEmpty(session)) {
 			return null;
 		}
 		return (LoginUser) session.get(LOGIN_USER_KEY);
@@ -64,7 +64,7 @@ public class LoginHelper {
 	 */
 	public static LoginUser getLoginUser(String token) {
 		SaSession session = StpUtil.getTokenSessionByToken(token);
-		if (cn.hutool.core.util.ObjectUtil.isNull(session)) {
+		if (ObjectUtil.isEmpty(session)) {
 			return null;
 		}
 		return (LoginUser) session.get(LOGIN_USER_KEY);

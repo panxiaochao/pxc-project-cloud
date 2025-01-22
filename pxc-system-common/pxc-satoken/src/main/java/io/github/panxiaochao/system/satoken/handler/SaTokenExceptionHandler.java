@@ -25,7 +25,7 @@ public class SaTokenExceptionHandler {
 	 */
 	@ExceptionHandler(NotPermissionException.class)
 	public R<Void> handleNotPermissionException(NotPermissionException e, HttpServletRequest request) {
-		log.error("请求地址'{}',权限码校验失败'{}'", request.getRequestURI(), e.getMessage());
+		log.error("请求地址：{},权限码校验失败{}", request.getRequestURI(), e.getMessage());
 		return R.fail(CommonResponseEnum.FORBIDDEN.getCode(), "没有访问权限，请联系管理员授权");
 	}
 
@@ -34,7 +34,7 @@ public class SaTokenExceptionHandler {
 	 */
 	@ExceptionHandler(NotRoleException.class)
 	public R<Void> handleNotRoleException(NotRoleException e, HttpServletRequest request) {
-		log.error("请求地址'{}',角色权限校验失败'{}'", request.getRequestURI(), e.getMessage());
+		log.error("请求地址：{},角色权限校验失败{}", request.getRequestURI(), e.getMessage());
 		return R.fail(CommonResponseEnum.FORBIDDEN.getCode(), "没有访问权限，请联系管理员授权");
 	}
 
@@ -43,7 +43,7 @@ public class SaTokenExceptionHandler {
 	 */
 	@ExceptionHandler(NotLoginException.class)
 	public R<Void> handleNotLoginException(NotLoginException e, HttpServletRequest request) {
-		log.error("请求地址'{}',认证失败'{}',无法访问系统资源", request.getRequestURI(), e.getMessage());
+		log.error("请求地址：{},认证失败{},无法访问系统资源", request.getRequestURI(), e.getMessage());
 		return R.fail(CommonResponseEnum.FORBIDDEN.getCode(), "认证失败，无法访问系统资源");
 	}
 

@@ -1,6 +1,7 @@
-package io.github.panxiaochao.system.application.event;
+package io.github.panxiaochao.system.auth.event;
 
 import io.github.panxiaochao.system.application.service.SysUserAppService;
+import io.github.panxiaochao.system.satoken.model.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

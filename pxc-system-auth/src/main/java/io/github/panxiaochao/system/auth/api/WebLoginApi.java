@@ -5,6 +5,7 @@ import io.github.panxiaochao.core.component.tree.Tree;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
 import io.github.panxiaochao.ratelimiter.annotation.RateLimiter;
 import io.github.panxiaochao.system.auth.api.request.LoginRequest;
@@ -12,6 +13,7 @@ import io.github.panxiaochao.system.auth.api.response.LoginUserResponse;
 import io.github.panxiaochao.system.auth.api.response.TokenOnlineQueryResponse;
 import io.github.panxiaochao.system.auth.api.response.UserTokenResponse;
 import io.github.panxiaochao.system.auth.service.WebLoginService;
+import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -66,8 +68,7 @@ public class WebLoginApi {
 		if (StrUtil.isBlank(authHeader)) {
 			return R.ok();
 		}
-		// TODO
-		String tokenValue = "";
+		String tokenValue = authHeader.replace(GlobalConstant.TOKEN_PREFIX, StringPools.EMPTY).trim();
 		return removeToken(tokenValue);
 	}
 
