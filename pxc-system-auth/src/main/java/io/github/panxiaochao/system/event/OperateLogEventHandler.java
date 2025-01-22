@@ -1,4 +1,4 @@
-package io.github.panxiaochao.system.auth.event;
+package io.github.panxiaochao.system.event;
 
 import io.github.panxiaochao.core.utils.ObjectUtil;
 import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
@@ -49,21 +49,15 @@ public class OperateLogEventHandler extends AbstractOperateLogHandler {
 				|| operateLogDomain.getBusinessType() == OperateLog.BusinessType.LOGOUT.ordinal()) {
 			SysLogLoginCreateRequest sysLogLoginCreateRequest = new SysLogLoginCreateRequest();
 			Object opValue = operateLogDomain.getValue();
+			// 登录账号
+			String loginName = ObjectUtil.isEmpty(opValue) ? null : opValue.toString();
+			sysLogLoginCreateRequest.setLoginName(loginName);
 			if (operateLogDomain.getBusinessType() == OperateLog.BusinessType.LOGIN.ordinal()) {
-				// 登录账号
-				String loginName = ObjectUtil.isEmpty(opValue) ? null : operateLogDomain.getValue().toString();
-				sysLogLoginCreateRequest.setLoginName(loginName);
 				sysLogLoginCreateRequest.setLoginType(1);
-				sysLogLoginCreateRequest.setRemark(String.format("%s登录成功！", sysLogLoginCreateRequest.getLoginName()));
+				sysLogLoginCreateRequest.setRemark(String.format("%s登录成功！", loginName));
 			}
 			else {
-				if (ObjectUtil.isNotEmpty(opValue)) {
-					sysLogLoginCreateRequest.setLoginName(opValue.toString());
-					sysLogLoginCreateRequest.setRemark(String.format("%s登出成功！", opValue));
-				}
-				else {
-					sysLogLoginCreateRequest.setRemark("Token失效登出！");
-				}
+				sysLogLoginCreateRequest.setRemark(String.format("%s登出成功！", loginName));
 				sysLogLoginCreateRequest.setLoginType(2);
 			}
 			sysLogLoginCreateRequest.setIp(operateLogDomain.getIp());
@@ -82,7 +76,7 @@ public class OperateLogEventHandler extends AbstractOperateLogHandler {
 			SysLogOperateCreateRequest createRequest = new SysLogOperateCreateRequest();
 			// 失败的情况
 			if (operateLogDomain.getCode() == 0) {
-				createRequest.setLogContent(operateLogDomain.getErrorMessage());
+				createRequest.setLogContent(operateLogDomain.getErrorSimpleMessage());
 			}
 			else {
 				createRequest.setLogContent(operateLogDomain.getResponseData().toString());

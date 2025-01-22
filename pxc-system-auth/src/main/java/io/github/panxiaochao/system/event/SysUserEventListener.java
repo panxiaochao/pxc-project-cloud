@@ -1,4 +1,4 @@
-package io.github.panxiaochao.system.auth.event;
+package io.github.panxiaochao.system.event;
 
 import io.github.panxiaochao.system.application.service.SysUserAppService;
 import io.github.panxiaochao.system.satoken.model.LoginUser;

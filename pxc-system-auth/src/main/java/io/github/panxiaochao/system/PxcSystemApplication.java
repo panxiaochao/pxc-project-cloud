@@ -30,6 +30,7 @@ public class PxcSystemApplication {
 	 * @throws Exception Exception
 	 */
 	public static void main(String[] args) throws Exception {
+		long start = System.currentTimeMillis();
 		ConfigurableApplicationContext application = SpringApplication.run(PxcSystemApplication.class, args);
 		Environment env = application.getEnvironment();
 		String ip = InetAddress.getLocalHost().getHostAddress();
@@ -44,6 +45,8 @@ public class PxcSystemApplication {
 		banner += String.format("Local    访问网址: http://localhost:%s%s\n", port, path);
 		banner += String.format("External 访问网址: http://%s:%s%s\n", ip, port, path);
 		banner += String.format("Doc      访问网址: http://%s:%s%s/doc.html\n", ip, port, path);
+		long end = System.currentTimeMillis() - start;
+		banner += String.format("耗时         启动: %d ms\n", end);
 		LOG.info(banner);
 	}
 

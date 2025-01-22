@@ -48,7 +48,7 @@ spring:
       enabled: false
     operatelog:
       log-type: other
-      handler: io.github.panxiaochao.system.auth.event.OperateLogEventHandler
+      handler: io.github.panxiaochao.system.event.OperateLogEventHandler
 
 # mybatis-plus 配置
 mybatis-plus:

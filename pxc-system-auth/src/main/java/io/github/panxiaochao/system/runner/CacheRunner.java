@@ -1,4 +1,4 @@
-package io.github.panxiaochao.system.application.runner;
+package io.github.panxiaochao.system.runner;
 
 import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.service.SysDictAppService;
@@ -9,6 +9,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.Executors;
 
 /**
  * <p>
@@ -35,6 +37,11 @@ public class CacheRunner implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) {
+		// 单线程执行
+		Executors.newSingleThreadExecutor().submit(this::publishedData);
+	}
+
+	void publishedData() {
 		// 数据字典缓存
 		if (RedissonUtil.getKeysByPattern(RedisConstant.KEY_ALL_SYS_DICT).isEmpty()) {
 			sysDictAppService.publishedData();
