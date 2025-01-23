@@ -1,6 +1,7 @@
 package io.github.panxiaochao.system.infrastructure.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -62,7 +63,7 @@ public class SysUserAuthsPO {
 	/**
 	 * 登录标识失效时间
 	 */
-	@TableField("expire_time")
+	@TableField(value = "expire_time", updateStrategy = FieldStrategy.ALWAYS)
 	private LocalDateTime expireTime;
 
 	/**

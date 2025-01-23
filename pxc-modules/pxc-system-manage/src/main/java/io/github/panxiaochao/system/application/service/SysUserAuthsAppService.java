@@ -66,8 +66,7 @@ public class SysUserAuthsAppService {
 		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<SysUserAuthsQueryResponse> list = sysUserAuthsReadModelService.page(pagination, queryRequest);
 		list.forEach(s -> {
-			CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
-					s.getIdentityType());
+			CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE, s.getIdentityType());
 			if (Objects.isNull(sysDictItem)) {
 				s.setIdentityTypeStr(StringPools.EMPTY);
 			}
@@ -116,8 +115,8 @@ public class SysUserAuthsAppService {
 			if (hasData) {
 				CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE,
 						sysUserAuths.getIdentityType());
-				return R.fail("在登录类型[" + sysDictItem.getDictItemText() + "]下，登录账号["
-						+ finalSysUserAuths.getIdentifier() + "]已存在");
+				return R.fail("登录类型[" + sysDictItem.getDictItemText() + "]下，登录账号[" + finalSysUserAuths.getIdentifier()
+						+ "]已存在");
 			}
 		}
 		sysUserAuths = sysUserAuthsDomainService.save(sysUserAuths);
@@ -174,7 +173,8 @@ public class SysUserAuthsAppService {
 	public List<Select<String>> selectIdentityTypes() {
 		List<CacheHelper.SysDictItem> list = CacheHelper.getSysDictItemListByCode(IDENTITY_TYPE);
 		List<SelectOption<String>> selectOptionList = list.stream()
-			.map(m -> SelectOption.of(false, m.getId(), m.getDictItemText(), m.getDictItemValue(), m.getSort(), null))
+			.map(m -> SelectOption.of(m.getDictItemValue(), m.getDictItemText(), m.getSort(),
+					extraMap -> extraMap.put("label", m.getDictItemText())))
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;

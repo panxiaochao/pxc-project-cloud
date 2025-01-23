@@ -80,12 +80,12 @@
     </logger>
 
     <!-- Mybatis-Plus SQL日志级别控制  -->
-    <logger name="io.github.panxiaochao.system.infrastructure.mapper" level="DEBUG" additivity="false">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE_DEBUG"/>
-        <appender-ref ref="FILE_INFO"/>
-        <appender-ref ref="FILE_ERROR"/>
-    </logger>
+<!--    <logger name="io.github.panxiaochao.system.infrastructure.mapper" level="INFO" additivity="false">-->
+<!--        <appender-ref ref="CONSOLE"/>-->
+<!--        <appender-ref ref="FILE_DEBUG"/>-->
+<!--        <appender-ref ref="FILE_INFO"/>-->
+<!--        <appender-ref ref="FILE_ERROR"/>-->
+<!--    </logger>-->
 
     <!-- 全局控制日志 -->
     <root level="INFO">

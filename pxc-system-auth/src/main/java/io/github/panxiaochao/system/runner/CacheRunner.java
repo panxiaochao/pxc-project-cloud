@@ -10,8 +10,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.Executors;
-
 /**
  * <p>
  * 数据字典 内存加载
@@ -38,7 +36,8 @@ public class CacheRunner implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) {
 		// 单线程执行
-		Executors.newSingleThreadExecutor().submit(this::publishedData);
+		// Executors.newSingleThreadExecutor().submit(this::publishedData);
+		publishedData();
 	}
 
 	void publishedData() {

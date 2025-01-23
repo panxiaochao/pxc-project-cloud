@@ -27,6 +27,7 @@ import org.redisson.api.RMapAsync;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -142,6 +143,7 @@ public class SysParamAppService {
 	/**
 	 * 发布系统参数
 	 */
+	@Async
 	public void publishedData() {
 		RedissonClient redissonClient = RedissonUtil.ofRedissonClient();
 		RBatch batch = redissonClient.createBatch();
