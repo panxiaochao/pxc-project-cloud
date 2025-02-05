@@ -29,7 +29,7 @@
         <caffeine.version>2.9.2</caffeine.version>
         <commons-pool2.version>2.12.0</commons-pool2.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
-        <pxc-framework.version>2.0.8-SNAPSHOT</pxc-framework.version>
+        <pxc-framework.version>2.0.8</pxc-framework.version>
     </properties>
 
     <dependencyManagement>

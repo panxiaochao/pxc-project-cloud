@@ -13,11 +13,11 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Sa-Token持久层接口(使用框架自带RedissonUtil实现 协议统一)
- * <p>
- * 采用 caffeine + redis 多级缓存 优化并发查询效率
+ * Sa-Token持久层接口(使用框架自带RedissonUtil实现 协议统一),采用 caffeine + redis 多级缓存 优化并发查询效率
  *
- * @author Lion Li
+ * @author Lypxc
+ * @since 2025-01-17
+ * @version 1.0
  */
 public class PlusSaTokenDao implements SaTokenDao {
 
@@ -52,7 +52,12 @@ public class PlusSaTokenDao implements SaTokenDao {
 			RedissonUtil.set(key, value);
 		}
 		else {
-			RedissonUtil.set(key, value, Duration.ofSeconds(timeout));
+			if (RedissonUtil.countExists(key)) {
+				RedissonUtil.setAndKeepTtL(key, value);
+			}
+			else {
+				RedissonUtil.set(key, value, Duration.ofSeconds(timeout));
+			}
 		}
 		CAFFEINE.invalidate(key);
 	}
@@ -105,16 +110,21 @@ public class PlusSaTokenDao implements SaTokenDao {
 	 * 写入Object，并设定存活时间 (单位: 秒)
 	 */
 	@Override
-	public void setObject(String key, Object object, long timeout) {
+	public void setObject(String key, Object value, long timeout) {
 		if (timeout == 0 || timeout <= NOT_VALUE_EXPIRE) {
 			return;
 		}
 		// 判断是否为永不过期
 		if (timeout == NEVER_EXPIRE) {
-			RedissonUtil.set(key, object);
+			RedissonUtil.set(key, value);
 		}
 		else {
-			RedissonUtil.set(key, object, Duration.ofSeconds(timeout));
+			if (RedissonUtil.countExists(key)) {
+				RedissonUtil.setAndKeepTtL(key, value);
+			}
+			else {
+				RedissonUtil.set(key, value, Duration.ofSeconds(timeout));
+			}
 		}
 		CAFFEINE.invalidate(key);
 	}
