@@ -2,10 +2,10 @@ package io.github.panxiaochao.system.auth.service;
 
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
-import io.github.panxiaochao.core.component.tree.Tree;
-import io.github.panxiaochao.core.component.tree.TreeBuilder;
-import io.github.panxiaochao.core.component.tree.TreeNode;
-import io.github.panxiaochao.core.component.tree.TreeNodeProperties;
+import io.github.panxiaochao.component.tree.Tree;
+import io.github.panxiaochao.component.tree.TreeBuilder;
+import io.github.panxiaochao.component.tree.TreeNode;
+import io.github.panxiaochao.component.tree.TreeNodeProperties;
 import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.page.PageResponse;

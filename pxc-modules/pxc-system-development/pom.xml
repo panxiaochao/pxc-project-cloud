@@ -41,6 +41,10 @@
         </dependency>
         <dependency>
             <groupId>io.github.panxiaochao</groupId>
+            <artifactId>pxc-framework-component</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.panxiaochao</groupId>
             <artifactId>pxc-framework-dynamic-datasource</artifactId>
         </dependency>
         <!-- mapstruct -->

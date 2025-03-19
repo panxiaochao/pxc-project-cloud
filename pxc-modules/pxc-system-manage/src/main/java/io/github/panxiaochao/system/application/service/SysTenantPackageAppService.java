@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.application.service;
 
-import io.github.panxiaochao.core.component.select.Select;
-import io.github.panxiaochao.core.component.select.SelectBuilder;
-import io.github.panxiaochao.core.component.select.SelectOption;
+import io.github.panxiaochao.component.select.Select;
+import io.github.panxiaochao.component.select.SelectBuilder;
+import io.github.panxiaochao.component.select.SelectOption;
 import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;

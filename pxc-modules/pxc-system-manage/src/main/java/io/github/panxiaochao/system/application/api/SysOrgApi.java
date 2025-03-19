@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.application.api;
 
-import io.github.panxiaochao.core.component.tree.Tree;
+import io.github.panxiaochao.component.tree.Tree;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;

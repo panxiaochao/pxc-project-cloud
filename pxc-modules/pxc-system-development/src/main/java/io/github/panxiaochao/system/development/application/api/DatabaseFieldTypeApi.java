@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.development.application.api;
 
-import io.github.panxiaochao.core.component.select.Select;
+import io.github.panxiaochao.component.select.Select;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
