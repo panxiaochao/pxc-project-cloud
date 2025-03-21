@@ -9,6 +9,7 @@
 
     <!-- 模块 -->
     <modules>
+        <module>pxc-module</module>
         <module>pxc-modules</module>
         <module>pxc-system-auth</module>
         <module>pxc-system-common</module>

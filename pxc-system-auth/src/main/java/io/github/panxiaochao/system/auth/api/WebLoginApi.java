@@ -47,12 +47,12 @@ public class WebLoginApi {
 	private final WebLoginService loginWebService;
 
 	/**
-	 * 登录接口，用户3秒内请勿重复登录
+	 * 登录接口，用户5秒内请勿重复登录
 	 * @param loginRequest 登录 请求对象
 	 * @return 成功: token
 	 */
 	@PostMapping("/login")
-	@RateLimiter(key = "#loginRequest.username", maxCount = 1, limitTime = 3000, message = "请勿重复登录")
+	@RateLimiter(key = "#loginRequest.username", maxCount = 1, limitTime = 5000, message = "请勿重复登录")
 	@OperateLog(key = "#loginRequest.username", description = "登录", businessType = OperateLog.BusinessType.LOGIN)
 	@Operation(summary = "登录接口", description = "登录接口", method = "POST")
 	public R<UserTokenResponse> login(@RequestBody @Validated LoginRequest loginRequest) {

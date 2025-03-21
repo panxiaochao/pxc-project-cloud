@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.panxiaochao.system.development.infrastructure.mapper.GenTemplateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.development.infrastructure.po.GenTemplatePO">
+        <id column="id" property="id"/>
+        <result column="template_name" property="templateName"/>
+        <result column="generator_path" property="generatorPath"/>
+        <result column="template_desc" property="templateDesc"/>
+        <result column="template_code" property="templateCode"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_id" property="createId"/>
+        <result column="update_id" property="updateId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        , template_name, generator_path, template_desc, template_code, create_time, update_time, create_id, update_id
+    </sql>
+
+</mapper>

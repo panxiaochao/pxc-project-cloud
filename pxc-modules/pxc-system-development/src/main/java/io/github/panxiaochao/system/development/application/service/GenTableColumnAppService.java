@@ -1,5 +1,9 @@
 package io.github.panxiaochao.system.development.application.service;
 
+import io.github.panxiaochao.core.response.R;
+import io.github.panxiaochao.core.response.page.PageResponse;
+import io.github.panxiaochao.core.response.page.Pagination;
+import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnUpdateRequest;
@@ -9,10 +13,6 @@ import io.github.panxiaochao.system.development.application.convert.IGenTableCol
 import io.github.panxiaochao.system.development.application.repository.IGenTableColumnReadModelService;
 import io.github.panxiaochao.system.development.domain.entity.GenTableColumn;
 import io.github.panxiaochao.system.development.domain.service.GenTableColumnDomainService;
-import io.github.panxiaochao.core.response.R;
-import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
 package io.github.panxiaochao.system.development.application.repository;
 
+import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.system.development.application.api.request.gentable.GenTableQueryRequest;
 import io.github.panxiaochao.system.development.application.api.response.gentable.GenTableQueryResponse;
-import io.github.panxiaochao.core.response.page.Pagination;
 
 import java.util.List;
 

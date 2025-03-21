@@ -31,6 +31,7 @@ public class GenTableColumnPO {
 	 */
 	@TableField("table_id")
 	private Long tableId;
+
 	/**
 	 * 表名称
 	 */

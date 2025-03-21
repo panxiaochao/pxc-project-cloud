@@ -1,7 +1,7 @@
 package io.github.panxiaochao.system.development.application.convert;
 
-import io.github.panxiaochao.system.development.application.api.response.gentable.TableMetaQueryResponse;
 import io.github.panxiaochao.core.utils.meta.db.TableMeta;
+import io.github.panxiaochao.system.development.application.api.response.gentable.TableMetaQueryResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

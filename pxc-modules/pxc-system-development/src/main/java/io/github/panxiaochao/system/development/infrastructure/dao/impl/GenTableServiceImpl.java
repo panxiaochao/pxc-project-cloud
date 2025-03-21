@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.development.infrastructure.dao.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.system.development.application.api.request.gentable.GenTableQueryRequest;
 import io.github.panxiaochao.system.development.application.api.response.gentable.GenTableQueryResponse;
 import io.github.panxiaochao.system.development.application.repository.IGenTableReadModelService;
@@ -11,7 +12,6 @@ import io.github.panxiaochao.system.development.domain.repository.IGenTableServi
 import io.github.panxiaochao.system.development.infrastructure.convert.IGenTablePOConvert;
 import io.github.panxiaochao.system.development.infrastructure.mapper.GenTableMapper;
 import io.github.panxiaochao.system.development.infrastructure.po.GenTablePO;
-import io.github.panxiaochao.core.response.page.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

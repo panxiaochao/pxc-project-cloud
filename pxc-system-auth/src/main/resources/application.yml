@@ -58,7 +58,7 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     # 开发测试时使用
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
 
 ############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
 sa-token:
@@ -88,5 +88,6 @@ sa-token:
   token-prefix: Bearer
   # 白名单 URL
   white-urls:
-    - /web/v1/login
+    - /web/v1/**
     - /system/v1/**
+    - /development/v1/**
