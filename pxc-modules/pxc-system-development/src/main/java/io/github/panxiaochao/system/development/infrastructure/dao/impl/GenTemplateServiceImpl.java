@@ -108,21 +108,9 @@ public class GenTemplateServiceImpl implements IGenTemplateService, IGenTemplate
 			if (StringUtils.isNotBlank(queryRequest.getTemplateCode())) {
 				lqw.eq(GenTemplatePO::getTemplateCode, queryRequest.getTemplateCode());
 			}
-			// 如果 创建时间 不为空
-			if (queryRequest.getCreateTime() != null) {
-				lqw.eq(GenTemplatePO::getCreateTime, queryRequest.getCreateTime());
-			}
-			// 如果 更新 不为空
-			if (queryRequest.getUpdateTime() != null) {
-				lqw.eq(GenTemplatePO::getUpdateTime, queryRequest.getUpdateTime());
-			}
-			// 如果 创建人 不为空
-			if (StringUtils.isNotBlank(queryRequest.getCreateId())) {
-				lqw.eq(GenTemplatePO::getCreateId, queryRequest.getCreateId());
-			}
-			// 如果 修改人 不为空
-			if (StringUtils.isNotBlank(queryRequest.getUpdateId())) {
-				lqw.eq(GenTemplatePO::getUpdateId, queryRequest.getUpdateId());
+			// 如果 模板类型 不为空
+			if (StringUtils.isNotBlank(queryRequest.getTemplateType())) {
+				lqw.eq(GenTemplatePO::getTemplateType, queryRequest.getTemplateType());
 			}
 		}
 		return lqw;

@@ -9,6 +9,7 @@
         <result column="generator_path" property="generatorPath"/>
         <result column="template_desc" property="templateDesc"/>
         <result column="template_code" property="templateCode"/>
+        <result column="template_type" property="templateType"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="create_id" property="createId"/>
@@ -18,7 +19,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        , template_name, generator_path, template_desc, template_code, create_time, update_time, create_id, update_id
+        , template_name, generator_path, template_desc, template_code, template_type, create_time, update_time, create_id, update_id
     </sql>
 
 </mapper>

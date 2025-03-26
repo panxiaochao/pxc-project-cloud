@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
  * 模板查询请求对象
@@ -52,27 +50,9 @@ public class GenTemplateQueryRequest {
 	private String templateCode;
 
 	/**
-	 * 创建时间
+	 * 模板类型
 	 */
-	@Schema(description = "创建时间")
-	private LocalDateTime createTime;
-
-	/**
-	 * 更新
-	 */
-	@Schema(description = "更新")
-	private LocalDateTime updateTime;
-
-	/**
-	 * 创建人
-	 */
-	@Schema(description = "创建人")
-	private String createId;
-
-	/**
-	 * 修改人
-	 */
-	@Schema(description = "修改人")
-	private String updateId;
+	@Schema(description = "模板类型")
+	private String templateType;
 
 }

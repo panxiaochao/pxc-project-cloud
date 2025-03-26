@@ -52,6 +52,12 @@ public class GenTemplateQueryResponse {
 	private String templateCode;
 
 	/**
+	 * 模板类型
+	 */
+	@Schema(description = "模板类型")
+	private String templateType;
+
+	/**
 	 * 创建时间
 	 */
 	@Schema(description = "创建时间")

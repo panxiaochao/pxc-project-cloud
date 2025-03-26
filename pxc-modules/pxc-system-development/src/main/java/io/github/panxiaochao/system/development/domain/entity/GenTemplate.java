@@ -45,6 +45,11 @@ public class GenTemplate {
 	private String templateCode;
 
 	/**
+	 * 模板类型
+	 */
+	private String templateType;
+
+	/**
 	 * 创建时间
 	 */
 	private LocalDateTime createTime;

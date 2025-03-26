@@ -54,6 +54,12 @@ public class GenTemplatePO {
 	private String templateCode;
 
 	/**
+	 * 模板类型
+	 */
+	@TableField("template_type")
+	private String templateType;
+
+	/**
 	 * 创建时间
 	 */
 	@TableField(value = "create_time", fill = FieldFill.INSERT)
