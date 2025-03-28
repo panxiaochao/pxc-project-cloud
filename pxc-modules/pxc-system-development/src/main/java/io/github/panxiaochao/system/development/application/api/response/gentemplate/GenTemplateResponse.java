@@ -64,9 +64,9 @@ public class GenTemplateResponse {
 	private LocalDateTime createTime;
 
 	/**
-	 * 更新
+	 * 更新时间
 	 */
-	@Schema(description = "更新")
+	@Schema(description = "更新时间")
 	private LocalDateTime updateTime;
 
 	/**

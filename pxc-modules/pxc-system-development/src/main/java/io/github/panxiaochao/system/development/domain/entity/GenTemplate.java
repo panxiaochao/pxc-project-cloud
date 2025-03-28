@@ -55,7 +55,7 @@ public class GenTemplate {
 	private LocalDateTime createTime;
 
 	/**
-	 * 更新
+	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
 

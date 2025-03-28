@@ -182,7 +182,6 @@ public class DatabaseSourceAppService {
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
-
 	}
 
 }

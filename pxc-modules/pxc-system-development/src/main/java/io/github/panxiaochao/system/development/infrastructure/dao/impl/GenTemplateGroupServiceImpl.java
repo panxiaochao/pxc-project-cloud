@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.development.infrastructure.dao.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.system.development.application.api.request.gentemplategroup.GenTemplateGroupQueryRequest;
 import io.github.panxiaochao.system.development.application.api.response.gentemplategroup.GenTemplateGroupQueryResponse;
@@ -121,6 +122,16 @@ public class GenTemplateGroupServiceImpl implements IGenTemplateGroupService, IG
 	}
 
 	/**
+	 * 批量保存
+	 * @param list GenTemplateGroup 数据实体
+	 */
+	@Override
+	public void saveBatch(List<GenTemplateGroup> list) {
+		List<GenTemplateGroupPO> genTemplateGroupPOList = IGenTemplateGroupPOConvert.INSTANCE.fromEntity(list);
+		Db.saveBatch(genTemplateGroupPOList);
+	}
+
+	/**
 	 * 根据主键更新
 	 * @param genTemplateGroup GenTemplateGroup 实体
 	 */
@@ -137,6 +148,16 @@ public class GenTemplateGroupServiceImpl implements IGenTemplateGroupService, IG
 	@Override
 	public void deleteById(String id) {
 		genTemplateGroupMapper.deleteById(id);
+	}
+
+	/**
+	 * 根据模版分组主键批量删除
+	 * @param groupId 模版分组主键
+	 */
+	@Override
+	public void deleteByGroupId(String groupId) {
+		genTemplateGroupMapper
+			.delete(new LambdaQueryWrapper<GenTemplateGroupPO>().eq(GenTemplateGroupPO::getGroupId, groupId));
 	}
 
 }

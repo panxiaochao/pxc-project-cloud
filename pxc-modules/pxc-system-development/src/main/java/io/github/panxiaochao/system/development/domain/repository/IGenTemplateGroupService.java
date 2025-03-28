@@ -2,6 +2,8 @@ package io.github.panxiaochao.system.development.domain.repository;
 
 import io.github.panxiaochao.system.development.domain.entity.GenTemplateGroup;
 
+import java.util.List;
+
 /**
  * <p>
  * 模板分组关联表 Domain接口服务类.
@@ -27,6 +29,12 @@ public interface IGenTemplateGroupService {
 	GenTemplateGroup save(GenTemplateGroup genTemplateGroup);
 
 	/**
+	 * 批量保存
+	 * @param list GenTemplateGroup 数据实体
+	 */
+	void saveBatch(List<GenTemplateGroup> list);
+
+	/**
 	 * 根据主键更新
 	 * @param genTemplateGroup 模板分组关联表 实体
 	 */
@@ -38,4 +46,9 @@ public interface IGenTemplateGroupService {
 	 */
 	void deleteById(String id);
 
+	/**
+	 * 根据模版分组主键批量删除
+	 * @param groupId 模版分组主键
+	 */
+	void deleteByGroupId(String groupId);
 }

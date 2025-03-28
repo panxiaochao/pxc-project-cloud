@@ -5,6 +5,8 @@ import io.github.panxiaochao.system.development.domain.repository.IGenTemplateGr
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 模板分组关联表 Domain服务类.
@@ -41,6 +43,14 @@ public class GenTemplateGroupDomainService {
 	}
 
 	/**
+	 * 批量保存
+	 * @param list GenTemplateGroup 数据实体
+	 */
+	public void saveBatch(List<GenTemplateGroup> list) {
+		genTemplateGroupService.saveBatch(list);
+	}
+
+	/**
 	 * 根据主键更新
 	 * @param genTemplateGroup GenTemplateGroup 实体
 	 */
@@ -56,4 +66,11 @@ public class GenTemplateGroupDomainService {
 		genTemplateGroupService.deleteById(id);
 	}
 
+	/**
+	 * 根据模版分组主键批量删除
+	 * @param groupId 模版分组主键
+	 */
+	public void deleteByGroupId(String groupId) {
+		genTemplateGroupService.deleteByGroupId(groupId);
+	}
 }

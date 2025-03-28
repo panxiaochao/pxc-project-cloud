@@ -77,6 +77,12 @@ public class GenTemplateApi {
 		return genTemplateAppService.deleteById(id);
 	}
 
+	@Operation(summary = "获取所有模版类型下拉菜单", description = "获取所有模版类型下拉菜单", method = "GET")
+	@GetMapping(value = "/selectTemplateList")
+	public R<List<Select<String>>> selectTemplateList() {
+		return R.ok(genTemplateAppService.selectTemplateList());
+	}
+
 	@Operation(summary = "获取模版类型下拉菜单", description = "获取模版类型下拉菜单", method = "GET")
 	@GetMapping(value = "/selectTemplateTypes")
 	public R<List<Select<String>>> selectTemplateTypes() {

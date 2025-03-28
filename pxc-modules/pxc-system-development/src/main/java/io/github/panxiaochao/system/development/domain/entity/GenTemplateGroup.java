@@ -27,4 +27,20 @@ public class GenTemplateGroup {
 	 */
 	private String templateId;
 
+	/**
+	 * 构造方法
+	 */
+	public GenTemplateGroup() {
+	}
+
+	/**
+	 * 构造方法
+	 * @param groupId 分组id
+	 * @param templateId 模板id
+	 */
+	public GenTemplateGroup(String groupId, String templateId) {
+		this.groupId = groupId;
+		this.templateId = templateId;
+	}
+
 }

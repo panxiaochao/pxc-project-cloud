@@ -94,7 +94,7 @@ public class GenTemplateServiceImpl implements IGenTemplateService, IGenTemplate
 			lqw.orderByDesc(GenTemplatePO::getId);
 			// 如果 模板名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getTemplateName())) {
-				lqw.eq(GenTemplatePO::getTemplateName, queryRequest.getTemplateName());
+				lqw.like(GenTemplatePO::getTemplateName, queryRequest.getTemplateName());
 			}
 			// 如果 模板路径 不为空
 			if (StringUtils.isNotBlank(queryRequest.getGeneratorPath())) {

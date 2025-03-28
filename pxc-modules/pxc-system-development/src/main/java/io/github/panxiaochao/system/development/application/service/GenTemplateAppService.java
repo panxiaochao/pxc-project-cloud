@@ -23,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -82,6 +83,13 @@ public class GenTemplateAppService {
 	 */
 	public R<GenTemplateResponse> save(GenTemplateCreateRequest genTemplateCreateRequest) {
 		GenTemplate genTemplate = IGenTemplateDTOConvert.INSTANCE.fromCreateRequest(genTemplateCreateRequest);
+		// 验证是否重复
+		GenTemplateQueryRequest queryRequest = new GenTemplateQueryRequest();
+		queryRequest.setTemplateName(genTemplate.getTemplateName());
+		GenTemplateQueryResponse one = genTemplateReadModelService.getOne(queryRequest);
+		if (Objects.nonNull(one)) {
+			return R.fail("模版类型[" + one.getTemplateName() + "]已存在");
+		}
 		genTemplate = genTemplateDomainService.save(genTemplate);
 		GenTemplateResponse genTemplateResponse = IGenTemplateDTOConvert.INSTANCE.toResponse(genTemplate);
 		return R.ok(genTemplateResponse);
@@ -106,6 +114,22 @@ public class GenTemplateAppService {
 	public R<Void> deleteById(String id) {
 		genTemplateDomainService.deleteById(id);
 		return R.ok();
+	}
+
+	/**
+	 * 获取所有模版类型下拉菜单
+	 * @return 返回通用下拉菜单
+	 */
+	public List<Select<String>> selectTemplateList() {
+		List<GenTemplateQueryResponse> genTemplateQueryResponseList = genTemplateReadModelService
+			.selectList(new GenTemplateQueryRequest());
+		List<SelectOption<String>> selectOptionList = genTemplateQueryResponseList.stream()
+			.map(m -> SelectOption.of(m.getId(), m.getTemplateName(), extraMap -> {
+				extraMap.put("label", m.getTemplateName());
+			}))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
 	}
 
 	/**
