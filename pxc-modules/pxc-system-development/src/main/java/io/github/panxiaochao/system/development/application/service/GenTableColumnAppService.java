@@ -1,9 +1,13 @@
 package io.github.panxiaochao.system.development.application.service;
 
+import io.github.panxiaochao.component.select.Select;
+import io.github.panxiaochao.component.select.SelectBuilder;
+import io.github.panxiaochao.component.select.SelectOption;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.system.common.cache.CacheHelper;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnUpdateRequest;
@@ -15,8 +19,11 @@ import io.github.panxiaochao.system.development.domain.entity.GenTableColumn;
 import io.github.panxiaochao.system.development.domain.service.GenTableColumnDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -39,6 +46,11 @@ public class GenTableColumnAppService {
 	 * 代码生成表字段 读模型服务
 	 */
 	private final IGenTableColumnReadModelService genTableColumnReadModelService;
+
+	/**
+	 * JAVA_TYPE类型 常量名
+	 */
+	private static final String JAVA_TYPE = "JAVA_TYPE";
 
 	/**
 	 * 查询分页
@@ -97,6 +109,31 @@ public class GenTableColumnAppService {
 	public R<Void> deleteById(String id) {
 		genTableColumnDomainService.deleteById(id);
 		return R.ok();
+	}
+
+	/**
+	 * 根据表ID获取表字段列表
+	 * @param tableId 表ID
+	 * @return 表字段列表
+	 */
+	public List<GenTableColumnQueryResponse> queryTableColumnList(String tableId) {
+		GenTableColumnQueryRequest queryRequest = new GenTableColumnQueryRequest();
+		queryRequest.setTableId(tableId);
+		return genTableColumnReadModelService.selectList(queryRequest);
+	}
+
+	/**
+	 * 获取Java类型下拉菜单
+	 * @return 返回通用下拉菜单
+	 */
+	public List<Select<String>> selectAttrTypes() {
+		List<CacheHelper.SysDictItem> list = CacheHelper.getSysDictItemListByCode(JAVA_TYPE);
+		List<SelectOption<String>> selectOptionList = list.stream()
+			.map(m -> SelectOption.of(m.getDictItemText(), m.getDictItemText(), m.getSort(),
+					extraMap -> extraMap.put("label", m.getDictItemText())))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
 	}
 
 }

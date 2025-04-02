@@ -1,5 +1,8 @@
 package io.github.panxiaochao.system.development.application.service;
 
+import io.github.panxiaochao.component.select.Select;
+import io.github.panxiaochao.component.select.SelectBuilder;
+import io.github.panxiaochao.component.select.SelectOption;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -163,6 +166,22 @@ public class GenGroupAppService {
 		// 删除当前分组关联下的模版类型
 		genTemplateGroupDomainService.deleteByGroupId(id);
 		return R.ok();
+	}
+
+	/**
+	 * 获取所有模版分组下拉菜单
+	 * @return 响应对象
+	 */
+	public List<Select<String>> selectGroupList() {
+		List<GenGroupQueryResponse> genGroupQueryResponseList = genGroupReadModelService
+			.selectList(new GenGroupQueryRequest());
+		List<SelectOption<String>> selectOptionList = genGroupQueryResponseList.stream()
+			.map(m -> SelectOption.of(m.getId(), m.getGroupName(), extraMap -> {
+				extraMap.put("label", m.getGroupName());
+			}))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
 	}
 
 }

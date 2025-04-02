@@ -158,4 +158,15 @@ public class GenTemplateServiceImpl implements IGenTemplateService, IGenTemplate
 		genTemplateMapper.deleteById(id);
 	}
 
+	/**
+	 * 根据分组id查询模版列表
+	 * @param groupId 分组id
+	 * @return List<GenTemplate> 模版列表
+	 */
+	@Override
+	public List<GenTemplateQueryResponse> selectByGroupId(String groupId) {
+		List<GenTemplatePO> genTemplatePOS = genTemplateMapper.selectByGroupId(Long.parseLong(groupId));
+		return IGenTemplatePOConvert.INSTANCE.toQueryResponse(genTemplatePOS);
+	}
+
 }

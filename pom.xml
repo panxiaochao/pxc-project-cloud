@@ -30,6 +30,7 @@
         <caffeine.version>2.9.2</caffeine.version>
         <commons-pool2.version>2.12.0</commons-pool2.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
+        <freemarker.version>2.3.34</freemarker.version>
         <pxc-framework.version>2.0.9-SNAPSHOT</pxc-framework.version>
     </properties>
 
@@ -119,6 +120,13 @@
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>${validation-api.version}</version>
+            </dependency>
+
+            <!-- freemarker -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

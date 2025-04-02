@@ -91,8 +91,8 @@ public class GenTableColumnServiceImpl implements IGenTableColumnService, IGenTa
 	private LambdaQueryWrapper<GenTableColumnPO> lambdaQuery(GenTableColumnQueryRequest queryRequest) {
 		LambdaQueryWrapper<GenTableColumnPO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(GenTableColumnPO::getId);
+			// 默认按照sort升序排序
+			lqw.orderByAsc(GenTableColumnPO::getSort);
 			// 如果 表名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getTableName())) {
 				lqw.eq(GenTableColumnPO::getTableName, queryRequest.getTableName());

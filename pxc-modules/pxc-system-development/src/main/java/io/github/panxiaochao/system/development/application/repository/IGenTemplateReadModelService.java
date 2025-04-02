@@ -38,4 +38,11 @@ public interface IGenTemplateReadModelService {
 	 */
 	GenTemplateQueryResponse getOne(GenTemplateQueryRequest queryRequest);
 
+	/**
+	 * 根据分组id查询模版列表
+	 * @param groupId 分组id
+	 * @return List<GenTemplate> 模版列表
+	 */
+	List<GenTemplateQueryResponse> selectByGroupId(String groupId);
+
 }

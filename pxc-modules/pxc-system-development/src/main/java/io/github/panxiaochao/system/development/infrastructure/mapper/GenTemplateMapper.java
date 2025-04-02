@@ -3,6 +3,9 @@ package io.github.panxiaochao.system.development.infrastructure.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.github.panxiaochao.system.development.infrastructure.po.GenTemplatePO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +17,12 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface GenTemplateMapper extends BaseMapper<GenTemplatePO> {
+
+	/**
+	 * 根据分组id查询模板
+	 * @param groupId 分组id
+	 * @return List<GenTemplatePO> 模板列表
+	 */
+	List<GenTemplatePO> selectByGroupId(@Param("groupId") Long groupId);
 
 }

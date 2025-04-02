@@ -22,4 +22,12 @@
         , template_name, generator_path, template_desc, template_code, template_type, create_time, update_time, create_id, update_id
     </sql>
 
+    <!-- 根据分组id查询模板列表 -->
+    <select id="selectByGroupId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT t2.*
+        FROM gen_template_group t1
+                 LEFT JOIN gen_template t2 ON t1.template_id = t2.id
+        WHERE t1.group_id = #{groupId}
+    </select>
+
 </mapper>

@@ -140,7 +140,13 @@ public class GenTableAppService {
 		if (!StringUtils.hasText(dsQueryRequest.getDatabaseId())) {
 			return new ArrayList<>();
 		}
-		// 手动切换数据源
+		// 手动切换数据源@Operation(summary = "查询动态数据源下的元数据表", description = "查询动态数据源下的元数据表分",
+		// method = "GET")
+		// @GetMapping(value = "/queryDsTable")
+		// public R<List<TableMetaQueryResponse>> queryDsTable(DsQueryRequest
+		// dsQueryRequest) {
+		// return R.ok(genTableAppService.queryDsTable(dsQueryRequest));
+		// }
 		DatabaseSource databaseSource = databaseSourceDomainService.getById(dsQueryRequest.getDatabaseId());
 		DynamicDataSourceContextHolder.push(databaseSource.getDbCode());
 		List<TableMeta> tableMetaList = DbMetaUtil.getSimplifyTableMeta(dataSource, null, null, null);
@@ -311,7 +317,7 @@ public class GenTableAppService {
 					genTableColumn.setAttrType("Object");
 				}
 				else {
-					genTableColumn.setAttrType(databaseFieldTypeQueryResponse.getColumnType());
+					genTableColumn.setAttrType(databaseFieldTypeQueryResponse.getJavaType());
 					genTableColumn.setPackageName(databaseFieldTypeQueryResponse.getPackageName());
 				}
 			}

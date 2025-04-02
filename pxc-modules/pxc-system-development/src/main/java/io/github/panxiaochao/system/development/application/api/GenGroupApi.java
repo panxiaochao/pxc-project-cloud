@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.development.application.api;
 
+import io.github.panxiaochao.component.select.Select;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p> 模板分组 接口.</p>
@@ -69,6 +72,13 @@ public class GenGroupApi {
     @DeleteMapping(value = "/{id}")
     public R<Void> deleteById(@PathVariable("id") String id) {
         return genGroupAppService.deleteById(id);
+    }
+
+
+    @Operation(summary = "获取所有模版组下拉菜单", description = "获取所有模版组下拉菜单", method = "GET")
+    @GetMapping(value = "/selectGroupList")
+    public R<List<Select<String>>> selectGroupList() {
+        return R.ok(genGroupAppService.selectGroupList());
     }
 
 }

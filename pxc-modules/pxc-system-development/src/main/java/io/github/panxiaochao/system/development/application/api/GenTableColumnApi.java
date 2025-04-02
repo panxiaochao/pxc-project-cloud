@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.development.application.api;
 
+import io.github.panxiaochao.component.select.Select;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -72,6 +75,18 @@ public class GenTableColumnApi {
 	@DeleteMapping(value = "/{id}")
 	public R<Void> deleteById(@PathVariable("id") String id) {
 		return genTableColumnAppService.deleteById(id);
+	}
+
+	@Operation(summary = "查询 根据表ID获取表字段列表", description = "查询 根据表ID获取表字段列表", method = "GET")
+	@GetMapping(value = "/queryTableColumnList/{tableId}")
+	public R<List<GenTableColumnQueryResponse>> queryTableColumnList(@PathVariable("tableId") String tableId) {
+		return R.ok(genTableColumnAppService.queryTableColumnList(tableId));
+	}
+
+	@Operation(summary = "获取attrType类型下拉菜单", description = "获取attrType类型下拉菜单", method = "GET")
+	@GetMapping(value = "/selectAttrTypes")
+	public R<List<Select<String>>> selectAttrTypes() {
+		return R.ok(genTableColumnAppService.selectAttrTypes());
 	}
 
 }
