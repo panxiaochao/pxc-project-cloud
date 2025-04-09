@@ -90,8 +90,8 @@ public class GenTemplateServiceImpl implements IGenTemplateService, IGenTemplate
 	private LambdaQueryWrapper<GenTemplatePO> lambdaQuery(GenTemplateQueryRequest queryRequest) {
 		LambdaQueryWrapper<GenTemplatePO> lqw = Wrappers.lambdaQuery();
 		if (queryRequest != null) {
-			// 默认按照主键倒序排序
-			lqw.orderByDesc(GenTemplatePO::getId);
+			// 默认按照创建时间倒序排序
+			lqw.orderByDesc(GenTemplatePO::getCreateTime);
 			// 如果 模板名称 不为空
 			if (StringUtils.isNotBlank(queryRequest.getTemplateName())) {
 				lqw.like(GenTemplatePO::getTemplateName, queryRequest.getTemplateName());

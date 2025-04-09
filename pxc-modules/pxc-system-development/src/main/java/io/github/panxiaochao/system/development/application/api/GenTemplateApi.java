@@ -89,4 +89,10 @@ public class GenTemplateApi {
 		return R.ok(genTemplateAppService.selectTemplateTypes());
 	}
 
+	@Operation(summary = "复制模版", description = "根据主键复制模版", method = "POST")
+	@PostMapping("/copy/{id}")
+	public R<GenTemplateResponse> copy(@PathVariable("id") String id) {
+		return genTemplateAppService.copy(id);
+	}
+
 }

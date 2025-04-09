@@ -7,6 +7,7 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.utils.date.LocalDateTimeUtil;
 import io.github.panxiaochao.system.common.cache.CacheHelper;
 import io.github.panxiaochao.system.development.application.api.request.gentemplate.GenTemplateCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentemplate.GenTemplateQueryRequest;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -144,6 +146,26 @@ public class GenTemplateAppService {
 			.collect(Collectors.toList());
 		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
+	}
+
+	/**
+	 * 根据主键复制模版
+	 * @param id 主键
+	 * @return 响应对象
+	 */
+	public R<GenTemplateResponse> copy(String id) {
+		GenTemplate genTemplate = genTemplateDomainService.getById(id);
+		// 设置新的一条数据
+		genTemplate.setId(null);
+		genTemplate.setCreateId(null);
+		genTemplate.setUpdateId(null);
+		genTemplate.setCreateTime(null);
+		genTemplate.setUpdateTime(null);
+		genTemplate.setTemplateName(genTemplate.getTemplateName() + "_"
+				+ LocalDateTimeUtil.localDateTimeToString(LocalDateTime.now(), "yyyyMMddHHmmss"));
+		genTemplateDomainService.save(genTemplate);
+		GenTemplateResponse genTemplateResponse = IGenTemplateDTOConvert.INSTANCE.toResponse(genTemplate);
+		return R.ok(genTemplateResponse);
 	}
 
 }
