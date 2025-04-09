@@ -1,5 +1,9 @@
 package io.github.panxiaochao.system.development.application.service;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IoUtil;
+import io.github.panxiaochao.core.enums.CommonResponseEnum;
+import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.utils.BooleanUtil;
 import io.github.panxiaochao.core.utils.CollectionUtil;
 import io.github.panxiaochao.core.utils.StrUtil;
@@ -23,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -30,6 +35,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * <p>
@@ -80,13 +87,56 @@ public class GenAppService {
 		String style = (String) dataModel.get("style");
 		List<GenTemplateQueryResponse> templates = genTemplateReadModelService.selectByGroupId(style);
 		return templates.stream().map(template -> {
+			String templateName = template.getTemplateName();
+			String content = FreemarkerUtils.getContent(templateName, template.getTemplateCode(), dataModel);
+			String generatorPath = FreemarkerUtils.getContent(templateName, template.getGeneratorPath(), dataModel);
+			String fileName = generatorPath.substring(generatorPath.lastIndexOf("/") + 1);
+			return new PreviewResponse(template.getId(), fileName, generatorPath, content,
+					template.getTemplateType());
+		}).collect(Collectors.toList());
+	}
+
+	/**
+	 * 生成代码 - ZIP
+	 * @param tableId 表格 ID
+	 * @param zip 压缩流
+	 */
+	public void download(String tableId, ZipOutputStream zip) {
+		Map<String, Object> dataModel = getDataModel(tableId);
+		String style = (String) dataModel.get("style");
+		List<GenTemplateQueryResponse> templates = genTemplateReadModelService.selectByGroupId(style);
+		for (GenTemplateQueryResponse template : templates) {
 			String content = FreemarkerUtils.getContent(template.getTemplateName(), template.getTemplateCode(),
 					dataModel);
 			String generatorPath = FreemarkerUtils.getContent(template.getTemplateName(), template.getGeneratorPath(),
 					dataModel);
-			return new PreviewResponse(template.getId(), template.getTemplateName(), generatorPath, content,
-					template.getTemplateType());
-		}).collect(Collectors.toList());
+			try {
+				zip.putNextEntry(new ZipEntry(generatorPath));
+				IoUtil.writeUtf8(zip, false, content);
+				zip.flush();
+				zip.closeEntry();
+			}
+			catch (IOException e) {
+				throw new ServerRuntimeException(CommonResponseEnum.INTERNAL_SERVER_ERROR, "ZIP写入失败！");
+			}
+		}
+	}
+
+	/**
+	 * 生成代码 - 自定义路径
+	 * @param tableId 表格 ID
+	 */
+	public void generatorCode(String tableId) {
+		Map<String, Object> dataModel = getDataModel(tableId);
+		String style = (String) dataModel.get("style");
+		List<GenTemplateQueryResponse> templates = genTemplateReadModelService.selectByGroupId(style);
+		for (GenTemplateQueryResponse template : templates) {
+			String content = FreemarkerUtils.getContent(template.getTemplateName(), template.getTemplateCode(),
+					dataModel);
+			String generatorPath = FreemarkerUtils.getContent(template.getTemplateName(), template.getGeneratorPath(),
+					dataModel);
+			FileUtil.writeUtf8String(content, generatorPath);
+		}
 	}
 
 	/**
@@ -154,6 +204,11 @@ public class GenAppService {
 		return dataModel;
 	}
 
+	/**
+	 * 包信息
+	 * @param table 表格信息
+	 * @return 包信息 Map 对象
+	 */
 	private Map<String, Object> packageModel(GenTable table) {
 		Map<String, Object> packageModel = new HashMap<>();
 		packageModel.put("parent", table.getPackageName());
