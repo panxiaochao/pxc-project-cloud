@@ -40,6 +40,13 @@ public interface IGenTableColumnDTOConvert {
 	GenTableColumn fromUpdateRequest(GenTableColumnUpdateRequest updateRequest);
 
 	/**
+	 * 代码生成表字段更新请求数据数组传输对象 转 代码生成表字段实体数组
+	 * @param updateRequestList 代码生成表字段更新请求数据数组传输对象
+	 * @return 代码生成表字段实体数组
+	 */
+	List<GenTableColumn> fromUpdateRequest(List<GenTableColumnUpdateRequest> updateRequestList);
+
+	/**
 	 * 代码生成表字段查询请求数据传输对象 转 代码生成表字段实体
 	 * @param queryRequest 代码生成表字段查询请求数据传输对象
 	 * @return 代码生成表字段实体

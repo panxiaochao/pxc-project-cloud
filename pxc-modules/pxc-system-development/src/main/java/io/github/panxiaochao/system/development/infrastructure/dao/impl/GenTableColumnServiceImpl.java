@@ -181,18 +181,6 @@ public class GenTableColumnServiceImpl implements IGenTableColumnService, IGenTa
 			if (StringUtils.isNotBlank(queryRequest.getFieldDict())) {
 				lqw.eq(GenTableColumnPO::getFieldDict, queryRequest.getFieldDict());
 			}
-			// 如果 创建人 不为空
-			if (StringUtils.isNotBlank(queryRequest.getCreateId())) {
-				lqw.eq(GenTableColumnPO::getCreateId, queryRequest.getCreateId());
-			}
-			// 如果 创建时间 不为空
-			if (queryRequest.getCreateTime() != null) {
-				lqw.eq(GenTableColumnPO::getCreateTime, queryRequest.getCreateTime());
-			}
-			// 如果 更新时间 不为空
-			if (queryRequest.getUpdateTime() != null) {
-				lqw.eq(GenTableColumnPO::getUpdateTime, queryRequest.getUpdateTime());
-			}
 		}
 		return lqw;
 	}
@@ -222,7 +210,7 @@ public class GenTableColumnServiceImpl implements IGenTableColumnService, IGenTa
 
 	/**
 	 * 批量保存
-	 * @param list GenTableColumn 数据实体
+	 * @param list GenTableColumn 数据实体数组
 	 */
 	@Override
 	public void saveBatch(List<GenTableColumn> list) {
@@ -238,6 +226,16 @@ public class GenTableColumnServiceImpl implements IGenTableColumnService, IGenTa
 	public void update(GenTableColumn genTableColumn) {
 		GenTableColumnPO genTableColumnPO = IGenTableColumnPOConvert.INSTANCE.fromEntity(genTableColumn);
 		genTableColumnMapper.updateById(genTableColumnPO);
+	}
+
+	/**
+	 * 根据主键批量更新
+	 * @param list GenTableColumn 数据实体数组
+	 */
+	@Override
+	public void updateBatchById(List<GenTableColumn> list) {
+		List<GenTableColumnPO> genTableColumnPOList = IGenTableColumnPOConvert.INSTANCE.fromEntity(list);
+		Db.updateBatchById(genTableColumnPOList);
 	}
 
 	/**

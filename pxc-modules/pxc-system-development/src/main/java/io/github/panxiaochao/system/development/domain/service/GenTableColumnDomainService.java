@@ -59,6 +59,14 @@ public class GenTableColumnDomainService {
 	}
 
 	/**
+	 * 根据主键批量更新
+	 * @param list GenTableColumn 数据实体数组
+	 */
+	public void updateBatchById(List<GenTableColumn> list) {
+		genTableColumnService.updateBatchById(list);
+	}
+
+	/**
 	 * 根据主键删除
 	 * @param id 主键
 	 */

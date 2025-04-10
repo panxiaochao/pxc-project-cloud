@@ -70,6 +70,12 @@ public class GenTableColumnApi {
 		return genTableColumnAppService.update(genTableColumnUpdateRequest);
 	}
 
+	@Operation(summary = "更新 批量数据", description = "根据主键 批量更新", method = "PUT")
+	@PutMapping("/updateBatch")
+	public R<Void> updateBatch(@RequestBody List<GenTableColumnUpdateRequest> genTableColumnUpdateRequestList) {
+		return genTableColumnAppService.updateBatch(genTableColumnUpdateRequestList);
+	}
+
 	@Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
 	@Parameter(name = "id", description = "代码生成表字段 ID")
 	@DeleteMapping(value = "/{id}")

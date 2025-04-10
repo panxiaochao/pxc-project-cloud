@@ -102,6 +102,29 @@ public class GenTableColumnAppService {
 	}
 
 	/**
+	 * 根据主键批量更新
+	 * @param genTableColumnUpdateRequestList 更新请求对象数组
+	 * @return 空返回
+	 */
+	public R<Void> updateBatch(List<GenTableColumnUpdateRequest> genTableColumnUpdateRequestList) {
+		if (CollectionUtils.isEmpty(genTableColumnUpdateRequestList)) {
+			return R.fail("列表数据为空!");
+		}
+		// 重新拉取字典值
+		genTableColumnUpdateRequestList = genTableColumnUpdateRequestList.stream().peek(updateRequest -> {
+			CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByText(JAVA_TYPE,
+					updateRequest.getAttrType());
+			updateRequest.setPackageName(sysDictItem.getDictItemValue());
+		}).collect(Collectors.toList());
+		// 转换为实体对象
+		List<GenTableColumn> genTableColumnList = IGenTableColumnDTOConvert.INSTANCE
+			.fromUpdateRequest(genTableColumnUpdateRequestList);
+		// 批量更新
+		genTableColumnDomainService.updateBatchById(genTableColumnList);
+		return R.ok();
+	}
+
+	/**
 	 * 根据主键删除
 	 * @param id 主键
 	 * @return 空返回
