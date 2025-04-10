@@ -252,6 +252,7 @@ public class GenAppService {
 		dataModel.put("formList", formList);
 		dataModel.put("gridList", gridList);
 		dataModel.put("queryList", queryList);
+		dataModel.put("fieldList", columnList);
 	}
 
 }

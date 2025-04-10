@@ -3,10 +3,8 @@ package io.github.panxiaochao.system.development.application.service;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.text.NamingCase;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.baomidou.dynamic.datasource.creator.DefaultDataSourceCreator;
 import com.baomidou.dynamic.datasource.toolkit.DynamicDataSourceContextHolder;
-import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -42,6 +40,7 @@ import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -140,13 +139,6 @@ public class GenTableAppService {
 		if (!StringUtils.hasText(dsQueryRequest.getDatabaseId())) {
 			return new ArrayList<>();
 		}
-		// 手动切换数据源@Operation(summary = "查询动态数据源下的元数据表", description = "查询动态数据源下的元数据表分",
-		// method = "GET")
-		// @GetMapping(value = "/queryDsTable")
-		// public R<List<TableMetaQueryResponse>> queryDsTable(DsQueryRequest
-		// dsQueryRequest) {
-		// return R.ok(genTableAppService.queryDsTable(dsQueryRequest));
-		// }
 		DatabaseSource databaseSource = databaseSourceDomainService.getById(dsQueryRequest.getDatabaseId());
 		DynamicDataSourceContextHolder.push(databaseSource.getDbCode());
 		List<TableMeta> tableMetaList = DbMetaUtil.getSimplifyTableMeta(dataSource, null, null, null);
@@ -197,23 +189,6 @@ public class GenTableAppService {
 		// 删除表关联字段数据
 		genTableColumnDomainService.deleteByTableId(id);
 		return R.ok();
-	}
-
-	/**
-	 * 增加动态数据源状态
-	 */
-	public void addDataSource(GenTable genTable) {
-		DynamicRoutingDataSource ds = (DynamicRoutingDataSource) dataSource;
-		// String name = rs.getString("name");
-		// String url = rs.getString("url");
-		// String username = rs.getString("username");
-		// String password = rs.getString("password");
-		// DataSourceProperty property = new DataSourceProperty();
-		// property.setUsername(genTable.getu);
-		// property.setLazy(true);
-		// property.setPassword(password);
-		// property.setUrl(url);
-
 	}
 
 	/**
@@ -297,8 +272,9 @@ public class GenTableAppService {
 			genTableColumn.setFieldComment(columnMeta.getColumnComment());
 			genTableColumn.setPrimaryPk(columnMeta.isAutoIncrement() ? "1" : "0");
 			genTableColumn.setAutoFill(AutoFillEnum.DEFAULT.name());
-			genTableColumn.setFormItem(CommonConstant.IS_DELETE.toString());
-			genTableColumn.setGridItem(CommonConstant.IS_DELETE.toString());
+			genTableColumn.setFormItem("0");
+			genTableColumn.setGridItem("1");
+			genTableColumn.setQueryItem("0");
 			genTableColumn.setQueryType("=");
 			genTableColumn.setQueryFormType("text");
 			genTableColumn.setFormType("text");
@@ -324,6 +300,22 @@ public class GenTableAppService {
 			genTableColumnList.add(genTableColumn);
 		}
 		return genTableColumnList;
+	}
+
+	/**
+	 * 同步表
+	 * @param tableId 表ID
+	 * @return 空返回
+	 */
+	public R<Void> syncTable(String tableId) {
+		GenTable genTable = genTableDomainService.getById(tableId);
+		String datasourceId = genTable.getDatasourceId();
+		String tableName = genTable.getTableName();
+		// 先删除本地数据表 和 字段的数据
+		deleteById(tableId);
+		// 根据数据源ID 和 表名重新获取数据表 和 字段元数据
+		importTables(datasourceId, Collections.singletonList(tableName));
+		return R.ok();
 	}
 
 }

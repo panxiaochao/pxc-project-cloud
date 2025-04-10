@@ -90,11 +90,11 @@ public class GenTableApi {
 		return genTableAppService.deleteById(id);
 	}
 
-	// @Operation(summary = "同步动态数据源状态", description = "同步动态数据源状态", method = "GET")
-	// @GetMapping(value = "/syncDataSource")
-	// public R<Void> syncDataSource(){
-	// return genTableAppService.syncDataSource();
-	// }
+	@Operation(summary = "同步 表", description = "同步 表", method = "GET")
+	@GetMapping(value = "/syncTable/{tableId}")
+	public R<Void> syncTable(@PathVariable("tableId") String tableId) {
+		return genTableAppService.syncTable(tableId);
+	}
 
 	@Operation(summary = "通过选择数据源导入需要生成代码的数据表", description = "通过选择数据源导入需要生成代码的数据表", method = "POST")
 	@PostMapping(value = "/importTables/{databaseId}")
