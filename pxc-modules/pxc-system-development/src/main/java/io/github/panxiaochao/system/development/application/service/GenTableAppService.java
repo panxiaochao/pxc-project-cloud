@@ -242,7 +242,8 @@ public class GenTableAppService {
 		GenTable genTable = new GenTable();
 		genTable.setTableName(tableMeta.getTableName());
 		genTable.setClassName(NamingCase.toPascalCase(tableMeta.getTableName()));
-		genTable.setTableComment(tableMeta.getTableComment());
+		genTable.setTableComment(StrUtil.isNotBlank(tableMeta.getTableComment()) ? tableMeta.getTableComment()
+				: tableMeta.getTableName());
 		genTable.setAuthor(codeGeneratorProperties.getAuthor());
 		genTable.setEmail(codeGeneratorProperties.getEmail());
 		genTable.setPackageName(codeGeneratorProperties.getPackageName());
@@ -269,8 +270,10 @@ public class GenTableAppService {
 			genTableColumn.setTableName(columnMeta.getTableName());
 			genTableColumn.setFieldName(columnMeta.getColumnName());
 			genTableColumn.setFieldType(columnMeta.getJdbcTypeName());
-			genTableColumn.setFieldComment(columnMeta.getColumnComment());
+			genTableColumn.setFieldComment(StrUtil.isNotBlank(columnMeta.getColumnComment())
+					? columnMeta.getColumnComment() : columnMeta.getColumnName());
 			genTableColumn.setPrimaryPk(columnMeta.isAutoIncrement() ? "1" : "0");
+			genTableColumn.setAutoIncrement(columnMeta.isAutoIncrement() ? "1" : "0");
 			genTableColumn.setAutoFill(AutoFillEnum.DEFAULT.name());
 			genTableColumn.setFormItem("0");
 			genTableColumn.setGridItem("1");

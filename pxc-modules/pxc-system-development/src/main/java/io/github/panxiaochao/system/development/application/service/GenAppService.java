@@ -91,8 +91,7 @@ public class GenAppService {
 			String content = FreemarkerUtils.getContent(templateName, template.getTemplateCode(), dataModel);
 			String generatorPath = FreemarkerUtils.getContent(templateName, template.getGeneratorPath(), dataModel);
 			String fileName = generatorPath.substring(generatorPath.lastIndexOf("/") + 1);
-			return new PreviewResponse(template.getId(), fileName, generatorPath, content,
-					template.getTemplateType());
+			return new PreviewResponse(template.getId(), fileName, generatorPath, content, template.getTemplateType());
 		}).collect(Collectors.toList());
 	}
 
@@ -169,10 +168,14 @@ public class GenAppService {
 		dataModel.put("formLayout", table.getFormLayout());
 
 		// 类名
-		dataModel.put("ControllerName", String.join(StringPools.EMPTY, table.getClassName(), "Api"));
-		dataModel.put("ServiceName", String.join(StringPools.EMPTY, table.getClassName(), "Service"));
-		dataModel.put("ServiceImplName", String.join(StringPools.EMPTY, table.getClassName(), "ServiceImpl"));
-		dataModel.put("MapperName", String.join(StringPools.EMPTY, table.getClassName(), "Mapper"));
+		// dataModel.put("ControllerName", String.join(StringPools.EMPTY,
+		// table.getClassName(), "Api"));
+		// dataModel.put("ServiceName", String.join(StringPools.EMPTY,
+		// table.getClassName(), "Service"));
+		// dataModel.put("ServiceImplName", String.join(StringPools.EMPTY,
+		// table.getClassName(), "ServiceImpl"));
+		// dataModel.put("MapperName", String.join(StringPools.EMPTY,
+		// table.getClassName(), "Mapper"));
 
 		// 开发者信息
 		dataModel.put("email", table.getEmail());
@@ -195,6 +198,7 @@ public class GenAppService {
 		dataModel.put("tableComment", table.getTableComment());
 		dataModel.put("className", StrUtil.lowerFirst(table.getClassName()));
 		dataModel.put("ClassName", table.getClassName());
+		dataModel.put("classname", table.getClassName().toLowerCase());
 		dataModel.put("fieldList", columnList);
 
 		// 生成路径
@@ -209,15 +213,18 @@ public class GenAppService {
 	 * @param table 表格信息
 	 * @return 包信息 Map 对象
 	 */
-	private Map<String, Object> packageModel(GenTable table) {
-		Map<String, Object> packageModel = new HashMap<>();
+	private Map<String, String> packageModel(GenTable table) {
+		Map<String, String> packageModel = new HashMap<>();
 		packageModel.put("parent", table.getPackageName());
 		packageModel.put("application",
 				String.join(StringPools.DOT, table.getPackageName(), table.getModuleName(), "application"));
+		packageModel.put("applicationPath", packageModel.get("application").replace(".", File.separator));
 		packageModel.put("domain",
 				String.join(StringPools.DOT, table.getPackageName(), table.getModuleName(), "domain"));
+		packageModel.put("domainPath", packageModel.get("domain").replace(".", File.separator));
 		packageModel.put("infrastructure",
 				String.join(StringPools.DOT, table.getPackageName(), table.getModuleName(), "infrastructure"));
+		packageModel.put("infrastructurePath", packageModel.get("infrastructure").replace(".", File.separator));
 		return packageModel;
 	}
 
@@ -253,6 +260,10 @@ public class GenAppService {
 		dataModel.put("gridList", gridList);
 		dataModel.put("queryList", queryList);
 		dataModel.put("fieldList", columnList);
+		dataModel.put("fieldNames",
+				columnList.stream()
+					.map(GenTableColumnQueryResponse::getFieldName)
+					.collect(Collectors.joining(StringPools.COMMA)));
 	}
 
 }

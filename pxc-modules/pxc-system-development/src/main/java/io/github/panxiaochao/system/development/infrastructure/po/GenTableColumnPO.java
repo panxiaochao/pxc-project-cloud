@@ -93,6 +93,12 @@ public class GenTableColumnPO {
 	private String primaryPk;
 
 	/**
+	 * 是否自增 0：否 1：是
+	 */
+	@TableField("auto_increment")
+	private String autoIncrement;
+
+	/**
 	 * 基类字段 0：否 1：是
 	 */
 	@TableField("base_field")

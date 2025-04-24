@@ -76,7 +76,7 @@ public class FreemarkerUtils {
 			content = sw.toString();
 		}
 		catch (Exception e) {
-			throw new ServerRuntimeException(CommonResponseEnum.INTERNAL_SERVER_ERROR, "渲染模板失败，请检查模板语法");
+			throw new ServerRuntimeException(CommonResponseEnum.INTERNAL_SERVER_ERROR, "渲染模板失败，请检查模板语法", e);
 		}
 		finally {
 			IoUtil.close(reader);

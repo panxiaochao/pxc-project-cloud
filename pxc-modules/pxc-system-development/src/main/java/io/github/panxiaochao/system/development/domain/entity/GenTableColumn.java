@@ -80,6 +80,11 @@ public class GenTableColumn {
 	private String primaryPk;
 
 	/**
+	 * 是否自增 0：否 1：是
+	 */
+	private String autoIncrement;
+
+	/**
 	 * 基类字段 0：否 1：是
 	 */
 	private String baseField;
