@@ -9,6 +9,7 @@ import io.github.panxiaochao.core.utils.CollectionUtil;
 import io.github.panxiaochao.core.utils.StrUtil;
 import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.core.utils.date.LocalDateTimeUtil;
+import io.github.panxiaochao.system.common.utils.FreemarkerUtils;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtype.DatabaseFieldTypeQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnQueryRequest;
 import io.github.panxiaochao.system.development.application.api.response.databasefieldtype.DatabaseFieldTypeQueryResponse;
@@ -22,7 +23,6 @@ import io.github.panxiaochao.system.development.domain.entity.DatabaseSource;
 import io.github.panxiaochao.system.development.domain.entity.GenTable;
 import io.github.panxiaochao.system.development.domain.service.DatabaseSourceDomainService;
 import io.github.panxiaochao.system.development.domain.service.GenTableDomainService;
-import io.github.panxiaochao.system.development.infrastructure.common.utils.FreemarkerUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

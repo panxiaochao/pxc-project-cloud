@@ -1,8 +1,6 @@
 package io.github.panxiaochao.system.development.application.service;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.text.NamingCase;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.creator.DefaultDataSourceCreator;
 import com.baomidou.dynamic.datasource.toolkit.DynamicDataSourceContextHolder;
 import io.github.panxiaochao.core.response.R;
@@ -10,6 +8,8 @@ import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.DbMetaUtil;
+import io.github.panxiaochao.core.utils.NamingRuleUtil;
+import io.github.panxiaochao.core.utils.StrUtil;
 import io.github.panxiaochao.core.utils.meta.db.ColumnMeta;
 import io.github.panxiaochao.core.utils.meta.db.TableMeta;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtype.DatabaseFieldTypeQueryRequest;
@@ -241,7 +241,7 @@ public class GenTableAppService {
 	private GenTable buildGenTable(String datasourceId, TableMeta tableMeta) {
 		GenTable genTable = new GenTable();
 		genTable.setTableName(tableMeta.getTableName());
-		genTable.setClassName(NamingCase.toPascalCase(tableMeta.getTableName()));
+		genTable.setClassName(NamingRuleUtil.toPascalCase(tableMeta.getTableName()));
 		genTable.setTableComment(StrUtil.isNotBlank(tableMeta.getTableComment()) ? tableMeta.getTableComment()
 				: tableMeta.getTableName());
 		genTable.setAuthor(codeGeneratorProperties.getAuthor());
@@ -253,7 +253,7 @@ public class GenTableAppService {
 		genTable.setFrontendPath(codeGeneratorProperties.getFrontendPath());
 		genTable.setModuleName(codeGeneratorProperties.getModuleName());
 		// 功能名：a_b aB
-		genTable.setFunctionName(StrUtil.toCamelCase(tableMeta.getTableName()));
+		genTable.setFunctionName(NamingRuleUtil.toCamelCase(tableMeta.getTableName()));
 		genTable.setFormLayout(codeGeneratorProperties.getFormLayout());
 		genTable.setDatasourceId(datasourceId);
 		return genTable;
@@ -282,7 +282,7 @@ public class GenTableAppService {
 			genTableColumn.setQueryFormType("text");
 			genTableColumn.setFormType("text");
 			genTableColumn.setSort(String.valueOf(index.getAndIncrement()));
-			genTableColumn.setAttrName(NamingCase.toCamelCase(columnMeta.getColumnName()));
+			genTableColumn.setAttrName(NamingRuleUtil.toCamelCase(columnMeta.getColumnName()));
 			if (CollectionUtils.isEmpty(databaseFieldTypeQueryResponseList)) {
 				genTableColumn.setAttrType("Object");
 			}

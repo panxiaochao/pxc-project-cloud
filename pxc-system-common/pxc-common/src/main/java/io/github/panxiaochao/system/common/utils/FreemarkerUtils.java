@@ -1,4 +1,4 @@
-package io.github.panxiaochao.system.development.infrastructure.common.utils;
+package io.github.panxiaochao.system.common.utils;
 
 import cn.hutool.core.io.IoUtil;
 import freemarker.template.Configuration;

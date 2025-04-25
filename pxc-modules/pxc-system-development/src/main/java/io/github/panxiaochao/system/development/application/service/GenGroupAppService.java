@@ -162,6 +162,14 @@ public class GenGroupAppService {
 	 * @return 空返回
 	 */
 	public R<Void> deleteById(String id) {
+		// fix(deleteById)[2025-04-25 14:47:48]: 删除前先判断下级是否有关联模版
+		GenTemplateGroupQueryRequest queryRequest = new GenTemplateGroupQueryRequest();
+		queryRequest.setGroupId(id);
+		List<GenTemplateGroupQueryResponse> genTemplateGroupQueryResponseList = genTemplateGroupReadModelService
+			.selectList(queryRequest);
+		if (!CollectionUtils.isEmpty(genTemplateGroupQueryResponseList)) {
+			return R.fail("该模板分组有关联模版，请勿删除！");
+		}
 		genGroupDomainService.deleteById(id);
 		// 删除当前分组关联下的模版类型
 		genTemplateGroupDomainService.deleteByGroupId(id);
