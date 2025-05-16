@@ -42,14 +42,38 @@ public enum DeviceType {
 	H5("h5", "H5端"),
 
 	/**
-	 * 微信小程序端
+	 * 微信小程序
 	 */
-	WEI_XIN_MA("wei_xin_ma", "微信小程序端"),
+	WECHAT_MA("wei_chat_ma", "微信小程序"),
 
 	/**
-	 * 微信公众号端
+	 * 微信公众号
 	 */
-	WEI_XIN_MP("wei_xin_mp", "微信公众号端"),;
+	WECHAT_MP("wei_chat_mp", "微信公众号"),
+	/**
+	 * 企业微信
+	 */
+	WECHAT_CP("wei_chat_cp", "企业微信"),
+	/**
+	 * QQ
+	 */
+	QQ("qq", "QQ"),
+	/**
+	 * GITHUB
+	 */
+	GITHUB("github", "GITHUB"),
+	/**
+	 * GITEE
+	 */
+	GITEE("gitee", "GITEE"),
+	/**
+	 * 微博
+	 */
+	WEI_BO("wei_bo", "微博"),
+	/**
+	 * 钉钉
+	 */
+	DD("dd", "钉钉");
 
 	/**
 	 * 设备编码
@@ -67,7 +91,7 @@ public enum DeviceType {
 				return deviceType;
 			}
 		}
-		throw new RuntimeException(String.format("登录设备'[%s]'暂不支持！", device));
+		throw new RuntimeException(String.format("登录设备'[%s]'暂不支持，请按提供的参数填写！", device));
 	}
 
 }

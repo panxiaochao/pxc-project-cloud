@@ -7,6 +7,7 @@ import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
+import io.github.panxiaochao.operate.log.core.enums.BusinessType;
 import io.github.panxiaochao.ratelimiter.annotation.RateLimiter;
 import io.github.panxiaochao.system.auth.api.request.LoginRequest;
 import io.github.panxiaochao.system.auth.api.response.LoginUserResponse;
@@ -53,7 +54,7 @@ public class WebLoginApi {
 	 */
 	@PostMapping("/login")
 	@RateLimiter(key = "#loginRequest.username", maxCount = 1, limitTime = 5000, message = "请勿重复登录")
-	@OperateLog(key = "#loginRequest.username", description = "登录", businessType = OperateLog.BusinessType.LOGIN)
+	@OperateLog(key = "#loginRequest.username", description = "登录", businessType = BusinessType.LOGIN)
 	@Operation(summary = "登录接口", description = "登录接口", method = "POST")
 	public R<UserTokenResponse> login(@RequestBody @Validated LoginRequest loginRequest) {
 		return R.ok(loginWebService.login(loginRequest));

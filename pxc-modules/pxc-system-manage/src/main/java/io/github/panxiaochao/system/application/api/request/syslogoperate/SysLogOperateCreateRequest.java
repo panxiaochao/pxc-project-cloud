@@ -35,7 +35,7 @@ public class SysLogOperateCreateRequest {
 	 * 操作类型
 	 */
 	@Schema(description = "操作类型")
-	private Integer operateType;
+	private String operateType;
 
 	/**
 	 * IP

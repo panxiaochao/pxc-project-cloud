@@ -37,7 +37,7 @@ public class SysLogOperate {
 	/**
 	 * 操作类型
 	 */
-	private Integer operateType;
+	private String operateType;
 
 	/**
 	 * IP

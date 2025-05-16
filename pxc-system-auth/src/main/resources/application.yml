@@ -47,8 +47,8 @@ spring:
     xss:
       enabled: false
     operatelog:
-      log-type: other
-      handler: io.github.panxiaochao.system.event.OperateLogEventHandler
+      log-type: custom
+      handler: io.github.panxiaochao.system.infrastructure.common.event.OperateLogEventHandler
 
 # mybatis-plus 配置
 mybatis-plus:

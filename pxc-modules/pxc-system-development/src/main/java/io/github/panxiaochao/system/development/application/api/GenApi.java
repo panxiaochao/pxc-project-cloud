@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.utils.DownLoadUtil;
 import io.github.panxiaochao.core.utils.StringPools;
+import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
+import io.github.panxiaochao.operate.log.core.enums.BusinessType;
 import io.github.panxiaochao.system.development.application.api.response.gen.PreviewResponse;
 import io.github.panxiaochao.system.development.application.service.GenAppService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -60,6 +62,7 @@ public class GenApi {
 	 * @param tableIds 数据表ID
 	 */
 	@Operation(summary = "生成代码 - ZIP", description = "生成代码 - ZIP", method = "GET")
+	@OperateLog(key = "#tableIds", description = "生成代码 - ZIP", businessType = BusinessType.EXPORT)
 	@GetMapping("/download")
 	public ResponseEntity<byte[]> download(String tableIds) {
 		if (StrUtil.isBlank(tableIds)) {

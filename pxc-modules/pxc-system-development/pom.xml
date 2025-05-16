@@ -34,6 +34,10 @@
             <artifactId>pxc-framework-redis</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>io.github.panxiaochao</groupId>
+            <artifactId>pxc-framework-operate-log</artifactId>
+        </dependency>
         <!-- Mybatis plus -->
         <dependency>
             <groupId>io.github.panxiaochao</groupId>

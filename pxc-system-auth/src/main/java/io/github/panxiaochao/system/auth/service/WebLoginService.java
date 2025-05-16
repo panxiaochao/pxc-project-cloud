@@ -15,8 +15,8 @@ import io.github.panxiaochao.core.utils.BooleanUtil;
 import io.github.panxiaochao.core.utils.IpUtil;
 import io.github.panxiaochao.core.utils.ObjectUtil;
 import io.github.panxiaochao.core.utils.SpringContextUtil;
-import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
 import io.github.panxiaochao.operate.log.core.domain.OperateLogDomain;
+import io.github.panxiaochao.operate.log.core.enums.BusinessType;
 import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.api.response.sysmenu.SysMenuQueryResponse;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
@@ -83,7 +83,7 @@ public class WebLoginService {
 		checkLogin(sysUserLogin, loginRequest);
 		// 构建登录用户
 		LoginUser loginUser = buildLoginUser(sysUserLogin);
-		// 登录设备, 并且检验
+		// 登录设备
 		loginUser.setLoginDevice(loginRequest.getLoginDevice());
 		// 构建Token
 		UserTokenResponse userToken = buildAuthToken(loginUser);
@@ -117,7 +117,7 @@ public class WebLoginService {
 				&& sysUserLogin.getIdentifierExpireTime().isBefore(LocalDateTime.now())) {
 			throw new ServerRuntimeException(UserLoginException.USER_PASSWORD_EXPIRE_EXCEPTION);
 		}
-		// 密码未验证
+		// 账号未验证
 		if (CommonConstant.FAIL.toString().equals(sysUserLogin.getVerified())) {
 			throw new ServerRuntimeException(UserLoginException.USER_PASSWORD_VERIFY_EXCEPTION);
 		}
@@ -206,13 +206,8 @@ public class WebLoginService {
 		OperateLogDomain operateLogDomain = OperateLogDomain.build(null, WebLoginService.class, "removeToken");
 		operateLogDomain.setTitle("登录管理");
 		operateLogDomain.setDescription("移除令牌");
-		operateLogDomain.setBusinessType(OperateLog.BusinessType.LOGOUT.ordinal());
-		if (DeviceType.PC.equals(DeviceType.ofDevice(loginUser.getLoginDevice()))) {
-			operateLogDomain.setOperateUsertype(OperateLog.OperatorUserType.WEB.ordinal());
-		}
-		else {
-			operateLogDomain.setOperateUsertype(OperateLog.OperatorUserType.MOBILE.ordinal());
-		}
+		operateLogDomain.setBusinessType(BusinessType.LOGOUT.name());
+		operateLogDomain.setOperateType(loginUser.getLoginDevice());
 		operateLogDomain.setValue(loginUser.getUserName());
 		SpringContextUtil.publishEvent(operateLogDomain);
 	}

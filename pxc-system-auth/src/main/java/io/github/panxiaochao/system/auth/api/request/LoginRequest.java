@@ -27,7 +27,7 @@ public class LoginRequest {
 	@NotBlank(message = "密码不能为空")
 	private String password;
 
-	@Schema(description = "登录设备")
+	@Schema(description = "登录设备，pc、mobile、mobile_android、mobile_apple、h5、wei_chat_ma、wei_chat_mp、wei_chat_cp、qq、github、gitee、wei_bo、dd等")
 	@NotBlank(message = "登录设备不能为空")
 	private String loginDevice;
 
