@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.development.infrastructure.convert;
 
 import io.github.panxiaochao.system.development.application.api.response.gentable.GenTableQueryResponse;
 import io.github.panxiaochao.system.development.domain.entity.GenTable;
-import io.github.panxiaochao.system.development.infrastructure.po.GenTablePO;
+import io.github.panxiaochao.system.development.infrastructure.dao.po.GenTablePO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

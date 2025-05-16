@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.infrastructure.convert;
 
 import io.github.panxiaochao.system.application.api.response.syslogoperate.SysLogOperateQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysLogOperate;
-import io.github.panxiaochao.system.infrastructure.po.SysLogOperatePO;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysLogOperatePO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

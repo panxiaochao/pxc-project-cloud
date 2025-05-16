@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysPostReadModelServ
 import io.github.panxiaochao.system.domain.entity.SysPost;
 import io.github.panxiaochao.system.domain.repository.ISysPostService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysPostPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysPostMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysPostPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysPostMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysPostPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

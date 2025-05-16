@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.IOauth2RegisteredClie
 import io.github.panxiaochao.system.domain.entity.Oauth2RegisteredClient;
 import io.github.panxiaochao.system.domain.repository.IOauth2RegisteredClientService;
 import io.github.panxiaochao.system.infrastructure.convert.IOauth2RegisteredClientPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.Oauth2RegisteredClientMapper;
-import io.github.panxiaochao.system.infrastructure.po.Oauth2RegisteredClientPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.Oauth2RegisteredClientMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.Oauth2RegisteredClientPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

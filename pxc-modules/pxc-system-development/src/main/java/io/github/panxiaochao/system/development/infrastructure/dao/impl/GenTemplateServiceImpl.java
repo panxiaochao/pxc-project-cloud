@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.development.application.repository.IGenTempl
 import io.github.panxiaochao.system.development.domain.entity.GenTemplate;
 import io.github.panxiaochao.system.development.domain.repository.IGenTemplateService;
 import io.github.panxiaochao.system.development.infrastructure.convert.IGenTemplatePOConvert;
-import io.github.panxiaochao.system.development.infrastructure.mapper.GenTemplateMapper;
-import io.github.panxiaochao.system.development.infrastructure.po.GenTemplatePO;
+import io.github.panxiaochao.system.development.infrastructure.dao.mapper.GenTemplateMapper;
+import io.github.panxiaochao.system.development.infrastructure.dao.po.GenTemplatePO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

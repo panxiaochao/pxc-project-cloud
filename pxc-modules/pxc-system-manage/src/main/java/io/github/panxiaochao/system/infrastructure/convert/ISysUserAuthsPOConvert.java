@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.infrastructure.convert;
 
 import io.github.panxiaochao.system.application.api.response.sysuserauths.SysUserAuthsQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysUserAuths;
-import io.github.panxiaochao.system.infrastructure.po.SysUserAuthsPO;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysUserAuthsPO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

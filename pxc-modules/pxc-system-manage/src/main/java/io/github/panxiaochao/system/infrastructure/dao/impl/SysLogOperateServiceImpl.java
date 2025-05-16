@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysLogOperateReadMod
 import io.github.panxiaochao.system.domain.entity.SysLogOperate;
 import io.github.panxiaochao.system.domain.repository.ISysLogOperateService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysLogOperatePOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysLogOperateMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysLogOperatePO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysLogOperateMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysLogOperatePO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -67,7 +67,7 @@ public class SysLogOperateServiceImpl implements ISysLogOperateService, ISysLogO
 				lqw.eq(SysLogOperatePO::getLogContent, queryRequest.getLogContent());
 			}
 			// 如果 操作类型 不为空
-			if (queryRequest.getOperateType() != null) {
+			if (StringUtils.isNotBlank(queryRequest.getOperateType())) {
 				lqw.eq(SysLogOperatePO::getOperateType, queryRequest.getOperateType());
 			}
 			// 如果 IP 不为空

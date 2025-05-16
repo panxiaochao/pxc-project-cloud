@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysDictItemReadModel
 import io.github.panxiaochao.system.domain.entity.SysDictItem;
 import io.github.panxiaochao.system.domain.repository.ISysDictItemService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysDictItemPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysDictItemMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysDictItemPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysDictItemMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysDictItemPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

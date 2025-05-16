@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysMenuReadModelServ
 import io.github.panxiaochao.system.domain.entity.SysMenu;
 import io.github.panxiaochao.system.domain.repository.ISysMenuService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysMenuPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysMenuMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysMenuPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysMenuMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysMenuPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

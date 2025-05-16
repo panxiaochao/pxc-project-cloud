@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysLogLoginReadModel
 import io.github.panxiaochao.system.domain.entity.SysLogLogin;
 import io.github.panxiaochao.system.domain.repository.ISysLogLoginService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysLogLoginPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysLogLoginMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysLogLoginPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysLogLoginMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysLogLoginPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

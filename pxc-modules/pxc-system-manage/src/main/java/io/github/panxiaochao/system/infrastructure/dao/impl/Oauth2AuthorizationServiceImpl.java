@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.IOauth2AuthorizationR
 import io.github.panxiaochao.system.domain.entity.Oauth2Authorization;
 import io.github.panxiaochao.system.domain.repository.IOauth2AuthorizationService;
 import io.github.panxiaochao.system.infrastructure.convert.IOauth2AuthorizationPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.Oauth2AuthorizationMapper;
-import io.github.panxiaochao.system.infrastructure.po.Oauth2AuthorizationPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.Oauth2AuthorizationMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.Oauth2AuthorizationPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

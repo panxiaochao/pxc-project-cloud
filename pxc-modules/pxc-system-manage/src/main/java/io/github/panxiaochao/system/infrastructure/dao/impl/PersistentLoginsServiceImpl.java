@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.IPersistentLoginsRead
 import io.github.panxiaochao.system.domain.entity.PersistentLogins;
 import io.github.panxiaochao.system.domain.repository.IPersistentLoginsService;
 import io.github.panxiaochao.system.infrastructure.convert.IPersistentLoginsPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.PersistentLoginsMapper;
-import io.github.panxiaochao.system.infrastructure.po.PersistentLoginsPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.PersistentLoginsMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.PersistentLoginsPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

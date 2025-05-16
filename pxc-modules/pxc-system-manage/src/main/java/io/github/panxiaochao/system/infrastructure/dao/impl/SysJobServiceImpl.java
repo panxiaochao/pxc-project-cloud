@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysJobReadModelServi
 import io.github.panxiaochao.system.domain.entity.SysJob;
 import io.github.panxiaochao.system.domain.repository.ISysJobService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysJobPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysJobMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysJobPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysJobMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysJobPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

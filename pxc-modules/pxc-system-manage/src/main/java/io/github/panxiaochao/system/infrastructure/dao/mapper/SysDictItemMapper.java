@@ -1,0 +1,18 @@
+package io.github.panxiaochao.system.infrastructure.dao.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysDictItemPO;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * <p>
+ * 数据字典配置表 持久化接口.
+ * </p>
+ *
+ * @author Lypxc
+ * @since 2023-12-01
+ */
+@Mapper
+public interface SysDictItemMapper extends BaseMapper<SysDictItemPO> {
+
+}

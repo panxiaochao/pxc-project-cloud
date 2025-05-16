@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysUserAuthsReadMode
 import io.github.panxiaochao.system.domain.entity.SysUserAuths;
 import io.github.panxiaochao.system.domain.repository.ISysUserAuthsService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysUserAuthsPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysUserAuthsMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysUserAuthsPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysUserAuthsMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysUserAuthsPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

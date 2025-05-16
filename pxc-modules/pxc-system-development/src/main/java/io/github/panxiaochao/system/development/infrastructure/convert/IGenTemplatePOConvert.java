@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.development.infrastructure.convert;
 
 import io.github.panxiaochao.system.development.application.api.response.gentemplate.GenTemplateQueryResponse;
 import io.github.panxiaochao.system.development.domain.entity.GenTemplate;
-import io.github.panxiaochao.system.development.infrastructure.po.GenTemplatePO;
+import io.github.panxiaochao.system.development.infrastructure.dao.po.GenTemplatePO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

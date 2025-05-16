@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysTenantPackageRead
 import io.github.panxiaochao.system.domain.entity.SysTenantPackage;
 import io.github.panxiaochao.system.domain.repository.ISysTenantPackageService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysTenantPackagePOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysTenantPackageMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysTenantPackagePO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysTenantPackageMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysTenantPackagePO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

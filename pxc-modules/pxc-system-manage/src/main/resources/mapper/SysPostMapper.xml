@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.github.panxiaochao.system.infrastructure.mapper.SysPostMapper">
+<mapper namespace="io.github.panxiaochao.system.infrastructure.dao.mapper.SysPostMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.infrastructure.po.SysPostPO">
+    <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.infrastructure.dao.po.SysPostPO">
         <id column="id" property="id"/>
         <result column="post_name" property="postName"/>
         <result column="post_code" property="postCode"/>

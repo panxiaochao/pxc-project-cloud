@@ -11,8 +11,8 @@ import io.github.panxiaochao.system.development.application.repository.IGenTempl
 import io.github.panxiaochao.system.development.domain.entity.GenTemplateGroup;
 import io.github.panxiaochao.system.development.domain.repository.IGenTemplateGroupService;
 import io.github.panxiaochao.system.development.infrastructure.convert.IGenTemplateGroupPOConvert;
-import io.github.panxiaochao.system.development.infrastructure.mapper.GenTemplateGroupMapper;
-import io.github.panxiaochao.system.development.infrastructure.po.GenTemplateGroupPO;
+import io.github.panxiaochao.system.development.infrastructure.dao.mapper.GenTemplateGroupMapper;
+import io.github.panxiaochao.system.development.infrastructure.dao.po.GenTemplateGroupPO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

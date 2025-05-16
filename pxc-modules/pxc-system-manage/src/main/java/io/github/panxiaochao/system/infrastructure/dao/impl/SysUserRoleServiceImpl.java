@@ -11,8 +11,8 @@ import io.github.panxiaochao.system.application.repository.ISysUserRoleReadModel
 import io.github.panxiaochao.system.domain.entity.SysUserRole;
 import io.github.panxiaochao.system.domain.repository.ISysUserRoleService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysUserRolePOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysUserRoleMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysUserRolePO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysUserRoleMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysUserRolePO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

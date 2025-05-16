@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.IFileAccessoryReadMod
 import io.github.panxiaochao.system.domain.entity.FileAccessory;
 import io.github.panxiaochao.system.domain.repository.IFileAccessoryService;
 import io.github.panxiaochao.system.infrastructure.convert.IFileAccessoryPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.FileAccessoryMapper;
-import io.github.panxiaochao.system.infrastructure.po.FileAccessoryPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.FileAccessoryMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.FileAccessoryPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

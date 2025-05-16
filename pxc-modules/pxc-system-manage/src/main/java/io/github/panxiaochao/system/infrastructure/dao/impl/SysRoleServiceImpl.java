@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysRoleReadModelServ
 import io.github.panxiaochao.system.domain.entity.SysRole;
 import io.github.panxiaochao.system.domain.repository.ISysRoleService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysRolePOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysRoleMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysRolePO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysRoleMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysRolePO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

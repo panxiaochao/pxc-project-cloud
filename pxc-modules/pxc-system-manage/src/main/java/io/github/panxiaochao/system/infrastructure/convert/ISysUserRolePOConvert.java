@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.infrastructure.convert;
 
 import io.github.panxiaochao.system.application.api.response.sysuserrole.SysUserRoleQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysUserRole;
-import io.github.panxiaochao.system.infrastructure.po.SysUserRolePO;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysUserRolePO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

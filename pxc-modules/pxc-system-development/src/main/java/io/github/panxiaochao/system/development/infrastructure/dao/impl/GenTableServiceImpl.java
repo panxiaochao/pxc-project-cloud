@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.development.application.repository.IGenTable
 import io.github.panxiaochao.system.development.domain.entity.GenTable;
 import io.github.panxiaochao.system.development.domain.repository.IGenTableService;
 import io.github.panxiaochao.system.development.infrastructure.convert.IGenTablePOConvert;
-import io.github.panxiaochao.system.development.infrastructure.mapper.GenTableMapper;
-import io.github.panxiaochao.system.development.infrastructure.po.GenTablePO;
+import io.github.panxiaochao.system.development.infrastructure.dao.mapper.GenTableMapper;
+import io.github.panxiaochao.system.development.infrastructure.dao.po.GenTablePO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

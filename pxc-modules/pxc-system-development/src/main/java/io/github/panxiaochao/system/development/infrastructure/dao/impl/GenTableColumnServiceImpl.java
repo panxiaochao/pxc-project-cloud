@@ -11,8 +11,8 @@ import io.github.panxiaochao.system.development.application.repository.IGenTable
 import io.github.panxiaochao.system.development.domain.entity.GenTableColumn;
 import io.github.panxiaochao.system.development.domain.repository.IGenTableColumnService;
 import io.github.panxiaochao.system.development.infrastructure.convert.IGenTableColumnPOConvert;
-import io.github.panxiaochao.system.development.infrastructure.mapper.GenTableColumnMapper;
-import io.github.panxiaochao.system.development.infrastructure.po.GenTableColumnPO;
+import io.github.panxiaochao.system.development.infrastructure.dao.mapper.GenTableColumnMapper;
+import io.github.panxiaochao.system.development.infrastructure.dao.po.GenTableColumnPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

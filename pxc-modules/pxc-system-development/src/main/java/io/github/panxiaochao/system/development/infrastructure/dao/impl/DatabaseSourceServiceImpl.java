@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.development.application.repository.IDatabase
 import io.github.panxiaochao.system.development.domain.entity.DatabaseSource;
 import io.github.panxiaochao.system.development.domain.repository.IDatabaseSourceService;
 import io.github.panxiaochao.system.development.infrastructure.convert.IDatabaseSourcePOConvert;
-import io.github.panxiaochao.system.development.infrastructure.mapper.DatabaseSourceMapper;
-import io.github.panxiaochao.system.development.infrastructure.po.DatabaseSourcePO;
+import io.github.panxiaochao.system.development.infrastructure.dao.mapper.DatabaseSourceMapper;
+import io.github.panxiaochao.system.development.infrastructure.dao.po.DatabaseSourcePO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

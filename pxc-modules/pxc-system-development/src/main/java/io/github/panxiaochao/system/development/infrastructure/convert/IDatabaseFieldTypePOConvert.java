@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.development.infrastructure.convert;
 
 import io.github.panxiaochao.system.development.application.api.response.databasefieldtype.DatabaseFieldTypeQueryResponse;
 import io.github.panxiaochao.system.development.domain.entity.DatabaseFieldType;
-import io.github.panxiaochao.system.development.infrastructure.po.DatabaseFieldTypePO;
+import io.github.panxiaochao.system.development.infrastructure.dao.po.DatabaseFieldTypePO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

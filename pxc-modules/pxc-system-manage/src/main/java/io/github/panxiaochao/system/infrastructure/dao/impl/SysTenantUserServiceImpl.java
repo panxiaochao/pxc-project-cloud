@@ -11,8 +11,8 @@ import io.github.panxiaochao.system.application.repository.ISysTenantUserReadMod
 import io.github.panxiaochao.system.domain.entity.SysTenantUser;
 import io.github.panxiaochao.system.domain.repository.ISysTenantUserService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysTenantUserPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysTenantUserMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysTenantUserPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysTenantUserMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysTenantUserPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

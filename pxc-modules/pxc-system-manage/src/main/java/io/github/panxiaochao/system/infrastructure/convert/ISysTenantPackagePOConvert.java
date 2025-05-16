@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.infrastructure.convert;
 
 import io.github.panxiaochao.system.application.api.response.systenantpackage.SysTenantPackageQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysTenantPackage;
-import io.github.panxiaochao.system.infrastructure.po.SysTenantPackagePO;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysTenantPackagePO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

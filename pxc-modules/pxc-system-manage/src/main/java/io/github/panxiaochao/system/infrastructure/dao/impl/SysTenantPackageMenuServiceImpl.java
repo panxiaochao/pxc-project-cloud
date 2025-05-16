@@ -11,8 +11,8 @@ import io.github.panxiaochao.system.application.repository.ISysTenantPackageMenu
 import io.github.panxiaochao.system.domain.entity.SysTenantPackageMenu;
 import io.github.panxiaochao.system.domain.repository.ISysTenantPackageMenuService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysTenantPackageMenuPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysTenantPackageMenuMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysTenantPackageMenuPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysTenantPackageMenuMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysTenantPackageMenuPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

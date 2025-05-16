@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.development.application.repository.IDatabase
 import io.github.panxiaochao.system.development.domain.entity.DatabaseFieldType;
 import io.github.panxiaochao.system.development.domain.repository.IDatabaseFieldTypeService;
 import io.github.panxiaochao.system.development.infrastructure.convert.IDatabaseFieldTypePOConvert;
-import io.github.panxiaochao.system.development.infrastructure.mapper.DatabaseFieldTypeMapper;
-import io.github.panxiaochao.system.development.infrastructure.po.DatabaseFieldTypePO;
+import io.github.panxiaochao.system.development.infrastructure.dao.mapper.DatabaseFieldTypeMapper;
+import io.github.panxiaochao.system.development.infrastructure.dao.po.DatabaseFieldTypePO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

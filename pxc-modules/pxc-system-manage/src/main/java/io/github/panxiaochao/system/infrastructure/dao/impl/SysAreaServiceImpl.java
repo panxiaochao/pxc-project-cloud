@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysAreaReadModelServ
 import io.github.panxiaochao.system.domain.entity.SysArea;
 import io.github.panxiaochao.system.domain.repository.ISysAreaService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysAreaPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysAreaMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysAreaPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysAreaMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysAreaPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

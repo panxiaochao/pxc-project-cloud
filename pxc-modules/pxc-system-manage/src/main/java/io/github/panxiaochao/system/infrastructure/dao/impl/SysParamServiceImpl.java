@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysParamReadModelSer
 import io.github.panxiaochao.system.domain.entity.SysParam;
 import io.github.panxiaochao.system.domain.repository.ISysParamService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysParamPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysParamMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysParamPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysParamMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysParamPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.development.application.repository.IGenGroup
 import io.github.panxiaochao.system.development.domain.entity.GenGroup;
 import io.github.panxiaochao.system.development.domain.repository.IGenGroupService;
 import io.github.panxiaochao.system.development.infrastructure.convert.IGenGroupPOConvert;
-import io.github.panxiaochao.system.development.infrastructure.mapper.GenGroupMapper;
-import io.github.panxiaochao.system.development.infrastructure.po.GenGroupPO;
+import io.github.panxiaochao.system.development.infrastructure.dao.mapper.GenGroupMapper;
+import io.github.panxiaochao.system.development.infrastructure.dao.po.GenGroupPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

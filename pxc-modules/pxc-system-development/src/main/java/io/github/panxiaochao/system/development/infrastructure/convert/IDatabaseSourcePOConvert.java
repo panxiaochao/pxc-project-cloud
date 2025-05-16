@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.development.infrastructure.convert;
 
 import io.github.panxiaochao.system.development.application.api.response.databasesource.DatabaseSourceQueryResponse;
 import io.github.panxiaochao.system.development.domain.entity.DatabaseSource;
-import io.github.panxiaochao.system.development.infrastructure.po.DatabaseSourcePO;
+import io.github.panxiaochao.system.development.infrastructure.dao.po.DatabaseSourcePO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

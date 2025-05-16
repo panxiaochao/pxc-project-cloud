@@ -10,8 +10,8 @@ import io.github.panxiaochao.system.application.repository.ISysOrgReadModelServi
 import io.github.panxiaochao.system.domain.entity.SysOrg;
 import io.github.panxiaochao.system.domain.repository.ISysOrgService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysOrgPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysOrgMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysOrgPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysOrgMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysOrgPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

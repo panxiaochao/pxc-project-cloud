@@ -1,0 +1,18 @@
+package io.github.panxiaochao.system.infrastructure.dao.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysJobPO;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * <p>
+ * 定时任务调度表 持久化接口.
+ * </p>
+ *
+ * @author Lypxc
+ * @since 2023-12-01
+ */
+@Mapper
+public interface SysJobMapper extends BaseMapper<SysJobPO> {
+
+}

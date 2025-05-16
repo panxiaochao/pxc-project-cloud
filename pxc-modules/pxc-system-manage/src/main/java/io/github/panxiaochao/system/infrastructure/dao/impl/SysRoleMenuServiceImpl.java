@@ -11,8 +11,8 @@ import io.github.panxiaochao.system.application.repository.ISysRoleMenuReadModel
 import io.github.panxiaochao.system.domain.entity.SysRoleMenu;
 import io.github.panxiaochao.system.domain.repository.ISysRoleMenuService;
 import io.github.panxiaochao.system.infrastructure.convert.ISysRoleMenuPOConvert;
-import io.github.panxiaochao.system.infrastructure.mapper.SysRoleMenuMapper;
-import io.github.panxiaochao.system.infrastructure.po.SysRoleMenuPO;
+import io.github.panxiaochao.system.infrastructure.dao.mapper.SysRoleMenuMapper;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysRoleMenuPO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

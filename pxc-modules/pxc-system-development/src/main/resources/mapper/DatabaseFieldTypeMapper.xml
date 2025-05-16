@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.github.panxiaochao.system.development.infrastructure.mapper.DatabaseFieldTypeMapper">
+<mapper namespace="io.github.panxiaochao.system.development.infrastructure.dao.mapper.DatabaseFieldTypeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.development.infrastructure.po.DatabaseFieldTypePO">
+    <resultMap id="BaseResultMap" type="io.github.panxiaochao.system.development.infrastructure.dao.po.DatabaseFieldTypePO">
         <id column="id" property="id"/>
         <result column="column_type" property="columnType"/>
         <result column="java_type" property="javaType"/>

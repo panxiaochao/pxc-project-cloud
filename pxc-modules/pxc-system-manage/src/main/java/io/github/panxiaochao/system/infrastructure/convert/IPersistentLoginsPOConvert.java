@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.infrastructure.convert;
 
 import io.github.panxiaochao.system.application.api.response.persistentlogins.PersistentLoginsQueryResponse;
 import io.github.panxiaochao.system.domain.entity.PersistentLogins;
-import io.github.panxiaochao.system.infrastructure.po.PersistentLoginsPO;
+import io.github.panxiaochao.system.infrastructure.dao.po.PersistentLoginsPO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

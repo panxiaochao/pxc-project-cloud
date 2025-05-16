@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.infrastructure.convert;
 
 import io.github.panxiaochao.system.application.api.response.sysmenu.SysMenuQueryResponse;
 import io.github.panxiaochao.system.domain.entity.SysMenu;
-import io.github.panxiaochao.system.infrastructure.po.SysMenuPO;
+import io.github.panxiaochao.system.infrastructure.dao.po.SysMenuPO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
