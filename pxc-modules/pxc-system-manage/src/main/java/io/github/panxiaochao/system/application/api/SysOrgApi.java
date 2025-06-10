@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.application.api;
 
+import io.github.panxiaochao.component.select.Select;
 import io.github.panxiaochao.component.tree.Tree;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
@@ -81,6 +82,19 @@ public class SysOrgApi {
 	@GetMapping(value = "/listTree")
 	public R<List<Tree<String>>> listTree(String rootId) {
 		return R.ok(sysOrgAppService.listTree(rootId));
+	}
+
+	@Operation(summary = "获取机构表格树列表", description = "获取机构表格树列表", method = "GET")
+	@Parameter(name = "orgId", description = "机构ID")
+	@GetMapping(value = "/tableTree")
+	public R<List<Tree<String>>> tableTree(String orgId) {
+		return R.ok(sysOrgAppService.tableTree(orgId));
+	}
+
+	@Operation(summary = "获取机构类别下拉", description = "获取机构类别下拉", method = "GET")
+	@GetMapping(value = "/selectOrgCategoryList")
+	public R<List<Select<Integer>>> selectOrgCategoryList() {
+		return R.ok(sysOrgAppService.selectOrgCategoryList());
 	}
 
 }

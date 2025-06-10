@@ -53,7 +53,7 @@ spring:
 # mybatis-plus 配置
 mybatis-plus:
   db-type: mysql
-  sql-log-trace: "true"
+  sql-log-trace: true
   global-config:
     banner: false
   configuration:
