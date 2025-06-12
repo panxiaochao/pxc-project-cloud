@@ -82,6 +82,12 @@ public class SysOrgQueryResponse {
 	private Integer orgCategory;
 
 	/**
+	 * 机构类别名
+	 */
+	@Schema(description = "机构类别名")
+	private String orgCategoryStr;
+
+	/**
 	 * 手机号码
 	 */
 	@Schema(description = "手机号码")

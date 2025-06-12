@@ -65,6 +65,24 @@ public class SysOrgServiceImpl implements ISysOrgService, ISysOrgReadModelServic
 	}
 
 	/**
+	 * 查询单条记录
+	 * @param queryRequest 机构部门表查询请求对象
+	 * @return 单条记录
+	 */
+	@Override
+	public SysOrgQueryResponse getOne(SysOrgQueryRequest queryRequest) {
+		// 构造查询条件
+		LambdaQueryWrapper<SysOrgPO> lqw = lambdaQuery(queryRequest);
+		try {
+			SysOrgPO sysOrgPO = sysOrgMapper.selectOne(lqw);
+			return ISysOrgPOConvert.INSTANCE.toQueryResponse(sysOrgPO);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	/**
 	 * 查询条件
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 角色表Lambda表达式

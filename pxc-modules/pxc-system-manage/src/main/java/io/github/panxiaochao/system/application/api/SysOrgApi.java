@@ -91,6 +91,13 @@ public class SysOrgApi {
 		return R.ok(sysOrgAppService.tableTree(orgId));
 	}
 
+	@Operation(summary = "获取机构列表", description = "获取机构列表", method = "GET")
+	@Parameter(name = "orgId", description = "机构ID")
+	@GetMapping(value = "/list")
+	public R<List<SysOrgQueryResponse>> list(String orgId) {
+		return R.ok(sysOrgAppService.list(orgId));
+	}
+
 	@Operation(summary = "获取机构类别下拉", description = "获取机构类别下拉", method = "GET")
 	@GetMapping(value = "/selectOrgCategoryList")
 	public R<List<Select<Integer>>> selectOrgCategoryList() {

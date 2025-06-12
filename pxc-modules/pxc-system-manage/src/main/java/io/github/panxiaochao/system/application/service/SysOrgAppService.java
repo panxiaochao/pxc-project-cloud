@@ -29,6 +29,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -88,6 +89,13 @@ public class SysOrgAppService {
 	 */
 	public R<SysOrgResponse> save(SysOrgCreateRequest sysOrgCreateRequest) {
 		SysOrg sysOrg = ISysOrgDTOConvert.INSTANCE.fromCreateRequest(sysOrgCreateRequest);
+		SysOrgQueryRequest queryRequest = new SysOrgQueryRequest();
+		queryRequest.setOrgCode(sysOrg.getOrgCode());
+		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
+		SysOrgQueryResponse one = sysOrgReadModelService.getOne(queryRequest);
+		if (Objects.nonNull(one)) {
+			return R.fail("机构编码[" + sysOrg.getOrgCode() + "]已存在");
+		}
 		sysOrg = sysOrgDomainService.save(sysOrg);
 		SysOrgResponse sysOrgResponse = ISysOrgDTOConvert.INSTANCE.toResponse(sysOrg);
 		return R.ok(sysOrgResponse);
@@ -117,7 +125,7 @@ public class SysOrgAppService {
 			sysOrgDomainService.deleteById(id);
 		}
 		else {
-			return R.fail("存在关联数据，请删除完全！");
+			return R.fail("存在下级级联数据，请删除！");
 		}
 		return R.ok();
 	}
@@ -184,10 +192,10 @@ public class SysOrgAppService {
 									.getDictItemText()
 								: "");
 				extraMap.put("mobile", s.getMobile());
-				extraMap.put("fax", s.getSort());
+				extraMap.put("fax", s.getFax());
 				extraMap.put("address", s.getAddress());
 				extraMap.put("state", s.getState());
-				extraMap.put("remark", s.getState());
+				extraMap.put("remark", s.getRemark());
 			}))
 			.collect(Collectors.toList());
 		// 修改节点属性
@@ -212,6 +220,28 @@ public class SysOrgAppService {
 			.collect(Collectors.toList());
 		List<Select<Integer>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
 		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
+	}
+
+	/**
+	 * 获取机构列表
+	 * @param orgId 菜单ID
+	 * @return 列表
+	 */
+	public List<SysOrgQueryResponse> list(String orgId) {
+		SysOrgQueryRequest queryRequest = new SysOrgQueryRequest();
+		// 有数据就说明需要查下级
+		if (StringUtils.hasText(orgId)) {
+			queryRequest.setParentId(orgId);
+		}
+		queryRequest.setState(CommonConstant.STATUS_NORMAL.toString());
+		List<SysOrgQueryResponse> list = sysOrgReadModelService.list(queryRequest);
+		list.forEach(s -> {
+			s.setOrgCategoryStr(s.getOrgCategory() != null
+					? CacheHelper.getSysDictItemByValue(ORG_CATEGORY, String.valueOf(s.getOrgCategory()))
+						.getDictItemText()
+					: "");
+		});
+		return list;
 	}
 
 }

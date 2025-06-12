@@ -2,7 +2,9 @@ package io.github.panxiaochao.system.application.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.system.application.api.request.sysorg.SysOrgQueryRequest;
+import io.github.panxiaochao.system.application.api.request.sysrole.SysRoleQueryRequest;
 import io.github.panxiaochao.system.application.api.response.sysorg.SysOrgQueryResponse;
+import io.github.panxiaochao.system.application.api.response.sysrole.SysRoleQueryResponse;
 
 import java.util.List;
 
@@ -30,5 +32,12 @@ public interface ISysOrgReadModelService {
 	 * @return 分页结果数组
 	 */
 	List<SysOrgQueryResponse> list(SysOrgQueryRequest queryRequest);
+
+	/**
+	 * 查询单条记录
+	 * @param queryRequest 机构部门表查询请求对象
+	 * @return 单条记录
+	 */
+	SysOrgQueryResponse getOne(SysOrgQueryRequest queryRequest);
 
 }
