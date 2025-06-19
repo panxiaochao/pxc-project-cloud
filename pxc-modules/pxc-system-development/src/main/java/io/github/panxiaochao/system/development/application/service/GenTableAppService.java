@@ -272,7 +272,7 @@ public class GenTableAppService {
 			genTableColumn.setFieldType(columnMeta.getJdbcTypeName());
 			genTableColumn.setFieldComment(StrUtil.isNotBlank(columnMeta.getColumnComment())
 					? columnMeta.getColumnComment() : columnMeta.getColumnName());
-			genTableColumn.setPrimaryPk(columnMeta.isAutoIncrement() ? "1" : "0");
+			genTableColumn.setPrimaryPk(columnMeta.isPrimaryKey() ? "1" : "0");
 			genTableColumn.setAutoIncrement(columnMeta.isAutoIncrement() ? "1" : "0");
 			genTableColumn.setAutoFill(AutoFillEnum.DEFAULT.name());
 			genTableColumn.setFormItem("0");

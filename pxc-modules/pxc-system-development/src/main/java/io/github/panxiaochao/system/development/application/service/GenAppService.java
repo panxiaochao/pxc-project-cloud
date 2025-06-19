@@ -6,6 +6,7 @@ import io.github.panxiaochao.core.enums.CommonResponseEnum;
 import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.utils.BooleanUtil;
 import io.github.panxiaochao.core.utils.CollectionUtil;
+import io.github.panxiaochao.core.utils.NamingRuleUtil;
 import io.github.panxiaochao.core.utils.StrUtil;
 import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.core.utils.date.LocalDateTimeUtil;
@@ -199,6 +200,7 @@ public class GenAppService {
 		dataModel.put("className", StrUtil.lowerFirst(table.getClassName()));
 		dataModel.put("ClassName", table.getClassName());
 		dataModel.put("classname", table.getClassName().toLowerCase());
+		dataModel.put("apiName", NamingRuleUtil.toKebabCase(table.getClassName()));
 		dataModel.put("fieldList", columnList);
 
 		// 生成路径

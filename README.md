@@ -15,7 +15,7 @@
 `deleted_at` datetime NULL COMMENT '删除时间',
 `created_by` bigint NULL COMMENT '创建人ID',
 `updated_by` bigint NULL COMMENT '更新人ID',
-`tentant_id` bigint NULL COMMENT '租户ID',
+`tenant_id` bigint NULL COMMENT '租户ID',
 `expire_at` datetime NULL COMMENT '过期时间',
 `version` int NULL COMMENT '版本号',
 `remark` varchar(255) NULL COMMENT '备注',
