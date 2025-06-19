@@ -5,7 +5,9 @@ import io.github.panxiaochao.system.development.infrastructure.dao.po.GenGroupPO
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * <p> 模板分组 持久化接口. </p>
+ * <p>
+ * 模板分组 持久化接口.
+ * </p>
  *
  * @author Lypxc
  * @since 2025-03-28

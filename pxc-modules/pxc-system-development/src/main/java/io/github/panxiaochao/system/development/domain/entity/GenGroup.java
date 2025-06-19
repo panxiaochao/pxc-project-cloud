@@ -7,7 +7,9 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>模板分组 实体. </p>
+ * <p>
+ * 模板分组 实体.
+ * </p>
  *
  * @author Lypxc
  * @since 2025-03-28
@@ -17,38 +19,39 @@ import java.time.LocalDateTime;
 @ToString
 public class GenGroup {
 
-    /**
-    * 主键
-    */
-    private String id;
+	/**
+	 * 主键
+	 */
+	private String id;
 
-    /**
-     * 分组名称
-     */
-    private String groupName;
+	/**
+	 * 分组名称
+	 */
+	private String groupName;
 
-    /**
-     * 分组描述
-     */
-    private String groupDesc;
+	/**
+	 * 分组描述
+	 */
+	private String groupDesc;
 
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
+	/**
+	 * 创建时间
+	 */
+	private LocalDateTime createTime;
 
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
+	/**
+	 * 更新时间
+	 */
+	private LocalDateTime updateTime;
 
-    /**
-     * 创建人
-     */
-    private String createId;
+	/**
+	 * 创建人
+	 */
+	private String createId;
 
-    /**
-     * 修改人
-     */
-    private String updateId;
+	/**
+	 * 修改人
+	 */
+	private String updateId;
+
 }

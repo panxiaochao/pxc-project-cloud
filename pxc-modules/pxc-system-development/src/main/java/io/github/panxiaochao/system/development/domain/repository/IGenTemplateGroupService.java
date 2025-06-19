@@ -51,4 +51,5 @@ public interface IGenTemplateGroupService {
 	 * @param groupId 模版分组主键
 	 */
 	void deleteByGroupId(String groupId);
+
 }

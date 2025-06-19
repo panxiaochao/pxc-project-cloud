@@ -73,4 +73,5 @@ public class GenTemplateGroupDomainService {
 	public void deleteByGroupId(String groupId) {
 		genTemplateGroupService.deleteByGroupId(groupId);
 	}
+
 }

@@ -44,7 +44,7 @@ public interface IGenTableColumnService {
 	 * 根据主键批量更新
 	 * @param list GenTableColumn 数据实体数组
 	 */
-	 void updateBatchById(List<GenTableColumn> list);
+	void updateBatchById(List<GenTableColumn> list);
 
 	/**
 	 * 根据主键删除
