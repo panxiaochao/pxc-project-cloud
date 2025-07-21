@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * <p>
  * 【数据库字段类型-数据库标签表】接口.
@@ -99,6 +101,18 @@ public class DatabaseFieldTagApi {
 	@DeleteMapping(value = "/{id}")
 	public R<Void> deleteById(@PathVariable("id") String id) {
 		return databaseFieldTagAppService.deleteById(id);
+	}
+
+	/**
+	 * 根据数据库字段类型码表ID获取列表
+	 * @param fieldId 数据库字段类型码表ID
+	 * @return 数据库字段类型-数据库标签表响应数组
+	 */
+	@Operation(summary = "根据数据库字段类型码表ID获取列表", description = "根据数据库字段类型码表ID获取列表", method = "GET")
+	@Parameter(name = "fieldId", description = "数据库字段类型码表ID ")
+	@GetMapping(value = "/getListByFieldId")
+	public R<List<DatabaseFieldTagQueryResponse>> getListByFieldId(String fieldId) {
+		return databaseFieldTagAppService.getListByFieldId(fieldId);
 	}
 
 }

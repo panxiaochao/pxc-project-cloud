@@ -102,4 +102,15 @@ public class DatabaseFieldTagAppService {
 		return R.ok();
 	}
 
+	/**
+	 * 根据数据库字段类型码表ID获取列表
+	 * @param fieldId 数据库字段类型码表ID
+	 * @return 数据库字段类型-数据库标签表响应对象列表
+	 */
+    public R<List<DatabaseFieldTagQueryResponse>> getListByFieldId(String fieldId) {
+		DatabaseFieldTagQueryRequest queryRequest = new DatabaseFieldTagQueryRequest();
+		queryRequest.setFieldTypeId(Integer.valueOf(fieldId));
+		List<DatabaseFieldTagQueryResponse> list = databaseFieldTagReadModelService.selectList(queryRequest);
+		return R.ok(list);
+    }
 }

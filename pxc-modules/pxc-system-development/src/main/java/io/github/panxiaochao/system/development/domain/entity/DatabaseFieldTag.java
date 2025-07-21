@@ -40,4 +40,17 @@ public class DatabaseFieldTag {
 	 */
 	private LocalDateTime createAt;
 
+	public DatabaseFieldTag() {
+	}
+
+	public DatabaseFieldTag(String fieldTypeId, String tag) {
+		this.fieldTypeId = Integer.parseInt(fieldTypeId);
+		this.tag = tag;
+	}
+
+	public DatabaseFieldTag(Integer fieldTypeId, String tag) {
+		this.fieldTypeId = fieldTypeId;
+		this.tag = tag;
+	}
+
 }

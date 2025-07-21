@@ -5,6 +5,7 @@ import io.github.panxiaochao.system.application.api.response.sysrole.SysRoleQuer
 import io.github.panxiaochao.system.application.repository.ISysMenuReadModelService;
 import io.github.panxiaochao.system.application.repository.ISysRoleReadModelService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -41,6 +42,7 @@ public class SysPermissionDomainService {
 	 * @param userId 用户id
 	 * @return 角色权限信息
 	 */
+	@Cacheable(value = "selectRolePermission", key = "#userId")
 	public Set<String> selectRolePermission(String userId) {
 		List<SysRoleQueryResponse> list = sysRoleReadModelService.selectRolesByUserId(userId);
 		Set<String> roleCodeSet = new HashSet<>();
@@ -55,6 +57,7 @@ public class SysPermissionDomainService {
 	 * @param userId 用户id
 	 * @return 菜单权限信息
 	 */
+	@Cacheable(value = "selectMenuPermission", key = "#userId")
 	public Set<String> selectMenuPermissionCode(String userId) {
 		List<String> list = sysMenuReadModelService.selectMenuPermissionCodeByUserId(userId);
 		Set<String> menuCodeSet = new HashSet<>();

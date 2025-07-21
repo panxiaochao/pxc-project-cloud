@@ -59,4 +59,10 @@ public interface IDatabaseFieldTagService {
 	 */
 	void deleteBatch(List<DatabaseFieldTag> list);
 
+	/**
+	 * 根据数据库字段类型ID删除
+	 * @param fieldTypeId 数据库字段类型ID
+	 */
+	void deleteByFieldTypeId(String fieldTypeId);
+
 }

@@ -180,4 +180,14 @@ public class DatabaseFieldTagServiceImpl implements IDatabaseFieldTagService, ID
 		throw new UnsupportedOperationException("请自定义实现批量删除方法！");
 	}
 
+	/**
+	 * 根据数据库字段类型ID删除
+	 * @param fieldTypeId 数据库字段类型ID
+	 */
+	@Override
+	public void deleteByFieldTypeId(String fieldTypeId) {
+		databaseFieldTagMapper.delete(new LambdaQueryWrapper<DatabaseFieldTagPO>()
+			.eq(DatabaseFieldTagPO::getFieldTypeId, Integer.valueOf(fieldTypeId)));
+	}
+
 }

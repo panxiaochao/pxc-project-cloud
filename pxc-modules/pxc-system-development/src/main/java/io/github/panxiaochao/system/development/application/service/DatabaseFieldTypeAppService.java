@@ -16,7 +16,9 @@ import io.github.panxiaochao.system.development.application.api.response.databas
 import io.github.panxiaochao.system.development.application.api.response.databasefieldtype.DatabaseFieldTypeResponse;
 import io.github.panxiaochao.system.development.application.convert.IDatabaseFieldTypeDTOConvert;
 import io.github.panxiaochao.system.development.application.repository.IDatabaseFieldTypeReadModelService;
+import io.github.panxiaochao.system.development.domain.entity.DatabaseFieldTag;
 import io.github.panxiaochao.system.development.domain.entity.DatabaseFieldType;
+import io.github.panxiaochao.system.development.domain.service.DatabaseFieldTagDomainService;
 import io.github.panxiaochao.system.development.domain.service.DatabaseFieldTypeDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,11 @@ public class DatabaseFieldTypeAppService {
 	 * 数据库字段类型码表 Domain服务类
 	 */
 	private final DatabaseFieldTypeDomainService databaseFieldTypeDomainService;
+
+	/**
+	 * 数据库字段类型-数据库标签表 Domain服务类
+	 */
+	private final DatabaseFieldTagDomainService databaseFieldTagDomainService;
 
 	/**
 	 * 数据库字段类型码表 读模型服务
@@ -104,6 +111,15 @@ public class DatabaseFieldTypeAppService {
 		databaseFieldType = databaseFieldTypeDomainService.save(databaseFieldType);
 		DatabaseFieldTypeResponse databaseFieldTypeResponse = IDatabaseFieldTypeDTOConvert.INSTANCE
 			.toResponse(databaseFieldType);
+		// 存储标签
+		if (!CollectionUtils.isEmpty(databaseFieldTypeCreateRequest.getTags())) {
+			final String fieldTypeId = databaseFieldType.getId();
+			List<DatabaseFieldTag> databaseFieldTagList = databaseFieldTypeCreateRequest.getTags()
+				.stream()
+				.map(tag -> new DatabaseFieldTag(fieldTypeId, tag))
+				.collect(Collectors.toList());
+			databaseFieldTagDomainService.saveBatch(databaseFieldTagList);
+		}
 		return R.ok(databaseFieldTypeResponse);
 	}
 
@@ -119,6 +135,18 @@ public class DatabaseFieldTypeAppService {
 			.substring(databaseFieldType.getPackageName().lastIndexOf(CharPools.DOT) + 1);
 		databaseFieldType.setJavaType(javaType);
 		databaseFieldTypeDomainService.update(databaseFieldType);
+		// 存储标签
+		if (!CollectionUtils.isEmpty(databaseFieldTypeUpdateRequest.getTags())) {
+			final String fieldTypeId = databaseFieldType.getId();
+			// 先删除
+			databaseFieldTagDomainService.deleteByFieldTypeId(fieldTypeId);
+			// 重新存储
+			List<DatabaseFieldTag> databaseFieldTagList = databaseFieldTypeUpdateRequest.getTags()
+					.stream()
+					.map(tag -> new DatabaseFieldTag(fieldTypeId, tag))
+					.collect(Collectors.toList());
+			databaseFieldTagDomainService.saveBatch(databaseFieldTagList);
+		}
 		return R.ok();
 	}
 

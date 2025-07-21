@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * <p>
  * 数据库字段类型码表更新请求对象
@@ -42,5 +44,11 @@ public class DatabaseFieldTypeUpdateRequest {
 	 */
 	@Schema(description = "对应Java包名")
 	private String packageName;
+
+	/**
+	 * 数据库标签，用逗号分隔
+	 */
+	@Schema(description = "数据库标签")
+	private List<String> tags;
 
 }

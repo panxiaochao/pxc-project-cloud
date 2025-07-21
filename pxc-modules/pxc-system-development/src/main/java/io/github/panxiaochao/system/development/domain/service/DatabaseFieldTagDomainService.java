@@ -84,4 +84,12 @@ public class DatabaseFieldTagDomainService {
 		databaseFieldTagService.deleteBatch(list);
 	}
 
+	/**
+	 * 根据数据库字段类型ID删除
+	 * @param fieldTypeId 数据库字段类型ID
+	 */
+	public void deleteByFieldTypeId(String fieldTypeId) {
+		databaseFieldTagService.deleteByFieldTypeId(fieldTypeId);
+	}
+
 }
