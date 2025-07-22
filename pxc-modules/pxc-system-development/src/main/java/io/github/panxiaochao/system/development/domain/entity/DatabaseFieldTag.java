@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.development.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,6 +37,11 @@ public class DatabaseFieldTag {
 	private String tag;
 
 	/**
+	 * 数据库字段类型
+	 */
+	private String columnType;
+
+	/**
 	 * 创建时间
 	 */
 	private LocalDateTime createAt;
@@ -43,14 +49,16 @@ public class DatabaseFieldTag {
 	public DatabaseFieldTag() {
 	}
 
-	public DatabaseFieldTag(String fieldTypeId, String tag) {
+	public DatabaseFieldTag(String fieldTypeId, String tag, String columnType) {
 		this.fieldTypeId = Integer.parseInt(fieldTypeId);
 		this.tag = tag;
+		this.columnType = columnType;
 	}
 
-	public DatabaseFieldTag(Integer fieldTypeId, String tag) {
+	public DatabaseFieldTag(Integer fieldTypeId, String tag, String columnType) {
 		this.fieldTypeId = fieldTypeId;
 		this.tag = tag;
+		this.columnType = columnType;
 	}
 
 }

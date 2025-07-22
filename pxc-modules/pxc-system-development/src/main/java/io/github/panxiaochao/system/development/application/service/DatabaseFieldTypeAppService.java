@@ -132,9 +132,10 @@ public class DatabaseFieldTypeAppService {
 		// 存储标签
 		if (!CollectionUtils.isEmpty(databaseFieldTypeCreateRequest.getTags())) {
 			final String fieldTypeId = databaseFieldType.getId();
+			final String columnType = databaseFieldType.getColumnType();
 			List<DatabaseFieldTag> databaseFieldTagList = databaseFieldTypeCreateRequest.getTags()
 				.stream()
-				.map(tag -> new DatabaseFieldTag(fieldTypeId, tag))
+				.map(tag -> new DatabaseFieldTag(fieldTypeId, tag, columnType))
 				.collect(Collectors.toList());
 			databaseFieldTagDomainService.saveBatch(databaseFieldTagList);
 		}
@@ -156,12 +157,13 @@ public class DatabaseFieldTypeAppService {
 		// 存储标签
 		if (!CollectionUtils.isEmpty(databaseFieldTypeUpdateRequest.getTags())) {
 			final String fieldTypeId = databaseFieldType.getId();
+			final String columnType = databaseFieldType.getColumnType();
 			// 先删除
 			databaseFieldTagDomainService.deleteByFieldTypeId(fieldTypeId);
 			// 重新存储
 			List<DatabaseFieldTag> databaseFieldTagList = databaseFieldTypeUpdateRequest.getTags()
 				.stream()
-				.map(tag -> new DatabaseFieldTag(fieldTypeId, tag))
+				.map(tag -> new DatabaseFieldTag(fieldTypeId, tag, columnType))
 				.collect(Collectors.toList());
 			databaseFieldTagDomainService.saveBatch(databaseFieldTagList);
 		}
@@ -175,7 +177,7 @@ public class DatabaseFieldTypeAppService {
 	 */
 	public R<Void> deleteById(String id) {
 		databaseFieldTypeDomainService.deleteById(id);
-		// 删除
+		// 根据字段类型ID删除数据库标签
 		databaseFieldTagDomainService.deleteByFieldTypeId(id);
 		return R.ok();
 	}

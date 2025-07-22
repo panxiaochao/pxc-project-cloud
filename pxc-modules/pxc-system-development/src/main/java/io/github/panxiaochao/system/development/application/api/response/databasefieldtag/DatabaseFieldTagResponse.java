@@ -41,6 +41,12 @@ public class DatabaseFieldTagResponse {
 	private String tag;
 
 	/**
+	 * 数据库字段类型
+	 */
+	@Schema(description = "数据库字段类型")
+	private String columnType;
+
+	/**
 	 * 创建时间
 	 */
 	@Schema(description = "创建时间")

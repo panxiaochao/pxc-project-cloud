@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.development.application.api;
 
+import io.github.panxiaochao.component.select.Select;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
@@ -109,10 +110,17 @@ public class DatabaseFieldTagApi {
 	 * @return 数据库字段类型-数据库标签表响应数组
 	 */
 	@Operation(summary = "根据数据库字段类型码表ID获取列表", description = "根据数据库字段类型码表ID获取列表", method = "GET")
-	@Parameter(name = "fieldId", description = "数据库字段类型码表ID ")
+	@Parameter(name = "fieldId", description = "数据库字段类型码表ID")
 	@GetMapping(value = "/getListByFieldId")
 	public R<List<DatabaseFieldTagQueryResponse>> getListByFieldId(String fieldId) {
 		return databaseFieldTagAppService.getListByFieldId(fieldId);
+	}
+
+	@Operation(summary = "根据数据库ID获取对应数据库字段类型下拉列表", description = "根据数据库ID获取对应数据库字段类型下拉列表", method = "GET")
+	@Parameter(name = "datasourceId", description = "数据库ID")
+	@GetMapping(value = "/selectFieldTypeByDataSourceId")
+	public R<List<Select<String>>> selectFieldTypeByDataSourceId(String datasourceId) {
+		return R.ok(databaseFieldTagAppService.selectFieldTypeByDataSourceId(datasourceId));
 	}
 
 }

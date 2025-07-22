@@ -1,5 +1,8 @@
 package io.github.panxiaochao.system.development.application.service;
 
+import io.github.panxiaochao.component.select.Select;
+import io.github.panxiaochao.component.select.SelectBuilder;
+import io.github.panxiaochao.component.select.SelectOption;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
@@ -12,11 +15,16 @@ import io.github.panxiaochao.system.development.application.api.response.databas
 import io.github.panxiaochao.system.development.application.convert.IDatabaseFieldTagDTOConvert;
 import io.github.panxiaochao.system.development.application.repository.IDatabaseFieldTagReadModelService;
 import io.github.panxiaochao.system.development.domain.entity.DatabaseFieldTag;
+import io.github.panxiaochao.system.development.domain.entity.DatabaseSource;
 import io.github.panxiaochao.system.development.domain.service.DatabaseFieldTagDomainService;
+import io.github.panxiaochao.system.development.domain.service.DatabaseSourceDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -30,6 +38,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DatabaseFieldTagAppService {
+
+	/**
+	 * 数据库-数据源管理 Domain服务类
+	 */
+	private final DatabaseSourceDomainService databaseSourceDomainService;
 
 	/**
 	 * 数据库字段类型-数据库标签表 Domain服务类
@@ -107,10 +120,30 @@ public class DatabaseFieldTagAppService {
 	 * @param fieldId 数据库字段类型码表ID
 	 * @return 数据库字段类型-数据库标签表响应对象列表
 	 */
-    public R<List<DatabaseFieldTagQueryResponse>> getListByFieldId(String fieldId) {
+	public R<List<DatabaseFieldTagQueryResponse>> getListByFieldId(String fieldId) {
 		DatabaseFieldTagQueryRequest queryRequest = new DatabaseFieldTagQueryRequest();
 		queryRequest.setFieldTypeId(Integer.valueOf(fieldId));
 		List<DatabaseFieldTagQueryResponse> list = databaseFieldTagReadModelService.selectList(queryRequest);
 		return R.ok(list);
-    }
+	}
+
+	/**
+	 * 根据数据库ID获取对应数据库字段类型下拉列表
+	 * @param datasourceId 数据库ID
+	 * @return 数据库字段类型下拉列表
+	 */
+	public List<Select<String>> selectFieldTypeByDataSourceId(String datasourceId) {
+		DatabaseSource databaseSource = databaseSourceDomainService.getById(datasourceId);
+		DatabaseFieldTagQueryRequest queryRequest = new DatabaseFieldTagQueryRequest();
+		queryRequest.setTag(databaseSource.getDbType());
+		List<DatabaseFieldTagQueryResponse> list = databaseFieldTagReadModelService.selectList(queryRequest);
+		List<SelectOption<String>> selectOptionList = list.stream()
+			.map(m -> SelectOption.of(m.getColumnType(), m.getColumnType(), extraMap -> {
+				extraMap.put("label", m.getColumnType());
+			}))
+			.collect(Collectors.toList());
+		List<Select<String>> selectList = SelectBuilder.of(selectOptionList).fastBuild().toSelectList();
+		return CollectionUtils.isEmpty(selectList) ? new ArrayList<>() : selectList;
+	}
+
 }

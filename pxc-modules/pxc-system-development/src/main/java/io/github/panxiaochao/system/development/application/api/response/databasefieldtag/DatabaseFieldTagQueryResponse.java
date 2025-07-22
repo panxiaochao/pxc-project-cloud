@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system.development.application.api.response.databasefieldtag;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +40,12 @@ public class DatabaseFieldTagQueryResponse {
 	 */
 	@Schema(description = "数据库类型标签")
 	private String tag;
+
+	/**
+	 * 数据库字段类型
+	 */
+	@Schema(description = "数据库字段类型")
+	private String columnType;
 
 	/**
 	 * 创建时间

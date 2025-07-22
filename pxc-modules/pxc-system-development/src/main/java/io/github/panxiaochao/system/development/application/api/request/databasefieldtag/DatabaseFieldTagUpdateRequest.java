@@ -38,4 +38,10 @@ public class DatabaseFieldTagUpdateRequest {
 	@Schema(description = "数据库类型标签")
 	private String tag;
 
+	/**
+	 * 数据库字段类型
+	 */
+	@Schema(description = "数据库字段类型")
+	private String columnType;
+
 }

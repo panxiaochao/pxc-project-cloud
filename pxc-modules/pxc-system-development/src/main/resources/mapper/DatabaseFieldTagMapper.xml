@@ -8,13 +8,14 @@
         <id column="id" property="id"/>
         <result column="field_type_id" property="fieldTypeId"/>
         <result column="tag" property="tag"/>
+        <result column="column_type" property="columnType"/>
         <result column="create_at" property="createAt"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        ,field_type_id,tag,create_at
+        ,field_type_id,tag,column_type,create_at
     </sql>
 
 </mapper>

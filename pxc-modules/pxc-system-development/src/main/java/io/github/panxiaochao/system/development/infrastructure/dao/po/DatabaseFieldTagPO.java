@@ -43,6 +43,12 @@ public class DatabaseFieldTagPO {
 	private String tag;
 
 	/**
+	 * 数据库字段类型
+	 */
+	@TableField("column_type")
+	private String columnType;
+
+	/**
 	 * 创建时间
 	 */
 	@TableField(value = "create_at", fill = FieldFill.INSERT)
