@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -50,6 +51,12 @@ public class DatabaseFieldTypeQueryResponse {
 	 */
 	@Schema(description = "对应Java包名")
 	private String packageName;
+
+	/**
+	 * 数据库类型标签
+	 */
+	@Schema(description = "数据库类型标签")
+	private List<String> tags;
 
 	/**
 	 * 创建时间

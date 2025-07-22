@@ -9,12 +9,15 @@ import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
 import io.github.panxiaochao.core.utils.CharPools;
 import io.github.panxiaochao.system.common.cache.CacheHelper;
+import io.github.panxiaochao.system.development.application.api.request.databasefieldtag.DatabaseFieldTagQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtype.DatabaseFieldTypeCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtype.DatabaseFieldTypeQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtype.DatabaseFieldTypeUpdateRequest;
+import io.github.panxiaochao.system.development.application.api.response.databasefieldtag.DatabaseFieldTagQueryResponse;
 import io.github.panxiaochao.system.development.application.api.response.databasefieldtype.DatabaseFieldTypeQueryResponse;
 import io.github.panxiaochao.system.development.application.api.response.databasefieldtype.DatabaseFieldTypeResponse;
 import io.github.panxiaochao.system.development.application.convert.IDatabaseFieldTypeDTOConvert;
+import io.github.panxiaochao.system.development.application.repository.IDatabaseFieldTagReadModelService;
 import io.github.panxiaochao.system.development.application.repository.IDatabaseFieldTypeReadModelService;
 import io.github.panxiaochao.system.development.domain.entity.DatabaseFieldTag;
 import io.github.panxiaochao.system.development.domain.entity.DatabaseFieldType;
@@ -56,6 +59,11 @@ public class DatabaseFieldTypeAppService {
 	private final IDatabaseFieldTypeReadModelService databaseFieldTypeReadModelService;
 
 	/**
+	 * 数据库字段类型-数据库标签表 读模型服务
+	 */
+	private final IDatabaseFieldTagReadModelService databaseFieldTagReadModelService;
+
+	/**
 	 * 数据库类型 常量名
 	 */
 	private static final String DB_TYPE = "DB_TYPE";
@@ -75,6 +83,16 @@ public class DatabaseFieldTypeAppService {
 			DatabaseFieldTypeQueryRequest queryRequest) {
 		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
 		List<DatabaseFieldTypeQueryResponse> list = databaseFieldTypeReadModelService.page(pagination, queryRequest);
+		List<DatabaseFieldTagQueryResponse> databaseFieldTagQueryResponseList = databaseFieldTagReadModelService
+			.selectList(new DatabaseFieldTagQueryRequest());
+		list.forEach(item -> {
+			// 获取数据库标签
+			List<String> tags = databaseFieldTagQueryResponseList.stream()
+				.filter(tag -> tag.getFieldTypeId().equals(Integer.parseInt(item.getId())))
+				.map(DatabaseFieldTagQueryResponse::getTag)
+				.collect(Collectors.toList());
+			item.setTags(tags);
+		});
 		return new PageResponse<>(pagination, list);
 	}
 
@@ -142,9 +160,9 @@ public class DatabaseFieldTypeAppService {
 			databaseFieldTagDomainService.deleteByFieldTypeId(fieldTypeId);
 			// 重新存储
 			List<DatabaseFieldTag> databaseFieldTagList = databaseFieldTypeUpdateRequest.getTags()
-					.stream()
-					.map(tag -> new DatabaseFieldTag(fieldTypeId, tag))
-					.collect(Collectors.toList());
+				.stream()
+				.map(tag -> new DatabaseFieldTag(fieldTypeId, tag))
+				.collect(Collectors.toList());
 			databaseFieldTagDomainService.saveBatch(databaseFieldTagList);
 		}
 		return R.ok();
@@ -157,6 +175,8 @@ public class DatabaseFieldTypeAppService {
 	 */
 	public R<Void> deleteById(String id) {
 		databaseFieldTypeDomainService.deleteById(id);
+		// 删除
+		databaseFieldTagDomainService.deleteByFieldTypeId(id);
 		return R.ok();
 	}
 
