@@ -109,7 +109,7 @@ public class OnlineTableApi {
 	 */
 	@Operation(summary = "保存在线数据表和字段数组对象", description = "保存在线数据表和字段数组对象", method = "POST")
 	@PostMapping("/saveTableAndColumns")
-	public R<OnlineTableResponse> saveTableAndColumns(@RequestBody OnlineTableAndColumnsRequest createRequest) {
+	public R<Void> saveTableAndColumns(@RequestBody OnlineTableAndColumnsRequest createRequest) {
 		return onlineTableAppService.saveTableAndColumns(createRequest);
 	}
 

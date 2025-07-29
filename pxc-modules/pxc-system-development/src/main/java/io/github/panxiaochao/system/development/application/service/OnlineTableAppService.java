@@ -25,9 +25,13 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * <p>
@@ -79,15 +83,17 @@ public class OnlineTableAppService {
 		// 读取所有数据源
 		List<DatabaseSourceQueryResponse> databaseSourceQueryResponseList = databaseSourceReadModelService
 			.selectList(new DatabaseSourceQueryRequest());
+		Map<String, DatabaseSourceQueryResponse> dataSourceMap = databaseSourceQueryResponseList.stream()
+			.collect(Collectors.toMap(DatabaseSourceQueryResponse::getId, Function.identity()));
+
 		list.forEach(m -> {
-			// 通过databaseSourceId查询数据源名称
-			databaseSourceQueryResponseList.stream()
-				.filter(n -> m.getDatasourceId() != null && n.getId().equals(m.getDatasourceId().toString()))
-				.findFirst()
-				.ifPresent(n -> {
-					m.setDbName(n.getDbName());
-					m.setDbType(n.getDbType());
-				});
+			if (m.getDatasourceId() != null) {
+				DatabaseSourceQueryResponse source = dataSourceMap.get(m.getDatasourceId().toString());
+				if (source != null) {
+					m.setDbName(source.getDbName());
+					m.setDbType(source.getDbType());
+				}
+			}
 		});
 		return new PageResponse<>(pagination, list);
 	}
@@ -143,7 +149,7 @@ public class OnlineTableAppService {
 	 * @param createRequest 创建请求对象
 	 * @return 在线数据表响应对象
 	 */
-	public R<OnlineTableResponse> saveTableAndColumns(OnlineTableAndColumnsRequest createRequest) {
+	public R<Void> saveTableAndColumns(OnlineTableAndColumnsRequest createRequest) {
 		// 先保存 OnlineTable
 		OnlineTable onlineTable = new OnlineTable();
 		onlineTable.setTableName(createRequest.getTableName());
@@ -162,32 +168,34 @@ public class OnlineTableAppService {
 				return R.fail("新建表失败，请联系管理员");
 			}
 		}
-		// 转换 OnlineTableColumnDTO 为 OnlineTableColumn
-		List<OnlineTableColumn> onlineTableColumns = new ArrayList<>();
-		for (int i = 0, length = createRequest.getColumns().size(); i < length; i++) {
-			OnlineColumnRequest onlineColumnRequest = createRequest.getColumns().get(i);
-			OnlineTableColumn onlineTableColumn = new OnlineTableColumn();
-			onlineTableColumn.setFieldName(onlineColumnRequest.getFieldName());
-			onlineTableColumn.setFieldType(onlineColumnRequest.getFieldType().get(0));
-			onlineTableColumn.setFieldComment(onlineColumnRequest.getFieldComment());
-			onlineTableColumn.setColumnSize(onlineColumnRequest.getColumnSize());
-			onlineTableColumn.setScale(onlineColumnRequest.getScale());
-			onlineTableColumn.setFieldDefault(onlineColumnRequest.getFieldDefault());
-			onlineTableColumn.setSort(i);
-			onlineTableColumn.setPrimaryPk(BooleanUtils.toString(onlineColumnRequest.isPrimaryPk(), "1", "0"));
-			onlineTableColumn.setAutoIncrement(BooleanUtils.toString(onlineColumnRequest.isAutoIncrement(), "1", "0"));
-			onlineTableColumn.setNullable(BooleanUtils.toString(onlineColumnRequest.isNullable(), "1", "0"));
-			onlineTableColumns.add(onlineTableColumn);
+		if (!CollectionUtils.isEmpty(createRequest.getColumns())) {
+			final String tableId = onlineTable.getId();
+			final String tableName = onlineTable.getTableName();
+			List<OnlineTableColumn> onlineTableColumns = IntStream.range(0, createRequest.getColumns().size())
+				.mapToObj(i -> {
+					OnlineColumnRequest onlineColumnRequest = createRequest.getColumns().get(i);
+					OnlineTableColumn onlineTableColumn = new OnlineTableColumn();
+					onlineTableColumn.setTableId(tableId);
+					onlineTableColumn.setTableName(tableName);
+					onlineTableColumn.setFieldName(onlineColumnRequest.getFieldName());
+					// 安全获取字段类型（避免空列表/空指针导致的IndexOutOfBoundsException）
+					List<String> fieldTypes = onlineColumnRequest.getFieldType();
+					onlineTableColumn.setFieldType(!CollectionUtils.isEmpty(fieldTypes) ? fieldTypes.get(0) : null);
+					onlineTableColumn.setFieldComment(onlineColumnRequest.getFieldComment());
+					onlineTableColumn.setColumnSize(onlineColumnRequest.getColumnSize());
+					onlineTableColumn.setScale(onlineColumnRequest.getScale());
+					onlineTableColumn.setFieldDefault(onlineColumnRequest.getFieldDefault());
+					onlineTableColumn.setSort(i);
+					onlineTableColumn.setPrimaryPk(BooleanUtils.toString(onlineColumnRequest.isPrimaryPk(), "1", "0"));
+					onlineTableColumn
+						.setAutoIncrement(BooleanUtils.toString(onlineColumnRequest.isAutoIncrement(), "1", "0"));
+					onlineTableColumn.setNullable(BooleanUtils.toString(onlineColumnRequest.isNullable(), "1", "0"));
+					return onlineTableColumn;
+				})
+				.collect(Collectors.toList());
+			// 批量保存 OnlineTableColumn
+			onlineTableColumnDomainService.saveBatch(onlineTableColumns);
 		}
-		final String tableId = onlineTable.getId();
-		final String tableName = onlineTable.getTableName();
-		// 赋值tableId和tableName
-		onlineTableColumns.forEach(onlineTableColumn -> {
-			onlineTableColumn.setTableId(tableId);
-			onlineTableColumn.setTableName(tableName);
-		});
-		// 批量保存 OnlineTableColumn
-		onlineTableColumnDomainService.saveBatch(onlineTableColumns);
 		return R.ok();
 	}
 
