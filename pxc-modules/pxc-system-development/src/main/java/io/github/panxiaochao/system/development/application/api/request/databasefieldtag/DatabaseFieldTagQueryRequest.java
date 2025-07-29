@@ -43,4 +43,5 @@ public class DatabaseFieldTagQueryRequest {
 	 */
 	@Schema(description = "数据库字段类型")
 	private String columnType;
+
 }

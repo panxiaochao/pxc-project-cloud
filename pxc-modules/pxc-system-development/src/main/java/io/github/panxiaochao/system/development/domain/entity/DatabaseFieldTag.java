@@ -1,6 +1,5 @@
 package io.github.panxiaochao.system.development.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

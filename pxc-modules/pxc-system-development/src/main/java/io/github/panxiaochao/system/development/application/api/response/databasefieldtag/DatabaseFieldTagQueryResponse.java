@@ -1,6 +1,5 @@
 package io.github.panxiaochao.system.development.application.api.response.databasefieldtag;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

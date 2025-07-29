@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.panxiaochao.system.development.infrastructure.dao.mapper.OnlineTableColumnMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap"
+               type="io.github.panxiaochao.system.development.infrastructure.dao.po.OnlineTableColumnPO">
+        <id column="id" property="id"/>
+        <result column="table_id" property="tableId"/>
+        <result column="table_name" property="tableName"/>
+        <result column="field_name" property="fieldName"/>
+        <result column="field_type" property="fieldType"/>
+        <result column="field_comment" property="fieldComment"/>
+        <result column="column_size" property="columnSize"/>
+        <result column="scale" property="scale"/>
+        <result column="field_default" property="fieldDefault"/>
+        <result column="sort" property="sort"/>
+        <result column="primary_pk" property="primaryPk"/>
+        <result column="auto_increment" property="autoIncrement"/>
+        <result column="nullable" property="nullable"/>
+        <result column="create_id" property="createId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,table_id,`table_name`,field_name,field_type,field_comment,column_size,`scale`,field_default,sort,primary_pk,auto_increment,`nullable`,create_id,create_time,update_time
+    </sql>
+
+</mapper>

@@ -33,6 +33,9 @@ spring:
     url: 127.0.0.1
     port: 6379
     database: 0
+  # freemarker路径
+  freemarker:
+    template-loader-path: classpath:/spring/templates/
 
   # 开启框架配置
   pxc-framework:
@@ -82,9 +85,9 @@ sa-token:
   # 是否在初始化配置时打印版本字符画
   is-print: false
   # 是否尝试从header里读取token
-#  is-read-header: true
+  #  is-read-header: true
   # 是否尝试从cookie里读取token
-#  is-read-cookie: false
+  #  is-read-cookie: false
   # token前缀
   token-prefix: Bearer
   # 白名单 URL

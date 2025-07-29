@@ -37,7 +37,7 @@ import java.util.List;
 @Tag(name = "数据库字段类型-数据库标签表 接口", description = "数据库字段类型-数据库标签表 Api接口")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/system.development/v1/database-field-tag")
+@RequestMapping("/development/v1/database-field-tag")
 public class DatabaseFieldTagApi {
 
 	/**
@@ -117,10 +117,10 @@ public class DatabaseFieldTagApi {
 	}
 
 	@Operation(summary = "根据数据库ID获取对应数据库字段类型下拉列表", description = "根据数据库ID获取对应数据库字段类型下拉列表", method = "GET")
-	@Parameter(name = "datasourceId", description = "数据库ID")
+	@Parameter(name = "dataSourceId", description = "数据库ID")
 	@GetMapping(value = "/selectFieldTypeByDataSourceId")
-	public R<List<Select<String>>> selectFieldTypeByDataSourceId(String datasourceId) {
-		return R.ok(databaseFieldTagAppService.selectFieldTypeByDataSourceId(datasourceId));
+	public R<List<Select<String>>> selectFieldTypeByDataSourceId(String dataSourceId) {
+		return R.ok(databaseFieldTagAppService.selectFieldTypeByDataSourceId(dataSourceId));
 	}
 
 }

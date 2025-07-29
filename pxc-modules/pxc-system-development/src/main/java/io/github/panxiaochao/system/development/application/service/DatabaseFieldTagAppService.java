@@ -21,6 +21,7 @@ import io.github.panxiaochao.system.development.domain.service.DatabaseSourceDom
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,11 +130,14 @@ public class DatabaseFieldTagAppService {
 
 	/**
 	 * 根据数据库ID获取对应数据库字段类型下拉列表
-	 * @param datasourceId 数据库ID
+	 * @param dataSourceId 数据库ID
 	 * @return 数据库字段类型下拉列表
 	 */
-	public List<Select<String>> selectFieldTypeByDataSourceId(String datasourceId) {
-		DatabaseSource databaseSource = databaseSourceDomainService.getById(datasourceId);
+	public List<Select<String>> selectFieldTypeByDataSourceId(String dataSourceId) {
+		if (!StringUtils.hasText(dataSourceId)) {
+			return new ArrayList<>();
+		}
+		DatabaseSource databaseSource = databaseSourceDomainService.getById(dataSourceId);
 		DatabaseFieldTagQueryRequest queryRequest = new DatabaseFieldTagQueryRequest();
 		queryRequest.setTag(databaseSource.getDbType());
 		List<DatabaseFieldTagQueryResponse> list = databaseFieldTagReadModelService.selectList(queryRequest);
