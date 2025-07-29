@@ -59,4 +59,10 @@ public interface IOnlineTableColumnService {
 	 */
 	void deleteBatch(List<OnlineTableColumn> list);
 
+	/**
+	 * 根据表ID 批量删除
+	 * @param tableId 表ID
+	 */
+	void deleteByTableId(String tableId);
+
 }

@@ -229,4 +229,14 @@ public class OnlineTableColumnServiceImpl implements IOnlineTableColumnService, 
 		throw new UnsupportedOperationException("请自定义实现批量删除方法！");
 	}
 
+	/**
+	 * 根据表ID 批量删除
+	 * @param tableId 表ID
+	 */
+	@Override
+	public void deleteByTableId(String tableId) {
+		onlineTableColumnMapper
+			.delete(new LambdaQueryWrapper<OnlineTableColumnPO>().eq(OnlineTableColumnPO::getTableId, tableId));
+	}
+
 }

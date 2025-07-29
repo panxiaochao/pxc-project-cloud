@@ -84,4 +84,12 @@ public class OnlineTableColumnDomainService {
 		onlineTableColumnService.deleteBatch(list);
 	}
 
+	/**
+	 * 根据表主键删除
+	 * @param tableId 主键
+	 */
+	public void deleteByTableId(String tableId) {
+		onlineTableColumnService.deleteByTableId(tableId);
+	}
+
 }

@@ -22,6 +22,8 @@ import io.github.panxiaochao.system.development.domain.service.OnlineTableColumn
 import io.github.panxiaochao.system.development.domain.service.OnlineTableDomainService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.BooleanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,6 +41,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class OnlineTableAppService {
+
+	/**
+	 * LOGGER OnlineTableAppService.class
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(OnlineTableAppService.class);
 
 	/**
 	 * 在线数据表 Domain服务类
@@ -126,6 +133,8 @@ public class OnlineTableAppService {
 	 */
 	public R<Void> deleteById(String id) {
 		onlineTableDomainService.deleteById(id);
+		// 删除OnlineTableColumn
+		onlineTableColumnDomainService.deleteByTableId(id);
 		return R.ok();
 	}
 
@@ -140,7 +149,19 @@ public class OnlineTableAppService {
 		onlineTable.setTableName(createRequest.getTableName());
 		onlineTable.setTableComment(createRequest.getTableComment());
 		onlineTable.setDatasourceId(createRequest.getDatasourceId());
-		onlineTable = onlineTableDomainService.save(onlineTable);
+		try {
+			onlineTable = onlineTableDomainService.save(onlineTable);
+		}
+		catch (Exception e) {
+			LOGGER.error("新建表失败", e);
+			String message = e.getMessage();
+			if (message.contains("Duplicate entry")) {
+				return R.fail("数据表已存在");
+			}
+			else {
+				return R.fail("新建表失败，请联系管理员");
+			}
+		}
 		// 转换 OnlineTableColumnDTO 为 OnlineTableColumn
 		List<OnlineTableColumn> onlineTableColumns = new ArrayList<>();
 		for (int i = 0, length = createRequest.getColumns().size(); i < length; i++) {
