@@ -64,4 +64,21 @@ public class SysUserOrgDomainService {
 		sysUserOrgService.deleteByUserId(userId);
 	}
 
+	/**
+	 * 根据组织ID删除组织关系
+	 * @param orgId 组织主键
+	 */
+	public void deleteByOrgId(String orgId) {
+		sysUserOrgService.deleteByOrgId(orgId);
+	}
+
+	/**
+	 * 根据用户ID和组织ID更新用户组织关联关系
+	 * @param userId 用户主键
+	 * @param orgId 组织主键
+	 */
+	public void updateByUserIdAndOrgId(String userId, String orgId) {
+		sysUserOrgService.updateByUserIdAndOrgId(userId, orgId);
+	}
+
 }

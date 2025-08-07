@@ -154,8 +154,7 @@ public class SysUserAppService {
 			sysUserAuthsCreateRequest.setCredential(sysUserCreateRequest.getPassword());
 		}
 		else {
-			CacheHelper.SysParam sysParam = Optional
-				.ofNullable(CacheHelper.getSysParamByKey(SYS_USER_PASSWORD))
+			CacheHelper.SysParam sysParam = Optional.ofNullable(CacheHelper.getSysParamByKey(SYS_USER_PASSWORD))
 				.orElseThrow(() -> new ServerRuntimeException(CommonResponseEnum.INTERNAL_SERVER_ERROR,
 						"请在系统参数中设置键值为[sys.user.password], 值为初始化默认密码!"));
 			sysUserAuthsCreateRequest.setCredential(sysParam.getParamValue());
@@ -183,8 +182,24 @@ public class SysUserAppService {
 	public R<Void> update(SysUserUpdateRequest sysUserUpdateRequest) {
 		SysUser sysUser = ISysUserDTOConvert.INSTANCE.fromUpdateRequest(sysUserUpdateRequest);
 		// fix(update)[2024-10-25 17:28:40]: 解决前端传空字符串的问题
+        SysUser sysUserTemp = sysUserDomainService.getById(sysUser.getId());
 		if (StrUtil.isBlank(sysUser.getOrgId())) {
 			sysUser.setOrgId(null);
+			sysUser.setOrgCode(null);
+			// 当为null的时候，去删除sysUserOrg关联表
+			sysUserOrgDomainService.deleteByOrgId(sysUserTemp.getOrgId());
+		} else {
+            // 根据用户ID和组织ID更新用户组织关联关系
+            // 判断原有组织ID是否和更新的组织ID相同
+            if (!sysUser.getOrgId().equals(sysUserTemp.getOrgId())) {
+                sysUserOrgDomainService.updateByUserIdAndOrgId(sysUser.getId(), sysUser.getOrgId());
+            }
+            // 更新组织CODE
+            SysOrg sysOrg = sysOrgDomainService.getById(sysUser.getOrgId());
+            sysUser.setOrgCode(sysOrg.getOrgCode());
+        }
+		if (StrUtil.isBlank(sysUser.getPostCode())) {
+			sysUser.setPostCode(null);
 		}
 		sysUserDomainService.update(sysUser);
 		return R.ok();

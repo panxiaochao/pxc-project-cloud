@@ -1,6 +1,7 @@
 package io.github.panxiaochao.system.infrastructure.dao.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -92,7 +93,7 @@ public class SysUserPO {
 	/**
 	 * 岗位Code
 	 */
-	@TableField("post_code")
+	@TableField(value = "post_code", updateStrategy = FieldStrategy.ALWAYS)
 	private String postCode;
 
 	/**
@@ -122,13 +123,13 @@ public class SysUserPO {
 	/**
 	 * 所在区域或者部门ID，多数据请用逗号隔开
 	 */
-	@TableField("org_id")
-	private String orgId;
+	@TableField(value = "org_id", updateStrategy = FieldStrategy.ALWAYS)
+	private Integer orgId;
 
 	/**
 	 * 所在区域或者部门编码code，多数据请用逗号隔开
 	 */
-	@TableField("org_code")
+	@TableField(value = "org_code", updateStrategy = FieldStrategy.ALWAYS)
 	private String orgCode;
 
 	/**
