@@ -3,6 +3,7 @@ package io.github.panxiaochao.system.satoken.utils;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.stp.parameter.SaLoginParameter;
 import cn.hutool.core.convert.Convert;
 import io.github.panxiaochao.core.utils.ObjectUtil;
 import io.github.panxiaochao.system.satoken.model.LoginUser;
@@ -10,10 +11,11 @@ import io.github.panxiaochao.system.satoken.model.LoginUser;
 /**
  * 登录鉴权助手
  * <p>
- * user_type 为 用户类型 同一个用户表 可以有多种用户类型 例如 pc,app deivce 为 设备类型 同一个用户类型 可以有 多种设备类型 例如 web,ios
- * 可以组成 用户类型与设备类型多对多的 权限灵活控制
- * <p>
+ * user_type 为 用户类型 同一个用户表 可以有多种用户类型 例如 pc,app <br>
+ * deivce 为 设备类型 同一个用户类型 可以有 多种设备类型 例如 web,ios <br>
+ * 可以组成 用户类型与设备类型多对多的 权限灵活控制 <br>
  * 多用户体系 针对 多种用户类型 但权限控制不一致 可以组成 多用户类型表与多设备类型 分别控制权限
+ * </p>
  *
  * @author Lypxc
  * @since 2025-01-17
@@ -38,8 +40,8 @@ public class LoginHelper {
 	 * @param loginUser 登录用户信息
 	 * @param model 配置参数
 	 */
-	public static void login(LoginUser loginUser, SaLoginModel model) {
-		model = ObjectUtil.getIfNull(model, new SaLoginModel());
+	public static void login(LoginUser loginUser, SaLoginParameter model) {
+		model = ObjectUtil.getIfNull(model, new SaLoginParameter());
 		StpUtil.login(loginUser.getUserId(),
 				model.setExtra(USER_KEY, loginUser.getUserId())
 					.setExtra(USER_NAME_KEY, loginUser.getUserName())
@@ -125,7 +127,8 @@ public class LoginHelper {
 	 */
 	public static boolean isLogin() {
 		try {
-			return getLoginUser() != null;
+			StpUtil.checkLogin();
+			return true;
 		}
 		catch (Exception e) {
 			return false;

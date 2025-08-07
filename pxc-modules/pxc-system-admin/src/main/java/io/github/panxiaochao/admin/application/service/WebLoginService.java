@@ -2,6 +2,7 @@ package io.github.panxiaochao.admin.application.service;
 
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.stp.parameter.SaLoginParameter;
 import io.github.panxiaochao.admin.application.api.request.LoginRequest;
 import io.github.panxiaochao.admin.application.api.response.LoginUserResponse;
 import io.github.panxiaochao.admin.application.api.response.TokenOnlineQueryResponse;
@@ -169,8 +170,8 @@ public class WebLoginService {
 	 * @return 用户token
 	 */
 	private UserTokenResponse buildAuthToken(LoginUser loginUser) {
-		SaLoginModel model = new SaLoginModel();
-		model.setDevice(loginUser.getLoginDevice());
+        SaLoginParameter model = SaLoginParameter.create();
+		model.setDeviceType(loginUser.getLoginDevice());
 		// 生成token
 		LoginHelper.login(loginUser, model);
 		UserTokenResponse userTokenResponse = new UserTokenResponse();

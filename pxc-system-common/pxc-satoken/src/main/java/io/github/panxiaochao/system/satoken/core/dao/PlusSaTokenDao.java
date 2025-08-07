@@ -1,6 +1,6 @@
 package io.github.panxiaochao.system.satoken.core.dao;
 
-import cn.dev33.satoken.dao.SaTokenDao;
+import cn.dev33.satoken.dao.auto.SaTokenDaoBySessionFollowObject;
 import cn.dev33.satoken.util.SaFoxUtil;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -15,11 +15,15 @@ import java.util.concurrent.TimeUnit;
 /**
  * Sa-Token持久层接口(使用框架自带RedissonUtil实现 协议统一),采用 caffeine + redis 多级缓存 优化并发查询效率
  *
+ * <p>
+ * Sa-Token 升级版本1.42后，兼容新的实现方法
+ * </p>
+ *
  * @author Lypxc
  * @since 2025-01-17
  * @version 1.0
  */
-public class PlusSaTokenDao implements SaTokenDao {
+public class PlusSaTokenDao implements SaTokenDaoBySessionFollowObject {
 
 	private static final Cache<String, Object> CAFFEINE = Caffeine.newBuilder()
 		// 设置最后一次写入或访问后经过固定时间过期
@@ -104,6 +108,18 @@ public class PlusSaTokenDao implements SaTokenDao {
 	@Override
 	public Object getObject(String key) {
 		return CAFFEINE.get(key, k -> RedissonUtil.get(key));
+	}
+
+	/**
+	 * 获取 Object (指定反序列化类型)，如无返空
+	 * @param key 键名称
+	 * @return object
+	 */
+	@SuppressWarnings("unchecked cast")
+	@Override
+	public <T> T getObject(String key, Class<T> classType) {
+		Object o = CAFFEINE.get(key, k -> RedissonUtil.get(key));
+		return (T) o;
 	}
 
 	/**

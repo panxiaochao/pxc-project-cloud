@@ -23,10 +23,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springdoc-openapi.version>1.8.0</springdoc-openapi.version>
         <knife4j-openapi3-spring-boot-starter.version>4.6.0</knife4j-openapi3-spring-boot-starter.version>
-        <lombok.version>1.18.36</lombok.version>
+        <lombok.version>1.18.38</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <sa-token.version>1.39.0</sa-token.version>
-        <hutool.version>5.8.35</hutool.version>
+        <sa-token.version>1.44.0</sa-token.version>
+        <hutool.version>5.8.39</hutool.version>
         <caffeine.version>2.9.2</caffeine.version>
         <commons-pool2.version>2.12.0</commons-pool2.version>
         <validation-api.version>2.0.1.Final</validation-api.version>

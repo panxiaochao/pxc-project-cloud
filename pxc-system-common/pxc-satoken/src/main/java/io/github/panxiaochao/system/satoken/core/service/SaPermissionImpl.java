@@ -1,6 +1,7 @@
 package io.github.panxiaochao.system.satoken.core.service;
 
 import cn.dev33.satoken.stp.StpInterface;
+import io.github.panxiaochao.core.utils.CollectionUtil;
 import io.github.panxiaochao.system.satoken.model.LoginUser;
 import io.github.panxiaochao.system.satoken.utils.LoginHelper;
 
@@ -22,7 +23,10 @@ public class SaPermissionImpl implements StpInterface {
 	@Override
 	public List<String> getPermissionList(Object loginId, String loginType) {
 		LoginUser loginUser = LoginHelper.getLoginUser();
-		return new ArrayList<>(loginUser.getPermissions());
+		if (null != loginUser && CollectionUtil.isNotEmpty(loginUser.getPermissions())) {
+			return new ArrayList<>(loginUser.getPermissions());
+		}
+		return new ArrayList<>();
 	}
 
 	/**
@@ -31,7 +35,10 @@ public class SaPermissionImpl implements StpInterface {
 	@Override
 	public List<String> getRoleList(Object loginId, String loginType) {
 		LoginUser loginUser = LoginHelper.getLoginUser();
-		return new ArrayList<>(loginUser.getRoles());
+		if (null != loginUser && CollectionUtil.isNotEmpty(loginUser.getRoles())) {
+			return new ArrayList<>(loginUser.getRoles());
+		}
+		return new ArrayList<>();
 	}
 
 }
