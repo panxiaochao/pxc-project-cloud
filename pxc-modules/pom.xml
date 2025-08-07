@@ -18,6 +18,7 @@
     <modules>
         <module>pxc-system-development</module>
         <module>pxc-system-manage</module>
+        <module>pxc-system-admin</module>
     </modules>
 
 </project>

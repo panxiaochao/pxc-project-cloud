@@ -1,4 +1,4 @@
-package io.github.panxiaochao.system.auth.api.response;
+package io.github.panxiaochao.admin.application.api.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

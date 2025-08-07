@@ -1,6 +1,7 @@
-package io.github.panxiaochao.system.auth.api;
+package io.github.panxiaochao.admin.application.api;
 
 import cn.hutool.core.util.StrUtil;
+import io.github.panxiaochao.admin.application.service.WebLoginService;
 import io.github.panxiaochao.component.tree.Tree;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
@@ -9,11 +10,10 @@ import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
 import io.github.panxiaochao.operate.log.core.enums.BusinessType;
 import io.github.panxiaochao.ratelimiter.annotation.RateLimiter;
-import io.github.panxiaochao.system.auth.api.request.LoginRequest;
-import io.github.panxiaochao.system.auth.api.response.LoginUserResponse;
-import io.github.panxiaochao.system.auth.api.response.TokenOnlineQueryResponse;
-import io.github.panxiaochao.system.auth.api.response.UserTokenResponse;
-import io.github.panxiaochao.system.auth.service.WebLoginService;
+import io.github.panxiaochao.admin.application.api.request.LoginRequest;
+import io.github.panxiaochao.admin.application.api.response.LoginUserResponse;
+import io.github.panxiaochao.admin.application.api.response.TokenOnlineQueryResponse;
+import io.github.panxiaochao.admin.application.api.response.UserTokenResponse;
 import io.github.panxiaochao.system.common.constants.GlobalConstant;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

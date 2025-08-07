@@ -1,6 +1,6 @@
-package io.github.panxiaochao.system.auth.convert;
+package io.github.panxiaochao.admin.application.convert;
 
-import io.github.panxiaochao.system.auth.api.response.LoginUserResponse;
+import io.github.panxiaochao.admin.application.api.response.LoginUserResponse;
 import io.github.panxiaochao.system.satoken.model.LoginUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

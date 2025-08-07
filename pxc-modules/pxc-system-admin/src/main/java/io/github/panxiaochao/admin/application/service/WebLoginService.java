@@ -1,7 +1,12 @@
-package io.github.panxiaochao.system.auth.service;
+package io.github.panxiaochao.admin.application.service;
 
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
+import io.github.panxiaochao.admin.application.api.request.LoginRequest;
+import io.github.panxiaochao.admin.application.api.response.LoginUserResponse;
+import io.github.panxiaochao.admin.application.api.response.TokenOnlineQueryResponse;
+import io.github.panxiaochao.admin.application.api.response.UserTokenResponse;
+import io.github.panxiaochao.admin.application.convert.ILoginUserDTOConvert;
 import io.github.panxiaochao.component.tree.Tree;
 import io.github.panxiaochao.component.tree.TreeBuilder;
 import io.github.panxiaochao.component.tree.TreeNode;
@@ -20,11 +25,6 @@ import io.github.panxiaochao.operate.log.core.enums.BusinessType;
 import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.api.response.sysmenu.SysMenuQueryResponse;
 import io.github.panxiaochao.system.application.repository.ISysUserReadModelService;
-import io.github.panxiaochao.system.auth.api.request.LoginRequest;
-import io.github.panxiaochao.system.auth.api.response.LoginUserResponse;
-import io.github.panxiaochao.system.auth.api.response.TokenOnlineQueryResponse;
-import io.github.panxiaochao.system.auth.api.response.UserTokenResponse;
-import io.github.panxiaochao.system.auth.convert.ILoginUserDTOConvert;
 import io.github.panxiaochao.system.common.constants.LoginIdentityType;
 import io.github.panxiaochao.system.common.constants.RedisConstant;
 import io.github.panxiaochao.system.common.exception.UserLoginException;

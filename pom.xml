@@ -11,8 +11,8 @@
     <modules>
         <module>pxc-module</module>
         <module>pxc-modules</module>
-        <module>pxc-system-auth</module>
         <module>pxc-system-common</module>
+        <module>pxc-boot-web-starter</module>
     </modules>
 
     <properties>
@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springdoc-openapi.version>1.8.0</springdoc-openapi.version>
-        <knife4j-openapi3-spring-boot-starter.version>4.5.0</knife4j-openapi3-spring-boot-starter.version>
+        <knife4j-openapi3-spring-boot-starter.version>4.6.0</knife4j-openapi3-spring-boot-starter.version>
         <lombok.version>1.18.36</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <sa-token.version>1.39.0</sa-token.version>
@@ -56,7 +56,7 @@
 
             <!-- knife4j Doc 文档 -->
             <dependency>
-                <groupId>com.github.xiaoymin</groupId>
+                <groupId>com.github.xingfudeshi</groupId>
                 <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
                 <version>${knife4j-openapi3-spring-boot-starter.version}</version>
             </dependency>

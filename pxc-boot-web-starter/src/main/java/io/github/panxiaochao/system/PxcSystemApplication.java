@@ -1,5 +1,6 @@
 package io.github.panxiaochao.system;
 
+import io.github.panxiaochao.core.utils.JdkUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -41,11 +42,18 @@ public class PxcSystemApplication {
 		if (!StringUtils.hasText(path) || PATH.equals(path)) {
 			path = "";
 		}
+		// 额外信息
+		String osName = System.getProperty("os.name");
+		String osVersion = System.getProperty("os.version");
+		String activeProfiles = String.join(",", env.getActiveProfiles());
 		String banner = "\n----------------------------------------------------------\n";
 		banner += String.format("%s is running! Access URLs:\n", applicationName);
-		banner += String.format("Local    访问网址: http://localhost:%s%s\n", port, path);
-		banner += String.format("External 访问网址: http://%s:%s%s\n", ip, port, path);
-		banner += String.format("Doc      访问网址: http://%s:%s%s/doc.html\n", ip, port, path);
+		banner += String.format("OS           系统信息: %s %s\n", osName, osVersion);
+		banner += String.format("Active       配置文件: %s\n", activeProfiles.isEmpty() ? "default" : activeProfiles);
+		banner += String.format("JDK          版本信息: %s\n", JdkUtil.JVM_VERSION);
+		banner += String.format("Local        访问网址: http://localhost:%s%s\n", port, path);
+		banner += String.format("External     访问网址: http://%s:%s%s\n", ip, port, path);
+		banner += String.format("Doc          访问网址: http://%s:%s%s/doc.html\n", ip, port, path);
 		banner += String.format("Cost         启动: %d ms\n", end);
 		LOG.info(banner);
 	}

@@ -1,4 +1,4 @@
-package io.github.panxiaochao.system.runner;
+package io.github.panxiaochao.admin.runner;
 
 import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.service.SysDictAppService;
