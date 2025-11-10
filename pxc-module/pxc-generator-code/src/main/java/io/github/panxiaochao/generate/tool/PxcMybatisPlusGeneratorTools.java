@@ -70,7 +70,8 @@ public class PxcMybatisPlusGeneratorTools {
 			.globalConfig(globalConfigBuilder -> this.createGlobalConfig(globalConfigBuilder, builder))
 			.packageConfig(packageConfigBuilder -> this.createPackageConfig(packageConfigBuilder, builder))
 			.strategyConfig(strategyConfigBuilder -> this.createStrategyConfig(strategyConfigBuilder, builder))
-			.templateConfig(templateConfigBuilder -> this.createTemplateConfig(templateConfigBuilder, builder))
+			// .templateConfig(templateConfigBuilder ->
+			// this.createTemplateConfig(templateConfigBuilder, builder))
 			// 使用Freemarker引擎，默认使用Velocity引擎
 			.templateEngine(new EnhanceFreemarkerTemplateEngine())
 			.execute();
@@ -179,6 +180,28 @@ public class PxcMybatisPlusGeneratorTools {
 		if (!CollectionUtils.isEmpty(builder.excludes)) {
 			strategyBuilder.addExclude(builder.excludes);
 		}
+
+		// 制定模版路径
+
+		strategyBuilder
+			// controller 模版路径
+			.controllerBuilder()
+			.template("/templates/controller.java")
+			// entity 模版路径
+			.entityBuilder()
+			.javaTemplate("/templates/entity.java")
+			// service 模版路径
+			.serviceBuilder()
+			.serviceTemplate("/templates/service.java")
+			// serviceImpl 模版路径
+			.serviceBuilder()
+			.serviceImplTemplate("/templates/serviceImpl.java")
+			// mapper 模版路径
+			.mapperBuilder()
+			.mapperTemplate("/templates/mapper.java")
+			// mapperXml 模版路径
+			.mapperBuilder()
+			.mapperXmlTemplate("/templates/mapper.xml");
 	}
 
 	/**
@@ -186,6 +209,7 @@ public class PxcMybatisPlusGeneratorTools {
 	 * @param templateConfigBuilder 模版引擎生成器
 	 * @param builder 自定义配置
 	 */
+    @Deprecated
 	private void createTemplateConfig(TemplateConfig.Builder templateConfigBuilder, Builder builder) {
 		templateConfigBuilder.controller("/templates/controller.java")
 			.entity("/templates/entityPO.java")
