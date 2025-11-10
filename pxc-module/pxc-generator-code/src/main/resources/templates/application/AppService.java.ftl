@@ -4,14 +4,14 @@ import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
 import io.github.panxiaochao.core.response.page.RequestPage;
-import ${application}.api.request.${entity?lower_case}.${entity}CreateRequest;
-import ${application}.api.request.${entity?lower_case}.${entity}QueryRequest;
-import ${application}.api.request.${entity?lower_case}.${entity}UpdateRequest;
-import ${application}.api.response.${entity?lower_case}.${entity}QueryResponse;
-import ${application}.api.response.${entity?lower_case}.${entity}Response;
+import ${application}.api.dto.${entity?lower_case}.${entity}CreateDTO;
+import ${application}.api.dto.${entity?lower_case}.${entity}QueryDTO;
+import ${application}.api.dto.${entity?lower_case}.${entity}UpdateDTO;
+import ${application}.api.vo.${entity?lower_case}.${entity}QueryVO;
+import ${application}.api.vo.${entity?lower_case}.${entity}VO;
 import ${application}.convert.I${entity}DTOConvert;
 import ${application}.repository.I${entity}ReadModelService;
-import ${domain}.entity.${entity};
+import ${domain}.entity.${entity?lower_case}.${entity}BO;
 import ${domain}.service.${entity}DomainService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * <p> ${table.comment!} App服务类. </p>
+ * <p>${table.comment!} App服务类.</p>
  *
  * @author ${author}
  * @since ${date}
@@ -42,12 +42,12 @@ public class ${entity}AppService {
     /**
      * 查询分页
      * @param pageRequest 请求分页参数对象
-     * @param queryRequest ${table.comment!}查询请求对象
+     * @param queryDto ${table.comment!}查询请求对象
      * @return 分页数组响应实体
      */
-    public PageResponse<${entity}QueryResponse> page(RequestPage pageRequest, ${entity}QueryRequest queryRequest) {
+    public PageResponse<${entity}QueryVO> page(RequestPage pageRequest, ${entity}QueryDTO queryDto) {
         Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
-        List<${entity}QueryResponse> list = ${entity?uncap_first}ReadModelService.page(pagination, queryRequest);
+        List<${entity}QueryVO> list = ${entity?uncap_first}ReadModelService.page(pagination, queryDto);
         return new PageResponse<>(pagination, list);
     }
     
@@ -56,31 +56,31 @@ public class ${entity}AppService {
      * @param id 主键
      * @return 响应对象
      */
-    public R<${entity}Response> getById(String id) {
-        ${entity} ${entity?uncap_first} = ${entity?uncap_first}DomainService.getById(id);
-        ${entity}Response ${entity?uncap_first}Response = I${entity}DTOConvert.INSTANCE.toResponse(${entity?uncap_first});
-        return R.ok(${entity?uncap_first}Response);
+    public R<${entity}VO> getById(String id) {
+        ${entity}BO ${entity?uncap_first} = ${entity?uncap_first}DomainService.getById(id);
+        ${entity}VO ${entity?uncap_first}VO = I${entity}DTOConvert.INSTANCE.toVO(${entity?uncap_first});
+        return R.ok(${entity?uncap_first}VO);
     }
     
     /**
      * 保存
-     * @param ${entity?uncap_first}CreateRequest 创建请求对象
+     * @param ${entity?uncap_first}CreateDTO 创建请求对象
      * @return 返回保存对象
      */
-    public R<${entity}Response> save(${entity}CreateRequest ${entity?uncap_first}CreateRequest) {
-        ${entity} ${entity?uncap_first} = I${entity}DTOConvert.INSTANCE.fromCreateRequest(${entity?uncap_first}CreateRequest);
+    public R<${entity}VO> save(${entity}CreateDTO ${entity?uncap_first}CreateDTO) {
+        ${entity}BO ${entity?uncap_first} = I${entity}DTOConvert.INSTANCE.fromCreateDTO(${entity?uncap_first}CreateDTO);
         ${entity?uncap_first} = ${entity?uncap_first}DomainService.save(${entity?uncap_first});
-        ${entity}Response ${entity?uncap_first}Response = I${entity}DTOConvert.INSTANCE.toResponse(${entity?uncap_first});
-        return R.ok(${entity?uncap_first}Response);
+        ${entity}VO ${entity?uncap_first}VO = I${entity}DTOConvert.INSTANCE.toVO(${entity?uncap_first});
+        return R.ok(${entity?uncap_first}VO);
     }
     
     /**
      * 根据主键更新
-     * @param ${entity?uncap_first}UpdateRequest 更新请求对象
+     * @param ${entity?uncap_first}UpdateDTO 更新请求对象
      * @return 空返回
      */
-    public R<Void> update(${entity}UpdateRequest ${entity?uncap_first}UpdateRequest) {
-        ${entity} ${entity?uncap_first} = I${entity}DTOConvert.INSTANCE.fromUpdateRequest(${entity?uncap_first}UpdateRequest);
+    public R<Void> update(${entity}UpdateDTO ${entity?uncap_first}UpdateDTO) {
+        ${entity}BO ${entity?uncap_first} = I${entity}DTOConvert.INSTANCE.fromUpdateDTO(${entity?uncap_first}UpdateDTO);
         ${entity?uncap_first}DomainService.update(${entity?uncap_first});
         return R.ok();
     }

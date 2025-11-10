@@ -37,9 +37,9 @@ import java.time.LocalDateTime;
 @ApiModel(value = "${entity}PO对象", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
-public class ${entity}PO extends ${superEntityClass}<#if activeRecord><${entity}></#if> {
+public class ${entity}PO extends ${superEntityClass}<#if activeRecord><${entity}BO></#if> {
 <#elseif activeRecord>
-public class ${entity}PO extends Model<${entity}> {
+public class ${entity}PO extends Model<${entity}BO> {
 <#elseif entitySerialVersionUID>
 public class ${entity}PO implements Serializable {
 <#else>
@@ -110,7 +110,7 @@ public class ${entity}PO {
     }
 
     <#if chainModel>
-    public ${entity} set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+    public ${entity}BO set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
     <#else>
     public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
     </#if>

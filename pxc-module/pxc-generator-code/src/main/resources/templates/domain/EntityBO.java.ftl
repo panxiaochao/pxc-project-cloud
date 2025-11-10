@@ -1,6 +1,5 @@
-package ${application}.api.response.${entity?lower_case};
+package ${domain}.entity.${entity?lower_case};
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,7 +7,7 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>${table.comment!}查询响应对象.</p>
+ * <p>${table.comment!} BO实体类.</p>
  *
  * @author ${author}
  * @since ${date}
@@ -16,25 +15,20 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@Schema(description = "${table.comment!}查询响应对象")
-public class ${entity}QueryResponse {
+public class ${entity}BO {
 <#list table.fields as field>
-    <#if field.keyFlag>
 
+    <#if field.keyFlag>
     /**
-     * ${field.comment}
-     */
-    @Schema(description = "${field.comment}")
+    * ${field.comment}
+    */
     private String ${field.propertyName};
     <#-- 普通字段 -->
     <#else>
-
     /**
      * ${field.comment}
      */
-    @Schema(description = "${field.comment}")
     private <#if field.propertyType="Long">String<#elseif field.propertyType="Integer">String<#else>${field.propertyType}</#if> ${field.propertyName};
     </#if>
 </#list>
-
 }

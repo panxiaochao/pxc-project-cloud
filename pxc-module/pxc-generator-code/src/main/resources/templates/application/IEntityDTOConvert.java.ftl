@@ -1,18 +1,18 @@
 package ${application}.convert;
 
-import ${application}.api.request.${entity?lower_case}.${entity}CreateRequest;
-import ${application}.api.request.${entity?lower_case}.${entity}QueryRequest;
-import ${application}.api.request.${entity?lower_case}.${entity}UpdateRequest;
-import ${application}.api.response.${entity?lower_case}.${entity}QueryResponse;
-import ${application}.api.response.${entity?lower_case}.${entity}Response;
-import ${domain}.entity.${entity};
+import ${application}.api.dto.${entity?lower_case}.${entity}CreateDTO;
+import ${application}.api.dto.${entity?lower_case}.${entity}QueryDTO;
+import ${application}.api.dto.${entity?lower_case}.${entity}UpdateDTO;
+import ${application}.api.vo.${entity?lower_case}.${entity}QueryVO;
+import ${application}.api.vo.${entity?lower_case}.${entity}VO;
+import ${domain}.entity.${entity?lower_case}.${entity}BO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 /**
- * ${table.comment!}数据传输对象结构映射
+ * <p>${table.comment!} 数据传输对象结构映射.</p>
  *
  * @author ${author}
  * @since ${date}
@@ -28,26 +28,26 @@ public interface I${entity}DTOConvert {
     /**
      * ${table.comment!}创建请求数据传输对象 转 ${table.comment!}实体
      *
-     * @param createRequest ${table.comment!}创建请求数据传输对象
+     * @param createDto ${table.comment!}创建请求数据传输对象
      * @return ${table.comment!}实体
      */
-    ${entity} fromCreateRequest(${entity}CreateRequest createRequest);
+    ${entity}BO fromCreateDTO(${entity}CreateDTO createDto);
 
     /**
      * ${table.comment!}更新请求数据传输对象 转 ${table.comment!}实体
      *
-     * @param updateRequest ${table.comment!}更新请求数据传输对象
+     * @param updateDto ${table.comment!}更新请求数据传输对象
      * @return ${table.comment!}实体
      */
-    ${entity} fromUpdateRequest(${entity}UpdateRequest updateRequest);
+    ${entity}BO fromUpdateDTO(${entity}UpdateDTO updateDto);
 
     /**
      * ${table.comment!}查询请求数据传输对象 转 ${table.comment!}实体
      *
-     * @param queryRequest ${table.comment!}查询请求数据传输对象
+     * @param queryDto ${table.comment!}查询请求数据传输对象
      * @return ${table.comment!}实体
      */
-    ${entity} fromQueryRequest(${entity}QueryRequest queryRequest);
+    ${entity}BO fromQueryRequest(${entity}QueryDTO queryDto);
 
     /**
      * ${table.comment!}实体 转 ${table.comment!}响应数据传输对象
@@ -55,7 +55,7 @@ public interface I${entity}DTOConvert {
      * @param ${entity?uncap_first} ${table.comment!}实体
      * @return ${table.comment!}响应数据传输对象
      */
-    ${entity}Response toResponse(${entity} ${entity?uncap_first});
+    ${entity}VO toVO(${entity}BO ${entity?uncap_first});
 
     /**
      * ${table.comment!}实体 转 ${table.comment!}查询响应数据传输对象
@@ -63,7 +63,7 @@ public interface I${entity}DTOConvert {
      * @param ${entity?uncap_first} ${table.comment!}实体
      * @return ${table.comment!}查询响应数据传输对象
      */
-    ${entity}QueryResponse toQueryResponse(${entity} ${entity?uncap_first});
+    ${entity}QueryVO toQueryVO(${entity}BO ${entity?uncap_first});
 
     /**
      * ${table.comment!}实体列表 转 ${table.comment!}查询响应数据传输对象列表
@@ -71,5 +71,5 @@ public interface I${entity}DTOConvert {
      * @param ${entity?uncap_first}List ${table.comment!}实体列表
      * @return ${table.comment!}查询响应数据传输对象列表
      */
-    List<${entity}QueryResponse> toQueryResponse(List<${entity}> ${entity?uncap_first}List);
+    List<${entity}QueryVO> toQueryVO(List<${entity}BO> ${entity?uncap_first}List);
 }

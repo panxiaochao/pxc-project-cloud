@@ -137,8 +137,8 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 		String[] requests = new String[] { "Create", "Update", "Query" };
 		String entity = objectMap.get("entity").toString();
 		for (String request : requests) {
-			filePath = parentPath + "/application/api/request/" + entity.toLowerCase() + "/" + entity + request + "Request.java";
-			templatePath = String.format("/templates/application/request/Entity%sRequest.java.ftl", request);
+			filePath = parentPath + "/application/api/dto/" + entity.toLowerCase() + "/" + entity + request + "DTO.java";
+			templatePath = String.format("/templates/application/dto/%sDTO.java.ftl", request);
 			try {
 				super.outputFile(new File(filePath), objectMap, templatePath,
 						config.getStrategyConfig().entity().isFileOverride());
@@ -151,8 +151,8 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 		// response
 		String[] responses = new String[] { "Query", "" };
 		for (String response : responses) {
-			filePath = parentPath + "/application/api/response/" + entity.toLowerCase() + "/" + entity + response + "Response.java";
-			templatePath = String.format("/templates/application/response/Entity%sResponse.java.ftl", response);
+			filePath = parentPath + "/application/api/vo/" + entity.toLowerCase() + "/" + entity + response + "VO.java";
+			templatePath = String.format("/templates/application/vo/%sVO.java.ftl", response);
 			try {
 				super.outputFile(new File(filePath), objectMap, templatePath,
 						config.getStrategyConfig().entity().isFileOverride());
@@ -222,9 +222,10 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 		objectMap.put("domain", parentPackage + ".domain");
 		objectMap.put("infrastructure", parentPackage + ".infrastructure");
 
+        String entityName = objectMap.get("entity").toString();
 		// entity
-		String filePath = parentPath + "/domain/entity/" + objectMap.get("entity") + ".java";
-		String templatePath = "/templates/domain/Entity.java.ftl";
+		String filePath = parentPath + "/domain/entity/" + entityName.toLowerCase() + "/" + entityName + "BO.java";
+		String templatePath = "/templates/domain/EntityBO.java.ftl";
 		try {
 			super.outputFile(new File(filePath), objectMap, templatePath,
 					config.getStrategyConfig().entity().isFileOverride());

@@ -3,12 +3,6 @@ package ${infrastructure}.po;
 <#list table.importPackages as pkg>
 import ${pkg};
 </#list>
-<#if springdoc>
-import io.swagger.v3.oas.annotations.media.Schema;
-<#elseif swagger>
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-</#if>
 <#if entityLombokModel>
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +13,7 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 
 /**
- * <p> ${table.comment!} 持久化对象. <p>
+ * <p>${table.comment!} 持久化对象.</p>
  *
  * @author ${author}
  * @since ${date}
@@ -93,7 +87,7 @@ public class ${entity}PO {
     }
 
     <#if chainModel>
-    public ${entity} set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+    public ${entity}BO set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
     <#else>
     public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
     </#if>

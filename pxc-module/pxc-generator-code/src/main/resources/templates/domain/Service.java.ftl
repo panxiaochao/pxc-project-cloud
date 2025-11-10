@@ -1,9 +1,9 @@
 package ${domain}.repository;
 
-import ${domain}.entity.${entity};
+import ${domain}.entity.${entity?lower_case}.${entity}BO;
 
 /**
- * <p> ${table.comment!} Domain接口服务类. </p>
+ * <p>${table.comment!} Domain接口服务类.</p>
  *
  * @author ${author}
  * @since ${date}
@@ -15,20 +15,20 @@ public interface I${entity}Service {
      * @param id 主键
      * @return ${table.comment!} 实体
      */
-    ${entity} getById(String id);
+    ${entity}BO getById(String id);
     
     /**
      * 保存
      * @param ${entity?uncap_first} 角色表 实体
      * @return ${table.comment!} 实体
      */
-    ${entity} save(${entity} ${entity?uncap_first});
+    ${entity}BO save(${entity}BO ${entity?uncap_first});
     
     /**
      * 根据主键更新
      * @param ${entity?uncap_first} ${table.comment!} 实体
      */
-    void update(${entity} ${entity?uncap_first});
+    void update(${entity}BO ${entity?uncap_first});
 
     /**
      * 根据主键删除

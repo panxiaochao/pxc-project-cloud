@@ -182,7 +182,6 @@ public class PxcMybatisPlusGeneratorTools {
 		}
 
 		// 制定模版路径
-
 		strategyBuilder
 			// controller 模版路径
 			.controllerBuilder()

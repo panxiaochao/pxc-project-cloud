@@ -1,4 +1,4 @@
-package ${application}.api.response.${entity?lower_case};
+package ${application}.api.vo.${entity?lower_case};
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>${table.comment!}响应对象</p>
+ * <p>${table.comment!}响应对象.</p>
  *
  * @author ${author}
  * @since ${date}
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Schema(description = "${table.comment!}响应对象")
-public class ${entity}Response {
+public class ${entity}VO {
 <#list table.fields as field>
     <#if field.keyFlag>
 

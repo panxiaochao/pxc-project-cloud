@@ -1,5 +1,6 @@
-package ${domain}.entity;
+package ${application}.api.dto.${entity?lower_case};
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,7 +8,7 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * <p>${table.comment!} 实体. </p>
+ * <p>${table.comment!}查询请求对象.</p>
  *
  * @author ${author}
  * @since ${date}
@@ -15,20 +16,24 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class ${entity} {
+@Schema(description = "${table.comment!}查询请求对象")
+public class ${entity}QueryDTO {
 <#list table.fields as field>
-
     <#if field.keyFlag>
-    /**
-    * ${field.comment}
-    */
-    private String ${field.propertyName};
-    <#-- 普通字段 -->
-    <#else>
     /**
      * ${field.comment}
      */
+    @Schema(description = "${field.comment}")
+    private String ${field.propertyName};
+    <#-- 普通字段 -->
+    <#else>
+
+    /**
+     * ${field.comment}
+     */
+    @Schema(description = "${field.comment}")
     private <#if field.propertyType="Long">String<#elseif field.propertyType="Integer">String<#else>${field.propertyType}</#if> ${field.propertyName};
     </#if>
 </#list>
+
 }

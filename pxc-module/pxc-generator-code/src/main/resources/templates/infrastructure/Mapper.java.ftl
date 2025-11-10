@@ -7,7 +7,7 @@ import ${mapperAnnotationClass.name};
 </#if>
 
 /**
- * <p> ${table.comment!} 持久化接口. </p>
+ * <p>${table.comment!} 持久化接口.</p>
  *
  * @author ${author}
  * @since ${date}

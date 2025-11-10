@@ -3,11 +3,11 @@ package ${application}.api;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.RequestPage;
-import ${application}.api.request.${entity?lower_case}.${entity}CreateRequest;
-import ${application}.api.request.${entity?lower_case}.${entity}QueryRequest;
-import ${application}.api.request.${entity?lower_case}.${entity}UpdateRequest;
-import ${application}.api.response.${entity?lower_case}.${entity}QueryResponse;
-import ${application}.api.response.${entity?lower_case}.${entity}Response;
+import ${application}.api.dto.${entity?lower_case}.${entity}CreateDTO;
+import ${application}.api.dto.${entity?lower_case}.${entity}QueryDTO;
+import ${application}.api.dto.${entity?lower_case}.${entity}UpdateDTO;
+import ${application}.api.vo.${entity?lower_case}.${entity}QueryVO;
+import ${application}.api.vo.${entity?lower_case}.${entity}VO;
 import ${application}.service.${entity}AppService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,7 +27,7 @@ import org.springframework.stereotype.Controller;
 </#if>
 
 /**
- * <p> ${table.comment!} 接口.</p>
+ * <p>${table.comment!} 接口.</p>
  *
  * @author ${author}
  * @since ${date}
@@ -47,32 +47,32 @@ public class ${table.controllerName} {
      */
     private final ${entity}AppService ${entity?uncap_first}AppService;
 
-    @Operation(summary = "查询分页", description = "查询分页", method = "GET")
+    @Operation(summary = "查询分页", description = "查询分页")
     @GetMapping(value = "/page")
-    public R<PageResponse<${entity}QueryResponse>> page(RequestPage pageRequest, ${entity}QueryRequest queryRequest) {
-        return R.ok(${entity?uncap_first}AppService.page(pageRequest, queryRequest));
+    public R<PageResponse<${entity}QueryVO>> page(RequestPage pageRequest, ${entity}QueryDTO queryDto) {
+        return R.ok(${entity?uncap_first}AppService.page(pageRequest, queryDto));
     }
 
-    @Operation(summary = "获取详情", description = "获取详情", method = "GET")
+    @Operation(summary = "获取详情", description = "获取详情")
     @Parameter(name = "id", description = "${table.comment!} ID")
     @GetMapping(value = "/{id}")
-    public R<${entity}Response> getById(@PathVariable("id") String id) {
+    public R<${entity}VO> getById(@PathVariable("id") String id) {
         return ${entity?uncap_first}AppService.getById(id);
     }
 
-    @Operation(summary = "保存", description = "保存", method = "POST")
+    @Operation(summary = "保存", description = "保存")
     @PostMapping
-    public R<${entity}Response> save(@RequestBody ${entity}CreateRequest ${entity?uncap_first}CreateRequest) {
-        return ${entity?uncap_first}AppService.save(${entity?uncap_first}CreateRequest);
+    public R<${entity}VO> save(@RequestBody ${entity}CreateDTO ${entity?uncap_first}CreateDTO) {
+        return ${entity?uncap_first}AppService.save(${entity?uncap_first}CreateDTO);
     }
 
-    @Operation(summary = "更新", description = "根据主键更新", method = "PUT")
+    @Operation(summary = "更新", description = "根据主键更新")
     @PutMapping
-    public R<Void> update(@RequestBody ${entity}UpdateRequest ${entity?uncap_first}UpdateRequest) {
-        return ${entity?uncap_first}AppService.update(${entity?uncap_first}UpdateRequest);
+    public R<Void> update(@RequestBody ${entity}UpdateDTO ${entity?uncap_first}UpdateDTO) {
+        return ${entity?uncap_first}AppService.update(${entity?uncap_first}UpdateDTO);
     }
 
-    @Operation(summary = "删除", description = "根据主键删除", method = "DELETE")
+    @Operation(summary = "删除", description = "根据主键删除")
     @Parameter(name = "id", description = "${table.comment!} ID")
     @DeleteMapping(value = "/{id}")
     public R<Void> deleteById(@PathVariable("id") String id) {

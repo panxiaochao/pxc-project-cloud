@@ -1,7 +1,7 @@
 package ${infrastructure}.convert;
 
-import ${application}.api.response.${entity?lower_case}.${entity}QueryResponse;
-import ${domain}.entity.${entity};
+import ${application}.api.vo.${entity?lower_case}.${entity}QueryVO;
+import ${domain}.entity.${entity?lower_case}.${entity}BO;
 import ${infrastructure}.po.${entity}PO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 /**
- * <p> ${table.comment!}持久化对象结构映射. </p>
+ * <p>${table.comment!} 持久化对象结构映射.</p>
  *
  * @author ${author}
  * @since ${date}
@@ -28,7 +28,7 @@ public interface I${entity}POConvert {
      * @param ${entity?uncap_first} ${table.comment!}实体
      * @return ${table.comment!}持久化对象
      */
-    ${entity}PO fromEntity(${entity} ${entity?uncap_first});
+    ${entity}PO fromEntity(${entity}BO ${entity?uncap_first});
 
     /**
      * ${table.comment!}实体 转 ${table.comment!}持久化对象
@@ -36,7 +36,7 @@ public interface I${entity}POConvert {
      * @param ${entity?uncap_first}List ${table.comment!}实体
      * @return ${table.comment!}持久化对象
      */
-    List<${entity}PO> fromEntity(List<${entity}> ${entity?uncap_first}List);
+    List<${entity}PO> fromEntity(List<${entity}BO> ${entity?uncap_first}List);
 
     /**
      * ${table.comment!}持久化对象 转 ${table.comment!}实体
@@ -44,7 +44,7 @@ public interface I${entity}POConvert {
      * @param ${entity?uncap_first}PO ${table.comment!}持久化对象
      * @return ${table.comment!}实体
      */
-    ${entity} toEntity(${entity}PO ${entity?uncap_first}PO);
+    ${entity}BO toEntityBO(${entity}PO ${entity?uncap_first}PO);
 
     /**
      * ${table.comment!}持久化对象 转 ${table.comment!}实体
@@ -52,7 +52,7 @@ public interface I${entity}POConvert {
      * @param ${entity?uncap_first}POList ${table.comment!}持久化对象
      * @return ${table.comment!}实体
      */
-    List<${entity}> toEntity(List<${entity}PO> ${entity?uncap_first}POList);
+    List<${entity}BO> toEntityBO(List<${entity}PO> ${entity?uncap_first}POList);
 
     /**
      * ${table.comment!}持久化对象 转 ${table.comment!}查询响应数据传输对象
@@ -60,7 +60,7 @@ public interface I${entity}POConvert {
      * @param ${entity?uncap_first}PO ${table.comment!}持久化对象
      * @return ${table.comment!}查询响应数据传输对象
      */
-    ${entity}QueryResponse toQueryResponse(${entity}PO ${entity?uncap_first}PO);
+    ${entity}QueryVO toQueryVO(${entity}PO ${entity?uncap_first}PO);
 
     /**
      * ${table.comment!}持久化对象列表 转 ${table.comment!}查询响应数据传输对象列表
@@ -68,5 +68,5 @@ public interface I${entity}POConvert {
      * @param ${entity?uncap_first}POList ${table.comment!}持久化对象列表
      * @return ${table.comment!}查询响应数据传输对象列表
      */
-    List<${entity}QueryResponse> toQueryResponse(List<${entity}PO> ${entity?uncap_first}POList);
+    List<${entity}QueryVO> toQueryVO(List<${entity}PO> ${entity?uncap_first}POList);
 }
