@@ -2,7 +2,7 @@ package ${package.application}.api;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import ${package.application}.api.request.${className?lower_case}.${ClassName}CreateRequest;
 import ${package.application}.api.request.${className?lower_case}.${ClassName}QueryRequest;
 import ${package.application}.api.request.${className?lower_case}.${ClassName}UpdateRequest;
@@ -41,7 +41,7 @@ private final ${ClassName}AppService ${className}AppService;
 
     @Operation(summary = "查询分页", description = "查询分页${tableComment!}列表", method = "GET")
     @GetMapping(value = "/page")
-    public R<PageResponse<${ClassName}QueryResponse>> page(RequestPage pageRequest, ${ClassName}QueryRequest queryRequest) {
+    public R<PageResponse<${ClassName}QueryResponse>> page(PageRequest pageRequest, ${ClassName}QueryRequest queryRequest) {
         return R.ok(${className}AppService.page(pageRequest, queryRequest));
     }
 

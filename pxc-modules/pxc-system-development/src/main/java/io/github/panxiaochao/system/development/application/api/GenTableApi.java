@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.development.application.api;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentable.DsQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentable.GenTableCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentable.GenTableQueryRequest;
@@ -47,15 +47,15 @@ public class GenTableApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<GenTableQueryResponse>> page(RequestPage requestPage, GenTableQueryRequest queryRequest) {
-		return R.ok(genTableAppService.page(requestPage, queryRequest));
+	public R<PageResponse<GenTableQueryResponse>> page(PageRequest pageRequest, GenTableQueryRequest queryRequest) {
+		return R.ok(genTableAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "查询动态数据源下的元数据表分页", description = "查询动态数据源下的元数据表分页", method = "GET")
 	@GetMapping(value = "/queryDsTablePage")
-	public R<PageResponse<TableMetaQueryResponse>> queryDsTablePage(RequestPage requestPage,
+	public R<PageResponse<TableMetaQueryResponse>> queryDsTablePage(PageRequest pageRequest,
 			DsQueryRequest dsQueryRequest) {
-		return R.ok(genTableAppService.queryDsTablePage(requestPage, dsQueryRequest));
+		return R.ok(genTableAppService.queryDsTablePage(pageRequest, dsQueryRequest));
 	}
 
 	@Operation(summary = "查询动态数据源下的元数据表", description = "查询动态数据源下的元数据表分", method = "GET")

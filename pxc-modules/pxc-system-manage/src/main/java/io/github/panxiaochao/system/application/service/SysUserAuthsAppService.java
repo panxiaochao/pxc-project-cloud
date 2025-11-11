@@ -6,7 +6,7 @@ import io.github.panxiaochao.component.select.SelectOption;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsQueryRequest;
@@ -57,13 +57,13 @@ public class SysUserAuthsAppService {
 
 	/**
 	 * 查询分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 用户授权信息表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysUserAuthsQueryResponse> page(RequestPage requestPage,
+	public PageResponse<SysUserAuthsQueryResponse> page(PageRequest pageRequest,
 			SysUserAuthsQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysUserAuthsQueryResponse> list = sysUserAuthsReadModelService.page(pagination, queryRequest);
 		list.forEach(s -> {
 			CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(IDENTITY_TYPE, s.getIdentityType());

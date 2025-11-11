@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.application.api;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.fileaccessory.FileAccessoryCreateRequest;
 import io.github.panxiaochao.system.application.api.request.fileaccessory.FileAccessoryQueryRequest;
 import io.github.panxiaochao.system.application.api.request.fileaccessory.FileAccessoryUpdateRequest;
@@ -43,9 +43,9 @@ public class FileAccessoryApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<FileAccessoryQueryResponse>> page(RequestPage requestPage,
+	public R<PageResponse<FileAccessoryQueryResponse>> page(PageRequest pageRequest,
 			FileAccessoryQueryRequest queryRequest) {
-		return R.ok(fileAccessoryAppService.page(requestPage, queryRequest));
+		return R.ok(fileAccessoryAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

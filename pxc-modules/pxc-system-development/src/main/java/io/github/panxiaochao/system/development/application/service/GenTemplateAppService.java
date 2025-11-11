@@ -6,7 +6,7 @@ import io.github.panxiaochao.component.select.SelectOption;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.core.utils.date.LocalDateTimeUtil;
 import io.github.panxiaochao.system.common.cache.CacheHelper;
 import io.github.panxiaochao.system.development.application.api.request.gentemplate.GenTemplateCreateRequest;
@@ -61,7 +61,7 @@ public class GenTemplateAppService {
 	 * @param queryRequest 模板查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<GenTemplateQueryResponse> page(RequestPage pageRequest, GenTemplateQueryRequest queryRequest) {
+	public PageResponse<GenTemplateQueryResponse> page(PageRequest pageRequest, GenTemplateQueryRequest queryRequest) {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<GenTemplateQueryResponse> list = genTemplateReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);

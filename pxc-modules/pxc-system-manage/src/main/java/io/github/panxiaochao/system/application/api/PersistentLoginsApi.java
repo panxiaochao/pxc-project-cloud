@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.application.api;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.persistentlogins.PersistentLoginsCreateRequest;
 import io.github.panxiaochao.system.application.api.request.persistentlogins.PersistentLoginsQueryRequest;
 import io.github.panxiaochao.system.application.api.request.persistentlogins.PersistentLoginsUpdateRequest;
@@ -43,9 +43,9 @@ public class PersistentLoginsApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<PersistentLoginsQueryResponse>> page(RequestPage requestPage,
+	public R<PageResponse<PersistentLoginsQueryResponse>> page(PageRequest pageRequest,
 			PersistentLoginsQueryRequest queryRequest) {
-		return R.ok(persistentLoginsAppService.page(requestPage, queryRequest));
+		return R.ok(persistentLoginsAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

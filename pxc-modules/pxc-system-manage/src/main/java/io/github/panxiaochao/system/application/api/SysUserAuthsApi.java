@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.component.select.Select;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserauths.SysUserAuthsUpdateRequest;
@@ -46,9 +46,9 @@ public class SysUserAuthsApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysUserAuthsQueryResponse>> page(RequestPage requestPage,
+	public R<PageResponse<SysUserAuthsQueryResponse>> page(PageRequest pageRequest,
 			SysUserAuthsQueryRequest queryRequest) {
-		return R.ok(sysUserAuthsAppService.page(requestPage, queryRequest));
+		return R.ok(sysUserAuthsAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

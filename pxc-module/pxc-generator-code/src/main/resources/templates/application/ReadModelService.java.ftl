@@ -1,7 +1,7 @@
 package ${application}.repository;
 
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import ${application}.api.dto.${entity?lower_case}.${entity}QueryDTO;
 import ${application}.api.vo.${entity?lower_case}.${entity}QueryVO;
 

@@ -5,7 +5,7 @@ import io.github.panxiaochao.admin.application.service.WebLoginService;
 import io.github.panxiaochao.component.tree.Tree;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.operate.log.core.annotation.OperateLog;
 import io.github.panxiaochao.operate.log.core.enums.BusinessType;
@@ -88,8 +88,8 @@ public class WebLoginApi {
 	 */
 	@GetMapping("/token/page")
 	@Operation(summary = "在线用户分页令牌管理", description = "在线用户分页令牌管理", method = "GET")
-	public R<PageResponse<TokenOnlineQueryResponse>> tokenPage(RequestPage requestPage, String username) {
-		return R.ok(loginWebService.tokenPage(requestPage, username));
+	public R<PageResponse<TokenOnlineQueryResponse>> tokenPage(PageRequest pageRequest, String username) {
+		return R.ok(loginWebService.tokenPage(pageRequest, username));
 	}
 
 	/**

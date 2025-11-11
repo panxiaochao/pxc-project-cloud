@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.application.api;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.sysloglogin.SysLogLoginCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysloglogin.SysLogLoginQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysloglogin.SysLogLoginUpdateRequest;
@@ -43,9 +43,9 @@ public class SysLogLoginApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysLogLoginQueryResponse>> page(RequestPage requestPage,
+	public R<PageResponse<SysLogLoginQueryResponse>> page(PageRequest pageRequest,
 			SysLogLoginQueryRequest queryRequest) {
-		return R.ok(sysLogLoginAppService.page(requestPage, queryRequest));
+		return R.ok(sysLogLoginAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

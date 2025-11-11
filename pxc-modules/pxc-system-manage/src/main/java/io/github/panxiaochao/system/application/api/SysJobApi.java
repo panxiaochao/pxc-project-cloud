@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.application.api;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.sysjob.SysJobCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysjob.SysJobQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysjob.SysJobUpdateRequest;
@@ -43,8 +43,8 @@ public class SysJobApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysJobQueryResponse>> page(RequestPage requestPage, SysJobQueryRequest queryRequest) {
-		return R.ok(sysJobAppService.page(requestPage, queryRequest));
+	public R<PageResponse<SysJobQueryResponse>> page(PageRequest pageRequest, SysJobQueryRequest queryRequest) {
+		return R.ok(sysJobAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

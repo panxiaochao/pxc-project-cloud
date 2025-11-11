@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.development.application.service;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.development.application.api.request.onlinetablecolumn.OnlineTableColumnCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.onlinetablecolumn.OnlineTableColumnQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.onlinetablecolumn.OnlineTableColumnUpdateRequest;
@@ -47,7 +47,7 @@ public class OnlineTableColumnAppService {
 	 * @param queryRequest 在线数据表字段查询请求对象
 	 * @return 分页对象
 	 */
-	public PageResponse<OnlineTableColumnQueryResponse> page(RequestPage pageRequest,
+	public PageResponse<OnlineTableColumnQueryResponse> page(PageRequest pageRequest,
 			OnlineTableColumnQueryRequest queryRequest) {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<OnlineTableColumnQueryResponse> list = onlineTableColumnReadModelService.page(pagination, queryRequest);

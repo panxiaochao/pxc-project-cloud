@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.application.api;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserrole.SysUserRoleCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserrole.SysUserRoleQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserrole.SysUserRoleUpdateRequest;
@@ -45,9 +45,9 @@ public class SysUserRoleApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysUserRoleQueryResponse>> page(RequestPage requestPage,
+	public R<PageResponse<SysUserRoleQueryResponse>> page(PageRequest pageRequest,
 			SysUserRoleQueryRequest queryRequest) {
-		return R.ok(sysUserRoleAppService.page(requestPage, queryRequest));
+		return R.ok(sysUserRoleAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "角色ID数组", description = "根据用户ID查询角色ID数组", method = "GET")

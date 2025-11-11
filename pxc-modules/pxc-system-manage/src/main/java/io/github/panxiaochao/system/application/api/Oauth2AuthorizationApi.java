@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.application.api;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.oauth2authorizationconsent.Oauth2AuthorizationCreateRequest;
 import io.github.panxiaochao.system.application.api.request.oauth2authorizationconsent.Oauth2AuthorizationQueryRequest;
 import io.github.panxiaochao.system.application.api.request.oauth2authorizationconsent.Oauth2AuthorizationUpdateRequest;
@@ -43,9 +43,9 @@ public class Oauth2AuthorizationApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<Oauth2AuthorizationQueryResponse>> page(RequestPage requestPage,
+	public R<PageResponse<Oauth2AuthorizationQueryResponse>> page(PageRequest pageRequest,
 			Oauth2AuthorizationQueryRequest queryRequest) {
-		return R.ok(oauth2AuthorizationAppService.page(requestPage, queryRequest));
+		return R.ok(oauth2AuthorizationAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

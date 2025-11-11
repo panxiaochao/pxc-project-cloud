@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.development.application.service;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasesource.DatabaseSourceQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.onlinetable.OnlineTableAndColumnsRequest;
 import io.github.panxiaochao.system.development.application.api.request.onlinetable.OnlineTableCreateRequest;
@@ -77,7 +77,7 @@ public class OnlineTableAppService {
 	 * @param queryRequest 在线数据表查询请求对象
 	 * @return 分页对象
 	 */
-	public PageResponse<OnlineTableQueryResponse> page(RequestPage pageRequest, OnlineTableQueryRequest queryRequest) {
+	public PageResponse<OnlineTableQueryResponse> page(PageRequest pageRequest, OnlineTableQueryRequest queryRequest) {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<OnlineTableQueryResponse> list = onlineTableReadModelService.page(pagination, queryRequest);
 		// 读取所有数据源

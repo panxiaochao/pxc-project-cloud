@@ -7,7 +7,7 @@ import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.redis.utils.RedissonUtil;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamCreateRequest;
@@ -70,12 +70,12 @@ public class SysParamAppService {
 
 	/**
 	 * 查询分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 系统参数查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysParamQueryResponse> page(RequestPage requestPage, SysParamQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+	public PageResponse<SysParamQueryResponse> page(PageRequest pageRequest, SysParamQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysParamQueryResponse> list = sysParamReadModelService.page(pagination, queryRequest);
 		list.forEach(s -> {
 			CacheHelper.SysDictItem sysDictItem = CacheHelper.getSysDictItemByValue(PARAM_TYPE, s.getParamType());

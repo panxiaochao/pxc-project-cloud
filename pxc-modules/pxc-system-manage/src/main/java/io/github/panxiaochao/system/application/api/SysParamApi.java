@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.component.select.Select;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.repeatsubmit.annotation.RepeatSubmitLimiter;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysparam.SysParamQueryRequest;
@@ -47,8 +47,8 @@ public class SysParamApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysParamQueryResponse>> page(RequestPage requestPage, SysParamQueryRequest queryRequest) {
-		return R.ok(sysParamAppService.page(requestPage, queryRequest));
+	public R<PageResponse<SysParamQueryResponse>> page(PageRequest pageRequest, SysParamQueryRequest queryRequest) {
+		return R.ok(sysParamAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

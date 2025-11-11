@@ -3,7 +3,7 @@ package ${application}.service;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import ${application}.api.dto.${entity?lower_case}.${entity}CreateDTO;
 import ${application}.api.dto.${entity?lower_case}.${entity}QueryDTO;
 import ${application}.api.dto.${entity?lower_case}.${entity}UpdateDTO;
@@ -45,7 +45,7 @@ public class ${entity}AppService {
      * @param queryDto ${table.comment!}查询请求对象
      * @return 分页数组响应实体
      */
-    public PageResponse<${entity}QueryVO> page(RequestPage pageRequest, ${entity}QueryDTO queryDto) {
+    public PageResponse<${entity}QueryVO> page(PageRequest pageRequest, ${entity}QueryDTO queryDto) {
         Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
         List<${entity}QueryVO> list = ${entity?uncap_first}ReadModelService.page(pagination, queryDto);
         return new PageResponse<>(pagination, list);

@@ -3,7 +3,7 @@ package ${application}.service;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import ${application}.api.request.${entity?lower_case}.${entity}CreateRequest;
 import ${application}.api.request.${entity?lower_case}.${entity}QueryRequest;
 import ${application}.api.request.${entity?lower_case}.${entity}UpdateRequest;
@@ -45,7 +45,7 @@ public class ${entity}AppService {
      * @param queryRequest ${table.comment!}查询请求对象
      * @return 分页数组响应实体
      */
-    public PageResponse<${entity}QueryResponse> page(RequestPage pageRequest, ${entity}QueryRequest queryRequest) {
+    public PageResponse<${entity}QueryResponse> page(PageRequest pageRequest, ${entity}QueryRequest queryRequest) {
         Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
         List<${entity}QueryResponse> list = ${entity?uncap_first}ReadModelService.page(pagination, queryRequest);
         return new PageResponse<>(pagination, list);

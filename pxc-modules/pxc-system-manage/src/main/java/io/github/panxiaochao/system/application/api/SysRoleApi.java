@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.component.select.Select;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.sysrole.SysRoleCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysrole.SysRoleQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysrole.SysRoleUpdateRequest;
@@ -46,8 +46,8 @@ public class SysRoleApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysRoleQueryResponse>> page(RequestPage requestPage, SysRoleQueryRequest queryRequest) {
-		return R.ok(sysRoleAppService.page(requestPage, queryRequest));
+	public R<PageResponse<SysRoleQueryResponse>> page(PageRequest pageRequest, SysRoleQueryRequest queryRequest) {
+		return R.ok(sysRoleAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "角色数组", description = "角色数组", method = "GET")

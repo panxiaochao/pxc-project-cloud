@@ -7,7 +7,7 @@ import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.sysrole.SysRoleCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysrole.SysRoleQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysrole.SysRoleUpdateRequest;
@@ -56,12 +56,12 @@ public class SysRoleAppService {
 
 	/**
 	 * 查询分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 角色表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysRoleQueryResponse> page(RequestPage requestPage, SysRoleQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+	public PageResponse<SysRoleQueryResponse> page(PageRequest pageRequest, SysRoleQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysRoleQueryResponse> list = sysRoleReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}

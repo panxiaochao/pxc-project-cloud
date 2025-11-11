@@ -6,7 +6,7 @@ import io.github.panxiaochao.component.select.SelectOption;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.common.cache.CacheHelper;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentablecolumn.GenTableColumnQueryRequest;
@@ -54,13 +54,13 @@ public class GenTableColumnAppService {
 
 	/**
 	 * 查询分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 代码生成表字段查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<GenTableColumnQueryResponse> page(RequestPage requestPage,
+	public PageResponse<GenTableColumnQueryResponse> page(PageRequest pageRequest,
 			GenTableColumnQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<GenTableColumnQueryResponse> list = genTableColumnReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}

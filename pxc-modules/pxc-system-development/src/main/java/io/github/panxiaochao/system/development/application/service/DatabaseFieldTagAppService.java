@@ -6,7 +6,7 @@ import io.github.panxiaochao.component.select.SelectOption;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtag.DatabaseFieldTagCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtag.DatabaseFieldTagQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.databasefieldtag.DatabaseFieldTagUpdateRequest;
@@ -61,7 +61,7 @@ public class DatabaseFieldTagAppService {
 	 * @param queryRequest 数据库字段类型-数据库标签表查询请求对象
 	 * @return 分页对象
 	 */
-	public PageResponse<DatabaseFieldTagQueryResponse> page(RequestPage pageRequest,
+	public PageResponse<DatabaseFieldTagQueryResponse> page(PageRequest pageRequest,
 			DatabaseFieldTagQueryRequest queryRequest) {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<DatabaseFieldTagQueryResponse> list = databaseFieldTagReadModelService.page(pagination, queryRequest);

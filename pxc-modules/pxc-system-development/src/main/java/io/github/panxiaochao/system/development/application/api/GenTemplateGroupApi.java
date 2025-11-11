@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.development.application.api;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentemplategroup.GenTemplateGroupCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentemplategroup.GenTemplateGroupQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentemplategroup.GenTemplateGroupUpdateRequest;
@@ -43,7 +43,7 @@ public class GenTemplateGroupApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<GenTemplateGroupQueryResponse>> page(RequestPage pageRequest,
+	public R<PageResponse<GenTemplateGroupQueryResponse>> page(PageRequest pageRequest,
 			GenTemplateGroupQueryRequest queryRequest) {
 		return R.ok(genTemplateGroupAppService.page(pageRequest, queryRequest));
 	}

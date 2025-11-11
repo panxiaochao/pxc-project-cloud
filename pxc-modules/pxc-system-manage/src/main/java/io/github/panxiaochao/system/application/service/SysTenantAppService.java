@@ -7,7 +7,7 @@ import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.core.utils.StringPools;
 import io.github.panxiaochao.system.application.api.request.systenant.SysTenantCreateRequest;
 import io.github.panxiaochao.system.application.api.request.systenant.SysTenantQueryRequest;
@@ -66,12 +66,12 @@ public class SysTenantAppService {
 
 	/**
 	 * 查询分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 租户表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysTenantQueryResponse> page(RequestPage requestPage, SysTenantQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+	public PageResponse<SysTenantQueryResponse> page(PageRequest pageRequest, SysTenantQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysTenantQueryResponse> list = sysTenantReadModelService.page(pagination, queryRequest);
 		// 字典翻译
 		SysTenantPackageQueryRequest sysTenantPackageQueryRequest = new SysTenantPackageQueryRequest();

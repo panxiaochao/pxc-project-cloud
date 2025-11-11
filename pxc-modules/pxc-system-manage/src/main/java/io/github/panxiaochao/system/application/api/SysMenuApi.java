@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.component.tree.Tree;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysmenu.SysMenuUpdateRequest;
@@ -47,8 +47,8 @@ public class SysMenuApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysMenuQueryResponse>> page(RequestPage requestPage, SysMenuQueryRequest queryRequest) {
-		return R.ok(sysMenuAppService.page(requestPage, queryRequest));
+	public R<PageResponse<SysMenuQueryResponse>> page(PageRequest pageRequest, SysMenuQueryRequest queryRequest) {
+		return R.ok(sysMenuAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

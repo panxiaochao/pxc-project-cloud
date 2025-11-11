@@ -6,7 +6,7 @@ import com.baomidou.dynamic.datasource.toolkit.DynamicDataSourceContextHolder;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.core.utils.DbMetaUtil;
 import io.github.panxiaochao.core.utils.NamingRuleUtil;
 import io.github.panxiaochao.core.utils.StrUtil;
@@ -98,25 +98,25 @@ public class GenTableAppService {
 
 	/**
 	 * 查询分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 代码生成表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<GenTableQueryResponse> page(RequestPage requestPage, GenTableQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+	public PageResponse<GenTableQueryResponse> page(PageRequest pageRequest, GenTableQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<GenTableQueryResponse> list = genTableReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}
 
 	/**
 	 * 查询动态数据源下的元数据表分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param dsQueryRequest 多数据源表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<TableMetaQueryResponse> queryDsTablePage(RequestPage requestPage,
+	public PageResponse<TableMetaQueryResponse> queryDsTablePage(PageRequest pageRequest,
 			DsQueryRequest dsQueryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		if (!StringUtils.hasText(dsQueryRequest.getDatabaseId())) {
 			return new PageResponse<>(pagination, new ArrayList<>());
 		}

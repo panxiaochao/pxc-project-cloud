@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.application.service;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.sysloglogin.SysLogLoginCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysloglogin.SysLogLoginQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysloglogin.SysLogLoginUpdateRequest;
@@ -42,12 +42,12 @@ public class SysLogLoginAppService {
 
 	/**
 	 * 查询分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 系统日志登录/登出表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysLogLoginQueryResponse> page(RequestPage requestPage, SysLogLoginQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+	public PageResponse<SysLogLoginQueryResponse> page(PageRequest pageRequest, SysLogLoginQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysLogLoginQueryResponse> list = sysLogLoginReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}

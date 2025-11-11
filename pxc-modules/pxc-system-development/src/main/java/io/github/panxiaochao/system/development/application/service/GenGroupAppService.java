@@ -6,7 +6,7 @@ import io.github.panxiaochao.component.select.SelectOption;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.development.application.api.request.gengroup.GenGroupCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.gengroup.GenGroupQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.gengroup.GenGroupUpdateRequest;
@@ -68,7 +68,7 @@ public class GenGroupAppService {
 	 * @param queryRequest 模板分组查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<GenGroupQueryResponse> page(RequestPage pageRequest, GenGroupQueryRequest queryRequest) {
+	public PageResponse<GenGroupQueryResponse> page(PageRequest pageRequest, GenGroupQueryRequest queryRequest) {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<GenGroupQueryResponse> list = genGroupReadModelService.page(pagination, queryRequest);
 		// 查询模版分组下的模版类型

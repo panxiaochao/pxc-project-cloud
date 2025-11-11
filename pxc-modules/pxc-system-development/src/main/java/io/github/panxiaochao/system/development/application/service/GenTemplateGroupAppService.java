@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.development.application.service;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentemplategroup.GenTemplateGroupCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentemplategroup.GenTemplateGroupQueryRequest;
 import io.github.panxiaochao.system.development.application.api.request.gentemplategroup.GenTemplateGroupUpdateRequest;
@@ -46,7 +46,7 @@ public class GenTemplateGroupAppService {
 	 * @param queryRequest 模板分组关联表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<GenTemplateGroupQueryResponse> page(RequestPage pageRequest,
+	public PageResponse<GenTemplateGroupQueryResponse> page(PageRequest pageRequest,
 			GenTemplateGroupQueryRequest queryRequest) {
 		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<GenTemplateGroupQueryResponse> list = genTemplateGroupReadModelService.page(pagination, queryRequest);

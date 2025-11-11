@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.application.service;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.syslogoperate.SysLogOperateCreateRequest;
 import io.github.panxiaochao.system.application.api.request.syslogoperate.SysLogOperateQueryRequest;
 import io.github.panxiaochao.system.application.api.request.syslogoperate.SysLogOperateUpdateRequest;
@@ -42,13 +42,13 @@ public class SysLogOperateAppService {
 
 	/**
 	 * 查询分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 系统日志操作表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysLogOperateQueryResponse> page(RequestPage requestPage,
+	public PageResponse<SysLogOperateQueryResponse> page(PageRequest pageRequest,
 			SysLogOperateQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysLogOperateQueryResponse> list = sysLogOperateReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}

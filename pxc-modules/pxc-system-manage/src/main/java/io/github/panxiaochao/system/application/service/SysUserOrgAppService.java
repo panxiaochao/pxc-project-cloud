@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.application.service;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserorg.SysUserOrgCreateRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserorg.SysUserOrgQueryRequest;
 import io.github.panxiaochao.system.application.api.request.sysuserorg.SysUserOrgUpdateRequest;
@@ -42,12 +42,12 @@ public class SysUserOrgAppService {
 
 	/**
 	 * 查询分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 用户机构/部门表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysUserOrgQueryResponse> page(RequestPage requestPage, SysUserOrgQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+	public PageResponse<SysUserOrgQueryResponse> page(PageRequest pageRequest, SysUserOrgQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysUserOrgQueryResponse> list = sysUserOrgReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}

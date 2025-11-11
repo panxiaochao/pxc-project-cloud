@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import ${application}.api.dto.${entity?lower_case}.${entity}QueryDTO;
 import ${application}.api.vo.${entity?lower_case}.${entity}QueryVO;
 import ${application}.repository.I${entity}ReadModelService;

@@ -2,7 +2,7 @@ package io.github.panxiaochao.system.development.application.api;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.development.application.api.request.onlinetable.OnlineTableAndColumnsRequest;
 import io.github.panxiaochao.system.development.application.api.request.onlinetable.OnlineTableCreateRequest;
 import io.github.panxiaochao.system.development.application.api.request.onlinetable.OnlineTableQueryRequest;
@@ -45,15 +45,15 @@ public class OnlineTableApi {
 
 	/**
 	 * 查询在线数据表分页数据
-	 * @param requestPage 分页请求参数
+	 * @param pageRequest 分页请求参数
 	 * @param queryRequest 在线数据表查询请求参数
 	 * @return 封装分页查询结果统一响应对象
 	 */
 	@Operation(summary = "查询分页", description = "查询分页在线数据表列表", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<OnlineTableQueryResponse>> page(RequestPage requestPage,
+	public R<PageResponse<OnlineTableQueryResponse>> page(PageRequest pageRequest,
 			OnlineTableQueryRequest queryRequest) {
-		return R.ok(onlineTableAppService.page(requestPage, queryRequest));
+		return R.ok(onlineTableAppService.page(pageRequest, queryRequest));
 	}
 
 	/**

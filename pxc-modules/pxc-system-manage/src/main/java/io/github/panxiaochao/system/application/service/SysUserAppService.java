@@ -6,7 +6,7 @@ import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.core.utils.StrUtil;
 import io.github.panxiaochao.core.utils.date.LocalDateTimeUtil;
 import io.github.panxiaochao.system.application.api.request.sysuser.SysUserCreateRequest;
@@ -103,12 +103,12 @@ public class SysUserAppService {
 
 	/**
 	 * 查询分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 用户表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysUserQueryResponse> page(RequestPage requestPage, SysUserQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+	public PageResponse<SysUserQueryResponse> page(PageRequest pageRequest, SysUserQueryRequest queryRequest) {
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysUserQueryResponse> list = sysUserReadModelService.page(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}
@@ -234,26 +234,26 @@ public class SysUserAppService {
 
 	/**
 	 * 根据租户ID查询所有关联用户
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 用户表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysUserQueryResponse> selectTenantUserPage(RequestPage requestPage,
+	public PageResponse<SysUserQueryResponse> selectTenantUserPage(PageRequest pageRequest,
 			SysUserQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysUserQueryResponse> list = sysUserReadModelService.selectTenantUserPage(pagination, queryRequest);
 		return new PageResponse<>(pagination, list);
 	}
 
 	/**
 	 * 根据租户ID查询无关联用户分页
-	 * @param requestPage 请求分页参数对象
+	 * @param pageRequest 请求分页参数对象
 	 * @param queryRequest 用户表查询请求对象
 	 * @return 分页数组响应实体
 	 */
-	public PageResponse<SysUserQueryResponse> selectNoExistsTenantUserPage(RequestPage requestPage,
+	public PageResponse<SysUserQueryResponse> selectNoExistsTenantUserPage(PageRequest pageRequest,
 			SysUserQueryRequest queryRequest) {
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<SysUserQueryResponse> list = sysUserReadModelService.selectNoExistsTenantUserPage(pagination,
 				queryRequest);
 		return new PageResponse<>(pagination, list);

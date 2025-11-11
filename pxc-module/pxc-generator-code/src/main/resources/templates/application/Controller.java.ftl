@@ -2,7 +2,7 @@ package ${application}.api;
 
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import ${application}.api.dto.${entity?lower_case}.${entity}CreateDTO;
 import ${application}.api.dto.${entity?lower_case}.${entity}QueryDTO;
 import ${application}.api.dto.${entity?lower_case}.${entity}UpdateDTO;
@@ -49,7 +49,7 @@ public class ${table.controllerName} {
 
     @Operation(summary = "查询分页", description = "查询分页")
     @GetMapping(value = "/page")
-    public R<PageResponse<${entity}QueryVO>> page(RequestPage pageRequest, ${entity}QueryDTO queryDto) {
+    public R<PageResponse<${entity}QueryVO>> page(PageRequest pageRequest, ${entity}QueryDTO queryDto) {
         return R.ok(${entity?uncap_first}AppService.page(pageRequest, queryDto));
     }
 

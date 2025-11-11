@@ -3,7 +3,7 @@ package io.github.panxiaochao.system.application.api;
 import io.github.panxiaochao.component.select.Select;
 import io.github.panxiaochao.core.response.R;
 import io.github.panxiaochao.core.response.page.PageResponse;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.system.application.api.request.systenantpackage.SysTenantPackageCreateRequest;
 import io.github.panxiaochao.system.application.api.request.systenantpackage.SysTenantPackageQueryRequest;
 import io.github.panxiaochao.system.application.api.request.systenantpackage.SysTenantPackageUpdateRequest;
@@ -46,9 +46,9 @@ public class SysTenantPackageApi {
 
 	@Operation(summary = "查询分页", description = "查询分页", method = "GET")
 	@GetMapping(value = "/page")
-	public R<PageResponse<SysTenantPackageQueryResponse>> page(RequestPage requestPage,
+	public R<PageResponse<SysTenantPackageQueryResponse>> page(PageRequest pageRequest,
 			SysTenantPackageQueryRequest queryRequest) {
-		return R.ok(sysTenantPackageAppService.page(requestPage, queryRequest));
+		return R.ok(sysTenantPackageAppService.page(pageRequest, queryRequest));
 	}
 
 	@Operation(summary = "获取详情", description = "获取详情", method = "GET")

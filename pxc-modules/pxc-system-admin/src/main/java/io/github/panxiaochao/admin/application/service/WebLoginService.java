@@ -16,7 +16,7 @@ import io.github.panxiaochao.core.constants.CommonConstant;
 import io.github.panxiaochao.core.exception.ServerRuntimeException;
 import io.github.panxiaochao.core.response.page.PageResponse;
 import io.github.panxiaochao.core.response.page.Pagination;
-import io.github.panxiaochao.core.response.page.RequestPage;
+import io.github.panxiaochao.core.response.page.PageRequest;
 import io.github.panxiaochao.core.utils.BooleanUtil;
 import io.github.panxiaochao.core.utils.IpUtil;
 import io.github.panxiaochao.core.utils.ObjectUtil;
@@ -216,18 +216,18 @@ public class WebLoginService {
 	/**
 	 * 在线用户分页令牌管理
 	 */
-	public PageResponse<TokenOnlineQueryResponse> tokenPage(RequestPage requestPage, String username) {
+	public PageResponse<TokenOnlineQueryResponse> tokenPage(PageRequest pageRequest, String username) {
 		// TODO 在线用户分页需要有优化，目前不能进行排序和查询
-		Pagination pagination = new Pagination(requestPage.getPageNo(), requestPage.getPageSize());
+		Pagination pagination = new Pagination(pageRequest.getPageNo(), pageRequest.getPageSize());
 		List<TokenOnlineQueryResponse> list = new ArrayList<>();
 		// String key = String.format("%s*", RedisConstant.LOGIN_TOKEN_PREFIX);
 		// // 分页
-		// long start = (requestPage.getPageNo() - 1) * requestPage.getPageSize();
+		// long start = (pageRequest.getPageNo() - 1) * pageRequest.getPageSize();
 		// Set<String> keySet = RedissonUtil.getKeysByPattern(key,
 		// GlobalConstant.KEY_COUNT);
 		// if (!keySet.isEmpty()) {
 		// String[] keys =
-		// keySet.stream().skip(start).limit(requestPage.getPageSize()).toArray(String[]::new);
+		// keySet.stream().skip(start).limit(pageRequest.getPageSize()).toArray(String[]::new);
 		// Map<String, LoginUser> tokenMap = RedissonUtil.get(keys);
 		// list =
 		// ITokenOnlineDTOConvert.INSTANCE.toQueryResponse(CollectionUtil.toList(tokenMap.values()));
